@@ -9,7 +9,7 @@ appearance:
   theme_day: Ocean
   theme_night:
   font: Ocean
-  font_size: M
+  font_size: L
   mode: light
   color: blue
 
