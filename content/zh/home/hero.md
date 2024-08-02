@@ -6,6 +6,8 @@ title: SHUD水文模拟系统
 hero_media: hero.png
 design:
   background:      
+      # Name of image in `assets/media/`.
+    image: bg.png
     gradient_angle: 0
     gradient_start: 'rgb(224,223,255)'
     gradient_end: 'rgb(153,238,255)'
