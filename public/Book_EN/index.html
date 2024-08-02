@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Simulator for Hydrologic Unstructured Domains (SHUD)</title>
+  <meta name="description" content="SHUD Book" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Simulator for Hydrologic Unstructured Domains (SHUD)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="SHUD Book" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Simulator for Hydrologic Unstructured Domains (SHUD)" />
+  
+  <meta name="twitter:description" content="SHUD Book" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2020-11-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="overview.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SHUD Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#standing-on-the-shoulders-of-giants"><i class="fa fa-check"></i><b>1.1</b> Standing on the shoulders of giants</a></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#brief-history-of-pihm-system"><i class="fa fa-check"></i><b>1.2</b> Brief History of PIHM system</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="install-shud-and-rshud.html"><a href="install-shud-and-rshud.html"><i class="fa fa-check"></i><b>2</b> Install SHUD and rSHUD</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="install-shud-and-rshud.html"><a href="install-shud-and-rshud.html#sundialscvode"><i class="fa fa-check"></i><b>2.1</b> SUNDIALS/CVODE</a></li>
+<li class="chapter" data-level="2.2" data-path="install-shud-and-rshud.html"><a href="install-shud-and-rshud.html#shud"><i class="fa fa-check"></i><b>2.2</b> SHUD</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="install-shud-and-rshud.html"><a href="install-shud-and-rshud.html#openmp"><i class="fa fa-check"></i><b>2.2.1</b> OpenMP</a></li>
+<li class="chapter" data-level="2.2.2" data-path="install-shud-and-rshud.html"><a href="install-shud-and-rshud.html#run-shud-executables."><i class="fa fa-check"></i><b>2.2.2</b> Run SHUD executables.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="install-shud-and-rshud.html"><a href="install-shud-and-rshud.html#rshud"><i class="fa fa-check"></i><b>2.3</b> rSHUD</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="inputfiles.html"><a href="inputfiles.html"><i class="fa fa-check"></i><b>3</b> Input files</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inputfiles.html"><a href="inputfiles.html#spatial-data"><i class="fa fa-check"></i><b>3.1</b> Spatial data</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="inputfiles.html"><a href="inputfiles.html#sp.mesh-file"><i class="fa fa-check"></i><b>3.1.1</b> .sp.mesh file</a></li>
+<li class="chapter" data-level="3.1.2" data-path="inputfiles.html"><a href="inputfiles.html#sp.att-file"><i class="fa fa-check"></i><b>3.1.2</b> .sp.att file</a></li>
+<li class="chapter" data-level="3.1.3" data-path="inputfiles.html"><a href="inputfiles.html#sp.riv-file"><i class="fa fa-check"></i><b>3.1.3</b> .sp.riv file</a></li>
+<li class="chapter" data-level="3.1.4" data-path="inputfiles.html"><a href="inputfiles.html#sp.rivseg-file"><i class="fa fa-check"></i><b>3.1.4</b> .sp.rivseg file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="inputfiles.html"><a href="inputfiles.html#model-configuration-files"><i class="fa fa-check"></i><b>3.2</b> Model configuration files</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="inputfiles.html"><a href="inputfiles.html#cfg.para-file"><i class="fa fa-check"></i><b>3.2.1</b> .cfg.para file</a></li>
+<li class="chapter" data-level="3.2.2" data-path="inputfiles.html"><a href="inputfiles.html#cfg.calib-file"><i class="fa fa-check"></i><b>3.2.2</b> .cfg.calib file</a></li>
+<li class="chapter" data-level="3.2.3" data-path="inputfiles.html"><a href="inputfiles.html#cfg.ic-file"><i class="fa fa-check"></i><b>3.2.3</b> .cfg.ic file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="inputfiles.html"><a href="inputfiles.html#time-series-data"><i class="fa fa-check"></i><b>3.3</b> Time-series data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="inputfiles.html"><a href="inputfiles.html#tsd.forc-file"><i class="fa fa-check"></i><b>3.3.1</b> .tsd.forc file</a></li>
+<li class="chapter" data-level="3.3.2" data-path="inputfiles.html"><a href="inputfiles.html#tsd.lai-file"><i class="fa fa-check"></i><b>3.3.2</b> .tsd.lai file</a></li>
+<li class="chapter" data-level="3.3.3" data-path="inputfiles.html"><a href="inputfiles.html#tsd.rl-file"><i class="fa fa-check"></i><b>3.3.3</b> .tsd.rl file</a></li>
+<li class="chapter" data-level="3.3.4" data-path="inputfiles.html"><a href="inputfiles.html#tsd.mf-file"><i class="fa fa-check"></i><b>3.3.4</b> .tsd.mf file</a></li>
+<li class="chapter" data-level="3.3.5" data-path="inputfiles.html"><a href="inputfiles.html#tsd.obs-file"><i class="fa fa-check"></i><b>3.3.5</b> .tsd.obs file</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="output-files.html"><a href="output-files.html"><i class="fa fa-check"></i><b>4</b> Output files</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="output-files.html"><a href="output-files.html#output-file-names"><i class="fa fa-check"></i><b>4.1</b> Output file names</a></li>
+<li class="chapter" data-level="4.2" data-path="output-files.html"><a href="output-files.html#data-format-in-ascii-.csv-file"><i class="fa fa-check"></i><b>4.2</b> Data format in ASCII (.csv) file</a></li>
+<li class="chapter" data-level="4.3" data-path="output-files.html"><a href="output-files.html#data-format-in-binary-.dat-file"><i class="fa fa-check"></i><b>4.3</b> Data format in binary (.dat) file</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#v-catchment"><i class="fa fa-check"></i><b>5.1</b> V-Catchment</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="applications.html"><a href="applications.html#shen2010-result"><i class="fa fa-check"></i><b>5.1.1</b> Shen(2010) result</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#vauclin-experiment"><i class="fa fa-check"></i><b>5.2</b> Vauclin Experiment</a></li>
+<li class="chapter" data-level="5.3" data-path="applications.html"><a href="applications.html#cache-creek-watershed-california-usa"><i class="fa fa-check"></i><b>5.3</b> Cache Creek Watershed, California, USA</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="applications.html"><a href="applications.html#cache-creek-watershed"><i class="fa fa-check"></i><b>5.3.1</b> Cache Creek Watershed</a></li>
+<li class="chapter" data-level="5.3.2" data-path="applications.html"><a href="applications.html#shud-simulation-and-calibration"><i class="fa fa-check"></i><b>5.3.2</b> SHUD simulation and calibration</a></li>
+<li class="chapter" data-level="5.3.3" data-path="applications.html"><a href="applications.html#results"><i class="fa fa-check"></i><b>5.3.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="applications.html"><a href="applications.html#flashy-flood-in-yanhua-village-ningxia"><i class="fa fa-check"></i><b>5.4</b> Flashy flood in Yanhua Village, Ningxia</a></li>
+<li class="chapter" data-level="5.5" data-path="applications.html"><a href="applications.html#flood-inundation-in-houston-usa"><i class="fa fa-check"></i><b>5.5</b> Flood inundation in Houston, USA</a></li>
+<li class="chapter" data-level="5.6" data-path="applications.html"><a href="applications.html#upper-nile-river-watershed-south-sudan"><i class="fa fa-check"></i><b>5.6</b> Upper Nile River Watershed, South Sudan</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="calibration.html"><a href="calibration.html"><i class="fa fa-check"></i><b>6</b> Calibration</a></li>
+<li class="chapter" data-level="7" data-path="quick-reproducible-and-automatic-hydrological-modeling.html"><a href="quick-reproducible-and-automatic-hydrological-modeling.html"><i class="fa fa-check"></i><b>7</b> Quick, Reproducible and Automatic hydrological modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="quick-reproducible-and-automatic-hydrological-modeling.html"><a href="quick-reproducible-and-automatic-hydrological-modeling.html#steps-of-modeling-with-shud"><i class="fa fa-check"></i><b>7.1</b> Steps of modeling with SHUD</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="quick-reproducible-and-automatic-hydrological-modeling.html"><a href="quick-reproducible-and-automatic-hydrological-modeling.html#essential-terrestrial-variables"><i class="fa fa-check"></i><b>7.1.1</b> Essential Terrestrial Variables?</a></li>
+<li class="chapter" data-level="7.1.2" data-path="quick-reproducible-and-automatic-hydrological-modeling.html"><a href="quick-reproducible-and-automatic-hydrological-modeling.html#a-priori-data-sources"><i class="fa fa-check"></i><b>7.1.2</b> A-Priori Data Sources</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="quick-reproducible-and-automatic-hydrological-modeling.html"><a href="quick-reproducible-and-automatic-hydrological-modeling.html#workflow-of-shud-modeling-system"><i class="fa fa-check"></i><b>7.2</b> Workflow of SHUD Modeling System</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="source-code-and-program-design.html"><a href="source-code-and-program-design.html"><i class="fa fa-check"></i><b>8</b> Source code and program design</a></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulator for Hydrologic Unstructured Domains (SHUD)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Simulator for Hydrologic Unstructured Domains (SHUD)</h1>
+<h2 class="subtitle"><em>Theory, Practice, and Application</em></h2>
+<p class="author"><em>Lele Shu (<a href="mailto:shulele@lzb.ac.cn" class="email">shulele@lzb.ac.cn</a>)</em></p>
+<p class="date"><em>2020-11-15</em></p>
+</div>
+<div id="index" class="section level1 unnumbered">
+<h1 class="unnumbered">Preface</h1>
+<p>This is a book about the SHUD modeling system. We are trying to despict the theory, construction, and application of the model, as well as the big picture of the nature system.</p>
+<hr />
+<blockquote>
+<p>“The water flows eastward from their sources, resting neither by day or by night. Down they come inex- haustibly, yet the deeps are never full. The small [streams] become large and the heavy [waters of the sea] become light [and mount to the clouds]. This is [part of] the Rotation of the Tao.’ [water cycle]”
+— <strong>The annals of Lü Buwei [Lü shi chun qiu], 239 BC</strong></p>
+</blockquote>
+<blockquote>
+<p>Great water projects were already built thousands of years before the development of the concepts of conservation of mass, energy and momentum, (which are used in present-day water project designs) even existed
+— <strong>Larry W. Mays, 2010</strong></p>
+</blockquote>
+<blockquote>
+<p>We are not able to measure everything we would like to know about hydrological systems. We have, in fact, only a limited range of measurement techniques and a limited range of measurements in space and time. We therefore need a means of extrapolating from those available measurements in both space and time, particularly to ungauged catchments (where measurements are not available) and into the future (where measurements are not possible) to assess the likely impact of future hydrological change.
+— <strong>Keith Beven, 2012</strong></p>
+</blockquote>
+<blockquote>
+<p>As scientists we are intrigued by the possibility of assembling our knowledge into a neat package to show that we do, after all, understand our science and its complex interrelated phenomena.
+— <strong>W. M. Kohler, 1969</strong></p>
+</blockquote>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="overview.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["SHUD_Book_EN.pdf", "SHUD_Book_EN.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -4,57 +4,99 @@
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 # Appearance
+
 appearance:
-  mode: system
-  color: emerald
+  theme_day: Ocean
+  theme_night:
+  font: Ocean
+  font_size: M
+  mode: light
+  color: blue
 
 # SEO
+
 marketing:
   seo:
-    site_type: Person
-    local_business_type: ''
-    org_name: ''
-    description: 'The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website.'
-    twitter: 'GetResearchDev'
+    site_type: ResearchOrganization
+    local_business_type: 'Academic'
+    org_name: 'SHUD research group'
+    description: 'Academic research group, Simulator of Hydrologic Unstructured Domains'
+    twitter: 'leleshu'
   analytics:
-    google_analytics: ''
-    baidu_tongji: ''
-    plausible: ''
-    fathom: ''
-    pirsch: ''
+    google_analytics: 'UA-153411227-1'
+    baidu_tongji: '02eaeeb22ebc1b673b5317dd3fc030c4'
+    google_tag_manager: ''
+    microsoft_clarity: ''
   verification:
     google: ''
-    baidu: ''
+    baidu: 'code-caLY3Fu6xB'
 
 # Site header
+
 header:
   navbar:
     enable: true
-    blox: "navbar"
-    fixed_to_top: true
+    align: c
+    show_logo: true
+    show_language: true
+    show_day_night: false
     show_search: true
-    show_theme_chooser: true
-    logo:
-      text: "Your Name"
+    highlight_active_link: true
 
 # Site footer
+
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {2022} SHUD. 凡我公开的，皆不保留版权，亦不申索权益；但需要您合理引用。 (I reserve no right on anything in this website. Use it for free with right citation/reference. )'
     license:
-      enable: true
-      allow_derivatives: false
+      enable: false
+      allow_derivatives: true
       share_alike: true
       allow_commercial: false
 
 # Localization
+
 locale:
   date_format: 'Jan 2, 2006'
   time_format: '3:04 PM'
 
 # Site features
+
 features:
+  syntax_highlighter:
+    theme_light: github-light
+    theme_dark: dracula
+    extra_languages:
+      - r
+      - latex
   math:
-    enable: false
+    enable: true
   privacy_pack:
     enable: false
+  repository:
+    url: 'https://github.com/HugoBlox/theme-online-course'
+    content_dir: content
+    branch: main
+  comment:
+    provider: ''
+    disqus:
+      shortname: ''
+      show_count: true
+    commento:
+      url: ''
+    giscus:
+      repo: ''
+      repo_id: ''
+      category: ''
+      category_id: ''
+  search:
+    provider: wowchemy
+    algolia:
+      app_id: ''
+      api_key: ''
+      index_name: ''
+      show_logo: true
+
+extensions:
+  academicons:
+    enable: true

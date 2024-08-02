@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 数值方法水文模型理论基础 | SHUD水文模型 (ver 2.0)</title>
+  <meta name="description" content="SHUD Book" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 数值方法水文模型理论基础 | SHUD水文模型 (ver 2.0)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="SHUD Book" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 数值方法水文模型理论基础 | SHUD水文模型 (ver 2.0)" />
+  
+  <meta name="twitter:description" content="SHUD Book" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2023-05-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="theory.html"/>
+<link rel="next" href="modeling.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SHUD Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> 绪论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#水文模型"><i class="fa fa-check"></i><b>1.1</b> 水文模型</a></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#shud模型"><i class="fa fa-check"></i><b>1.2</b> SHUD模型</a></li>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#站在巨人的肩上"><i class="fa fa-check"></i><b>1.3</b> 站在巨人的肩上</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#pihm模型简史"><i class="fa fa-check"></i><b>1.3.1</b> PIHM模型简史</a></li>
+<li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#重要时间线"><i class="fa fa-check"></i><b>1.3.2</b> 重要时间线</a></li>
+<li class="chapter" data-level="1.3.3" data-path="overview.html"><a href="overview.html#shud与pihm的区别"><i class="fa fa-check"></i><b>1.3.3</b> SHUD与PIHM的区别</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#shud模型的特点"><i class="fa fa-check"></i><b>1.4</b> SHUD模型的特点</a></li>
+<li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#参考文献"><i class="fa fa-check"></i><b>1.5</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="theory.html"><a href="theory.html"><i class="fa fa-check"></i><b>2</b> 理论与公式</a></li>
+<li class="chapter" data-level="3" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html"><i class="fa fa-check"></i><b>3</b> 数值方法水文模型理论基础</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#数学模型"><i class="fa fa-check"></i><b>3.0.1</b> 数学模型</a></li>
+<li class="chapter" data-level="3.0.2" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#数值方法求解"><i class="fa fa-check"></i><b>3.0.2</b> 数值方法求解</a></li>
+<li class="chapter" data-level="3.1" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#建模思路"><i class="fa fa-check"></i><b>3.1</b> 建模思路</a></li>
+<li class="chapter" data-level="3.2" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#流域水循环"><i class="fa fa-check"></i><b>3.2</b> 流域水循环</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#水量平衡"><i class="fa fa-check"></i><b>3.2.1</b> 水量平衡</a></li>
+<li class="chapter" data-level="3.2.2" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#边界条件"><i class="fa fa-check"></i><b>3.2.2</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#气象"><i class="fa fa-check"></i><b>3.3</b> 气象</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#降雨"><i class="fa fa-check"></i><b>3.3.1</b> 降雨</a></li>
+<li class="chapter" data-level="3.3.2" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#蒸散发"><i class="fa fa-check"></i><b>3.3.2</b> 蒸散发</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#入渗及地下水补给"><i class="fa fa-check"></i><b>3.4</b> 入渗及地下水补给</a></li>
+<li class="chapter" data-level="3.5" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#地表产流"><i class="fa fa-check"></i><b>3.5</b> 地表产流</a></li>
+<li class="chapter" data-level="3.6" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#基流"><i class="fa fa-check"></i><b>3.6</b> 基流</a></li>
+<li class="chapter" data-level="3.7" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#河道"><i class="fa fa-check"></i><b>3.7</b> 河道</a></li>
+<li class="chapter" data-level="3.8" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#湖泊"><i class="fa fa-check"></i><b>3.8</b> 湖泊</a></li>
+<li class="chapter" data-level="3.9" data-path="数值方法水文模型理论基础.html"><a href="数值方法水文模型理论基础.html#人类活动影响"><i class="fa fa-check"></i><b>3.9</b> 人类活动影响</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>4</b> SHUD模型模拟</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modeling.html"><a href="modeling.html#install"><i class="fa fa-check"></i><b>4.1</b> 安装 SHUD and rSHUD</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modeling.html"><a href="modeling.html#sundialscvode"><i class="fa fa-check"></i><b>4.1.1</b> SUNDIALS/CVODE</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modeling.html"><a href="modeling.html#编译shud"><i class="fa fa-check"></i><b>4.1.2</b> 编译SHUD</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modeling.html"><a href="modeling.html#rshud"><i class="fa fa-check"></i><b>4.1.3</b> rSHUD</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modeling.html"><a href="modeling.html#inputfiles"><i class="fa fa-check"></i><b>4.2</b> 数据准备</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="modeling.html"><a href="modeling.html#原始数据"><i class="fa fa-check"></i><b>4.2.1</b> 原始数据</a></li>
+<li class="chapter" data-level="4.2.2" data-path="modeling.html"><a href="modeling.html#模型输入文件"><i class="fa fa-check"></i><b>4.2.2</b> 模型输入文件</a></li>
+<li class="chapter" data-level="4.2.3" data-path="modeling.html"><a href="modeling.html#空间数据"><i class="fa fa-check"></i><b>4.2.3</b> 空间数据</a></li>
+<li class="chapter" data-level="4.2.4" data-path="modeling.html"><a href="modeling.html#水力学参数"><i class="fa fa-check"></i><b>4.2.4</b> 水力学参数</a></li>
+<li class="chapter" data-level="4.2.5" data-path="modeling.html"><a href="modeling.html#模型配置文件"><i class="fa fa-check"></i><b>4.2.5</b> 模型配置文件</a></li>
+<li class="chapter" data-level="4.2.6" data-path="modeling.html"><a href="modeling.html#时间序列数据"><i class="fa fa-check"></i><b>4.2.6</b> 时间序列数据</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="modeling.html"><a href="modeling.html#outputfiles"><i class="fa fa-check"></i><b>4.3</b> 输出文件</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="modeling.html"><a href="modeling.html#文件名格式"><i class="fa fa-check"></i><b>4.3.1</b> 文件名格式</a></li>
+<li class="chapter" data-level="4.3.2" data-path="modeling.html"><a href="modeling.html#文本格式输出文件.csv"><i class="fa fa-check"></i><b>4.3.2</b> 文本格式输出文件（.csv）</a></li>
+<li class="chapter" data-level="4.3.3" data-path="modeling.html"><a href="modeling.html#二进制输出文件.dat"><i class="fa fa-check"></i><b>4.3.3</b> 二进制输出文件（.dat）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="calibration.html"><a href="calibration.html"><i class="fa fa-check"></i><b>5</b> 模型校准</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="calibration.html"><a href="calibration.html#参数敏感性"><i class="fa fa-check"></i><b>5.1</b> 参数敏感性</a></li>
+<li class="chapter" data-level="5.2" data-path="calibration.html"><a href="calibration.html#手动模型校准"><i class="fa fa-check"></i><b>5.2</b> 手动模型校准</a></li>
+<li class="chapter" data-level="5.3" data-path="calibration.html"><a href="calibration.html#cma-es自动化模型校准"><i class="fa fa-check"></i><b>5.3</b> CMA-ES自动化模型校准</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="application.html"><a href="application.html#v形流域"><i class="fa fa-check"></i><b>6.1</b> V形流域</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="application.html"><a href="application.html#shen等2010-中的结果"><i class="fa fa-check"></i><b>6.1.1</b> Shen等(2010) 中的结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="application.html"><a href="application.html#vauclin水槽箱试验"><i class="fa fa-check"></i><b>6.2</b> Vauclin水槽箱试验</a></li>
+<li class="chapter" data-level="6.3" data-path="application.html"><a href="application.html#美国加州cache河流域"><i class="fa fa-check"></i><b>6.3</b> 美国加州Cache河流域</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="application.html"><a href="application.html#cache-creek-watershed"><i class="fa fa-check"></i><b>6.3.1</b> Cache Creek Watershed</a></li>
+<li class="chapter" data-level="6.3.2" data-path="application.html"><a href="application.html#shud-simulation-and-calibration"><i class="fa fa-check"></i><b>6.3.2</b> SHUD simulation and calibration</a></li>
+<li class="chapter" data-level="6.3.3" data-path="application.html"><a href="application.html#results"><i class="fa fa-check"></i><b>6.3.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="application.html"><a href="application.html#宁夏岩画村山洪"><i class="fa fa-check"></i><b>6.4</b> 宁夏岩画村山洪</a></li>
+<li class="chapter" data-level="6.5" data-path="application.html"><a href="application.html#休斯顿城市内涝"><i class="fa fa-check"></i><b>6.5</b> 休斯顿城市内涝</a></li>
+<li class="chapter" data-level="6.6" data-path="application.html"><a href="application.html#南苏丹尼罗河上游"><i class="fa fa-check"></i><b>6.6</b> 南苏丹尼罗河上游</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sourcecode.html"><a href="sourcecode.html"><i class="fa fa-check"></i><b>7</b> 源码和程序设计</a></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SHUD水文模型 (ver 2.0)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="数值方法水文模型理论基础" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> 数值方法水文模型理论基础<a href="数值方法水文模型理论基础.html#数值方法水文模型理论基础" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>地表-地下过程耦合的数值方法水文模型起始于20世纪70年代, Freeze和Harlan（1969）提出了基于水动力偏微分物理方程的模拟方法和统一地表—地下水文过程的模型蓝图（Freeze和Harlan, 1969; Cooley 1971）, 但由于当时计算技术的客观限制，直到上世纪80年代SHE（Abbott等, 1986）模型出现，数值方法水文模型才崭露头角。
+数值方法水文模型既有别于数值方法求解的地下水模型（如ModFlow（McDonald和Harbaugh, 1984; Niswonger等, 2011）），也不同于地表-地下水过程概念化的传统水文模型。地下水模型常采用数值方法，但关注点在地表以下数十米至数百米的空间，其中包括地层、裂隙水等过程，超出水文模型所关注的“降雨-径流”范畴；同时地表水过程简化为地下水运动的边界条件。传统水文模型中地下水模块不具有实际含义的地下深度，而利用概念化的水桶模型反映地下水补给-存储-释放过程，例如新安江模型（赵人俊和王佩兰, 1988）、VIC（Liang等, 1994）和WRF-Hydro模型（Gochis等, 2013）的释水曲线（Savenije, 2001）。数值方法水文模型（图3），属于分布式水文模型中的一个特殊类别，将地表-地下水文物理过程利用数值方法紧密耦合起来。数值方法本质上是对离散（非连续）时空单元中水头分布和变化的近似数值解的描述，从理论的解析解到数值解虽然损失了精度，但解析解通常无法求得，而数值方法可给出误差可接受的近似解。</p>
+<div class="float">
+<img src="Fig/overview/HydrologicalModelMap.001.png" alt="地表-地下过程耦合的数值方法水文模型在整体水文模型谱系中的位置。图中蓝色斜体文字是该类别代表性模型。图中模型分别为：新安江（赵人俊和王佩兰, 1988），Unit Hydrograph（Sherman， 1932）, HBV（Bergström，1992）, FLEX（Gharari等,2014）, Topmodel（Beven和Kirkby, 1979），SWAT（Arnold等, 1998），VIC（Liang等, 1994）, PRMS（Leavesley等，1983）, WRF-Hydro（Gochis等, 2013），WEP（Jia等,2001），GBHM（Yang等，1998），GSFlow（Markstrom等, 2008）, GSFLOW-SWMM(Tian等，2015)，SWAT-MODFLOW（Park等,1996）, FEFLOW-3D（Hu等，2020）, SHUD（Shu等, 2020）, PIHM（Qu和Duffy,2007）, PARFLOW（Kollet和Maxwell, 2006）, PAWS（Shen和Phanikumar, 2010）, HydroGeoSphere（Aquanty Inc. 2013），CATHY（Bixio等, 2002; Camporese等 2010）." />
+<div class="figcaption">地表-地下过程耦合的数值方法水文模型在整体水文模型谱系中的位置。图中蓝色斜体文字是该类别代表性模型。图中模型分别为：新安江（赵人俊和王佩兰, 1988），Unit Hydrograph（Sherman， 1932）, HBV（Bergström，1992）, FLEX（Gharari等,2014）, Topmodel（Beven和Kirkby, 1979），SWAT（Arnold等, 1998），VIC（Liang等, 1994）, PRMS（Leavesley等，1983）, WRF-Hydro（Gochis等, 2013），WEP（Jia等,2001），GBHM（Yang等，1998），GSFlow（Markstrom等, 2008）, GSFLOW-SWMM(Tian等，2015)，SWAT-MODFLOW（Park等,1996）, FEFLOW-3D（Hu等，2020）, SHUD（Shu等, 2020）, PIHM（Qu和Duffy,2007）, PARFLOW（Kollet和Maxwell, 2006）, PAWS（Shen和Phanikumar, 2010）, HydroGeoSphere（Aquanty Inc. 2013），CATHY（Bixio等, 2002; Camporese等 2010）.</div>
+</div>
+<div id="数学模型" class="section level3 hasAnchor" number="3.0.1">
+<h3><span class="header-section-number">3.0.1</span> 数学模型<a href="数值方法水文模型理论基础.html#数学模型" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>数值模型使用物质和能量守恒公式作为控制方程（Governing equation）显式地描述流域的地表水和地下水储量与流量关系，通常使用某种形式的理查兹方程（公式2）和圣维南方程（公式3）来分别计算地下和地上水流过程（Freeze和Harlan, 1969; Haque等, 2021; Maxwell等, 2016; Farthing和Ogden, 2017; Singh, 2018）。各种数值水文模型的核心控制方程基本相同，但其简化程度和求解方案不同，分别对地表、地下水的不同过程采取一维、二维和三维的不同简化方法。</p>
+<p>流域水文的基本控制方程可写为：
+<span class="math display">\[\frac{\partial h}{\partial t}=\nabla \cdot(v h)-\frac{Q_e}{A}+\frac{Q_{s u}}{A}\]</span></p>
+<p><span class="math display">\[Q=\frac{1}{n} A R^{2 / 3} s^{1 / 2}\]</span></p>
+<p><span class="math display">\[S_w(h) \frac{\partial h}{\partial t}=\nabla \cdot \boldsymbol{q}+\frac{Q_e}{V}+\frac{Q_{s s}}{V}\]</span></p>
+<p><span class="math display">\[q=-k_e(h) \nabla(h+z)\]</span></p>
+<p>公式（1）和（3）分别是地表水和地下水的控制方程。公式中h为地下水水头高度、非饱和层的含水量、或地表水高度[L]；t为时间[T]；v为地表水水平平均流速[<span class="math inline">\(LT^(-1)\)</span>]；Q_e为地表与地下交互流量[<span class="math inline">\(L^3 T^(-1)\)</span>]，从地表至地下流量为正；Q_su为地表水的源汇项或者边界条件[<span class="math inline">\(L^3 T^(-1)\)</span>]，可包括降雨、灌溉、蒸散发等过程；A为控制单元的垂直投影面积[<span class="math inline">\(L^2\)</span>]；n为曼宁系数[<span class="math inline">\(TL^(-1/3)\)</span>]，R为水力半径，即过水面积与湿周之比[<span class="math inline">\(L\)</span>]，S_f为摩擦坡度[<span class="math inline">\(LL^(-1)\)</span>]。S_w (h)是储水系数[<span class="math inline">\(L^3 L^(-3) L^(-1)\)</span>]，即单位水头下降时单位体积内可释放的水量，包含了地下水的储水系数[<span class="math inline">\(L^(-1)\)</span>]和非饱和土壤层的含水量[<span class="math inline">\(LL^(-1)\)</span>]; q为地下水径流量[<span class="math inline">\(L^3 L^(-2) T^(-1)\)</span>]，是水头高度或含水量的函数，采用达西定律或理查兹方程（公式4）计算；Q_ss为地下水或土壤水的源汇项或者边界条件[<span class="math inline">\(L^3 T^(-1)\)</span>]，实际计算中可包含单位面积地下水渗漏、注入、抽取以及蒸散发等流量；V为控制单元的体积[<span class="math inline">\(L^3\)</span>]；K_e (h)为有效水力传导度[<span class="math inline">\(LT^(-1)\)</span>]，是土壤含水量或基质势的函数；z为距离某一基准面的垂直距离[<span class="math inline">\(L\)</span>]；v公式中q和v的计算分别依据曼宁公式（公式2）和理查兹方程（公式2）。流域尺度的地表—地下过程耦合计算基于水头连续性和地表—地下间水量交换Q_e。公式（3）是地下水水量平衡公式的出发点，左边是单位水头/水位线变化引起的控制体水量变化，右边是达西定律/理查兹公式计算的渗流量、地表-地下交互量、源汇项之间的差值。</p>
+<p>流域水文还需要对地表过程，即积雪融化和蒸散发进行模拟，实际模型计算时归入源汇项。冰川、积雪和蒸散发通常作为模块与地表和地下水文过程进行松散耦合，即计算的时间步长不同，或者无需迭代计算。土地利用、农业活动等过程在模型中以改变水力学参数的形式展现其对水文和陆面过程的影响。</p>
+<p>数值方法的边界条件通常分为Dirichlet和Neumann两类。Dirichlet边界条件（Dirichlet Boundary Condition, DBC）是常/偏微分方程的第一类边界条件，也称为固定边界条件，其指定了空间某点的固定值。例如，在地下水流动问题中，Dirichlet边界条件限定固定地下水水头高度。纽曼边界条件（Neumann boundary condition, NBC） 也被称为常/偏微分方程的“第二类边界条件”，其给定空间特定位置上目标变量的一阶导数。在地下水流动问题中，给定某点处固定流量，如注水或者取水流量。作为三维的数值水文模型，两类边界条件都可以施加在空间任意位置的任意方向上。数值水文模型中存在常见的边界条件或者假设，其中包括：
+流域底部不透水边界，属于NBC，其流量为零。此假设适用于大部分流域的水文研究。当需要体现深层地下水对模拟系统影响时，可以设定系统非零底部边界条件，实现与深层地下水的交互。
+封闭的流域边界，即流域在坡面单元的地表和地下水的水平方向上不接受来自外部的水量，也不向外部流失水量——边界上的HCU与域外的流量为零。当模拟对象边界是流域边界，且地表水和地下水的流域边界一致时，此假设完全成立。当模拟域为流域一部分（例如河漫滩研究）时，则需要专门设定DBC或者NBC，来确保域内水量平衡。但实际应用中边界条件难以通过观测获取，因此替代办法是扩大模拟域——扩大模拟域直至零流量的流域边界。在重点研究区采用精细网格，研究区边界至流域边界范围采用较粗网格，即可以保证研究区边界条件合理，同时避免边界的观测数据的掣肘。
+流域顶部边界。流域上层边界，流域顶部的边界条件实际上为降雨和灌溉，作为NBC施加在流域上。数值方法水文模型通常将蒸散发也作为NBC作用于地表和地下，但是蒸散发作为边界条件不是外部输入，而是根据气象驱动和土壤温湿度计算而来。
+河流出口边界。河流出口是流域唯一的水平方向水量出口，因此水文模型都符合质量守恒定律或水量平衡公式：<span class="math inline">\(\Delta S = P - ET -Q\)</span>，<span class="math inline">\(\Delta S\)</span>为流域水储量，<span class="math inline">\(P\)</span>为降雨量，<span class="math inline">\(ET\)</span>为蒸发量，<span class="math inline">\(Q\)</span>为径流量。</p>
+</div>
+<div id="数值方法求解" class="section level3 hasAnchor" number="3.0.2">
+<h3><span class="header-section-number">3.0.2</span> 数值方法求解<a href="数值方法水文模型理论基础.html#数值方法求解" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>从控制方程（公式1和3）可知目标变量h是随时间t和空间变化的函数，因此数值方法需要在时间和空间上对目标对象进行离散化。三维流域空间进行水平和垂直离散化，是数值模型必经步骤。好的空间离散化方案不仅要满足研究区域的模拟精度、满足边界条件限制，同时要减少计算单元数量以降低对计算资源的依赖性。水平空间离散化方案，通常分为结构化和非结构化方案，模型对比一节将仔细讨论。垂直方向上，主要是针对土壤层进行划分，由地表划分至底部不透水边界；垂直方向的离散化方案非常灵活，存在距离等差、等比或者任意划分，也可以通过饱和或非饱和层进行划分。
+数值方法可分为显式求解（Explicit method）与隐式求解（Implicit method）：当下一时刻变量由前一时刻变量直接计算得到的，称为显式求解法；当下一时刻变量由一系列公式、矩阵或者迭代算法计算得到，称为隐式求解法。相同时空分辨率条件下，显式求解法的计算速度显著高于隐式求解法，但是隐式求解法可以保证计算的稳定性，因此可采用较大时间步长进行计算，而显式求解法必须受制于CFL条件。CFL条件是保证数值方法收敛性和稳定性的必要条件（非充分条件），以Courant，Fredrichs和Lewy共同命名（Courant等 1928）。CFL条件即数值方法的时间步长要足够小，方能够保证计算精度，否则结果不收敛或者不稳定。
+时间离散化即模型时间步长。时间步长和空间分辨率的组合关系，对于数值方法求解的稳定性和收敛性都有显著影响。CFL条件是限制因素。为保证数值方法稳定性，空间分辨率越高，则要求时间分辨率也越高，时间分辨率与空间分辨率的（一次或多次）幂存在正比关系。</p>
+</div>
+<div id="建模思路" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 建模思路<a href="数值方法水文模型理论基础.html#建模思路" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="流域水循环" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 流域水循环<a href="数值方法水文模型理论基础.html#流域水循环" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="水量平衡" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> 水量平衡<a href="数值方法水文模型理论基础.html#水量平衡" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="边界条件" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> 边界条件<a href="数值方法水文模型理论基础.html#边界条件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="气象" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> 气象<a href="数值方法水文模型理论基础.html#气象" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="降雨" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> 降雨<a href="数值方法水文模型理论基础.html#降雨" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="蒸散发" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> 蒸散发<a href="数值方法水文模型理论基础.html#蒸散发" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="风廓线-wind-profile" class="section level4 hasAnchor" number="3.3.2.1">
+<h4><span class="header-section-number">3.3.2.1</span> 风廓线 (Wind profile)<a href="数值方法水文模型理论基础.html#风廓线-wind-profile" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Equation 2.3 in <span class="citation">(<a href="#ref-abtew2012evaporation">Abtew and Melesse 2012</a>)</span></p>
+<p><span class="math display">\[\begin{equation}
+\boldsymbol{u}_{x}=\boldsymbol{u}_{m} \frac{\ln \frac{z_{x}-d}{z_{0}}}{\ln \frac{z_{m}-d}{z_{0}}}
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(u_x\)</span> - 目标高度的风速 [<span class="math inline">\(m s^{-1}\)</span>]</li>
+<li><span class="math inline">\(u_m\)</span> - 测量高度的风速 [<span class="math inline">\(m s^{-1}\)</span>]</li>
+<li><span class="math inline">\(z_x\)</span> - 目标高度 [<span class="math inline">\(m\)</span>]</li>
+<li><span class="math inline">\(z_m\)</span> - 测量高度 [<span class="math inline">\(m\)</span>]</li>
+<li><span class="math inline">\(d\)</span> - 零平面 [<span class="math inline">\(m\)</span>]</li>
+<li><span class="math inline">\(z0\)</span> - 粗糙度(Roughness height) [<span class="math inline">\(m\)</span>]</li>
+</ul>
+<p>FAO56</p>
+<ol style="list-style-type: decimal">
+<li><p>植被覆盖的</p></li>
+<li><p>开放水面和裸露土地的潜在蒸发(PET of bare soil and open water)
+<span class="math display">\[\begin{equation}
+\lambda E_{a}=c_{2} \frac{e_{a}-e_{d}}{r_{a}}
+\end{equation}\]</span></p></li>
+</ol>
+<p><span class="math inline">\(E_a\)</span> 是同温蒸发率(Isothermal evaporation rate)。</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{E}_{\mathrm{o}}=\frac{\Delta\left(\mathrm{R}_{\mathrm{n}}-\mathrm{G}\right) / \lambda+\gamma \mathrm{E}_{\mathrm{a}}}{\Delta+\gamma}
+\end{equation}\]</span></p>
+</div>
+</div>
+</div>
+<div id="入渗及地下水补给" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> 入渗及地下水补给<a href="数值方法水文模型理论基础.html#入渗及地下水补给" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="地表产流" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> 地表产流<a href="数值方法水文模型理论基础.html#地表产流" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="基流" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> 基流<a href="数值方法水文模型理论基础.html#基流" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="河道" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> 河道<a href="数值方法水文模型理论基础.html#河道" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="湖泊" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> 湖泊<a href="数值方法水文模型理论基础.html#湖泊" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="人类活动影响" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> 人类活动影响<a href="数值方法水文模型理论基础.html#人类活动影响" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-abtew2012evaporation" class="csl-entry">
+Abtew, W., and A. M. Melesse. 2012. <em>Evaporation and Evapotranspiration: Measurements and Estimations</em>. Springer Netherlands. <a href="https://books.google.com/books?id=C84zLgEACAAJ">https://books.google.com/books?id=C84zLgEACAAJ</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="theory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["SHUD_Book_CN.pdf", "SHUD_Book_CN.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

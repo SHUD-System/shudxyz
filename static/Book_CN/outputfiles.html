@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 输出文件 | SHUD水文模型</title>
+  <meta name="description" content="SHUD Book" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 输出文件 | SHUD水文模型" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="SHUD Book" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 输出文件 | SHUD水文模型" />
+  
+  <meta name="twitter:description" content="SHUD Book" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2022-05-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modeling.html"/>
+<link rel="next" href="autoshud.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SHUD Book</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#index">前言<span></span></a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> 绪论<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#站在巨人的肩上"><i class="fa fa-check"></i><b>1.1</b> 站在巨人的肩上<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="overview.html"><a href="overview.html#pihm模型简史"><i class="fa fa-check"></i><b>1.1.1</b> PIHM模型简史<span></span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="overview.html"><a href="overview.html#重要时间线"><i class="fa fa-check"></i><b>1.1.2</b> 重要时间线<span></span></a></li>
+<li class="chapter" data-level="1.1.3" data-path="overview.html"><a href="overview.html#shud与pihm的区别"><i class="fa fa-check"></i><b>1.1.3</b> SHUD与PIHM的区别<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#shud模型的特点"><i class="fa fa-check"></i><b>1.2</b> SHUD模型的特点<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#参考文献"><i class="fa fa-check"></i><b>1.3</b> 参考文献<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="theory.html"><a href="theory.html"><i class="fa fa-check"></i><b>2</b> 理论与公式<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="theory.html"><a href="theory.html#建模思路"><i class="fa fa-check"></i><b>2.1</b> 建模思路<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="theory.html"><a href="theory.html#流域水循环"><i class="fa fa-check"></i><b>2.2</b> 流域水循环<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="theory.html"><a href="theory.html#水量平衡"><i class="fa fa-check"></i><b>2.2.1</b> 水量平衡<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="theory.html"><a href="theory.html#边界条件"><i class="fa fa-check"></i><b>2.2.2</b> 边界条件<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="theory.html"><a href="theory.html#气象"><i class="fa fa-check"></i><b>2.3</b> 气象<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="theory.html"><a href="theory.html#降雨"><i class="fa fa-check"></i><b>2.3.1</b> 降雨<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="theory.html"><a href="theory.html#蒸散发"><i class="fa fa-check"></i><b>2.3.2</b> 蒸散发<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="theory.html"><a href="theory.html#入渗及地下水补给"><i class="fa fa-check"></i><b>2.4</b> 入渗及地下水补给<span></span></a></li>
+<li class="chapter" data-level="2.5" data-path="theory.html"><a href="theory.html#地表产流"><i class="fa fa-check"></i><b>2.5</b> 地表产流<span></span></a></li>
+<li class="chapter" data-level="2.6" data-path="theory.html"><a href="theory.html#基流"><i class="fa fa-check"></i><b>2.6</b> 基流<span></span></a></li>
+<li class="chapter" data-level="2.7" data-path="theory.html"><a href="theory.html#河道"><i class="fa fa-check"></i><b>2.7</b> 河道<span></span></a></li>
+<li class="chapter" data-level="2.8" data-path="theory.html"><a href="theory.html#湖泊"><i class="fa fa-check"></i><b>2.8</b> 湖泊<span></span></a></li>
+<li class="chapter" data-level="2.9" data-path="theory.html"><a href="theory.html#人类活动影响"><i class="fa fa-check"></i><b>2.9</b> 人类活动影响<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>3</b> SHUD模型模拟<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modeling.html"><a href="modeling.html#install"><i class="fa fa-check"></i><b>3.1</b> 安装 SHUD and rSHUD<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="modeling.html"><a href="modeling.html#sundialscvode"><i class="fa fa-check"></i><b>3.1.1</b> SUNDIALS/CVODE<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="modeling.html"><a href="modeling.html#编译shud"><i class="fa fa-check"></i><b>3.1.2</b> 编译SHUD<span></span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="modeling.html"><a href="modeling.html#rshud"><i class="fa fa-check"></i><b>3.1.3</b> rSHUD<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modeling.html"><a href="modeling.html#inputfiles"><i class="fa fa-check"></i><b>3.2</b> 数据准备<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="modeling.html"><a href="modeling.html#原始数据"><i class="fa fa-check"></i><b>3.2.1</b> 原始数据<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="modeling.html"><a href="modeling.html#模型输入文件"><i class="fa fa-check"></i><b>3.2.2</b> 模型输入文件<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="modeling.html"><a href="modeling.html#空间数据"><i class="fa fa-check"></i><b>3.2.3</b> 空间数据<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="modeling.html"><a href="modeling.html#水力学参数"><i class="fa fa-check"></i><b>3.2.4</b> 水力学参数<span></span></a></li>
+<li class="chapter" data-level="3.2.5" data-path="modeling.html"><a href="modeling.html#模型配置文件"><i class="fa fa-check"></i><b>3.2.5</b> 模型配置文件<span></span></a></li>
+<li class="chapter" data-level="3.2.6" data-path="modeling.html"><a href="modeling.html#时间序列数据"><i class="fa fa-check"></i><b>3.2.6</b> 时间序列数据<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="outputfiles.html"><a href="outputfiles.html"><i class="fa fa-check"></i><b>4</b> 输出文件<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="outputfiles.html"><a href="outputfiles.html#文件名格式"><i class="fa fa-check"></i><b>4.1</b> 文件名格式<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="outputfiles.html"><a href="outputfiles.html#文本格式输出文件.csv"><i class="fa fa-check"></i><b>4.2</b> 文本格式输出文件（.csv）<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="outputfiles.html"><a href="outputfiles.html#二进制输出文件.dat"><i class="fa fa-check"></i><b>4.3</b> 二进制输出文件（.dat）<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="autoshud.html"><a href="autoshud.html"><i class="fa fa-check"></i><b>5</b> 快速、可重复和自动化水文模拟<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="autoshud.html"><a href="autoshud.html#shud模拟的基本步骤"><i class="fa fa-check"></i><b>5.1</b> SHUD模拟的基本步骤。<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="autoshud.html"><a href="autoshud.html#地形关键变量"><i class="fa fa-check"></i><b>5.1.1</b> 地形关键变量<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="autoshud.html"><a href="autoshud.html#a-priori-data-sources"><i class="fa fa-check"></i><b>5.1.2</b> A-Priori Data Sources<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="autoshud.html"><a href="autoshud.html#workflow-of-shud-modeling-system"><i class="fa fa-check"></i><b>5.2</b> Workflow of SHUD Modeling System<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="calibration.html"><a href="calibration.html"><i class="fa fa-check"></i><b>6</b> 模型校准<span></span></a></li>
+<li class="chapter" data-level="7" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>7</b> 应用案例<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="application.html"><a href="application.html#v形流域"><i class="fa fa-check"></i><b>7.1</b> V形流域<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="application.html"><a href="application.html#shen等2010-中的结果"><i class="fa fa-check"></i><b>7.1.1</b> Shen等(2010) 中的结果<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="application.html"><a href="application.html#vauclin水槽箱试验"><i class="fa fa-check"></i><b>7.2</b> Vauclin水槽箱试验<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="application.html"><a href="application.html#美国加州cache河流域"><i class="fa fa-check"></i><b>7.3</b> 美国加州Cache河流域<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="application.html"><a href="application.html#cache-creek-watershed"><i class="fa fa-check"></i><b>7.3.1</b> Cache Creek Watershed<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="application.html"><a href="application.html#shud-simulation-and-calibration"><i class="fa fa-check"></i><b>7.3.2</b> SHUD simulation and calibration<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="application.html"><a href="application.html#results"><i class="fa fa-check"></i><b>7.3.3</b> Results<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="application.html"><a href="application.html#宁夏岩画村山洪"><i class="fa fa-check"></i><b>7.4</b> 宁夏岩画村山洪<span></span></a></li>
+<li class="chapter" data-level="7.5" data-path="application.html"><a href="application.html#休斯顿城市内涝"><i class="fa fa-check"></i><b>7.5</b> 休斯顿城市内涝<span></span></a></li>
+<li class="chapter" data-level="7.6" data-path="application.html"><a href="application.html#南苏丹尼罗河上游"><i class="fa fa-check"></i><b>7.6</b> 南苏丹尼罗河上游<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="sourcecode.html"><a href="sourcecode.html"><i class="fa fa-check"></i><b>8</b> 源码和程序设计<span></span></a></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SHUD水文模型</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="outputfiles" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 输出文件<a href="outputfiles.html#outputfiles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="文件名格式" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 文件名格式<a href="outputfiles.html#文件名格式" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>为了方便结果的分类和用户理解，作者规则化定义了输出文件的文件名；用户通过文件名即可读懂文件所包含的变量类型、所属单元和读写格式。输出文件的文件名格式：</p>
+<p><strong>[项目名].[识别码].[格式]</strong></p>
+<p>或者：</p>
+<p><strong>[Project Name].[Identifier].[format]</strong></p>
+<ul>
+<li><p><em>[项目名]</em>（<em>[Project Name]</em>） 是用户给模拟定的名称，通常为流域的名字简写。例如：黄河流域，可以写成<em>hh</em>或者<em>huanghe</em>.</p></li>
+<li><p><em>[格式]</em> （<em>[format]</em>）可以使用<em>csv</em>或者<em>dat</em>. <em>csv</em>为规则文本格式，可使用任意文本编辑器或者WPS表格打开。<em>dat</em>二进制格式，文件占用硬盘空间较小</p></li>
+<li><p><em>[识别码]</em> （<em>[Identifier]</em>） 定义了输出结果内涵。识别码基本结构为
+<strong>[模型单元][变量类型][变量名]</strong>（<strong>[Model cell][Variable Type][Variable Name]</strong>）。 <em>[Model cell]</em> 是<em>ele</em> （element，模型三角单元）, <em>riv</em> （river，河段） or <em>lak</em> （lake，湖泊）. 变量类型包括 <em>y</em>, <em>v</em> and <em>q</em>，分别代表状态变量 （单位<span class="math inline">\(L\)</span>）, 单位流量或速度（单位<span class="math inline">\(L^3 L^{-2} T^{-1}\)</span>）和体积流量（in <span class="math inline">\(L^3 T^{-1}\)</span>）——<span class="math inline">\(L\)</span>为长度单位，<span class="math inline">\(T\)</span>为时间单位。</p></li>
+</ul>
+<p>下表为SHUD输出文件列表：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">识别码</th>
+<th align="center">单元</th>
+<th align="center">类型</th>
+<th align="center">变量名</th>
+<th align="center">含义</th>
+<th align="center">单位</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><em>.eleyic.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">ic</td>
+<td align="center">储量，冠层截流</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.eleysnow.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">snow</td>
+<td align="center">储量，雪水当量</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleysurf.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">surf</td>
+<td align="center">储量，地表水</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.eleyunsat.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">unsat</td>
+<td align="center">储量，未饱和层</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleygw.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">gw</td>
+<td align="center">储量，地下水水位</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center">.GW</td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevetp.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">etp</td>
+<td align="center">通量，潜在蒸散发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleveta.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">eta</td>
+<td align="center">通量，实际蒸散发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevetic.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">etic</td>
+<td align="center">通量，冠层截流蒸发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevettr.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">ettr</td>
+<td align="center">通量，植被蒸腾</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevetev.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">etev</td>
+<td align="center">通量，直接蒸发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevprcp.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">prcp</td>
+<td align="center">通量，降雨</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevnetprcp.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">netprcp</td>
+<td align="center">通量，净降雨量</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevinfil.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">infil</td>
+<td align="center">通量，下渗</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevexfil.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">infil</td>
+<td align="center">通量，出渗（反下渗）</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevrech.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">rech</td>
+<td align="center">通量，地下水补给</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.eleqsurf.</em></td>
+<td align="center">ele</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，地表径流（坡面流）</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleqsub.</em></td>
+<td align="center">ele</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量， 地下水水平流动</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivystage.</em></td>
+<td align="center">riv</td>
+<td align="center">y</td>
+<td align="center">stage</td>
+<td align="center">储量，河段水位</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqup.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">up</td>
+<td align="center">流量，向上游</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqdown.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">down</td>
+<td align="center">流量，向下游</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqsurf.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，向坡面</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsub.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量，向地下水</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="文本格式输出文件.csv" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 文本格式输出文件（.csv）<a href="outputfiles.html#文本格式输出文件.csv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>N - 输出文件列数（不含时间列）
+m - 步长总数
+StartTime - 开始时间 （YYYYMMDD or YYYYMMDD.hhmmss）</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">N</th>
+<th align="center">StartTime</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(T_1\)</span></td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{1 \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(T_2\)</span></td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{2 \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(T_3\)</span></td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{3 \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(T_{m}\)</span></td>
+<td align="center"><span class="math inline">\(v_{m \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{m \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{m \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="二进制输出文件.dat" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 二进制输出文件（.dat）<a href="outputfiles.html#二进制输出文件.dat" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>二进制文件输出的结果与文本格式完全一致，但是使用了不同的存储结构。二进制文件格式紧凑，读写效率高，占用较小磁盘空间，因此作为SHUD模型的默认输出方式。 二进制文件格式不仅可被各类计算机语言（C/C++, Basic, Fortran，……）快速读取，并且也能在R、python、 Matlab、 Mathmetica等交互式语言中高效读取，如果读取有障碍，请联系模型作者获取帮助。</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">序号</th>
+<th align="center"><span class="math inline">\(i\)</span></th>
+<th align="center">值</th>
+<th align="center">格式</th>
+<th align="center">长度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">-</td>
+<td align="center"><span class="math inline">\(N\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">-</td>
+<td align="center">StartTime</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_1\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 1}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 2}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">N</td>
+<td align="center"><span class="math inline">\(v_{1 \cdot N}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_2\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 1}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 2}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">N</td>
+<td align="center"><span class="math inline">\(v_{2 \cdot N}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_3\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 1}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 2}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">N</td>
+<td align="center"><span class="math inline">\(v_{3 \cdot N}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （T-1） + i +3\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （m-1） + i +3\)</span></td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_{m}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （m-1） + i +3\)</span></td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{m \cdot 1}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （m-1） + i +3\)</span></td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{m \cdot 2}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(（N+1） * （m-1） + i +3\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(（N+1） * （m-1） + i +3\)</span></td>
+<td align="center">N</td>
+<td align="center"><span class="math inline">\(v_{m \cdot N}\)</span></td>
+<td align="center">double</td>
+<td align="center">8</td>
+</tr>
+</tbody>
+</table>
+<p><em>注：double为计算机的双精度数据格式，默认长度为8个比特位</em></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="autoshud.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["SHUD_Book_CN.pdf", "SHUD_Book_CN.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 机器学习 | R在地球科学中的应用</title>
+  <meta name="description" content="Chapter 5 机器学习 | R在地球科学中的应用，包含基础数据处理、地学数据获取、时间序列分析、空间数据分析、二维/三维数据可视化，以及入门的数据挖掘问题" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 机器学习 | R在地球科学中的应用" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="shud.xyz/bookr//Fig/fig4.png" />
+  <meta property="og:description" content="Chapter 5 机器学习 | R在地球科学中的应用，包含基础数据处理、地学数据获取、时间序列分析、空间数据分析、二维/三维数据可视化，以及入门的数据挖掘问题" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 机器学习 | R在地球科学中的应用" />
+  
+  <meta name="twitter:description" content="Chapter 5 机器学习 | R在地球科学中的应用，包含基础数据处理、地学数据获取、时间序列分析、空间数据分析、二维/三维数据可视化，以及入门的数据挖掘问题" />
+  <meta name="twitter:image" content="shud.xyz/bookr//Fig/fig4.png" />
+
+<meta name="author" content="舒乐乐，孟宪红，陈昊，李照国，赵林。 中国科学院西北生态环境资源研究院" />
+
+
+<meta name="date" content="2023-03-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="spatial.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R in Geoscience</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#index" id="toc-index">前言</a>
+<ul>
+<li><a href="index.html#资源" id="toc-资源">资源</a></li>
+<li><a href="index.html#r能干什么" id="toc-r能干什么">R能干什么？</a>
+<ul>
+<li><a href="index.html#时间序列分析" id="toc-时间序列分析">时间序列分析</a></li>
+<li><a href="index.html#地理数据处理" id="toc-地理数据处理">地理数据处理</a></li>
+<li><a href="index.html#爬取网上公开数据" id="toc-爬取网上公开数据">爬取网上公开数据</a></li>
+<li><a href="index.html#计算与绘图" id="toc-计算与绘图">计算与绘图</a></li>
+<li><a href="index.html#动画视频" id="toc-动画视频">动画视频</a></li>
+<li><a href="index.html#写书" id="toc-写书">写书</a></li>
+<li><a href="index.html#小程序" id="toc-小程序">小程序</a></li>
+<li><a href="index.html#构建个人网站" id="toc-构建个人网站">构建个人网站</a></li>
+</ul></li>
+</ul></li>
+<li><a href="intro.html#intro" id="toc-intro"><span class="toc-section-number">1</span> R语言介绍</a>
+<ul>
+<li><a href="intro.html#安装r环境" id="toc-安装r环境"><span class="toc-section-number">1.1</span> 安装R环境</a></li>
+<li><a href="intro.html#安装r扩展包" id="toc-安装r扩展包"><span class="toc-section-number">1.2</span> 安装R扩展包</a></li>
+<li><a href="intro.html#运行环境" id="toc-运行环境"><span class="toc-section-number">1.3</span> 运行环境</a></li>
+<li><a href="intro.html#如何寻求帮助" id="toc-如何寻求帮助"><span class="toc-section-number">1.4</span> 如何寻求帮助</a></li>
+</ul></li>
+<li><a href="basic.html#basic" id="toc-basic"><span class="toc-section-number">2</span> R基础知识</a>
+<ul>
+<li><a href="basic.html#编程基础语法" id="toc-编程基础语法"><span class="toc-section-number">2.1</span> 编程基础语法</a>
+<ul>
+<li><a href="basic.html#函数定义" id="toc-函数定义"><span class="toc-section-number">2.1.1</span> 函数定义</a></li>
+<li><a href="basic.html#文件管理" id="toc-文件管理"><span class="toc-section-number">2.1.2</span> 文件管理</a></li>
+</ul></li>
+<li><a href="basic.html#数据类型与结构" id="toc-数据类型与结构"><span class="toc-section-number">2.2</span> 数据类型与结构</a></li>
+<li><a href="basic.html#可视化" id="toc-可视化"><span class="toc-section-number">2.3</span> 可视化</a></li>
+<li><a href="basic.html#三维可视化" id="toc-三维可视化"><span class="toc-section-number">2.4</span> 三维可视化</a></li>
+</ul></li>
+<li><a href="tsd.html#tsd" id="toc-tsd"><span class="toc-section-number">3</span> 时间序列分析</a></li>
+<li><a href="spatial.html#spatial" id="toc-spatial"><span class="toc-section-number">4</span> 空间分析与可视化</a>
+<ul>
+<li><a href="spatial.html#矢量数据" id="toc-矢量数据"><span class="toc-section-number">4.1</span> 矢量数据</a></li>
+<li><a href="spatial.html#栅格数据" id="toc-栅格数据"><span class="toc-section-number">4.2</span> 栅格数据</a></li>
+<li><a href="spatial.html#可视化-1" id="toc-可视化-1"><span class="toc-section-number">4.3</span> 可视化</a></li>
+<li><a href="spatial.html#三维可视化-1" id="toc-三维可视化-1"><span class="toc-section-number">4.4</span> 三维可视化</a></li>
+</ul></li>
+<li><a href="ai.html#ai" id="toc-ai"><span class="toc-section-number">5</span> 机器学习</a>
+<ul>
+<li><a href="ai.html#可用数据集" id="toc-可用数据集"><span class="toc-section-number">5.1</span> 可用数据集</a></li>
+<li><a href="ai.html#非监督分类" id="toc-非监督分类"><span class="toc-section-number">5.2</span> 非监督分类</a>
+<ul>
+<li><a href="ai.html#principal-component-analysis-pca" id="toc-principal-component-analysis-pca"><span class="toc-section-number">5.2.1</span> Principal component analysis (PCA)</a></li>
+<li><a href="ai.html#k-means聚类" id="toc-k-means聚类"><span class="toc-section-number">5.2.2</span> k-means聚类</a></li>
+<li><a href="ai.html#分层聚类hierarchical-clsutering" id="toc-分层聚类hierarchical-clsutering"><span class="toc-section-number">5.2.3</span> 分层聚类(Hierarchical clsutering)</a></li>
+</ul></li>
+<li><a href="ai.html#监督分类" id="toc-监督分类"><span class="toc-section-number">5.3</span> 监督分类</a>
+<ul>
+<li><a href="ai.html#knn分类k-nearest-neighbour-classification" id="toc-knn分类k-nearest-neighbour-classification"><span class="toc-section-number">5.3.1</span> KNN分类(k-nearest neighbour classification)</a></li>
+<li><a href="ai.html#决策树decision-trees" id="toc-决策树decision-trees"><span class="toc-section-number">5.3.2</span> 决策树(Decision trees)</a></li>
+<li><a href="ai.html#支持向量机svm" id="toc-支持向量机svm"><span class="toc-section-number">5.3.3</span> 支持向量机(SVM)</a></li>
+<li><a href="ai.html#随机森林random-forest" id="toc-随机森林random-forest"><span class="toc-section-number">5.3.4</span> 随机森林(Random Forest)</a></li>
+</ul></li>
+<li><a href="ai.html#深度学习deep-learning" id="toc-深度学习deep-learning"><span class="toc-section-number">5.4</span> 深度学习(Deep Learning)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="www.shud.xyz" target="blank">www.shud.xyz</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R在地球科学中的应用</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ai" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> 机器学习<a href="ai.html#ai" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>人工智能，机器学习和深度学习之间的关系：</p>
+<div class="figure">
+<img src="Fig/ch5/Deep_Learning.png" alt="" />
+<p class="caption">人工智能-机器学习-深度学习(<a href="https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/" class="uri">https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/</a>)</p>
+</div>
+<div class="figure">
+<img src="Fig/ch5/familytree.jpg" alt="" />
+<p class="caption">机器学习方法(<a href="https://wiki.seg.org/wiki/Machine_learning" class="uri">https://wiki.seg.org/wiki/Machine_learning</a>)</p>
+</div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="ai.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb89-2"><a href="ai.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)   <span class="co"># 统计学库</span></span>
+<span id="cb89-3"><a href="ai.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NbClust) <span class="co"># 聚类分析</span></span>
+<span id="cb89-4"><a href="ai.html#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra) <span class="co"># 聚类</span></span>
+<span id="cb89-5"><a href="ai.html#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb89-6"><a href="ai.html#cb89-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(class)</span>
+<span id="cb89-7"><a href="ai.html#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
+<span id="cb89-8"><a href="ai.html#cb89-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071) <span class="co"># SVM 支持向量机</span></span>
+<span id="cb89-9"><a href="ai.html#cb89-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-10"><a href="ai.html#cb89-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart) <span class="do">## recursive partitioning</span></span>
+<span id="cb89-11"><a href="ai.html#cb89-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
+<span id="cb89-12"><a href="ai.html#cb89-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-13"><a href="ai.html#cb89-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(colorspace) <span class="co"># 绘图色彩库</span></span>
+<span id="cb89-14"><a href="ai.html#cb89-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)  <span class="co"># 绘图库</span></span>
+<span id="cb89-15"><a href="ai.html#cb89-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)   <span class="co"># 绘图库</span></span>
+<span id="cb89-16"><a href="ai.html#cb89-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)   <span class="co"># 绘图库</span></span></code></pre></div>
+<div id="可用数据集" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> 可用数据集<a href="ai.html#可用数据集" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Iris数据集是常用的分类实验数据集，由Fisher(1936)收集整理。Iris也称鸢尾花卉数据集，是一类多重变量分析的数据集。数据集包含150个数据样本，分为3类，每类50个数据，每个数据包含4个属性。可通过花萼长度(Sepal Length)，花萼宽度(Sepal Width)，花瓣长度(Petal Length)，花瓣宽度(Petal Width)4个属性预测鸢尾花卉属于（Setosa, Versicolour，Virginica）三个种类中的哪一类。四个特征变量的单位都是厘米(cm)。
+<img src="Fig/ch5/iris-machinelearning.png" alt="鸢尾花分类" />
+m表示样本量的大小，n表示每个样本所具有的特征数。因此在该数据集中，m=150,n=4。</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="ai.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb90-2"><a href="ai.html#cb90-2" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">=</span> <span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species)</span>
+<span id="cb90-3"><a href="ai.html#cb90-3" aria-hidden="true" tabindex="-1"></a>id <span class="ot">=</span> <span class="fu">apply</span>(<span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">which</span>(idx<span class="sc">==</span>x)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb90-4"><a href="ai.html#cb90-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb90-5"><a href="ai.html#cb90-5" aria-hidden="true" tabindex="-1"></a>  iris[id, ], <span class="at">caption =</span> <span class="st">&#39;Iris (Fisher 1936)数据表(部分)&#39;</span>,</span>
+<span id="cb90-6"><a href="ai.html#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb90-7"><a href="ai.html#cb90-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption><span id="tab:nice-tab">Table 5.1: </span>Iris (Fisher 1936)数据表(部分)</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="left">51</td>
+<td align="right">7.0</td>
+<td align="right">3.2</td>
+<td align="right">4.7</td>
+<td align="right">1.4</td>
+<td align="left">versicolor</td>
+</tr>
+<tr class="odd">
+<td align="left">52</td>
+<td align="right">6.4</td>
+<td align="right">3.2</td>
+<td align="right">4.5</td>
+<td align="right">1.5</td>
+<td align="left">versicolor</td>
+</tr>
+<tr class="even">
+<td align="left">53</td>
+<td align="right">6.9</td>
+<td align="right">3.1</td>
+<td align="right">4.9</td>
+<td align="right">1.5</td>
+<td align="left">versicolor</td>
+</tr>
+<tr class="odd">
+<td align="left">54</td>
+<td align="right">5.5</td>
+<td align="right">2.3</td>
+<td align="right">4.0</td>
+<td align="right">1.3</td>
+<td align="left">versicolor</td>
+</tr>
+<tr class="even">
+<td align="left">55</td>
+<td align="right">6.5</td>
+<td align="right">2.8</td>
+<td align="right">4.6</td>
+<td align="right">1.5</td>
+<td align="left">versicolor</td>
+</tr>
+<tr class="odd">
+<td align="left">101</td>
+<td align="right">6.3</td>
+<td align="right">3.3</td>
+<td align="right">6.0</td>
+<td align="right">2.5</td>
+<td align="left">virginica</td>
+</tr>
+<tr class="even">
+<td align="left">102</td>
+<td align="right">5.8</td>
+<td align="right">2.7</td>
+<td align="right">5.1</td>
+<td align="right">1.9</td>
+<td align="left">virginica</td>
+</tr>
+<tr class="odd">
+<td align="left">103</td>
+<td align="right">7.1</td>
+<td align="right">3.0</td>
+<td align="right">5.9</td>
+<td align="right">2.1</td>
+<td align="left">virginica</td>
+</tr>
+<tr class="even">
+<td align="left">104</td>
+<td align="right">6.3</td>
+<td align="right">2.9</td>
+<td align="right">5.6</td>
+<td align="right">1.8</td>
+<td align="left">virginica</td>
+</tr>
+<tr class="odd">
+<td align="left">105</td>
+<td align="right">6.5</td>
+<td align="right">3.0</td>
+<td align="right">5.8</td>
+<td align="right">2.2</td>
+<td align="left">virginica</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="ai.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb91-2"><a href="ai.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 原始数据</span></span>
+<span id="cb91-3"><a href="ai.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb91-4"><a href="ai.html#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb91-5"><a href="ai.html#cb91-5" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span>iris</span>
+<span id="cb91-6"><a href="ai.html#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="ai.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(x, <span class="fu">aes</span>(<span class="at">colour =</span> Species, <span class="at">alpha =</span> <span class="fl">0.4</span>), <span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">upper=</span><span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="R_in_Geoscience_files/figure-html/ch5.data-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="非监督分类" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> 非监督分类<a href="ai.html#非监督分类" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="principal-component-analysis-pca" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Principal component analysis (PCA)<a href="ai.html#principal-component-analysis-pca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>在多元统计分析中，PCA是一种统计分析、简化数据集的方法。它利用正交变换来对一系列可能相关的变量的观测值进行线性变换，从而投影为一系列线性不相关变量的值，这些不相关变量称为主成分（Principal Components）。具体地，主成分可以看做一个线性方程，其包含一系列线性系数来指示投影方向。PCA对原始数据的正则化或预处理敏感（相对缩放）。</p>
+<p>基本思想：</p>
+<ul>
+<li>将坐标轴中心移到数据的中心，然后旋转坐标轴，使得数据在C1轴上的方差最大，即全部n个数据个体在该方向上的投影最为分散。意味着更多的信息被保留下来。C1成为第一主成分。</li>
+<li>C2第二主成分：找一个C2，使得C2与C1的协方差（相关系数）为0，以免与C1信息重叠，并且使数据在该方向的方差尽量最大。</li>
+<li>以此类推，找到第三主成分，第四主成分……第p个主成分。p个随机变量可以有p个主成分[1]。</li>
+</ul>
+<p>主成分分析经常用于减少数据集的维数，同时保留数据集当中对方差贡献最大的特征。这是通过保留低维主成分，忽略高维主成分做到的。这样低维成分往往能够保留住数据的最重要部分。但是，这也不是一定的，要视具体应用而定。由于主成分分析依赖所给数据，所以数据的准确性对分析结果影响很大。</p>
+<p>PCA被广泛使用于以下方面：
+- 在特征中找到结构
+- 其他机器学习算法的预处理
+- 有助于可视化。</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="ai.html#cb94-1" aria-hidden="true" tabindex="-1"></a>x.pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="sc">-</span><span class="dv">5</span>])</span>
+<span id="cb94-2"><a href="ai.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(x.pca)</span></code></pre></div>
+<pre><code>## Importance of components:
+##                           PC1     PC2    PC3     PC4
+## Standard deviation     2.0563 0.49262 0.2797 0.15439
+## Proportion of Variance 0.9246 0.05307 0.0171 0.00521
+## Cumulative Proportion  0.9246 0.97769 0.9948 1.00000</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="ai.html#cb96-1" aria-hidden="true" tabindex="-1"></a>df<span class="ot">=</span> <span class="fu">data.frame</span>(x.pca<span class="sc">$</span>x, <span class="st">&#39;Species&#39;</span><span class="ot">=</span>x<span class="sc">$</span>Species)</span>
+<span id="cb96-2"><a href="ai.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(df, <span class="fu">aes</span>(<span class="at">colour =</span> Species, <span class="at">alpha =</span> <span class="fl">0.4</span>), <span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">upper=</span><span class="cn">NULL</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch5.pca2-1.png" alt="PCA下的iris数据" width="95%" />
+<p class="caption">
+(#fig:ch5.pca2)PCA下的iris数据
+</p>
+</div>
+</div>
+<div id="k-means聚类" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> k-means聚类<a href="ai.html#k-means聚类" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>K-mean算法的目标是把n个观测放到k个聚类（cluster）中间去，使得每一个观测都被放到离它最近的那个聚类中去，这里“最近”是用这个观测跟相对应的聚类的平均值（mean）的距离（distance）来衡量的。</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="ai.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法1</span></span>
+<span id="cb97-2"><a href="ai.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb97-3"><a href="ai.html#cb97-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> iris</span>
+<span id="cb97-4"><a href="ai.html#cb97-4" aria-hidden="true" tabindex="-1"></a>idx<span class="ot">=</span><span class="fu">as.numeric</span>(x<span class="sc">$</span>Species)</span>
+<span id="cb97-5"><a href="ai.html#cb97-5" aria-hidden="true" tabindex="-1"></a>species <span class="ot">=</span> <span class="fu">levels</span>(x<span class="sc">$</span>Species)</span>
+<span id="cb97-6"><a href="ai.html#cb97-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> stats<span class="sc">::</span><span class="fu">kmeans</span>(x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">10</span>, <span class="at">iter.max=</span><span class="dv">10</span>)</span>
+<span id="cb97-7"><a href="ai.html#cb97-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">table</span>(y<span class="sc">$</span>cluster,species[idx])</span>
+<span id="cb97-8"><a href="ai.html#cb97-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb97-9"><a href="ai.html#cb97-9" aria-hidden="true" tabindex="-1"></a>  z<span class="sc">/</span><span class="dv">50</span>, <span class="at">caption =</span> <span class="st">&#39;k-means分类精度&#39;</span>,</span>
+<span id="cb97-10"><a href="ai.html#cb97-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb97-11"><a href="ai.html#cb97-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption>(#tab:ch5.km1)k-means分类精度</caption>
+<thead>
+<tr class="header">
+<th align="right">setosa</th>
+<th align="right">versicolor</th>
+<th align="right">virginica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0.1</td>
+<td align="right">0.74</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0.0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0.9</td>
+<td align="right">0.26</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="ai.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法2</span></span>
+<span id="cb98-2"><a href="ai.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb98-3"><a href="ai.html#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb98-4"><a href="ai.html#cb98-4" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span>iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb98-5"><a href="ai.html#cb98-5" aria-hidden="true" tabindex="-1"></a>pm<span class="ot">=</span> <span class="fu">pam</span>(x, <span class="at">k=</span><span class="dv">3</span>)</span>
+<span id="cb98-6"><a href="ai.html#cb98-6" aria-hidden="true" tabindex="-1"></a>factoextra<span class="sc">::</span><span class="fu">fviz_cluster</span>(<span class="fu">list</span>(<span class="at">data =</span> x, <span class="at">cluster =</span> pm<span class="sc">$</span>clustering),</span>
+<span id="cb98-7"><a href="ai.html#cb98-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">frame.type =</span> <span class="st">&quot;norm&quot;</span>, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">stand =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch5.km2-1.png" alt="k-means聚类方法结果" width="95%" />
+<p class="caption">
+(#fig:ch5.km2)k-means聚类方法结果
+</p>
+</div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="ai.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 不同k值的结果</span></span>
+<span id="cb99-2"><a href="ai.html#cb99-2" aria-hidden="true" tabindex="-1"></a>ks <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb99-3"><a href="ai.html#cb99-3" aria-hidden="true" tabindex="-1"></a>tot_within_ss <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ks, <span class="cf">function</span>(k) {</span>
+<span id="cb99-4"><a href="ai.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  cl <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], k, <span class="at">nstart =</span> <span class="dv">10</span>)</span>
+<span id="cb99-5"><a href="ai.html#cb99-5" aria-hidden="true" tabindex="-1"></a>  cl<span class="sc">$</span>tot.withinss</span>
+<span id="cb99-6"><a href="ai.html#cb99-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb99-7"><a href="ai.html#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb99-8"><a href="ai.html#cb99-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ks, tot_within_ss, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Total within squared distances&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Values of k tested&quot;</span>)</span>
+<span id="cb99-9"><a href="ai.html#cb99-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="ai.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------</span></span>
+<span id="cb100-2"><a href="ai.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb100-3"><a href="ai.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> ks){</span>
+<span id="cb100-4"><a href="ai.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  cl <span class="ot">&lt;-</span> <span class="fu">pam</span>(x,i)</span>
+<span id="cb100-5"><a href="ai.html#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clusplot</span>(cl, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">&#39;K =&#39;</span>, i), <span class="at">col.p=</span>cl<span class="sc">$</span>clustering)</span>
+<span id="cb100-6"><a href="ai.html#cb100-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch5.km4-1.png" alt="不同k值分类结果" width="95%" />
+<p class="caption">
+(#fig:ch5.km4)不同k值分类结果
+</p>
+</div>
+</div>
+<div id="分层聚类hierarchical-clsutering" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> 分层聚类(Hierarchical clsutering)<a href="ai.html#分层聚类hierarchical-clsutering" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Hierarchical clustering有两种策略: Agglomerative和Divisive。</p>
+<ul>
+<li>Agglomerative 是一种 自下而上方法。开始假设每一个观测都是独立的聚类(cluster)，然后通过合并相邻的两个聚类 ，再多次迭代达到所有聚类的最高层级——所有观测都属于同一个聚类。</li>
+<li>Divisive 是一种自上而下方法。开始假设所有的观测都属于同一个聚类(cluster)，然后通过分离每个聚类中间比较不相似的观测成为下一层，直到所有的观测都属于不同的聚类(cluster)。一般来说，人们用Dendrogram来可视化分层聚类。</li>
+</ul>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="ai.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb101-2"><a href="ai.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 分层聚类(Hierarchical clsutering)</span></span>
+<span id="cb101-3"><a href="ai.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb101-4"><a href="ai.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference: https://cran.r-project.org/web/packages/dendextend/vignettes/Cluster_Analysis.html</span></span>
+<span id="cb101-5"><a href="ai.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
+<span id="cb101-6"><a href="ai.html#cb101-6" aria-hidden="true" tabindex="-1"></a>d_iris <span class="ot">&lt;-</span> <span class="fu">dist</span>(iris) <span class="co"># method=&quot;man&quot; # is a bit better</span></span>
+<span id="cb101-7"><a href="ai.html#cb101-7" aria-hidden="true" tabindex="-1"></a>hc_iris <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d_iris, <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb101-8"><a href="ai.html#cb101-8" aria-hidden="true" tabindex="-1"></a>iris_species <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">levels</span>(iris[,<span class="dv">5</span>]))</span>
+<span id="cb101-9"><a href="ai.html#cb101-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-10"><a href="ai.html#cb101-10" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(hc_iris)</span>
+<span id="cb101-11"><a href="ai.html#cb101-11" aria-hidden="true" tabindex="-1"></a><span class="co"># order it the closest we can to the order of the observations:</span></span>
+<span id="cb101-12"><a href="ai.html#cb101-12" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">rotate</span>(dend, <span class="dv">1</span><span class="sc">:</span><span class="dv">150</span>)</span>
+<span id="cb101-13"><a href="ai.html#cb101-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-14"><a href="ai.html#cb101-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Color the branches based on the clusters:</span></span>
+<span id="cb101-15"><a href="ai.html#cb101-15" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">color_branches</span>(dend, <span class="at">k=</span><span class="dv">3</span>) <span class="co">#, groupLabels=iris_species)</span></span>
+<span id="cb101-16"><a href="ai.html#cb101-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-17"><a href="ai.html#cb101-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually match the labels, as much as possible, to the real classification of the flowers:</span></span>
+<span id="cb101-18"><a href="ai.html#cb101-18" aria-hidden="true" tabindex="-1"></a><span class="fu">labels_colors</span>(dend) <span class="ot">&lt;-</span></span>
+<span id="cb101-19"><a href="ai.html#cb101-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>)[<span class="fu">sort_levels_values</span>(</span>
+<span id="cb101-20"><a href="ai.html#cb101-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.numeric</span>(iris[,<span class="dv">5</span>])[<span class="fu">order.dendrogram</span>(dend)]</span>
+<span id="cb101-21"><a href="ai.html#cb101-21" aria-hidden="true" tabindex="-1"></a>  )]</span>
+<span id="cb101-22"><a href="ai.html#cb101-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-23"><a href="ai.html#cb101-23" aria-hidden="true" tabindex="-1"></a><span class="co"># We shall add the flower type to the labels:</span></span>
+<span id="cb101-24"><a href="ai.html#cb101-24" aria-hidden="true" tabindex="-1"></a><span class="fu">labels</span>(dend) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">as.character</span>(iris[,<span class="dv">5</span>])[<span class="fu">order.dendrogram</span>(dend)],</span>
+<span id="cb101-25"><a href="ai.html#cb101-25" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;(&quot;</span>,<span class="fu">labels</span>(dend),<span class="st">&quot;)&quot;</span>, </span>
+<span id="cb101-26"><a href="ai.html#cb101-26" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb101-27"><a href="ai.html#cb101-27" aria-hidden="true" tabindex="-1"></a><span class="co"># We hang the dendrogram a bit:</span></span>
+<span id="cb101-28"><a href="ai.html#cb101-28" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">hang.dendrogram</span>(dend,<span class="at">hang_height=</span><span class="fl">0.1</span>)</span>
+<span id="cb101-29"><a href="ai.html#cb101-29" aria-hidden="true" tabindex="-1"></a><span class="co"># reduce the size of the labels:</span></span>
+<span id="cb101-30"><a href="ai.html#cb101-30" aria-hidden="true" tabindex="-1"></a><span class="co"># dend &lt;- assign_values_to_leaves_nodePar(dend, 0.5, &quot;lab.cex&quot;)</span></span>
+<span id="cb101-31"><a href="ai.html#cb101-31" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">set</span>(dend, <span class="st">&quot;labels_cex&quot;</span>, <span class="fl">0.5</span>)</span>
+<span id="cb101-32"><a href="ai.html#cb101-32" aria-hidden="true" tabindex="-1"></a><span class="co"># And plot:</span></span>
+<span id="cb101-33"><a href="ai.html#cb101-33" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">7</span>))</span>
+<span id="cb101-34"><a href="ai.html#cb101-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dend, </span>
+<span id="cb101-35"><a href="ai.html#cb101-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Clustered Iris data set</span></span>
+<span id="cb101-36"><a href="ai.html#cb101-36" aria-hidden="true" tabindex="-1"></a><span class="st">     (the labels give the true flower species)&quot;</span>,   </span>
+<span id="cb101-37"><a href="ai.html#cb101-37" aria-hidden="true" tabindex="-1"></a>     <span class="at">horiz =</span>  <span class="cn">TRUE</span>,  <span class="at">nodePar =</span> <span class="fu">list</span>(<span class="at">cex =</span> .<span class="dv">007</span>))</span>
+<span id="cb101-38"><a href="ai.html#cb101-38" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> iris_species, <span class="at">fill =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>))</span></code></pre></div>
+<p><img src="R_in_Geoscience_files/figure-html/ch5.hclust-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="ai.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(circlize)</span>
+<span id="cb102-2"><a href="ai.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb102-3"><a href="ai.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">circlize_dendrogram</span>(dend)</span></code></pre></div>
+<p><img src="R_in_Geoscience_files/figure-html/ch5.ring-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="监督分类" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> 监督分类<a href="ai.html#监督分类" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="knn分类k-nearest-neighbour-classification" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> KNN分类(k-nearest neighbour classification)<a href="ai.html#knn分类k-nearest-neighbour-classification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="ai.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb103-2"><a href="ai.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co"># KNN - k-nearest neighbour classification</span></span>
+<span id="cb103-3"><a href="ai.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb103-4"><a href="ai.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(12L)</span>
+<span id="cb103-5"><a href="ai.html#cb103-5" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">150</span>, <span class="dv">50</span>)</span>
+<span id="cb103-6"><a href="ai.html#cb103-6" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">150</span>, <span class="dv">50</span>)</span>
+<span id="cb103-7"><a href="ai.html#cb103-7" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span>iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb103-8"><a href="ai.html#cb103-8" aria-hidden="true" tabindex="-1"></a>knn_model <span class="ot">&lt;-</span> <span class="fu">knn</span>(<span class="at">train =</span> x[tr, ],<span class="at">test =</span> x[ts,], iris<span class="sc">$</span>Species[tr])</span>
+<span id="cb103-9"><a href="ai.html#cb103-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(knn_model)</span></code></pre></div>
+<pre><code>## [1] versicolor setosa     versicolor setosa     setosa     setosa    
+## Levels: setosa versicolor virginica</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="ai.html#cb105-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">table</span>(knn_model, iris<span class="sc">$</span>Species[ts])</span>
+<span id="cb105-2"><a href="ai.html#cb105-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb105-3"><a href="ai.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  res, <span class="at">caption =</span> <span class="st">&#39;kNN分类精度&#39;</span>,</span>
+<span id="cb105-4"><a href="ai.html#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb105-5"><a href="ai.html#cb105-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption>(#tab:ch5.knn)kNN分类精度</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">setosa</th>
+<th align="right">versicolor</th>
+<th align="right">virginica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">0</td>
+<td align="right">17</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">11</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="ai.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(knn_model <span class="sc">==</span> iris<span class="sc">$</span>Species[ts])</span></code></pre></div>
+<pre><code>## [1] 0.96</code></pre>
+</div>
+<div id="决策树decision-trees" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> 决策树(Decision trees)<a href="ai.html#决策树decision-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="ai.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb108-2"><a href="ai.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 决策树(Decision trees)</span></span>
+<span id="cb108-3"><a href="ai.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb108-4"><a href="ai.html#cb108-4" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span>iris</span>
+<span id="cb108-5"><a href="ai.html#cb108-5" aria-hidden="true" tabindex="-1"></a>dt_model <span class="ot">&lt;-</span> rpart<span class="sc">::</span><span class="fu">rpart</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> x,</span>
+<span id="cb108-6"><a href="ai.html#cb108-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb108-7"><a href="ai.html#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb108-8"><a href="ai.html#cb108-8" aria-hidden="true" tabindex="-1"></a>rpart.plot<span class="sc">::</span><span class="fu">rpart.plot</span>(dt_model)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="ai.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------</span></span>
+<span id="cb109-2"><a href="ai.html#cb109-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(dt_model, x, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>)</span>
+<span id="cb109-3"><a href="ai.html#cb109-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">table</span>(p, x<span class="sc">$</span>Species)</span>
+<span id="cb109-4"><a href="ai.html#cb109-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb109-5"><a href="ai.html#cb109-5" aria-hidden="true" tabindex="-1"></a>  res, <span class="at">caption =</span> <span class="st">&#39;分类精度&#39;</span>,</span>
+<span id="cb109-6"><a href="ai.html#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb109-7"><a href="ai.html#cb109-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption>(#tab:dt.table)分类精度</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">setosa</th>
+<th align="right">versicolor</th>
+<th align="right">virginica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">50</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">0</td>
+<td align="right">49</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">45</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="支持向量机svm" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> 支持向量机(SVM)<a href="ai.html#支持向量机svm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="ai.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb110-2"><a href="ai.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 支持向量机(SVM)</span></span>
+<span id="cb110-3"><a href="ai.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb110-4"><a href="ai.html#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="co"># reference: https://rstudio-pubs-static.s3.amazonaws.com/515710_c0433490253f45c281f74b286c455419.html</span></span>
+<span id="cb110-5"><a href="ai.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb110-6"><a href="ai.html#cb110-6" aria-hidden="true" tabindex="-1"></a>svm_model <span class="ot">&lt;-</span> <span class="fu">svm</span>(Species <span class="sc">~</span> ., <span class="at">data=</span>iris,</span>
+<span id="cb110-7"><a href="ai.html#cb110-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">kernel=</span><span class="st">&quot;radial&quot;</span>) <span class="co">#linear/polynomial/sigmoid/radial</span></span>
+<span id="cb110-8"><a href="ai.html#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(svm_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## svm(formula = Species ~ ., data = iris, kernel = &quot;radial&quot;)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  radial 
+##        cost:  1 
+## 
+## Number of Support Vectors:  51
+## 
+##  ( 8 22 21 )
+## 
+## 
+## Number of Classes:  3 
+## 
+## Levels: 
+##  setosa versicolor virginica</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="ai.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb112-2"><a href="ai.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(svm_model, <span class="at">data=</span>iris, <span class="at">col=</span><span class="fu">rainbow_hcl</span>(<span class="dv">3</span>),</span>
+<span id="cb112-3"><a href="ai.html#cb112-3" aria-hidden="true" tabindex="-1"></a>     Petal.Width<span class="sc">~</span>Petal.Length,</span>
+<span id="cb112-4"><a href="ai.html#cb112-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">slice =</span> <span class="fu">list</span>(<span class="at">Sepal.Width=</span><span class="dv">3</span>, <span class="at">Sepal.Length=</span><span class="dv">4</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ai.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co">#------------</span></span>
+<span id="cb113-2"><a href="ai.html#cb113-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">=</span> <span class="fu">predict</span>(svm_model,iris)</span>
+<span id="cb113-3"><a href="ai.html#cb113-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">table</span>(<span class="at">Predicted=</span>pred, <span class="at">Actual =</span> iris<span class="sc">$</span>Species)</span>
+<span id="cb113-4"><a href="ai.html#cb113-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-5"><a href="ai.html#cb113-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb113-6"><a href="ai.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  res, <span class="at">caption =</span> <span class="st">&#39;分类精度&#39;</span>,</span>
+<span id="cb113-7"><a href="ai.html#cb113-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb113-8"><a href="ai.html#cb113-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption>(#tab:ch5.tabsvm)分类精度</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">setosa</th>
+<th align="right">versicolor</th>
+<th align="right">virginica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">50</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">0</td>
+<td align="right">48</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">48</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ai.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span><span class="fu">sum</span>(<span class="fu">diag</span>(res)<span class="sc">/</span><span class="fu">sum</span>(res))</span></code></pre></div>
+<pre><code>## [1] 0.02666667</code></pre>
+</div>
+<div id="随机森林random-forest" class="section level3 hasAnchor" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> 随机森林(Random Forest)<a href="ai.html#随机森林random-forest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ai.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb116-2"><a href="ai.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 随机森林(Random Forest)</span></span>
+<span id="cb116-3"><a href="ai.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb116-4"><a href="ai.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference: https://lmavila.github.io/markdown_files/RF_Toy.html</span></span>
+<span id="cb116-5"><a href="ai.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb116-6"><a href="ai.html#cb116-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(12L)</span>
+<span id="cb116-7"><a href="ai.html#cb116-7" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">150</span>, <span class="dv">100</span>)</span>
+<span id="cb116-8"><a href="ai.html#cb116-8" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">150</span>, <span class="dv">50</span>)</span>
+<span id="cb116-9"><a href="ai.html#cb116-9" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span>iris</span>
+<span id="cb116-10"><a href="ai.html#cb116-10" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(Species<span class="sc">~</span>.,<span class="at">data=</span>x[tr,],<span class="at">ntree=</span><span class="dv">100</span>,<span class="at">proximity=</span><span class="cn">TRUE</span>)</span>
+<span id="cb116-11"><a href="ai.html#cb116-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rf_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+##  randomForest(formula = Species ~ ., data = x[tr, ], ntree = 100,      proximity = TRUE) 
+##                Type of random forest: classification
+##                      Number of trees: 100
+## No. of variables tried at each split: 2
+## 
+##         OOB estimate of  error rate: 7%
+## Confusion matrix:
+##            setosa versicolor virginica class.error
+## setosa         32          0         0   0.0000000
+## versicolor      0         29         3   0.0937500
+## virginica       0          4        32   0.1111111</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="ai.html#cb118-1" aria-hidden="true" tabindex="-1"></a>res<span class="ot">=</span> <span class="fu">table</span>(<span class="fu">predict</span>(rf_model),x<span class="sc">$</span>Species[tr])</span>
+<span id="cb118-2"><a href="ai.html#cb118-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb118-3"><a href="ai.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  res, <span class="at">caption =</span> <span class="st">&#39;训练集分类精度&#39;</span>,</span>
+<span id="cb118-4"><a href="ai.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb118-5"><a href="ai.html#cb118-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption>(#tab:ch5.)训练集分类精度</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">setosa</th>
+<th align="right">versicolor</th>
+<th align="right">virginica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">32</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">0</td>
+<td align="right">29</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">32</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ai.html#cb119-1" aria-hidden="true" tabindex="-1"></a>x.pred<span class="ot">&lt;-</span><span class="fu">predict</span>(rf_model,<span class="at">newdata=</span>x[ts,])</span>
+<span id="cb119-2"><a href="ai.html#cb119-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">table</span>(x.pred, x<span class="sc">$</span>Species[ts])</span>
+<span id="cb119-3"><a href="ai.html#cb119-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb119-4"><a href="ai.html#cb119-4" aria-hidden="true" tabindex="-1"></a>  res, <span class="at">caption =</span> <span class="st">&#39;测试集分类精度&#39;</span>,</span>
+<span id="cb119-5"><a href="ai.html#cb119-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb119-6"><a href="ai.html#cb119-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<table>
+<caption>(#tab:ch5.)测试集分类精度</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">setosa</th>
+<th align="right">versicolor</th>
+<th align="right">virginica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">19</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">0</td>
+<td align="right">13</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">18</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="深度学习deep-learning" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> 深度学习(Deep Learning)<a href="ai.html#深度学习deep-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="figure">
+<img src="Fig/ch5/ML2DL.jpg" alt="" />
+<p class="caption">机器学习与深度学习的区别(<a href="https://www.inteliment.com/blog/our-thinking/lets-understand-the-difference-between-machine-learning-vs-deep-learning/" class="uri">https://www.inteliment.com/blog/our-thinking/lets-understand-the-difference-between-machine-learning-vs-deep-learning/</a>)</p>
+</div>
+<p>且听下回分解~</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spatial.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R_in_Geoscience.pdf", "R_in_Geoscience.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

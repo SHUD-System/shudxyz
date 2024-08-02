@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 安装 SHUD and rSHUD | SHUD水文模型</title>
+  <meta name="description" content="SHUD Book" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 安装 SHUD and rSHUD | SHUD水文模型" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="SHUD Book" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 安装 SHUD and rSHUD | SHUD水文模型" />
+  
+  <meta name="twitter:description" content="SHUD Book" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2022-05-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="theory.html"/>
+<link rel="next" href="inputfiles.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SHUD Book</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#index">前言<span></span></a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> 绪论<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#站在巨人的肩上"><i class="fa fa-check"></i><b>1.1</b> 站在巨人的肩上<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="overview.html"><a href="overview.html#pihm模型简史"><i class="fa fa-check"></i><b>1.1.1</b> PIHM模型简史<span></span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="overview.html"><a href="overview.html#重要时间线"><i class="fa fa-check"></i><b>1.1.2</b> 重要时间线<span></span></a></li>
+<li class="chapter" data-level="1.1.3" data-path="overview.html"><a href="overview.html#shud与pihm的区别"><i class="fa fa-check"></i><b>1.1.3</b> SHUD与PIHM的区别<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#shud模型的特点"><i class="fa fa-check"></i><b>1.2</b> SHUD模型的特点<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#参考文献"><i class="fa fa-check"></i><b>1.3</b> 参考文献<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="theory.html"><a href="theory.html"><i class="fa fa-check"></i><b>2</b> 理论与公式<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="theory.html"><a href="theory.html#建模思路"><i class="fa fa-check"></i><b>2.1</b> 建模思路<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="theory.html"><a href="theory.html#流域水循环"><i class="fa fa-check"></i><b>2.2</b> 流域水循环<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="theory.html"><a href="theory.html#水量平衡"><i class="fa fa-check"></i><b>2.2.1</b> 水量平衡<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="theory.html"><a href="theory.html#边界条件"><i class="fa fa-check"></i><b>2.2.2</b> 边界条件<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="theory.html"><a href="theory.html#气象"><i class="fa fa-check"></i><b>2.3</b> 气象<span></span></a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="theory.html"><a href="theory.html#降雨"><i class="fa fa-check"></i><b>2.3.1</b> 降雨<span></span></a></li>
+<li class="chapter" data-level="2.3.2" data-path="theory.html"><a href="theory.html#蒸散发"><i class="fa fa-check"></i><b>2.3.2</b> 蒸散发<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="theory.html"><a href="theory.html#入渗及地下水补给"><i class="fa fa-check"></i><b>2.4</b> 入渗及地下水补给<span></span></a></li>
+<li class="chapter" data-level="2.5" data-path="theory.html"><a href="theory.html#地表产流"><i class="fa fa-check"></i><b>2.5</b> 地表产流<span></span></a></li>
+<li class="chapter" data-level="2.6" data-path="theory.html"><a href="theory.html#基流"><i class="fa fa-check"></i><b>2.6</b> 基流<span></span></a></li>
+<li class="chapter" data-level="2.7" data-path="theory.html"><a href="theory.html#河道"><i class="fa fa-check"></i><b>2.7</b> 河道<span></span></a></li>
+<li class="chapter" data-level="2.8" data-path="theory.html"><a href="theory.html#湖泊"><i class="fa fa-check"></i><b>2.8</b> 湖泊<span></span></a></li>
+<li class="chapter" data-level="2.9" data-path="theory.html"><a href="theory.html#人类活动影响"><i class="fa fa-check"></i><b>2.9</b> 人类活动影响<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>3</b> 安装 SHUD and rSHUD<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="install.html"><a href="install.html#sundialscvode"><i class="fa fa-check"></i><b>3.1</b> SUNDIALS/CVODE<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="install.html"><a href="install.html#使用脚本安装cvode"><i class="fa fa-check"></i><b>3.1.1</b> (1) 使用脚本安装CVODE<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="install.html"><a href="install.html#自行下载并安装cvode"><i class="fa fa-check"></i><b>3.1.2</b> (2) 自行下载并安装CVODE<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="install.html"><a href="install.html#编译shud"><i class="fa fa-check"></i><b>3.2</b> 编译SHUD<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="install.html"><a href="install.html#openmp可选"><i class="fa fa-check"></i><b>3.2.1</b> OpenMP（可选）<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="install.html"><a href="install.html#运行-shud-可执行文件"><i class="fa fa-check"></i><b>3.2.2</b> 运行 SHUD 可执行文件<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="install.html"><a href="install.html#rshud"><i class="fa fa-check"></i><b>3.3</b> rSHUD<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inputfiles.html"><a href="inputfiles.html"><i class="fa fa-check"></i><b>4</b> 数据准备<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inputfiles.html"><a href="inputfiles.html#原始数据"><i class="fa fa-check"></i><b>4.1</b> 原始数据<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="inputfiles.html"><a href="inputfiles.html#数据实例"><i class="fa fa-check"></i><b>4.1.1</b> 数据实例<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="inputfiles.html"><a href="inputfiles.html#模型输入文件"><i class="fa fa-check"></i><b>4.2</b> 模型输入文件<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="inputfiles.html"><a href="inputfiles.html#空间数据"><i class="fa fa-check"></i><b>4.3</b> 空间数据<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="inputfiles.html"><a href="inputfiles.html#sp.mesh-文件"><i class="fa fa-check"></i><b>4.3.1</b> .sp.mesh 文件<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="inputfiles.html"><a href="inputfiles.html#sp.att文件"><i class="fa fa-check"></i><b>4.3.2</b> .sp.att文件<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="inputfiles.html"><a href="inputfiles.html#sp.riv文件"><i class="fa fa-check"></i><b>4.3.3</b> .sp.riv文件<span></span></a></li>
+<li class="chapter" data-level="4.3.4" data-path="inputfiles.html"><a href="inputfiles.html#sp.rivseg文件"><i class="fa fa-check"></i><b>4.3.4</b> .sp.rivseg文件<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="inputfiles.html"><a href="inputfiles.html#水力学参数"><i class="fa fa-check"></i><b>4.4</b> 水力学参数<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="inputfiles.html"><a href="inputfiles.html#para.soil"><i class="fa fa-check"></i><b>4.4.1</b> .para.soil<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="inputfiles.html"><a href="inputfiles.html#para.geol"><i class="fa fa-check"></i><b>4.4.2</b> .para.geol<span></span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="inputfiles.html"><a href="inputfiles.html#para.lc"><i class="fa fa-check"></i><b>4.4.3</b> .para.lc<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="inputfiles.html"><a href="inputfiles.html#模型配置文件"><i class="fa fa-check"></i><b>4.5</b> 模型配置文件<span></span></a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="inputfiles.html"><a href="inputfiles.html#cfg.para文件"><i class="fa fa-check"></i><b>4.5.1</b> .cfg.para文件<span></span></a></li>
+<li class="chapter" data-level="4.5.2" data-path="inputfiles.html"><a href="inputfiles.html#cfg.calib文件"><i class="fa fa-check"></i><b>4.5.2</b> .cfg.calib文件<span></span></a></li>
+<li class="chapter" data-level="4.5.3" data-path="inputfiles.html"><a href="inputfiles.html#cfg.ic文件"><i class="fa fa-check"></i><b>4.5.3</b> .cfg.ic文件<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="inputfiles.html"><a href="inputfiles.html#时间序列数据"><i class="fa fa-check"></i><b>4.6</b> 时间序列数据<span></span></a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="inputfiles.html"><a href="inputfiles.html#tsd.forc文件"><i class="fa fa-check"></i><b>4.6.1</b> .tsd.forc文件<span></span></a></li>
+<li class="chapter" data-level="4.6.2" data-path="inputfiles.html"><a href="inputfiles.html#tsd.lai文件"><i class="fa fa-check"></i><b>4.6.2</b> .tsd.lai文件<span></span></a></li>
+<li class="chapter" data-level="4.6.3" data-path="inputfiles.html"><a href="inputfiles.html#tsd.rl文件"><i class="fa fa-check"></i><b>4.6.3</b> .tsd.rl文件<span></span></a></li>
+<li class="chapter" data-level="4.6.4" data-path="inputfiles.html"><a href="inputfiles.html#tsd.mf文件"><i class="fa fa-check"></i><b>4.6.4</b> .tsd.mf文件<span></span></a></li>
+<li class="chapter" data-level="4.6.5" data-path="inputfiles.html"><a href="inputfiles.html#tsd.obs文件"><i class="fa fa-check"></i><b>4.6.5</b> .tsd.obs文件<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="outputfiles.html"><a href="outputfiles.html"><i class="fa fa-check"></i><b>5</b> 输出文件<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="outputfiles.html"><a href="outputfiles.html#文件名格式"><i class="fa fa-check"></i><b>5.1</b> 文件名格式<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="outputfiles.html"><a href="outputfiles.html#文本格式输出文件.csv"><i class="fa fa-check"></i><b>5.2</b> 文本格式输出文件（.csv）<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="outputfiles.html"><a href="outputfiles.html#二进制输出文件.dat"><i class="fa fa-check"></i><b>5.3</b> 二进制输出文件（.dat）<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>6</b> 应用案例<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="application.html"><a href="application.html#v形流域"><i class="fa fa-check"></i><b>6.1</b> V形流域<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="application.html"><a href="application.html#shen等2010-中的结果"><i class="fa fa-check"></i><b>6.1.1</b> Shen等(2010) 中的结果<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="application.html"><a href="application.html#vauclin水槽箱试验"><i class="fa fa-check"></i><b>6.2</b> Vauclin水槽箱试验<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="application.html"><a href="application.html#美国加州cache河流域"><i class="fa fa-check"></i><b>6.3</b> 美国加州Cache河流域<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="application.html"><a href="application.html#cache-creek-watershed"><i class="fa fa-check"></i><b>6.3.1</b> Cache Creek Watershed<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="application.html"><a href="application.html#shud-simulation-and-calibration"><i class="fa fa-check"></i><b>6.3.2</b> SHUD simulation and calibration<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="application.html"><a href="application.html#results"><i class="fa fa-check"></i><b>6.3.3</b> Results<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="application.html"><a href="application.html#宁夏岩画村山洪"><i class="fa fa-check"></i><b>6.4</b> 宁夏岩画村山洪<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="application.html"><a href="application.html#休斯顿城市内涝"><i class="fa fa-check"></i><b>6.5</b> 休斯顿城市内涝<span></span></a></li>
+<li class="chapter" data-level="6.6" data-path="application.html"><a href="application.html#南苏丹尼罗河上游"><i class="fa fa-check"></i><b>6.6</b> 南苏丹尼罗河上游<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="calibration.html"><a href="calibration.html"><i class="fa fa-check"></i><b>7</b> 模型校准<span></span></a></li>
+<li class="chapter" data-level="8" data-path="autoshud.html"><a href="autoshud.html"><i class="fa fa-check"></i><b>8</b> 快速、可重复和自动化水文模拟<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="autoshud.html"><a href="autoshud.html#shud模拟的基本步骤"><i class="fa fa-check"></i><b>8.1</b> SHUD模拟的基本步骤。<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="autoshud.html"><a href="autoshud.html#地形关键变量"><i class="fa fa-check"></i><b>8.1.1</b> 地形关键变量<span></span></a></li>
+<li class="chapter" data-level="8.1.2" data-path="autoshud.html"><a href="autoshud.html#a-priori-data-sources"><i class="fa fa-check"></i><b>8.1.2</b> A-Priori Data Sources<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="autoshud.html"><a href="autoshud.html#workflow-of-shud-modeling-system"><i class="fa fa-check"></i><b>8.2</b> Workflow of SHUD Modeling System<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="sourcecode.html"><a href="sourcecode.html"><i class="fa fa-check"></i><b>9</b> 源码和程序设计<span></span></a></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SHUD水文模型</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="install" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> 安装 SHUD and rSHUD<a href="install.html#install" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>本章介绍SHUD模型和rSHUD的安装过程，以及必要的开发库的安装。</p>
+<div id="sundialscvode" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> SUNDIALS/CVODE<a href="install.html#sundialscvode" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>SHUD模型的求解需要SUNDIAL中CVODE库的支持。
+SUNDIALS（SUite of Nonlinear and Differential/ALgebraic equation Solvers）由六个求解器组成；其中的 <a href="https://computation.llnl.gov/projects/sundials/cvode"><strong>CVODE</strong></a> 是一个用于求解刚性和非刚性常微分方程系统（初始值问题）的数值求解器，数学表达为： <span class="math inline">\(y&#39; = f(t,y)\)</span>. CVODE支持可变阶精度、可变步长数值方法。CVODE字母组合含义为“C版本的可变系数常微分方程求解器(Vriable-Coefficient Ordinary Differential Equation Solver)” 。使用SHUD模型只需要CVODE支持，因此无需安装SUNDIALS所有求解器，只需要安装CVODE即可。</p>
+<p>因为SUNDIALS/CVODE持续更新中，代码和函数定义等等变化较大，因此SHUD模型通常仅支持CVODE较新版本，并非所有版本都可支持。</p>
+<p>SUNDIALS/CVODE的安装方法有两种：（1）自行下载安装包； （2）使用SHUD源代码的安装脚本。</p>
+<div id="使用脚本安装cvode" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> (1) 使用脚本安装CVODE<a href="install.html#使用脚本安装cvode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>源代码文件夹中的<code>configure.sh</code>文件是自动安装CVODE的脚本——可以自动从github上下载CVODE最新源代码并通过cmake编译并安装在<code>用户目录</code>下。</p>
+</div>
+<div id="自行下载并安装cvode" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> (2) 自行下载并安装CVODE<a href="install.html#自行下载并安装cvode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>SUNDIALS/CVODE 代码的下载地址为：<a href="https://computation.llnl.gov/projects/sundials/sundials-software">https://computation.llnl.gov/projects/sundials/sundials-software</a>。</p>
+<p>CVODE 5.x安装步骤：</p>
+<ol style="list-style-type: decimal">
+<li>进入命令行界面，并解压下载好的cvode压缩包。</li>
+<li>在CVODE的根目录下新建文件夹 <em>builddir</em>， 并进入该文件夹。</li>
+</ol>
+<pre><code>mkdir builddir
+cd builddir/</code></pre>
+<ol style="list-style-type: decimal">
+<li>测试 ccmake. 如果没有 <code>cmake</code>请安装。</li>
+</ol>
+<pre><code>ccmake </code></pre>
+<ol style="list-style-type: decimal">
+<li>运行ccmake配置安装环境。</li>
+</ol>
+<pre><code>ccmake ../sundials/cvode-5.0.0</code></pre>
+<div class="figure">
+<img src="Fig/ccmake/1.png" alt="" />
+<p class="caption">Screenshot of Step 1 in ccmake</p>
+</div>
+<p>首先出现的是空白配置页面。按c开始配置。</p>
+<div class="figure">
+<img src="Fig/ccmake/2.png" alt="" />
+<p class="caption">Screen short of Step 2 in ccmake</p>
+</div>
+<p>上图为默认的配置信息图片上的四处配置信息需要注意，值需要改为下面的值。OPENMP值需要您的系统支持OpenMP，因此在确认您的系统支持OpenMP的情况下打开。</p>
+<pre><code>BUILD_CVODE = ON
+CMAKE_INSTALL_PREFIX = ~/sundials
+EXAMPLES_INSTALL_PATH = ~/sundials/examples</code></pre>
+<p>以上值修改完成后，按c确认配置。</p>
+<div class="figure">
+<img src="Fig/ccmake/3.png" alt="" />
+<p class="caption">Screenshot of Step 3 in ccmake</p>
+</div>
+<p>ccmake开始自动配置安装参数。当配置完成后，按g生成配置文件并退出。</p>
+<ol style="list-style-type: decimal">
+<li>然后使用make编译并安装：</li>
+</ol>
+<pre><code>make
+make install </code></pre>
+</div>
+</div>
+<div id="编译shud" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 编译SHUD<a href="install.html#编译shud" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>编译信息保存在文件<em>Makefile</em>，其中关键的编译参数:</p>
+<ol style="list-style-type: decimal">
+<li><em>SUNDIALS_DIR</em>的保存路径（<strong>非常关键</strong>）. 默认值为 <em>~/sundials</em>，如果您已经安装到此路径，即可保持默认值。</li>
+<li>OpenMP的路径。当您的系统支持OpenMP时，可根据实际安装路径配置。</li>
+<li>SRC_DIR路径。默认值为 <code>SRC_DIR = .</code>，即当前源码所在路径。</li>
+<li>BUILT_DIR路径，默认值为<code>BUILT_DIR = .</code> ，即当前源码所在路径。</li>
+</ol>
+<p>配置好<em>Makefile</em>文件即可编译，使用以下命令进行编译：</p>
+<pre><code>make clean
+make shud</code></pre>
+<p>更多可选的编译参数：</p>
+<ul>
+<li><code>make all</code> - 清理旧的编译文件，并编译SHUD和SHUD_omp文件。</li>
+<li><code>make help</code> - 展示编译的帮助信息。</li>
+<li><code>make shud</code> - 编译shud模型的可执行文件。</li>
+<li><code>make shud_omp</code> - 编译OpenMP支持的并行版本，编译后的可执行文件名为shud_omp。</li>
+</ul>
+<div id="openmp可选" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> OpenMP（可选）<a href="install.html#openmp可选" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>当需要并行计算时，需要安装OpenMP。以下为Mac OS上安装的参数：</p>
+<pre><code>brew install llvm clang
+brew install libomp
+compile flags for OpenMP: 
+  -Xpreprocessor -fopenmp -lomp
+Library/Include paths:
+  -L/usr/local/opt/libomp/lib 
+  -I/usr/local/opt/libomp/include</code></pre>
+</div>
+<div id="运行-shud-可执行文件" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> 运行 SHUD 可执行文件<a href="install.html#运行-shud-可执行文件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>运行SHUD模型，请在命令行内执行一下命令：</p>
+<pre><code>./shud &lt;projectname&gt;</code></pre>
+<p><img src="Fig/CLI.png" alt="Default screen print of shud and command tips" />
+命令的参数模式：</p>
+<pre><code>./shud [-0][-p projectfile] [-o output] [-n Num_Threads] &lt;project_name&gt;</code></pre>
+<ul>
+<li><p><code>-0</code> 空计算。读取输入文件并写出结果文件，但是内部没有计算。仅仅用于验证输入文件格式的可靠性和可用性。</p></li>
+<li><p><code>&lt;project name&gt;</code> 项目名称。所有的项目文件必须以此开头。</p></li>
+<li><p><code>[-p projectfile]</code> 指定的项目配置文件，文件中包含了所有输入文件的地址。</p></li>
+<li><p><code>[-o output_folder]</code> 制定的结果文件输出地址。默认的输出地址为<code>output/projname.out</code>。</p></li>
+<li><p><code>[-n Num_Threads]</code> 并行计算的线程数量。此参数仅在并行计算打开时可用。</p></li>
+</ul>
+<p>当<code>shud</code> 程序正常运行时，屏幕输出应该如下图所示：
+<img src="Fig/CLI_vs.png" alt="Screen print of SHUD running." /></p>
+</div>
+</div>
+<div id="rshud" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> rSHUD<a href="install.html#rshud" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>rSHUD是一个标准R包，但尚未向CRAN提交，因此需要通过github以源码方式安装。在R环境中执行以下命令即可自动安装rSHUD。</p>
+<p>如果您的电脑上尚未在R环境中安装<code>devtools</code>，请先安装。</p>
+<pre><code>install.packages(&#39;devtools&#39;)</code></pre>
+<p>然后通过<code>devtools</code>从github上安装rSHUD。</p>
+<pre><code>devtools::install_github(&#39;SHUD-System/rSHUD&#39;)</code></pre>
+<p>rSHUD依赖的R工具包包括：</p>
+<ul>
+<li>Rcpp</li>
+<li>reshape2</li>
+<li>ggplot2</li>
+<li>gridExtra</li>
+<li>grid</li>
+<li>fields</li>
+<li>xts</li>
+<li>hydroGOF</li>
+<li>zoo</li>
+<li>raster (&gt;= 2.1.0)</li>
+<li>sp</li>
+<li>rgeos</li>
+<li>RTriangle</li>
+<li>rgdal (&gt;= 1.1.0)</li>
+<li>proj4</li>
+<li>abind</li>
+<li>utils</li>
+<li>lubridate</li>
+<li>geometry</li>
+<li>methods</li>
+<li>ncdf4</li>
+<li>GGally</li>
+<li>doParallel</li>
+</ul>
+<p>除以上安装包以外，需要用户自行安装github上的<code>RTriangle</code>包；建议在安装完其他包之后，最后安装`RTriangle。</p>
+<pre><code>devtools::install_github(&#39;shulele/RTriangle/pkg&#39;) </code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="theory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inputfiles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["SHUD_Book_CN.pdf", "SHUD_Book_CN.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
