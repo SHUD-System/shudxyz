@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 有限差分法 | 数值地球</title>
   <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 有限差分法 | 数值地球" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="舒乐乐，孟宪红" />
 
 
-<meta name="date" content="2023-11-21" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -141,8 +145,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.1" data-path="modeling.html"><a href="modeling.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
 <ul>
-<li class="chapter" data-level="" data-path="modeling.html"><a href="modeling.html#案例自由落体运动"><i class="fa fa-check"></i>案例：自由落体运动</a></li>
+<li class="chapter" data-level="" data-path="modeling.html"><a href="modeling.html#落体运动"><i class="fa fa-check"></i>落体运动</a></li>
+<li class="chapter" data-level="1.1.1" data-path="modeling.html"><a href="modeling.html#落体运动的数值求解方法"><i class="fa fa-check"></i><b>1.1.1</b> 落体运动的数值求解方法</a></li>
 </ul></li>
+<li class="chapter" data-level="1.2" data-path="modeling.html"><a href="modeling.html#解析解与数值解"><i class="fa fa-check"></i><b>1.2</b> 解析解与数值解</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="nm.html"><a href="nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
 <ul>
@@ -377,7 +383,7 @@ u^{&#39;&#39;}_{i} &amp;\approx \frac {1}{ \Delta x } \left( \frac{u_{i+1} - u_{
 <div id="构建数值方法" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> 构建数值方法<a href="fdm.html#构建数值方法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="example">
-<p><span id="exm:unnamed-chunk-5" class="example"><strong>Example 3.1  </strong></span>一根100<span class="math inline">\(cm\)</span>长的铁棍，初始温度25 <span class="math inline">\(^\circ C\)</span>，在其左右两边分别持续施加100<span class="math inline">\(^\circ C\)</span>和<span class="math inline">\(50 ^\circ C\)</span>的温度。
+<p><span id="exm:unnamed-chunk-6" class="example"><strong>Example 3.1  </strong></span>一根100<span class="math inline">\(cm\)</span>长的铁棍，初始温度25 <span class="math inline">\(^\circ C\)</span>，在其左右两边分别持续施加100<span class="math inline">\(^\circ C\)</span>和<span class="math inline">\(50 ^\circ C\)</span>的温度。
 <strong>求解</strong>：任意时刻铁棍的温度分布。</p>
 </div>
 <p>参考信息：</p>
@@ -725,119 +731,6 @@ x = [A]^{-1} * b
 <div id="编程求解" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> 编程求解<a href="fdm.html#编程求解" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>显式求解法</strong></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="fdm.html#cb8-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Heat Transfer</span></span>
-<span id="cb8-2"><a href="fdm.html#cb8-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = k/r/c * (dd u / d x^2)</span></span>
-<span id="cb8-3"><a href="fdm.html#cb8-3" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Thermal_diffusivity</span></span>
-<span id="cb8-4"><a href="fdm.html#cb8-4" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Heat_equation</span></span>
-<span id="cb8-5"><a href="fdm.html#cb8-5" tabindex="-1"></a><span class="co">#&#39; BC U0 = 100, UL=50</span></span>
-<span id="cb8-6"><a href="fdm.html#cb8-6" tabindex="-1"></a><span class="co">#&#39; IC uic = 25 </span></span>
-<span id="cb8-7"><a href="fdm.html#cb8-7" tabindex="-1"></a><span class="co">#&#39;  X = c(0, 1)</span></span>
-<span id="cb8-8"><a href="fdm.html#cb8-8" tabindex="-1"></a><span class="co">#&#39;  D = 23 mm2/s = 2.3e-5 m^2/s</span></span>
-<span id="cb8-9"><a href="fdm.html#cb8-9" tabindex="-1"></a><span class="co">#&#39;  DX = 0.01 m</span></span>
-<span id="cb8-10"><a href="fdm.html#cb8-10" tabindex="-1"></a><span class="co">#&#39;  DT = 10 s</span></span>
-<span id="cb8-11"><a href="fdm.html#cb8-11" tabindex="-1"></a><span class="co">#&#39;  Time = 0 to 1e6 s</span></span>
-<span id="cb8-12"><a href="fdm.html#cb8-12" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="fdm.html#cb8-13" tabindex="-1"></a>HT.explicit <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb8-14"><a href="fdm.html#cb8-14" tabindex="-1"></a>  <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>,</span>
-<span id="cb8-15"><a href="fdm.html#cb8-15" tabindex="-1"></a>  <span class="at">X =</span> <span class="dv">1</span>,</span>
-<span id="cb8-16"><a href="fdm.html#cb8-16" tabindex="-1"></a>  <span class="at">DX=</span> <span class="fl">0.1</span>,</span>
-<span id="cb8-17"><a href="fdm.html#cb8-17" tabindex="-1"></a>  <span class="at">DT =</span> <span class="dv">1</span>,</span>
-<span id="cb8-18"><a href="fdm.html#cb8-18" tabindex="-1"></a>  <span class="at">DD =</span> <span class="fl">2.3e-5</span>,</span>
-<span id="cb8-19"><a href="fdm.html#cb8-19" tabindex="-1"></a>  <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
-<span id="cb8-20"><a href="fdm.html#cb8-20" tabindex="-1"></a>  <span class="at">epsilon =</span> <span class="fl">1e-4</span>, <span class="at">bc2 =</span> <span class="cn">NULL</span>,  <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span></span>
-<span id="cb8-21"><a href="fdm.html#cb8-21" tabindex="-1"></a>){</span>
-<span id="cb8-22"><a href="fdm.html#cb8-22" tabindex="-1"></a>  T0 <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb8-23"><a href="fdm.html#cb8-23" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(T0, Tmax, DT)</span>
-<span id="cb8-24"><a href="fdm.html#cb8-24" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
-<span id="cb8-25"><a href="fdm.html#cb8-25" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, X, DX)</span>
-<span id="cb8-26"><a href="fdm.html#cb8-26" tabindex="-1"></a>  NX <span class="ot">=</span> X <span class="sc">/</span> DX <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb8-27"><a href="fdm.html#cb8-27" tabindex="-1"></a>  </span>
-<span id="cb8-28"><a href="fdm.html#cb8-28" tabindex="-1"></a>  alpha <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
-<span id="cb8-29"><a href="fdm.html#cb8-29" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="dv">1-2</span><span class="sc">*</span>alpha</span>
-<span id="cb8-30"><a href="fdm.html#cb8-30" tabindex="-1"></a>  CFL <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
-<span id="cb8-31"><a href="fdm.html#cb8-31" tabindex="-1"></a>  <span class="fu">print</span>(CFL)  </span>
-<span id="cb8-32"><a href="fdm.html#cb8-32" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
-<span id="cb8-33"><a href="fdm.html#cb8-33" tabindex="-1"></a>    <span class="cf">if</span>(CFL <span class="sc">&gt;=</span><span class="dv">1</span> ){</span>
-<span id="cb8-34"><a href="fdm.html#cb8-34" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
-<span id="cb8-35"><a href="fdm.html#cb8-35" tabindex="-1"></a>    }</span>
-<span id="cb8-36"><a href="fdm.html#cb8-36" tabindex="-1"></a>  }</span>
-<span id="cb8-37"><a href="fdm.html#cb8-37" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
-<span id="cb8-38"><a href="fdm.html#cb8-38" tabindex="-1"></a>  x0 <span class="ot">=</span> <span class="fu">rep</span>(uic, NX)</span>
-<span id="cb8-39"><a href="fdm.html#cb8-39" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
-<span id="cb8-40"><a href="fdm.html#cb8-40" tabindex="-1"></a>  ylim <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">min</span>(x0), <span class="fu">max</span>(U0, UL))</span>
-<span id="cb8-41"><a href="fdm.html#cb8-41" tabindex="-1"></a>  xlim<span class="ot">=</span><span class="fu">c</span>(<span class="dv">0</span>, X)</span>
-<span id="cb8-42"><a href="fdm.html#cb8-42" tabindex="-1"></a>  <span class="cf">if</span>(plot){</span>
-<span id="cb8-43"><a href="fdm.html#cb8-43" tabindex="-1"></a>    <span class="fu">plot</span>(xx, x0, <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">col=</span><span class="dv">2</span>,  <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">ylim=</span>ylim, <span class="at">xlim=</span>xlim, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab)</span>
-<span id="cb8-44"><a href="fdm.html#cb8-44" tabindex="-1"></a>    <span class="fu">grid</span>()</span>
-<span id="cb8-45"><a href="fdm.html#cb8-45" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">0</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), U0), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
-<span id="cb8-46"><a href="fdm.html#cb8-46" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> X, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), UL), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
-<span id="cb8-47"><a href="fdm.html#cb8-47" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X<span class="sc">/</span><span class="dv">2</span> , <span class="at">y =</span> uic <span class="sc">+</span> <span class="fu">diff</span>(ylim)<span class="sc">*</span>.<span class="dv">051</span>, <span class="st">&#39;Initial condition&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb8-48"><a href="fdm.html#cb8-48" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.05</span> , <span class="at">y =</span> U0, <span class="st">&#39;BC 1&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb8-49"><a href="fdm.html#cb8-49" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.95</span> , <span class="at">y =</span> UL, <span class="st">&#39;BC 2&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb8-50"><a href="fdm.html#cb8-50" tabindex="-1"></a>  }</span>
-<span id="cb8-51"><a href="fdm.html#cb8-51" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
-<span id="cb8-52"><a href="fdm.html#cb8-52" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> NX, <span class="at">ncol =</span> NX)</span>
-<span id="cb8-53"><a href="fdm.html#cb8-53" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
-<span id="cb8-54"><a href="fdm.html#cb8-54" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
-<span id="cb8-55"><a href="fdm.html#cb8-55" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">==</span>j){</span>
-<span id="cb8-56"><a href="fdm.html#cb8-56" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> beta</span>
-<span id="cb8-57"><a href="fdm.html#cb8-57" tabindex="-1"></a>      }</span>
-<span id="cb8-58"><a href="fdm.html#cb8-58" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> j <span class="sc">|</span> i<span class="dv">-1</span> <span class="sc">==</span> j ){</span>
-<span id="cb8-59"><a href="fdm.html#cb8-59" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> alpha</span>
-<span id="cb8-60"><a href="fdm.html#cb8-60" tabindex="-1"></a>      }</span>
-<span id="cb8-61"><a href="fdm.html#cb8-61" tabindex="-1"></a>    }</span>
-<span id="cb8-62"><a href="fdm.html#cb8-62" tabindex="-1"></a>  }</span>
-<span id="cb8-63"><a href="fdm.html#cb8-63" tabindex="-1"></a>  mat[<span class="dv">1</span>,]<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>))</span>
-<span id="cb8-64"><a href="fdm.html#cb8-64" tabindex="-1"></a>  mat[NX,]<span class="ot">=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>), <span class="dv">1</span>)</span>
-<span id="cb8-65"><a href="fdm.html#cb8-65" tabindex="-1"></a>  </span>
-<span id="cb8-66"><a href="fdm.html#cb8-66" tabindex="-1"></a>  xm <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow=</span>NX, <span class="at">ncol=</span>NT)</span>
-<span id="cb8-67"><a href="fdm.html#cb8-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX))</span>
-<span id="cb8-68"><a href="fdm.html#cb8-68" tabindex="-1"></a>  <span class="co"># vs[NX/2] = ss</span></span>
-<span id="cb8-69"><a href="fdm.html#cb8-69" tabindex="-1"></a>  </span>
-<span id="cb8-70"><a href="fdm.html#cb8-70" tabindex="-1"></a>  b<span class="ot">=</span>bx <span class="ot">=</span> <span class="fu">cbind</span>(x0)</span>
-<span id="cb8-71"><a href="fdm.html#cb8-71" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
-<span id="cb8-72"><a href="fdm.html#cb8-72" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
-<span id="cb8-73"><a href="fdm.html#cb8-73" tabindex="-1"></a>      bx <span class="ot">=</span> mat <span class="sc">%*%</span> b <span class="sc">+</span> vs <span class="sc">*</span> DT</span>
-<span id="cb8-74"><a href="fdm.html#cb8-74" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
-<span id="cb8-75"><a href="fdm.html#cb8-75" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
-<span id="cb8-76"><a href="fdm.html#cb8-76" tabindex="-1"></a>    }</span>
-<span id="cb8-77"><a href="fdm.html#cb8-77" tabindex="-1"></a>    bx[<span class="dv">1</span>] <span class="ot">=</span> U0</span>
-<span id="cb8-78"><a href="fdm.html#cb8-78" tabindex="-1"></a>    bx[NX] <span class="ot">=</span> UL</span>
-<span id="cb8-79"><a href="fdm.html#cb8-79" tabindex="-1"></a>    xm[, i]<span class="ot">=</span>bx</span>
-<span id="cb8-80"><a href="fdm.html#cb8-80" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
-<span id="cb8-81"><a href="fdm.html#cb8-81" tabindex="-1"></a>  }</span>
-<span id="cb8-82"><a href="fdm.html#cb8-82" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
-<span id="cb8-83"><a href="fdm.html#cb8-83" tabindex="-1"></a>  xm<span class="ot">=</span>xm[, <span class="dv">1</span><span class="sc">:</span>NT]</span>
-<span id="cb8-84"><a href="fdm.html#cb8-84" tabindex="-1"></a>  <span class="co"># message(&#39;CFL value = &#39;, CFL)  </span></span>
-<span id="cb8-85"><a href="fdm.html#cb8-85" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
-<span id="cb8-86"><a href="fdm.html#cb8-86" tabindex="-1"></a>  yy <span class="ot">=</span> xm; yy[<span class="fu">abs</span>(yy)<span class="sc">&gt;</span><span class="fl">1e20</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
-<span id="cb8-87"><a href="fdm.html#cb8-87" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx, </span>
-<span id="cb8-88"><a href="fdm.html#cb8-88" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
-<span id="cb8-89"><a href="fdm.html#cb8-89" tabindex="-1"></a>             <span class="st">&#39;u&#39;</span> <span class="ot">=</span> xm,</span>
-<span id="cb8-90"><a href="fdm.html#cb8-90" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> CFL,</span>
-<span id="cb8-91"><a href="fdm.html#cb8-91" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
-<span id="cb8-92"><a href="fdm.html#cb8-92" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT,</span>
-<span id="cb8-93"><a href="fdm.html#cb8-93" tabindex="-1"></a>             <span class="st">&#39;xlim&#39;</span> <span class="ot">=</span> xlim,</span>
-<span id="cb8-94"><a href="fdm.html#cb8-94" tabindex="-1"></a>             <span class="st">&#39;ylim&#39;</span> <span class="ot">=</span> ylim)</span>
-<span id="cb8-95"><a href="fdm.html#cb8-95" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
-<span id="cb8-96"><a href="fdm.html#cb8-96" tabindex="-1"></a>}</span>
-<span id="cb8-97"><a href="fdm.html#cb8-97" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nout =</span> <span class="dv">20</span>){</span>
-<span id="cb8-98"><a href="fdm.html#cb8-98" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
-<span id="cb8-99"><a href="fdm.html#cb8-99" tabindex="-1"></a>  id<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nout)</span>
-<span id="cb8-100"><a href="fdm.html#cb8-100" tabindex="-1"></a>  col<span class="ot">=</span>colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span><span class="fu">length</span>(id)); lty<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb8-101"><a href="fdm.html#cb8-101" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>u[, id], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">ylim=</span>x<span class="sc">$</span>ylim, <span class="at">xlim=</span>x<span class="sc">$</span>xlim, </span>
-<span id="cb8-102"><a href="fdm.html#cb8-102" tabindex="-1"></a>          <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty)</span>
-<span id="cb8-103"><a href="fdm.html#cb8-103" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">paste0</span>(<span class="st">&#39;T=&#39;</span>, x<span class="sc">$</span>time[id]<span class="sc">+</span><span class="dv">1</span>), <span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="at">bg=</span><span class="st">&#39;transparent&#39;</span>)</span>
-<span id="cb8-104"><a href="fdm.html#cb8-104" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> <span class="fu">paste</span>(<span class="st">&#39;CFL =&#39;</span>, x<span class="sc">$</span>CFL ), <span class="at">side=</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
-<span id="cb8-105"><a href="fdm.html#cb8-105" tabindex="-1"></a>}</span>
-<span id="cb8-106"><a href="fdm.html#cb8-106" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb8-107"><a href="fdm.html#cb8-107" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
-<span id="cb8-108"><a href="fdm.html#cb8-108" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>); nid<span class="ot">=</span><span class="fu">length</span>(id)</span>
-<span id="cb8-109"><a href="fdm.html#cb8-109" tabindex="-1"></a>  lty<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span>nid; col<span class="ot">=</span>lty</span>
-<span id="cb8-110"><a href="fdm.html#cb8-110" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="fu">t</span>(x<span class="sc">$</span>u[id, ]), <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty); <span class="fu">grid</span>()</span>
-<span id="cb8-111"><a href="fdm.html#cb8-111" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;bottomright&#39;</span>,<span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="fu">paste</span>(<span class="st">&#39;Node&#39;</span>, id))</span>
-<span id="cb8-112"><a href="fdm.html#cb8-112" tabindex="-1"></a>}</span></code></pre></div>
-<p><strong>隐式求解法</strong></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="fdm.html#cb9-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Heat Transfer</span></span>
 <span id="cb9-2"><a href="fdm.html#cb9-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = k/r/c * (dd u / d x^2)</span></span>
 <span id="cb9-3"><a href="fdm.html#cb9-3" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Thermal_diffusivity</span></span>
@@ -850,7 +743,7 @@ x = [A]^{-1} * b
 <span id="cb9-10"><a href="fdm.html#cb9-10" tabindex="-1"></a><span class="co">#&#39;  DT = 10 s</span></span>
 <span id="cb9-11"><a href="fdm.html#cb9-11" tabindex="-1"></a><span class="co">#&#39;  Time = 0 to 1e6 s</span></span>
 <span id="cb9-12"><a href="fdm.html#cb9-12" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="fdm.html#cb9-13" tabindex="-1"></a>HT.implicit <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb9-13"><a href="fdm.html#cb9-13" tabindex="-1"></a>HT.explicit <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
 <span id="cb9-14"><a href="fdm.html#cb9-14" tabindex="-1"></a>  <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>,</span>
 <span id="cb9-15"><a href="fdm.html#cb9-15" tabindex="-1"></a>  <span class="at">X =</span> <span class="dv">1</span>,</span>
 <span id="cb9-16"><a href="fdm.html#cb9-16" tabindex="-1"></a>  <span class="at">DX=</span> <span class="fl">0.1</span>,</span>
@@ -865,8 +758,8 @@ x = [A]^{-1} * b
 <span id="cb9-25"><a href="fdm.html#cb9-25" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, X, DX)</span>
 <span id="cb9-26"><a href="fdm.html#cb9-26" tabindex="-1"></a>  NX <span class="ot">=</span> X <span class="sc">/</span> DX <span class="sc">+</span> <span class="dv">1</span></span>
 <span id="cb9-27"><a href="fdm.html#cb9-27" tabindex="-1"></a>  </span>
-<span id="cb9-28"><a href="fdm.html#cb9-28" tabindex="-1"></a>  alpha <span class="ot">=</span> <span class="sc">-</span>DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
-<span id="cb9-29"><a href="fdm.html#cb9-29" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb9-28"><a href="fdm.html#cb9-28" tabindex="-1"></a>  alpha <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb9-29"><a href="fdm.html#cb9-29" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="dv">1-2</span><span class="sc">*</span>alpha</span>
 <span id="cb9-30"><a href="fdm.html#cb9-30" tabindex="-1"></a>  CFL <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
 <span id="cb9-31"><a href="fdm.html#cb9-31" tabindex="-1"></a>  <span class="fu">print</span>(CFL)  </span>
 <span id="cb9-32"><a href="fdm.html#cb9-32" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
@@ -906,91 +799,204 @@ x = [A]^{-1} * b
 <span id="cb9-66"><a href="fdm.html#cb9-66" tabindex="-1"></a>  xm <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow=</span>NX, <span class="at">ncol=</span>NT)</span>
 <span id="cb9-67"><a href="fdm.html#cb9-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX))</span>
 <span id="cb9-68"><a href="fdm.html#cb9-68" tabindex="-1"></a>  <span class="co"># vs[NX/2] = ss</span></span>
-<span id="cb9-69"><a href="fdm.html#cb9-69" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(x0)</span>
-<span id="cb9-70"><a href="fdm.html#cb9-70" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
-<span id="cb9-71"><a href="fdm.html#cb9-71" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
-<span id="cb9-72"><a href="fdm.html#cb9-72" tabindex="-1"></a>      bx <span class="ot">=</span> <span class="fu">solve</span>(mat, b)</span>
-<span id="cb9-73"><a href="fdm.html#cb9-73" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
-<span id="cb9-74"><a href="fdm.html#cb9-74" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
-<span id="cb9-75"><a href="fdm.html#cb9-75" tabindex="-1"></a>    }</span>
-<span id="cb9-76"><a href="fdm.html#cb9-76" tabindex="-1"></a>    bx[<span class="dv">1</span>] <span class="ot">=</span> U0</span>
-<span id="cb9-77"><a href="fdm.html#cb9-77" tabindex="-1"></a>    bx[NX] <span class="ot">=</span> UL</span>
-<span id="cb9-78"><a href="fdm.html#cb9-78" tabindex="-1"></a>    xm[, i]<span class="ot">=</span>bx</span>
-<span id="cb9-79"><a href="fdm.html#cb9-79" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
-<span id="cb9-80"><a href="fdm.html#cb9-80" tabindex="-1"></a>  }</span>
-<span id="cb9-81"><a href="fdm.html#cb9-81" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
-<span id="cb9-82"><a href="fdm.html#cb9-82" tabindex="-1"></a>  xm<span class="ot">=</span>xm[, <span class="dv">1</span><span class="sc">:</span>NT]</span>
-<span id="cb9-83"><a href="fdm.html#cb9-83" tabindex="-1"></a>  <span class="co"># message(&#39;CFL value = &#39;, CFL)  </span></span>
-<span id="cb9-84"><a href="fdm.html#cb9-84" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
-<span id="cb9-85"><a href="fdm.html#cb9-85" tabindex="-1"></a>  yy <span class="ot">=</span> xm; yy[<span class="fu">abs</span>(yy)<span class="sc">&gt;</span><span class="fl">1e20</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
-<span id="cb9-86"><a href="fdm.html#cb9-86" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx, </span>
-<span id="cb9-87"><a href="fdm.html#cb9-87" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
-<span id="cb9-88"><a href="fdm.html#cb9-88" tabindex="-1"></a>             <span class="st">&#39;u&#39;</span> <span class="ot">=</span> xm,</span>
-<span id="cb9-89"><a href="fdm.html#cb9-89" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> CFL,</span>
-<span id="cb9-90"><a href="fdm.html#cb9-90" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
-<span id="cb9-91"><a href="fdm.html#cb9-91" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT,</span>
-<span id="cb9-92"><a href="fdm.html#cb9-92" tabindex="-1"></a>             <span class="st">&#39;xlim&#39;</span> <span class="ot">=</span> xlim,</span>
-<span id="cb9-93"><a href="fdm.html#cb9-93" tabindex="-1"></a>             <span class="st">&#39;ylim&#39;</span> <span class="ot">=</span> ylim)</span>
-<span id="cb9-94"><a href="fdm.html#cb9-94" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
-<span id="cb9-95"><a href="fdm.html#cb9-95" tabindex="-1"></a>}</span>
-<span id="cb9-96"><a href="fdm.html#cb9-96" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nout =</span> <span class="dv">20</span>){</span>
-<span id="cb9-97"><a href="fdm.html#cb9-97" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
-<span id="cb9-98"><a href="fdm.html#cb9-98" tabindex="-1"></a>  id<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nout)</span>
-<span id="cb9-99"><a href="fdm.html#cb9-99" tabindex="-1"></a>  col<span class="ot">=</span>colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span><span class="fu">length</span>(id)); lty<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb9-100"><a href="fdm.html#cb9-100" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>u[, id], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">ylim=</span>x<span class="sc">$</span>ylim, <span class="at">xlim=</span>x<span class="sc">$</span>xlim, </span>
-<span id="cb9-101"><a href="fdm.html#cb9-101" tabindex="-1"></a>          <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty)</span>
-<span id="cb9-102"><a href="fdm.html#cb9-102" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">paste0</span>(<span class="st">&#39;T=&#39;</span>, x<span class="sc">$</span>time[id]<span class="sc">+</span><span class="dv">1</span>), <span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="at">bg=</span><span class="st">&#39;transparent&#39;</span>)</span>
-<span id="cb9-103"><a href="fdm.html#cb9-103" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> <span class="fu">paste</span>(<span class="st">&#39;CFL =&#39;</span>, x<span class="sc">$</span>CFL ), <span class="at">side=</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
-<span id="cb9-104"><a href="fdm.html#cb9-104" tabindex="-1"></a>}</span>
-<span id="cb9-105"><a href="fdm.html#cb9-105" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb9-106"><a href="fdm.html#cb9-106" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
-<span id="cb9-107"><a href="fdm.html#cb9-107" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>); nid<span class="ot">=</span><span class="fu">length</span>(id)</span>
-<span id="cb9-108"><a href="fdm.html#cb9-108" tabindex="-1"></a>  lty<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span>nid; col<span class="ot">=</span>lty</span>
-<span id="cb9-109"><a href="fdm.html#cb9-109" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="fu">t</span>(x<span class="sc">$</span>u[id, ]), <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty); <span class="fu">grid</span>()</span>
-<span id="cb9-110"><a href="fdm.html#cb9-110" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;bottomright&#39;</span>,<span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="fu">paste</span>(<span class="st">&#39;Node&#39;</span>, id))</span>
-<span id="cb9-111"><a href="fdm.html#cb9-111" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb9-69"><a href="fdm.html#cb9-69" tabindex="-1"></a>  </span>
+<span id="cb9-70"><a href="fdm.html#cb9-70" tabindex="-1"></a>  b<span class="ot">=</span>bx <span class="ot">=</span> <span class="fu">cbind</span>(x0)</span>
+<span id="cb9-71"><a href="fdm.html#cb9-71" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb9-72"><a href="fdm.html#cb9-72" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb9-73"><a href="fdm.html#cb9-73" tabindex="-1"></a>      bx <span class="ot">=</span> mat <span class="sc">%*%</span> b <span class="sc">+</span> vs <span class="sc">*</span> DT</span>
+<span id="cb9-74"><a href="fdm.html#cb9-74" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb9-75"><a href="fdm.html#cb9-75" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb9-76"><a href="fdm.html#cb9-76" tabindex="-1"></a>    }</span>
+<span id="cb9-77"><a href="fdm.html#cb9-77" tabindex="-1"></a>    bx[<span class="dv">1</span>] <span class="ot">=</span> U0</span>
+<span id="cb9-78"><a href="fdm.html#cb9-78" tabindex="-1"></a>    bx[NX] <span class="ot">=</span> UL</span>
+<span id="cb9-79"><a href="fdm.html#cb9-79" tabindex="-1"></a>    xm[, i]<span class="ot">=</span>bx</span>
+<span id="cb9-80"><a href="fdm.html#cb9-80" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb9-81"><a href="fdm.html#cb9-81" tabindex="-1"></a>  }</span>
+<span id="cb9-82"><a href="fdm.html#cb9-82" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb9-83"><a href="fdm.html#cb9-83" tabindex="-1"></a>  xm<span class="ot">=</span>xm[, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb9-84"><a href="fdm.html#cb9-84" tabindex="-1"></a>  <span class="co"># message(&#39;CFL value = &#39;, CFL)  </span></span>
+<span id="cb9-85"><a href="fdm.html#cb9-85" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb9-86"><a href="fdm.html#cb9-86" tabindex="-1"></a>  yy <span class="ot">=</span> xm; yy[<span class="fu">abs</span>(yy)<span class="sc">&gt;</span><span class="fl">1e20</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb9-87"><a href="fdm.html#cb9-87" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx, </span>
+<span id="cb9-88"><a href="fdm.html#cb9-88" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb9-89"><a href="fdm.html#cb9-89" tabindex="-1"></a>             <span class="st">&#39;u&#39;</span> <span class="ot">=</span> xm,</span>
+<span id="cb9-90"><a href="fdm.html#cb9-90" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> CFL,</span>
+<span id="cb9-91"><a href="fdm.html#cb9-91" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb9-92"><a href="fdm.html#cb9-92" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT,</span>
+<span id="cb9-93"><a href="fdm.html#cb9-93" tabindex="-1"></a>             <span class="st">&#39;xlim&#39;</span> <span class="ot">=</span> xlim,</span>
+<span id="cb9-94"><a href="fdm.html#cb9-94" tabindex="-1"></a>             <span class="st">&#39;ylim&#39;</span> <span class="ot">=</span> ylim)</span>
+<span id="cb9-95"><a href="fdm.html#cb9-95" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb9-96"><a href="fdm.html#cb9-96" tabindex="-1"></a>}</span>
+<span id="cb9-97"><a href="fdm.html#cb9-97" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nout =</span> <span class="dv">20</span>){</span>
+<span id="cb9-98"><a href="fdm.html#cb9-98" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb9-99"><a href="fdm.html#cb9-99" tabindex="-1"></a>  id<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nout)</span>
+<span id="cb9-100"><a href="fdm.html#cb9-100" tabindex="-1"></a>  col<span class="ot">=</span>colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span><span class="fu">length</span>(id)); lty<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb9-101"><a href="fdm.html#cb9-101" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>u[, id], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">ylim=</span>x<span class="sc">$</span>ylim, <span class="at">xlim=</span>x<span class="sc">$</span>xlim, </span>
+<span id="cb9-102"><a href="fdm.html#cb9-102" tabindex="-1"></a>          <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty)</span>
+<span id="cb9-103"><a href="fdm.html#cb9-103" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">paste0</span>(<span class="st">&#39;T=&#39;</span>, x<span class="sc">$</span>time[id]<span class="sc">+</span><span class="dv">1</span>), <span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="at">bg=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb9-104"><a href="fdm.html#cb9-104" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> <span class="fu">paste</span>(<span class="st">&#39;CFL =&#39;</span>, x<span class="sc">$</span>CFL ), <span class="at">side=</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb9-105"><a href="fdm.html#cb9-105" tabindex="-1"></a>}</span>
+<span id="cb9-106"><a href="fdm.html#cb9-106" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb9-107"><a href="fdm.html#cb9-107" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb9-108"><a href="fdm.html#cb9-108" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>); nid<span class="ot">=</span><span class="fu">length</span>(id)</span>
+<span id="cb9-109"><a href="fdm.html#cb9-109" tabindex="-1"></a>  lty<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span>nid; col<span class="ot">=</span>lty</span>
+<span id="cb9-110"><a href="fdm.html#cb9-110" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="fu">t</span>(x<span class="sc">$</span>u[id, ]), <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty); <span class="fu">grid</span>()</span>
+<span id="cb9-111"><a href="fdm.html#cb9-111" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;bottomright&#39;</span>,<span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="fu">paste</span>(<span class="st">&#39;Node&#39;</span>, id))</span>
+<span id="cb9-112"><a href="fdm.html#cb9-112" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>隐式求解法</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="fdm.html#cb10-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Heat Transfer</span></span>
+<span id="cb10-2"><a href="fdm.html#cb10-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = k/r/c * (dd u / d x^2)</span></span>
+<span id="cb10-3"><a href="fdm.html#cb10-3" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Thermal_diffusivity</span></span>
+<span id="cb10-4"><a href="fdm.html#cb10-4" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Heat_equation</span></span>
+<span id="cb10-5"><a href="fdm.html#cb10-5" tabindex="-1"></a><span class="co">#&#39; BC U0 = 100, UL=50</span></span>
+<span id="cb10-6"><a href="fdm.html#cb10-6" tabindex="-1"></a><span class="co">#&#39; IC uic = 25 </span></span>
+<span id="cb10-7"><a href="fdm.html#cb10-7" tabindex="-1"></a><span class="co">#&#39;  X = c(0, 1)</span></span>
+<span id="cb10-8"><a href="fdm.html#cb10-8" tabindex="-1"></a><span class="co">#&#39;  D = 23 mm2/s = 2.3e-5 m^2/s</span></span>
+<span id="cb10-9"><a href="fdm.html#cb10-9" tabindex="-1"></a><span class="co">#&#39;  DX = 0.01 m</span></span>
+<span id="cb10-10"><a href="fdm.html#cb10-10" tabindex="-1"></a><span class="co">#&#39;  DT = 10 s</span></span>
+<span id="cb10-11"><a href="fdm.html#cb10-11" tabindex="-1"></a><span class="co">#&#39;  Time = 0 to 1e6 s</span></span>
+<span id="cb10-12"><a href="fdm.html#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="fdm.html#cb10-13" tabindex="-1"></a>HT.implicit <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb10-14"><a href="fdm.html#cb10-14" tabindex="-1"></a>  <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb10-15"><a href="fdm.html#cb10-15" tabindex="-1"></a>  <span class="at">X =</span> <span class="dv">1</span>,</span>
+<span id="cb10-16"><a href="fdm.html#cb10-16" tabindex="-1"></a>  <span class="at">DX=</span> <span class="fl">0.1</span>,</span>
+<span id="cb10-17"><a href="fdm.html#cb10-17" tabindex="-1"></a>  <span class="at">DT =</span> <span class="dv">1</span>,</span>
+<span id="cb10-18"><a href="fdm.html#cb10-18" tabindex="-1"></a>  <span class="at">DD =</span> <span class="fl">2.3e-5</span>,</span>
+<span id="cb10-19"><a href="fdm.html#cb10-19" tabindex="-1"></a>  <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
+<span id="cb10-20"><a href="fdm.html#cb10-20" tabindex="-1"></a>  <span class="at">epsilon =</span> <span class="fl">1e-4</span>, <span class="at">bc2 =</span> <span class="cn">NULL</span>,  <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-21"><a href="fdm.html#cb10-21" tabindex="-1"></a>){</span>
+<span id="cb10-22"><a href="fdm.html#cb10-22" tabindex="-1"></a>  T0 <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb10-23"><a href="fdm.html#cb10-23" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(T0, Tmax, DT)</span>
+<span id="cb10-24"><a href="fdm.html#cb10-24" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
+<span id="cb10-25"><a href="fdm.html#cb10-25" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, X, DX)</span>
+<span id="cb10-26"><a href="fdm.html#cb10-26" tabindex="-1"></a>  NX <span class="ot">=</span> X <span class="sc">/</span> DX <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb10-27"><a href="fdm.html#cb10-27" tabindex="-1"></a>  </span>
+<span id="cb10-28"><a href="fdm.html#cb10-28" tabindex="-1"></a>  alpha <span class="ot">=</span> <span class="sc">-</span>DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb10-29"><a href="fdm.html#cb10-29" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb10-30"><a href="fdm.html#cb10-30" tabindex="-1"></a>  CFL <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb10-31"><a href="fdm.html#cb10-31" tabindex="-1"></a>  <span class="fu">print</span>(CFL)  </span>
+<span id="cb10-32"><a href="fdm.html#cb10-32" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
+<span id="cb10-33"><a href="fdm.html#cb10-33" tabindex="-1"></a>    <span class="cf">if</span>(CFL <span class="sc">&gt;=</span><span class="dv">1</span> ){</span>
+<span id="cb10-34"><a href="fdm.html#cb10-34" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
+<span id="cb10-35"><a href="fdm.html#cb10-35" tabindex="-1"></a>    }</span>
+<span id="cb10-36"><a href="fdm.html#cb10-36" tabindex="-1"></a>  }</span>
+<span id="cb10-37"><a href="fdm.html#cb10-37" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb10-38"><a href="fdm.html#cb10-38" tabindex="-1"></a>  x0 <span class="ot">=</span> <span class="fu">rep</span>(uic, NX)</span>
+<span id="cb10-39"><a href="fdm.html#cb10-39" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb10-40"><a href="fdm.html#cb10-40" tabindex="-1"></a>  ylim <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">min</span>(x0), <span class="fu">max</span>(U0, UL))</span>
+<span id="cb10-41"><a href="fdm.html#cb10-41" tabindex="-1"></a>  xlim<span class="ot">=</span><span class="fu">c</span>(<span class="dv">0</span>, X)</span>
+<span id="cb10-42"><a href="fdm.html#cb10-42" tabindex="-1"></a>  <span class="cf">if</span>(plot){</span>
+<span id="cb10-43"><a href="fdm.html#cb10-43" tabindex="-1"></a>    <span class="fu">plot</span>(xx, x0, <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">col=</span><span class="dv">2</span>,  <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">ylim=</span>ylim, <span class="at">xlim=</span>xlim, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab)</span>
+<span id="cb10-44"><a href="fdm.html#cb10-44" tabindex="-1"></a>    <span class="fu">grid</span>()</span>
+<span id="cb10-45"><a href="fdm.html#cb10-45" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">0</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), U0), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
+<span id="cb10-46"><a href="fdm.html#cb10-46" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> X, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), UL), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
+<span id="cb10-47"><a href="fdm.html#cb10-47" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X<span class="sc">/</span><span class="dv">2</span> , <span class="at">y =</span> uic <span class="sc">+</span> <span class="fu">diff</span>(ylim)<span class="sc">*</span>.<span class="dv">051</span>, <span class="st">&#39;Initial condition&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb10-48"><a href="fdm.html#cb10-48" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.05</span> , <span class="at">y =</span> U0, <span class="st">&#39;BC 1&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb10-49"><a href="fdm.html#cb10-49" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.95</span> , <span class="at">y =</span> UL, <span class="st">&#39;BC 2&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb10-50"><a href="fdm.html#cb10-50" tabindex="-1"></a>  }</span>
+<span id="cb10-51"><a href="fdm.html#cb10-51" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb10-52"><a href="fdm.html#cb10-52" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> NX, <span class="at">ncol =</span> NX)</span>
+<span id="cb10-53"><a href="fdm.html#cb10-53" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
+<span id="cb10-54"><a href="fdm.html#cb10-54" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
+<span id="cb10-55"><a href="fdm.html#cb10-55" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">==</span>j){</span>
+<span id="cb10-56"><a href="fdm.html#cb10-56" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> beta</span>
+<span id="cb10-57"><a href="fdm.html#cb10-57" tabindex="-1"></a>      }</span>
+<span id="cb10-58"><a href="fdm.html#cb10-58" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> j <span class="sc">|</span> i<span class="dv">-1</span> <span class="sc">==</span> j ){</span>
+<span id="cb10-59"><a href="fdm.html#cb10-59" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> alpha</span>
+<span id="cb10-60"><a href="fdm.html#cb10-60" tabindex="-1"></a>      }</span>
+<span id="cb10-61"><a href="fdm.html#cb10-61" tabindex="-1"></a>    }</span>
+<span id="cb10-62"><a href="fdm.html#cb10-62" tabindex="-1"></a>  }</span>
+<span id="cb10-63"><a href="fdm.html#cb10-63" tabindex="-1"></a>  mat[<span class="dv">1</span>,]<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>))</span>
+<span id="cb10-64"><a href="fdm.html#cb10-64" tabindex="-1"></a>  mat[NX,]<span class="ot">=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>), <span class="dv">1</span>)</span>
+<span id="cb10-65"><a href="fdm.html#cb10-65" tabindex="-1"></a>  </span>
+<span id="cb10-66"><a href="fdm.html#cb10-66" tabindex="-1"></a>  xm <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow=</span>NX, <span class="at">ncol=</span>NT)</span>
+<span id="cb10-67"><a href="fdm.html#cb10-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX))</span>
+<span id="cb10-68"><a href="fdm.html#cb10-68" tabindex="-1"></a>  <span class="co"># vs[NX/2] = ss</span></span>
+<span id="cb10-69"><a href="fdm.html#cb10-69" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(x0)</span>
+<span id="cb10-70"><a href="fdm.html#cb10-70" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb10-71"><a href="fdm.html#cb10-71" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb10-72"><a href="fdm.html#cb10-72" tabindex="-1"></a>      bx <span class="ot">=</span> <span class="fu">solve</span>(mat, b)</span>
+<span id="cb10-73"><a href="fdm.html#cb10-73" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb10-74"><a href="fdm.html#cb10-74" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb10-75"><a href="fdm.html#cb10-75" tabindex="-1"></a>    }</span>
+<span id="cb10-76"><a href="fdm.html#cb10-76" tabindex="-1"></a>    bx[<span class="dv">1</span>] <span class="ot">=</span> U0</span>
+<span id="cb10-77"><a href="fdm.html#cb10-77" tabindex="-1"></a>    bx[NX] <span class="ot">=</span> UL</span>
+<span id="cb10-78"><a href="fdm.html#cb10-78" tabindex="-1"></a>    xm[, i]<span class="ot">=</span>bx</span>
+<span id="cb10-79"><a href="fdm.html#cb10-79" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb10-80"><a href="fdm.html#cb10-80" tabindex="-1"></a>  }</span>
+<span id="cb10-81"><a href="fdm.html#cb10-81" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb10-82"><a href="fdm.html#cb10-82" tabindex="-1"></a>  xm<span class="ot">=</span>xm[, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb10-83"><a href="fdm.html#cb10-83" tabindex="-1"></a>  <span class="co"># message(&#39;CFL value = &#39;, CFL)  </span></span>
+<span id="cb10-84"><a href="fdm.html#cb10-84" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb10-85"><a href="fdm.html#cb10-85" tabindex="-1"></a>  yy <span class="ot">=</span> xm; yy[<span class="fu">abs</span>(yy)<span class="sc">&gt;</span><span class="fl">1e20</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb10-86"><a href="fdm.html#cb10-86" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx, </span>
+<span id="cb10-87"><a href="fdm.html#cb10-87" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb10-88"><a href="fdm.html#cb10-88" tabindex="-1"></a>             <span class="st">&#39;u&#39;</span> <span class="ot">=</span> xm,</span>
+<span id="cb10-89"><a href="fdm.html#cb10-89" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> CFL,</span>
+<span id="cb10-90"><a href="fdm.html#cb10-90" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb10-91"><a href="fdm.html#cb10-91" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT,</span>
+<span id="cb10-92"><a href="fdm.html#cb10-92" tabindex="-1"></a>             <span class="st">&#39;xlim&#39;</span> <span class="ot">=</span> xlim,</span>
+<span id="cb10-93"><a href="fdm.html#cb10-93" tabindex="-1"></a>             <span class="st">&#39;ylim&#39;</span> <span class="ot">=</span> ylim)</span>
+<span id="cb10-94"><a href="fdm.html#cb10-94" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb10-95"><a href="fdm.html#cb10-95" tabindex="-1"></a>}</span>
+<span id="cb10-96"><a href="fdm.html#cb10-96" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nout =</span> <span class="dv">20</span>){</span>
+<span id="cb10-97"><a href="fdm.html#cb10-97" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb10-98"><a href="fdm.html#cb10-98" tabindex="-1"></a>  id<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nout)</span>
+<span id="cb10-99"><a href="fdm.html#cb10-99" tabindex="-1"></a>  col<span class="ot">=</span>colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span><span class="fu">length</span>(id)); lty<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb10-100"><a href="fdm.html#cb10-100" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>u[, id], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">ylim=</span>x<span class="sc">$</span>ylim, <span class="at">xlim=</span>x<span class="sc">$</span>xlim, </span>
+<span id="cb10-101"><a href="fdm.html#cb10-101" tabindex="-1"></a>          <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty)</span>
+<span id="cb10-102"><a href="fdm.html#cb10-102" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">paste0</span>(<span class="st">&#39;T=&#39;</span>, x<span class="sc">$</span>time[id]<span class="sc">+</span><span class="dv">1</span>), <span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="at">bg=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb10-103"><a href="fdm.html#cb10-103" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> <span class="fu">paste</span>(<span class="st">&#39;CFL =&#39;</span>, x<span class="sc">$</span>CFL ), <span class="at">side=</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb10-104"><a href="fdm.html#cb10-104" tabindex="-1"></a>}</span>
+<span id="cb10-105"><a href="fdm.html#cb10-105" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb10-106"><a href="fdm.html#cb10-106" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb10-107"><a href="fdm.html#cb10-107" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>); nid<span class="ot">=</span><span class="fu">length</span>(id)</span>
+<span id="cb10-108"><a href="fdm.html#cb10-108" tabindex="-1"></a>  lty<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span>nid; col<span class="ot">=</span>lty</span>
+<span id="cb10-109"><a href="fdm.html#cb10-109" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="fu">t</span>(x<span class="sc">$</span>u[id, ]), <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty); <span class="fu">grid</span>()</span>
+<span id="cb10-110"><a href="fdm.html#cb10-110" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;bottomright&#39;</span>,<span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="fu">paste</span>(<span class="st">&#39;Node&#39;</span>, id))</span>
+<span id="cb10-111"><a href="fdm.html#cb10-111" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="显式与隐式求解法对比" class="section level2 hasAnchor" number="3.6">
 <h2><span class="header-section-number">3.6</span> 显式与隐式求解法对比<a href="fdm.html#显式与隐式求解法对比" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="cfl条件" class="section level3 hasAnchor" number="3.6.1">
 <h3><span class="header-section-number">3.6.1</span> CFL条件<a href="fdm.html#cfl条件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="fdm.html#cb10-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferIm.R&quot;</span>)</span>
-<span id="cb10-2"><a href="fdm.html#cb10-2" tabindex="-1"></a>xlab <span class="ot">=</span><span class="st">&#39;Distance (m)&#39;</span></span>
-<span id="cb10-3"><a href="fdm.html#cb10-3" tabindex="-1"></a>ylab <span class="ot">=</span> <span class="st">&#39;Temperature (C)&#39;</span></span>
-<span id="cb10-4"><a href="fdm.html#cb10-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">HT.implicit</span>(<span class="at">DX=</span> <span class="fl">0.05</span>, <span class="at">DT =</span> <span class="dv">1000</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">ignore.cfl=</span><span class="cn">TRUE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="fdm.html#cb11-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferIm.R&quot;</span>)</span>
+<span id="cb11-2"><a href="fdm.html#cb11-2" tabindex="-1"></a>xlab <span class="ot">=</span><span class="st">&#39;Distance (m)&#39;</span></span>
+<span id="cb11-3"><a href="fdm.html#cb11-3" tabindex="-1"></a>ylab <span class="ot">=</span> <span class="st">&#39;Temperature (C)&#39;</span></span>
+<span id="cb11-4"><a href="fdm.html#cb11-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">HT.implicit</span>(<span class="at">DX=</span> <span class="fl">0.05</span>, <span class="at">DT =</span> <span class="dv">1000</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">ignore.cfl=</span><span class="cn">TRUE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 9.2</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="fdm.html#cb12-1" tabindex="-1"></a><span class="fu">plot1</span>(x, <span class="at">nout=</span><span class="dv">10</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="fdm.html#cb13-1" tabindex="-1"></a><span class="fu">plot1</span>(x, <span class="at">nout=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="计算效率" class="section level3 hasAnchor" number="3.6.2">
 <h3><span class="header-section-number">3.6.2</span> 计算效率<a href="fdm.html#计算效率" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="fdm.html#cb13-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferIm.R&quot;</span>)</span>
-<span id="cb13-2"><a href="fdm.html#cb13-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferEx.R&quot;</span>)</span>
-<span id="cb13-3"><a href="fdm.html#cb13-3" tabindex="-1"></a>Tmax <span class="ot">=</span> <span class="fl">1e4</span></span>
-<span id="cb13-4"><a href="fdm.html#cb13-4" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="fdm.html#cb13-5" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb13-6"><a href="fdm.html#cb13-6" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">HT.explicit</span>(<span class="at">DX=</span> <span class="fl">0.025</span>, <span class="at">DT =</span> <span class="dv">5</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">X =</span> <span class="dv">1</span>, <span class="at">ignore.cfl=</span><span class="cn">FALSE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>, <span class="at">Tmax=</span>Tmax)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="fdm.html#cb14-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferIm.R&quot;</span>)</span>
+<span id="cb14-2"><a href="fdm.html#cb14-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferEx.R&quot;</span>)</span>
+<span id="cb14-3"><a href="fdm.html#cb14-3" tabindex="-1"></a>Tmax <span class="ot">=</span> <span class="fl">1e4</span></span>
+<span id="cb14-4"><a href="fdm.html#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="fdm.html#cb14-5" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb14-6"><a href="fdm.html#cb14-6" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">HT.explicit</span>(<span class="at">DX=</span> <span class="fl">0.025</span>, <span class="at">DT =</span> <span class="dv">5</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">X =</span> <span class="dv">1</span>, <span class="at">ignore.cfl=</span><span class="cn">FALSE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>, <span class="at">Tmax=</span>Tmax)</span></code></pre></div>
 <pre><code>## [1] 0.184</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="fdm.html#cb15-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb15-2"><a href="fdm.html#cb15-2" tabindex="-1"></a>tu.ex <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
-<span id="cb15-3"><a href="fdm.html#cb15-3" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="fdm.html#cb15-4" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb15-5"><a href="fdm.html#cb15-5" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">HT.implicit</span>(<span class="at">DX=</span> <span class="fl">0.025</span>, <span class="at">DT =</span> <span class="dv">5</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">X =</span> <span class="dv">1</span>, <span class="at">ignore.cfl=</span><span class="cn">FALSE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>, <span class="at">Tmax=</span>Tmax)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="fdm.html#cb16-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb16-2"><a href="fdm.html#cb16-2" tabindex="-1"></a>tu.ex <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
+<span id="cb16-3"><a href="fdm.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="fdm.html#cb16-4" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb16-5"><a href="fdm.html#cb16-5" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">HT.implicit</span>(<span class="at">DX=</span> <span class="fl">0.025</span>, <span class="at">DT =</span> <span class="dv">5</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">X =</span> <span class="dv">1</span>, <span class="at">ignore.cfl=</span><span class="cn">FALSE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>, <span class="at">Tmax=</span>Tmax)</span></code></pre></div>
 <pre><code>## [1] 0.184</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="fdm.html#cb17-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb17-2"><a href="fdm.html#cb17-2" tabindex="-1"></a>tu.im <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
-<span id="cb17-3"><a href="fdm.html#cb17-3" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="fdm.html#cb17-4" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&#39;Time for implicit =&#39;</span>, tu.im)</span></code></pre></div>
-<pre><code>## Time for implicit =0.0883409976959229</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="fdm.html#cb19-1" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&#39;Time for explicit =&#39;</span>, tu.ex)</span></code></pre></div>
-<pre><code>## Time for explicit =0.0618879795074463</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="fdm.html#cb18-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb18-2"><a href="fdm.html#cb18-2" tabindex="-1"></a>tu.im <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
+<span id="cb18-3"><a href="fdm.html#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="fdm.html#cb18-4" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&#39;Time for implicit =&#39;</span>, tu.im)</span></code></pre></div>
+<pre><code>## Time for implicit =0.0979740619659424</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="fdm.html#cb20-1" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&#39;Time for explicit =&#39;</span>, tu.ex)</span></code></pre></div>
+<pre><code>## Time for explicit =0.06929612159729</code></pre>
 </div>
 </div>
 <div id="二维有限差分" class="section level2 hasAnchor" number="3.7">
 <h2><span class="header-section-number">3.7</span> 二维有限差分<a href="fdm.html#二维有限差分" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="image/FDM/FDM.002.jpeg" /></p>
 <div class="example">
-<p><span id="exm:unnamed-chunk-10" class="example"><strong>Example 3.2  </strong></span><span class="math display">\[
+<p><span id="exm:unnamed-chunk-11" class="example"><strong>Example 3.2  </strong></span><span class="math display">\[
 s  \frac{dh}{dt} = k_{x} B * \frac{d^2 h}{d x^2} + k_{y} B * \frac{d^2 h}{d y^2} + s_s
 \]</span></p>
 </div>
@@ -1057,291 +1063,291 @@ u^{t+1}_{i, j} = \alpha u^{t}_{i+1, j} + \beta u^{t}_{i, j+1} +  \gamma u^{t}_{i
 <div id="编程求解-1" class="section level3 hasAnchor" number="3.7.1">
 <h3><span class="header-section-number">3.7.1</span> 编程求解<a href="fdm.html#编程求解-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>显式求解</strong></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="fdm.html#cb21-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Confined Aquifer</span></span>
-<span id="cb21-2"><a href="fdm.html#cb21-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = DDx * (dd u / d x^2) + DDy * (dd u / d y^2)</span></span>
-<span id="cb21-3"><a href="fdm.html#cb21-3" tabindex="-1"></a><span class="co">#&#39;  </span></span>
-<span id="cb21-4"><a href="fdm.html#cb21-4" tabindex="-1"></a>diag.matrix <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(id)), <span class="at">n =</span> <span class="dv">3</span>, <span class="at">def.val =</span> <span class="dv">0</span>){</span>
-<span id="cb21-5"><a href="fdm.html#cb21-5" tabindex="-1"></a>  val <span class="ot">=</span> <span class="fu">matrix</span>(x, <span class="at">ncol=</span><span class="fu">length</span>(id), <span class="at">nrow=</span><span class="dv">1</span>)</span>
-<span id="cb21-6"><a href="fdm.html#cb21-6" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(def.val, n, n)</span>
-<span id="cb21-7"><a href="fdm.html#cb21-7" tabindex="-1"></a>  nid <span class="ot">=</span> <span class="fu">length</span>(id)</span>
-<span id="cb21-8"><a href="fdm.html#cb21-8" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb21-9"><a href="fdm.html#cb21-9" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb21-10"><a href="fdm.html#cb21-10" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nid){</span>
-<span id="cb21-11"><a href="fdm.html#cb21-11" tabindex="-1"></a>        <span class="cf">if</span>(i <span class="sc">+</span> id[k] <span class="sc">==</span> j){</span>
-<span id="cb21-12"><a href="fdm.html#cb21-12" tabindex="-1"></a>          mat[i,j] <span class="ot">=</span> val[k]</span>
-<span id="cb21-13"><a href="fdm.html#cb21-13" tabindex="-1"></a>        }</span>
-<span id="cb21-14"><a href="fdm.html#cb21-14" tabindex="-1"></a>      }</span>
-<span id="cb21-15"><a href="fdm.html#cb21-15" tabindex="-1"></a>    }</span>
-<span id="cb21-16"><a href="fdm.html#cb21-16" tabindex="-1"></a>  }</span>
-<span id="cb21-17"><a href="fdm.html#cb21-17" tabindex="-1"></a>  mat</span>
-<span id="cb21-18"><a href="fdm.html#cb21-18" tabindex="-1"></a>}</span>
-<span id="cb21-19"><a href="fdm.html#cb21-19" tabindex="-1"></a></span>
-<span id="cb21-20"><a href="fdm.html#cb21-20" tabindex="-1"></a>toBC <span class="ot">&lt;-</span> <span class="cf">function</span>(idl, x, val){</span>
-<span id="cb21-21"><a href="fdm.html#cb21-21" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
-<span id="cb21-22"><a href="fdm.html#cb21-22" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbc){</span>
-<span id="cb21-23"><a href="fdm.html#cb21-23" tabindex="-1"></a>    x[idl[[i]]] <span class="ot">=</span> val[i]</span>
-<span id="cb21-24"><a href="fdm.html#cb21-24" tabindex="-1"></a>  }</span>
-<span id="cb21-25"><a href="fdm.html#cb21-25" tabindex="-1"></a>  x</span>
-<span id="cb21-26"><a href="fdm.html#cb21-26" tabindex="-1"></a>}</span>
-<span id="cb21-27"><a href="fdm.html#cb21-27" tabindex="-1"></a></span>
-<span id="cb21-28"><a href="fdm.html#cb21-28" tabindex="-1"></a>CA.Explicit <span class="ot">&lt;-</span> <span class="cf">function</span>(  <span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb21-29"><a href="fdm.html#cb21-29" tabindex="-1"></a>                          <span class="at">bc2 =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-30"><a href="fdm.html#cb21-30" tabindex="-1"></a>                          <span class="at">uic =</span> <span class="dv">25</span>,</span>
-<span id="cb21-31"><a href="fdm.html#cb21-31" tabindex="-1"></a>                          <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
-<span id="cb21-32"><a href="fdm.html#cb21-32" tabindex="-1"></a>                          <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
-<span id="cb21-33"><a href="fdm.html#cb21-33" tabindex="-1"></a>                          <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
-<span id="cb21-34"><a href="fdm.html#cb21-34" tabindex="-1"></a>                          <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
-<span id="cb21-35"><a href="fdm.html#cb21-35" tabindex="-1"></a>                          <span class="at">DT =</span> <span class="dv">25</span>,</span>
-<span id="cb21-36"><a href="fdm.html#cb21-36" tabindex="-1"></a>                          <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
-<span id="cb21-37"><a href="fdm.html#cb21-37" tabindex="-1"></a>                          <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>){</span>
-<span id="cb21-38"><a href="fdm.html#cb21-38" tabindex="-1"></a>  DX<span class="ot">=</span>Dxy[<span class="dv">1</span>]; DY<span class="ot">=</span>Dxy[<span class="dv">2</span>];</span>
-<span id="cb21-39"><a href="fdm.html#cb21-39" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Tmax, DT); </span>
-<span id="cb21-40"><a href="fdm.html#cb21-40" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
-<span id="cb21-41"><a href="fdm.html#cb21-41" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">1</span>], DX); NX <span class="ot">=</span> <span class="fu">length</span>(xx)</span>
-<span id="cb21-42"><a href="fdm.html#cb21-42" tabindex="-1"></a>  yy <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">2</span>], DY); NY <span class="ot">=</span> <span class="fu">length</span>(yy)</span>
-<span id="cb21-43"><a href="fdm.html#cb21-43" tabindex="-1"></a>  <span class="co"># NX = Lxy[1] / DX + 1;   NY = Lxy[2] / DY + 1</span></span>
-<span id="cb21-44"><a href="fdm.html#cb21-44" tabindex="-1"></a>  N <span class="ot">=</span> NX <span class="sc">*</span> NY</span>
-<span id="cb21-45"><a href="fdm.html#cb21-45" tabindex="-1"></a>  CFL.x <span class="ot">=</span> alpha <span class="ot">=</span> DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
-<span id="cb21-46"><a href="fdm.html#cb21-46" tabindex="-1"></a>  CFL.y <span class="ot">=</span> beta  <span class="ot">=</span> DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
-<span id="cb21-47"><a href="fdm.html#cb21-47" tabindex="-1"></a>  gamma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> alpha <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> beta</span>
-<span id="cb21-48"><a href="fdm.html#cb21-48" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;CFL value = (&#39;</span>, CFL.x, <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, CFL.y, <span class="st">&#39;)&#39;</span>)  </span>
-<span id="cb21-49"><a href="fdm.html#cb21-49" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
-<span id="cb21-50"><a href="fdm.html#cb21-50" tabindex="-1"></a>    <span class="cf">if</span>(CFL.x <span class="sc">&gt;=</span>.<span class="dv">5</span> <span class="sc">|</span> CFL.y <span class="sc">&gt;=</span>.<span class="dv">5</span>){</span>
-<span id="cb21-51"><a href="fdm.html#cb21-51" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
-<span id="cb21-52"><a href="fdm.html#cb21-52" tabindex="-1"></a>    }</span>
-<span id="cb21-53"><a href="fdm.html#cb21-53" tabindex="-1"></a>  }</span>
-<span id="cb21-54"><a href="fdm.html#cb21-54" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span>NY, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, NY), <span class="at">n=</span>N,</span>
-<span id="cb21-55"><a href="fdm.html#cb21-55" tabindex="-1"></a>                    <span class="at">x=</span><span class="fu">c</span>(alpha, beta, gamma, beta, alpha), <span class="at">def.val =</span> <span class="dv">0</span>)</span>
-<span id="cb21-56"><a href="fdm.html#cb21-56" tabindex="-1"></a>  dmat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id=</span><span class="dv">0</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">n=</span>N, <span class="at">def.val =</span> <span class="dv">0</span>)</span>
-<span id="cb21-57"><a href="fdm.html#cb21-57" tabindex="-1"></a>  idl <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span>NY,</span>
-<span id="cb21-58"><a href="fdm.html#cb21-58" tabindex="-1"></a>             <span class="dv">1</span><span class="sc">+</span>(<span class="dv">1</span><span class="sc">:</span>NX <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(NY),</span>
-<span id="cb21-59"><a href="fdm.html#cb21-59" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">:</span>NX) <span class="sc">*</span> NY,</span>
-<span id="cb21-60"><a href="fdm.html#cb21-60" tabindex="-1"></a>             (NX<span class="dv">-1</span>)<span class="sc">*</span>(NY)<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span>NY) </span>
-<span id="cb21-61"><a href="fdm.html#cb21-61" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
-<span id="cb21-62"><a href="fdm.html#cb21-62" tabindex="-1"></a>  id.bc <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">unlist</span>(idl)))</span>
-<span id="cb21-63"><a href="fdm.html#cb21-63" tabindex="-1"></a>  mat[id.bc, ] <span class="ot">=</span> dmat[id.bc,]</span>
-<span id="cb21-64"><a href="fdm.html#cb21-64" tabindex="-1"></a>  </span>
-<span id="cb21-65"><a href="fdm.html#cb21-65" tabindex="-1"></a>  arr <span class="ot">=</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim=</span><span class="fu">c</span>(NY,NX,NT))</span>
-<span id="cb21-66"><a href="fdm.html#cb21-66" tabindex="-1"></a>  <span class="co"># xm = matrix(NA, nrow=N, ncol=NT)</span></span>
-<span id="cb21-67"><a href="fdm.html#cb21-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, N))</span>
-<span id="cb21-68"><a href="fdm.html#cb21-68" tabindex="-1"></a>  <span class="co"># bc2=list(id=10, x=0.01)</span></span>
-<span id="cb21-69"><a href="fdm.html#cb21-69" tabindex="-1"></a>  <span class="co"># vs[bc2$id] = bc2$x</span></span>
-<span id="cb21-70"><a href="fdm.html#cb21-70" tabindex="-1"></a>  </span>
-<span id="cb21-71"><a href="fdm.html#cb21-71" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(uic, N))</span>
-<span id="cb21-72"><a href="fdm.html#cb21-72" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>b, <span class="at">val=</span>bc1)</span>
-<span id="cb21-73"><a href="fdm.html#cb21-73" tabindex="-1"></a>  </span>
-<span id="cb21-74"><a href="fdm.html#cb21-74" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
-<span id="cb21-75"><a href="fdm.html#cb21-75" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
-<span id="cb21-76"><a href="fdm.html#cb21-76" tabindex="-1"></a>      bx <span class="ot">=</span> mat <span class="sc">%*%</span> b <span class="sc">+</span> vs <span class="sc">*</span> DT</span>
-<span id="cb21-77"><a href="fdm.html#cb21-77" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
-<span id="cb21-78"><a href="fdm.html#cb21-78" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
-<span id="cb21-79"><a href="fdm.html#cb21-79" tabindex="-1"></a>    }</span>
-<span id="cb21-80"><a href="fdm.html#cb21-80" tabindex="-1"></a>    bx <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>bx, <span class="at">val=</span>bc1)</span>
-<span id="cb21-81"><a href="fdm.html#cb21-81" tabindex="-1"></a>    arr[, , i] <span class="ot">=</span> <span class="fu">matrix</span>(bx, <span class="at">nrow =</span> NY, <span class="at">ncol =</span> NX)</span>
-<span id="cb21-82"><a href="fdm.html#cb21-82" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
-<span id="cb21-83"><a href="fdm.html#cb21-83" tabindex="-1"></a>  }</span>
-<span id="cb21-84"><a href="fdm.html#cb21-84" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
-<span id="cb21-85"><a href="fdm.html#cb21-85" tabindex="-1"></a>  arr<span class="ot">=</span>arr[,, <span class="dv">1</span><span class="sc">:</span>NT]</span>
-<span id="cb21-86"><a href="fdm.html#cb21-86" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
-<span id="cb21-87"><a href="fdm.html#cb21-87" tabindex="-1"></a>  <span class="co"># yy = arr; yy[abs(yy)&gt;1e20] = NA</span></span>
-<span id="cb21-88"><a href="fdm.html#cb21-88" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx,</span>
-<span id="cb21-89"><a href="fdm.html#cb21-89" tabindex="-1"></a>             <span class="st">&#39;y&#39;</span> <span class="ot">=</span> yy,</span>
-<span id="cb21-90"><a href="fdm.html#cb21-90" tabindex="-1"></a>             <span class="st">&#39;z&#39;</span> <span class="ot">=</span> arr,</span>
-<span id="cb21-91"><a href="fdm.html#cb21-91" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
-<span id="cb21-92"><a href="fdm.html#cb21-92" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(CFL.x, CFL.y),</span>
-<span id="cb21-93"><a href="fdm.html#cb21-93" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
-<span id="cb21-94"><a href="fdm.html#cb21-94" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT</span>
-<span id="cb21-95"><a href="fdm.html#cb21-95" tabindex="-1"></a>  )</span>
-<span id="cb21-96"><a href="fdm.html#cb21-96" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
-<span id="cb21-97"><a href="fdm.html#cb21-97" tabindex="-1"></a>}</span>
-<span id="cb21-98"><a href="fdm.html#cb21-98" tabindex="-1"></a>plot<span class="fl">.3</span>d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nr=</span><span class="dv">3</span>, <span class="at">nc=</span><span class="dv">4</span>, <span class="at">clim=</span><span class="cn">NULL</span>){</span>
-<span id="cb21-99"><a href="fdm.html#cb21-99" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(nr, nc), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb21-100"><a href="fdm.html#cb21-100" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nc<span class="sc">*</span>nr))</span>
-<span id="cb21-101"><a href="fdm.html#cb21-101" tabindex="-1"></a>  z<span class="ot">=</span>x<span class="sc">$</span>z; </span>
-<span id="cb21-102"><a href="fdm.html#cb21-102" tabindex="-1"></a>  z[ <span class="fu">is.infinite</span>(<span class="fu">abs</span>(z)) ] <span class="ot">=</span> <span class="cn">NA</span></span>
-<span id="cb21-103"><a href="fdm.html#cb21-103" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clim)){</span>
-<span id="cb21-104"><a href="fdm.html#cb21-104" tabindex="-1"></a>    clim <span class="ot">=</span> <span class="fu">range</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-105"><a href="fdm.html#cb21-105" tabindex="-1"></a>  }</span>
-<span id="cb21-106"><a href="fdm.html#cb21-106" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> idx ){</span>
-<span id="cb21-107"><a href="fdm.html#cb21-107" tabindex="-1"></a>    plot3D<span class="sc">::</span><span class="fu">persp3D</span>(<span class="at">z=</span>z[, , i], <span class="at">clim=</span>clim,</span>
-<span id="cb21-108"><a href="fdm.html#cb21-108" tabindex="-1"></a>            <span class="at">colvar=</span>z[, , i])</span>
-<span id="cb21-109"><a href="fdm.html#cb21-109" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="fu">paste</span>(<span class="st">&#39;T =&#39;</span>, x<span class="sc">$</span>DT <span class="sc">*</span> i), <span class="at">side=</span> <span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb21-110"><a href="fdm.html#cb21-110" tabindex="-1"></a>  }</span>
-<span id="cb21-111"><a href="fdm.html#cb21-111" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fdm.html#cb22-1" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
-<span id="cb22-2"><a href="fdm.html#cb22-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DIm.R&quot;</span>)</span>
-<span id="cb22-3"><a href="fdm.html#cb22-3" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">CA.Explicit</span>(<span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>,<span class="dv">10</span>, <span class="dv">10</span>),</span>
-<span id="cb22-4"><a href="fdm.html#cb22-4" tabindex="-1"></a>                <span class="at">uic =</span> <span class="dv">25</span>,</span>
-<span id="cb22-5"><a href="fdm.html#cb22-5" tabindex="-1"></a>                <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
-<span id="cb22-6"><a href="fdm.html#cb22-6" tabindex="-1"></a>                <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
-<span id="cb22-7"><a href="fdm.html#cb22-7" tabindex="-1"></a>                <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
-<span id="cb22-8"><a href="fdm.html#cb22-8" tabindex="-1"></a>                <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
-<span id="cb22-9"><a href="fdm.html#cb22-9" tabindex="-1"></a>                <span class="at">DT =</span> <span class="dv">25</span>,</span>
-<span id="cb22-10"><a href="fdm.html#cb22-10" tabindex="-1"></a>                <span class="at">Tmax =</span> <span class="dv">1000</span></span>
-<span id="cb22-11"><a href="fdm.html#cb22-11" tabindex="-1"></a>                )</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fdm.html#cb22-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Confined Aquifer</span></span>
+<span id="cb22-2"><a href="fdm.html#cb22-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = DDx * (dd u / d x^2) + DDy * (dd u / d y^2)</span></span>
+<span id="cb22-3"><a href="fdm.html#cb22-3" tabindex="-1"></a><span class="co">#&#39;  </span></span>
+<span id="cb22-4"><a href="fdm.html#cb22-4" tabindex="-1"></a>diag.matrix <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(id)), <span class="at">n =</span> <span class="dv">3</span>, <span class="at">def.val =</span> <span class="dv">0</span>){</span>
+<span id="cb22-5"><a href="fdm.html#cb22-5" tabindex="-1"></a>  val <span class="ot">=</span> <span class="fu">matrix</span>(x, <span class="at">ncol=</span><span class="fu">length</span>(id), <span class="at">nrow=</span><span class="dv">1</span>)</span>
+<span id="cb22-6"><a href="fdm.html#cb22-6" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(def.val, n, n)</span>
+<span id="cb22-7"><a href="fdm.html#cb22-7" tabindex="-1"></a>  nid <span class="ot">=</span> <span class="fu">length</span>(id)</span>
+<span id="cb22-8"><a href="fdm.html#cb22-8" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb22-9"><a href="fdm.html#cb22-9" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb22-10"><a href="fdm.html#cb22-10" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nid){</span>
+<span id="cb22-11"><a href="fdm.html#cb22-11" tabindex="-1"></a>        <span class="cf">if</span>(i <span class="sc">+</span> id[k] <span class="sc">==</span> j){</span>
+<span id="cb22-12"><a href="fdm.html#cb22-12" tabindex="-1"></a>          mat[i,j] <span class="ot">=</span> val[k]</span>
+<span id="cb22-13"><a href="fdm.html#cb22-13" tabindex="-1"></a>        }</span>
+<span id="cb22-14"><a href="fdm.html#cb22-14" tabindex="-1"></a>      }</span>
+<span id="cb22-15"><a href="fdm.html#cb22-15" tabindex="-1"></a>    }</span>
+<span id="cb22-16"><a href="fdm.html#cb22-16" tabindex="-1"></a>  }</span>
+<span id="cb22-17"><a href="fdm.html#cb22-17" tabindex="-1"></a>  mat</span>
+<span id="cb22-18"><a href="fdm.html#cb22-18" tabindex="-1"></a>}</span>
+<span id="cb22-19"><a href="fdm.html#cb22-19" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="fdm.html#cb22-20" tabindex="-1"></a>toBC <span class="ot">&lt;-</span> <span class="cf">function</span>(idl, x, val){</span>
+<span id="cb22-21"><a href="fdm.html#cb22-21" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb22-22"><a href="fdm.html#cb22-22" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbc){</span>
+<span id="cb22-23"><a href="fdm.html#cb22-23" tabindex="-1"></a>    x[idl[[i]]] <span class="ot">=</span> val[i]</span>
+<span id="cb22-24"><a href="fdm.html#cb22-24" tabindex="-1"></a>  }</span>
+<span id="cb22-25"><a href="fdm.html#cb22-25" tabindex="-1"></a>  x</span>
+<span id="cb22-26"><a href="fdm.html#cb22-26" tabindex="-1"></a>}</span>
+<span id="cb22-27"><a href="fdm.html#cb22-27" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="fdm.html#cb22-28" tabindex="-1"></a>CA.Explicit <span class="ot">&lt;-</span> <span class="cf">function</span>(  <span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb22-29"><a href="fdm.html#cb22-29" tabindex="-1"></a>                          <span class="at">bc2 =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-30"><a href="fdm.html#cb22-30" tabindex="-1"></a>                          <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb22-31"><a href="fdm.html#cb22-31" tabindex="-1"></a>                          <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb22-32"><a href="fdm.html#cb22-32" tabindex="-1"></a>                          <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
+<span id="cb22-33"><a href="fdm.html#cb22-33" tabindex="-1"></a>                          <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
+<span id="cb22-34"><a href="fdm.html#cb22-34" tabindex="-1"></a>                          <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
+<span id="cb22-35"><a href="fdm.html#cb22-35" tabindex="-1"></a>                          <span class="at">DT =</span> <span class="dv">25</span>,</span>
+<span id="cb22-36"><a href="fdm.html#cb22-36" tabindex="-1"></a>                          <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
+<span id="cb22-37"><a href="fdm.html#cb22-37" tabindex="-1"></a>                          <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>){</span>
+<span id="cb22-38"><a href="fdm.html#cb22-38" tabindex="-1"></a>  DX<span class="ot">=</span>Dxy[<span class="dv">1</span>]; DY<span class="ot">=</span>Dxy[<span class="dv">2</span>];</span>
+<span id="cb22-39"><a href="fdm.html#cb22-39" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Tmax, DT); </span>
+<span id="cb22-40"><a href="fdm.html#cb22-40" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
+<span id="cb22-41"><a href="fdm.html#cb22-41" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">1</span>], DX); NX <span class="ot">=</span> <span class="fu">length</span>(xx)</span>
+<span id="cb22-42"><a href="fdm.html#cb22-42" tabindex="-1"></a>  yy <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">2</span>], DY); NY <span class="ot">=</span> <span class="fu">length</span>(yy)</span>
+<span id="cb22-43"><a href="fdm.html#cb22-43" tabindex="-1"></a>  <span class="co"># NX = Lxy[1] / DX + 1;   NY = Lxy[2] / DY + 1</span></span>
+<span id="cb22-44"><a href="fdm.html#cb22-44" tabindex="-1"></a>  N <span class="ot">=</span> NX <span class="sc">*</span> NY</span>
+<span id="cb22-45"><a href="fdm.html#cb22-45" tabindex="-1"></a>  CFL.x <span class="ot">=</span> alpha <span class="ot">=</span> DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb22-46"><a href="fdm.html#cb22-46" tabindex="-1"></a>  CFL.y <span class="ot">=</span> beta  <span class="ot">=</span> DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb22-47"><a href="fdm.html#cb22-47" tabindex="-1"></a>  gamma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> alpha <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> beta</span>
+<span id="cb22-48"><a href="fdm.html#cb22-48" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;CFL value = (&#39;</span>, CFL.x, <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, CFL.y, <span class="st">&#39;)&#39;</span>)  </span>
+<span id="cb22-49"><a href="fdm.html#cb22-49" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
+<span id="cb22-50"><a href="fdm.html#cb22-50" tabindex="-1"></a>    <span class="cf">if</span>(CFL.x <span class="sc">&gt;=</span>.<span class="dv">5</span> <span class="sc">|</span> CFL.y <span class="sc">&gt;=</span>.<span class="dv">5</span>){</span>
+<span id="cb22-51"><a href="fdm.html#cb22-51" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
+<span id="cb22-52"><a href="fdm.html#cb22-52" tabindex="-1"></a>    }</span>
+<span id="cb22-53"><a href="fdm.html#cb22-53" tabindex="-1"></a>  }</span>
+<span id="cb22-54"><a href="fdm.html#cb22-54" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span>NY, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, NY), <span class="at">n=</span>N,</span>
+<span id="cb22-55"><a href="fdm.html#cb22-55" tabindex="-1"></a>                    <span class="at">x=</span><span class="fu">c</span>(alpha, beta, gamma, beta, alpha), <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb22-56"><a href="fdm.html#cb22-56" tabindex="-1"></a>  dmat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id=</span><span class="dv">0</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">n=</span>N, <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb22-57"><a href="fdm.html#cb22-57" tabindex="-1"></a>  idl <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span>NY,</span>
+<span id="cb22-58"><a href="fdm.html#cb22-58" tabindex="-1"></a>             <span class="dv">1</span><span class="sc">+</span>(<span class="dv">1</span><span class="sc">:</span>NX <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(NY),</span>
+<span id="cb22-59"><a href="fdm.html#cb22-59" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">:</span>NX) <span class="sc">*</span> NY,</span>
+<span id="cb22-60"><a href="fdm.html#cb22-60" tabindex="-1"></a>             (NX<span class="dv">-1</span>)<span class="sc">*</span>(NY)<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span>NY) </span>
+<span id="cb22-61"><a href="fdm.html#cb22-61" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb22-62"><a href="fdm.html#cb22-62" tabindex="-1"></a>  id.bc <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">unlist</span>(idl)))</span>
+<span id="cb22-63"><a href="fdm.html#cb22-63" tabindex="-1"></a>  mat[id.bc, ] <span class="ot">=</span> dmat[id.bc,]</span>
+<span id="cb22-64"><a href="fdm.html#cb22-64" tabindex="-1"></a>  </span>
+<span id="cb22-65"><a href="fdm.html#cb22-65" tabindex="-1"></a>  arr <span class="ot">=</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim=</span><span class="fu">c</span>(NY,NX,NT))</span>
+<span id="cb22-66"><a href="fdm.html#cb22-66" tabindex="-1"></a>  <span class="co"># xm = matrix(NA, nrow=N, ncol=NT)</span></span>
+<span id="cb22-67"><a href="fdm.html#cb22-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, N))</span>
+<span id="cb22-68"><a href="fdm.html#cb22-68" tabindex="-1"></a>  <span class="co"># bc2=list(id=10, x=0.01)</span></span>
+<span id="cb22-69"><a href="fdm.html#cb22-69" tabindex="-1"></a>  <span class="co"># vs[bc2$id] = bc2$x</span></span>
+<span id="cb22-70"><a href="fdm.html#cb22-70" tabindex="-1"></a>  </span>
+<span id="cb22-71"><a href="fdm.html#cb22-71" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(uic, N))</span>
+<span id="cb22-72"><a href="fdm.html#cb22-72" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>b, <span class="at">val=</span>bc1)</span>
+<span id="cb22-73"><a href="fdm.html#cb22-73" tabindex="-1"></a>  </span>
+<span id="cb22-74"><a href="fdm.html#cb22-74" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb22-75"><a href="fdm.html#cb22-75" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb22-76"><a href="fdm.html#cb22-76" tabindex="-1"></a>      bx <span class="ot">=</span> mat <span class="sc">%*%</span> b <span class="sc">+</span> vs <span class="sc">*</span> DT</span>
+<span id="cb22-77"><a href="fdm.html#cb22-77" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb22-78"><a href="fdm.html#cb22-78" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb22-79"><a href="fdm.html#cb22-79" tabindex="-1"></a>    }</span>
+<span id="cb22-80"><a href="fdm.html#cb22-80" tabindex="-1"></a>    bx <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>bx, <span class="at">val=</span>bc1)</span>
+<span id="cb22-81"><a href="fdm.html#cb22-81" tabindex="-1"></a>    arr[, , i] <span class="ot">=</span> <span class="fu">matrix</span>(bx, <span class="at">nrow =</span> NY, <span class="at">ncol =</span> NX)</span>
+<span id="cb22-82"><a href="fdm.html#cb22-82" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb22-83"><a href="fdm.html#cb22-83" tabindex="-1"></a>  }</span>
+<span id="cb22-84"><a href="fdm.html#cb22-84" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb22-85"><a href="fdm.html#cb22-85" tabindex="-1"></a>  arr<span class="ot">=</span>arr[,, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb22-86"><a href="fdm.html#cb22-86" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb22-87"><a href="fdm.html#cb22-87" tabindex="-1"></a>  <span class="co"># yy = arr; yy[abs(yy)&gt;1e20] = NA</span></span>
+<span id="cb22-88"><a href="fdm.html#cb22-88" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx,</span>
+<span id="cb22-89"><a href="fdm.html#cb22-89" tabindex="-1"></a>             <span class="st">&#39;y&#39;</span> <span class="ot">=</span> yy,</span>
+<span id="cb22-90"><a href="fdm.html#cb22-90" tabindex="-1"></a>             <span class="st">&#39;z&#39;</span> <span class="ot">=</span> arr,</span>
+<span id="cb22-91"><a href="fdm.html#cb22-91" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb22-92"><a href="fdm.html#cb22-92" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(CFL.x, CFL.y),</span>
+<span id="cb22-93"><a href="fdm.html#cb22-93" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb22-94"><a href="fdm.html#cb22-94" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT</span>
+<span id="cb22-95"><a href="fdm.html#cb22-95" tabindex="-1"></a>  )</span>
+<span id="cb22-96"><a href="fdm.html#cb22-96" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb22-97"><a href="fdm.html#cb22-97" tabindex="-1"></a>}</span>
+<span id="cb22-98"><a href="fdm.html#cb22-98" tabindex="-1"></a>plot<span class="fl">.3</span>d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nr=</span><span class="dv">3</span>, <span class="at">nc=</span><span class="dv">4</span>, <span class="at">clim=</span><span class="cn">NULL</span>){</span>
+<span id="cb22-99"><a href="fdm.html#cb22-99" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(nr, nc), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb22-100"><a href="fdm.html#cb22-100" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nc<span class="sc">*</span>nr))</span>
+<span id="cb22-101"><a href="fdm.html#cb22-101" tabindex="-1"></a>  z<span class="ot">=</span>x<span class="sc">$</span>z; </span>
+<span id="cb22-102"><a href="fdm.html#cb22-102" tabindex="-1"></a>  z[ <span class="fu">is.infinite</span>(<span class="fu">abs</span>(z)) ] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb22-103"><a href="fdm.html#cb22-103" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clim)){</span>
+<span id="cb22-104"><a href="fdm.html#cb22-104" tabindex="-1"></a>    clim <span class="ot">=</span> <span class="fu">range</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-105"><a href="fdm.html#cb22-105" tabindex="-1"></a>  }</span>
+<span id="cb22-106"><a href="fdm.html#cb22-106" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> idx ){</span>
+<span id="cb22-107"><a href="fdm.html#cb22-107" tabindex="-1"></a>    plot3D<span class="sc">::</span><span class="fu">persp3D</span>(<span class="at">z=</span>z[, , i], <span class="at">clim=</span>clim,</span>
+<span id="cb22-108"><a href="fdm.html#cb22-108" tabindex="-1"></a>            <span class="at">colvar=</span>z[, , i])</span>
+<span id="cb22-109"><a href="fdm.html#cb22-109" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="fu">paste</span>(<span class="st">&#39;T =&#39;</span>, x<span class="sc">$</span>DT <span class="sc">*</span> i), <span class="at">side=</span> <span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb22-110"><a href="fdm.html#cb22-110" tabindex="-1"></a>  }</span>
+<span id="cb22-111"><a href="fdm.html#cb22-111" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="fdm.html#cb23-1" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
+<span id="cb23-2"><a href="fdm.html#cb23-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DIm.R&quot;</span>)</span>
+<span id="cb23-3"><a href="fdm.html#cb23-3" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">CA.Explicit</span>(<span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>,<span class="dv">10</span>, <span class="dv">10</span>),</span>
+<span id="cb23-4"><a href="fdm.html#cb23-4" tabindex="-1"></a>                <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb23-5"><a href="fdm.html#cb23-5" tabindex="-1"></a>                <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb23-6"><a href="fdm.html#cb23-6" tabindex="-1"></a>                <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
+<span id="cb23-7"><a href="fdm.html#cb23-7" tabindex="-1"></a>                <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
+<span id="cb23-8"><a href="fdm.html#cb23-8" tabindex="-1"></a>                <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
+<span id="cb23-9"><a href="fdm.html#cb23-9" tabindex="-1"></a>                <span class="at">DT =</span> <span class="dv">25</span>,</span>
+<span id="cb23-10"><a href="fdm.html#cb23-10" tabindex="-1"></a>                <span class="at">Tmax =</span> <span class="dv">1000</span></span>
+<span id="cb23-11"><a href="fdm.html#cb23-11" tabindex="-1"></a>                )</span></code></pre></div>
 <pre><code>## CFL value = (0.23    0.23)</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="fdm.html#cb24-1" tabindex="-1"></a><span class="fu">plot.3d</span>(x)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fdm.html#cb25-1" tabindex="-1"></a><span class="fu">plot.3d</span>(x)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p><strong>隐式求解</strong></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fdm.html#cb25-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Confined Aquifer</span></span>
-<span id="cb25-2"><a href="fdm.html#cb25-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = DDx * (dd u / d x^2) + DDy * (dd u / d y^2)</span></span>
-<span id="cb25-3"><a href="fdm.html#cb25-3" tabindex="-1"></a><span class="co">#&#39;  </span></span>
-<span id="cb25-4"><a href="fdm.html#cb25-4" tabindex="-1"></a>diag.matrix <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(id)), <span class="at">n =</span> <span class="dv">3</span>, <span class="at">def.val =</span> <span class="dv">0</span>){</span>
-<span id="cb25-5"><a href="fdm.html#cb25-5" tabindex="-1"></a>  val <span class="ot">=</span> <span class="fu">matrix</span>(x, <span class="at">ncol=</span><span class="fu">length</span>(id), <span class="at">nrow=</span><span class="dv">1</span>)</span>
-<span id="cb25-6"><a href="fdm.html#cb25-6" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(def.val, n, n)</span>
-<span id="cb25-7"><a href="fdm.html#cb25-7" tabindex="-1"></a>  nid <span class="ot">=</span> <span class="fu">length</span>(id)</span>
-<span id="cb25-8"><a href="fdm.html#cb25-8" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb25-9"><a href="fdm.html#cb25-9" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
-<span id="cb25-10"><a href="fdm.html#cb25-10" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nid){</span>
-<span id="cb25-11"><a href="fdm.html#cb25-11" tabindex="-1"></a>        <span class="cf">if</span>(i <span class="sc">+</span> id[k] <span class="sc">==</span> j){</span>
-<span id="cb25-12"><a href="fdm.html#cb25-12" tabindex="-1"></a>          mat[i,j] <span class="ot">=</span> val[k]</span>
-<span id="cb25-13"><a href="fdm.html#cb25-13" tabindex="-1"></a>        }</span>
-<span id="cb25-14"><a href="fdm.html#cb25-14" tabindex="-1"></a>      }</span>
-<span id="cb25-15"><a href="fdm.html#cb25-15" tabindex="-1"></a>    }</span>
-<span id="cb25-16"><a href="fdm.html#cb25-16" tabindex="-1"></a>  }</span>
-<span id="cb25-17"><a href="fdm.html#cb25-17" tabindex="-1"></a>  mat</span>
-<span id="cb25-18"><a href="fdm.html#cb25-18" tabindex="-1"></a>}</span>
-<span id="cb25-19"><a href="fdm.html#cb25-19" tabindex="-1"></a></span>
-<span id="cb25-20"><a href="fdm.html#cb25-20" tabindex="-1"></a>toBC <span class="ot">&lt;-</span> <span class="cf">function</span>(idl, x, val){</span>
-<span id="cb25-21"><a href="fdm.html#cb25-21" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
-<span id="cb25-22"><a href="fdm.html#cb25-22" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbc){</span>
-<span id="cb25-23"><a href="fdm.html#cb25-23" tabindex="-1"></a>    x[idl[[i]]] <span class="ot">=</span> val[i]</span>
-<span id="cb25-24"><a href="fdm.html#cb25-24" tabindex="-1"></a>  }</span>
-<span id="cb25-25"><a href="fdm.html#cb25-25" tabindex="-1"></a>  x</span>
-<span id="cb25-26"><a href="fdm.html#cb25-26" tabindex="-1"></a>}</span>
-<span id="cb25-27"><a href="fdm.html#cb25-27" tabindex="-1"></a></span>
-<span id="cb25-28"><a href="fdm.html#cb25-28" tabindex="-1"></a>CA.Implicit <span class="ot">&lt;-</span> <span class="cf">function</span>(  <span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb25-29"><a href="fdm.html#cb25-29" tabindex="-1"></a>                          <span class="at">bc2 =</span> <span class="cn">NULL</span>,</span>
-<span id="cb25-30"><a href="fdm.html#cb25-30" tabindex="-1"></a>                          <span class="at">uic =</span> <span class="dv">25</span>,</span>
-<span id="cb25-31"><a href="fdm.html#cb25-31" tabindex="-1"></a>                          <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
-<span id="cb25-32"><a href="fdm.html#cb25-32" tabindex="-1"></a>                          <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
-<span id="cb25-33"><a href="fdm.html#cb25-33" tabindex="-1"></a>                          <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
-<span id="cb25-34"><a href="fdm.html#cb25-34" tabindex="-1"></a>                          <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
-<span id="cb25-35"><a href="fdm.html#cb25-35" tabindex="-1"></a>                          <span class="at">DT =</span> <span class="dv">25</span>,</span>
-<span id="cb25-36"><a href="fdm.html#cb25-36" tabindex="-1"></a>                          <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
-<span id="cb25-37"><a href="fdm.html#cb25-37" tabindex="-1"></a>                          <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>){</span>
-<span id="cb25-38"><a href="fdm.html#cb25-38" tabindex="-1"></a>  DX<span class="ot">=</span>Dxy[<span class="dv">1</span>]; DY<span class="ot">=</span>Dxy[<span class="dv">2</span>];</span>
-<span id="cb25-39"><a href="fdm.html#cb25-39" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Tmax, DT); </span>
-<span id="cb25-40"><a href="fdm.html#cb25-40" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
-<span id="cb25-41"><a href="fdm.html#cb25-41" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">1</span>], DX); NX <span class="ot">=</span> <span class="fu">length</span>(xx)</span>
-<span id="cb25-42"><a href="fdm.html#cb25-42" tabindex="-1"></a>  yy <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">2</span>], DY); NY <span class="ot">=</span> <span class="fu">length</span>(yy)</span>
-<span id="cb25-43"><a href="fdm.html#cb25-43" tabindex="-1"></a>  <span class="co"># NX = Lxy[1] / DX + 1;   NY = Lxy[2] / DY + 1</span></span>
-<span id="cb25-44"><a href="fdm.html#cb25-44" tabindex="-1"></a>  N <span class="ot">=</span> NX <span class="sc">*</span> NY</span>
-<span id="cb25-45"><a href="fdm.html#cb25-45" tabindex="-1"></a>  alpha <span class="ot">=</span> <span class="sc">-</span>DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
-<span id="cb25-46"><a href="fdm.html#cb25-46" tabindex="-1"></a>  beta  <span class="ot">=</span> <span class="sc">-</span>DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
-<span id="cb25-47"><a href="fdm.html#cb25-47" tabindex="-1"></a>  CFL.x <span class="ot">=</span>  DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
-<span id="cb25-48"><a href="fdm.html#cb25-48" tabindex="-1"></a>  CFL.y <span class="ot">=</span>  DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
-<span id="cb25-49"><a href="fdm.html#cb25-49" tabindex="-1"></a>  gamma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
-<span id="cb25-50"><a href="fdm.html#cb25-50" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;CFL value = (&#39;</span>, CFL.x, <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, CFL.y, <span class="st">&#39;)&#39;</span>)  </span>
-<span id="cb25-51"><a href="fdm.html#cb25-51" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
-<span id="cb25-52"><a href="fdm.html#cb25-52" tabindex="-1"></a>    <span class="cf">if</span>(CFL.x <span class="sc">&gt;=</span>.<span class="dv">5</span> <span class="sc">|</span> CFL.y <span class="sc">&gt;=</span>.<span class="dv">5</span>){</span>
-<span id="cb25-53"><a href="fdm.html#cb25-53" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
-<span id="cb25-54"><a href="fdm.html#cb25-54" tabindex="-1"></a>    }</span>
-<span id="cb25-55"><a href="fdm.html#cb25-55" tabindex="-1"></a>  }</span>
-<span id="cb25-56"><a href="fdm.html#cb25-56" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
-<span id="cb25-57"><a href="fdm.html#cb25-57" tabindex="-1"></a>  x0 <span class="ot">=</span> <span class="fu">rep</span>(uic, NX)</span>
-<span id="cb25-58"><a href="fdm.html#cb25-58" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span>NY, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, NY), <span class="at">n=</span>N,</span>
-<span id="cb25-59"><a href="fdm.html#cb25-59" tabindex="-1"></a>                    <span class="at">x=</span><span class="fu">c</span>(alpha, beta, gamma, beta, alpha), <span class="at">def.val =</span> <span class="dv">0</span>)</span>
-<span id="cb25-60"><a href="fdm.html#cb25-60" tabindex="-1"></a>  dmat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id=</span><span class="dv">0</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">n=</span>N, <span class="at">def.val =</span> <span class="dv">0</span>)</span>
-<span id="cb25-61"><a href="fdm.html#cb25-61" tabindex="-1"></a>  idl <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span>NY,</span>
-<span id="cb25-62"><a href="fdm.html#cb25-62" tabindex="-1"></a>             <span class="dv">1</span><span class="sc">+</span>(<span class="dv">1</span><span class="sc">:</span>NX <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(NY),</span>
-<span id="cb25-63"><a href="fdm.html#cb25-63" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">:</span>NX) <span class="sc">*</span> NY,</span>
-<span id="cb25-64"><a href="fdm.html#cb25-64" tabindex="-1"></a>             (NX<span class="dv">-1</span>)<span class="sc">*</span>(NY)<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span>NY) </span>
-<span id="cb25-65"><a href="fdm.html#cb25-65" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
-<span id="cb25-66"><a href="fdm.html#cb25-66" tabindex="-1"></a>  id.bc <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">unlist</span>(idl)))</span>
-<span id="cb25-67"><a href="fdm.html#cb25-67" tabindex="-1"></a>  mat[id.bc, ] <span class="ot">=</span> dmat[id.bc,]</span>
-<span id="cb25-68"><a href="fdm.html#cb25-68" tabindex="-1"></a>  </span>
-<span id="cb25-69"><a href="fdm.html#cb25-69" tabindex="-1"></a>  arr <span class="ot">=</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim=</span><span class="fu">c</span>(NY,NX,NT))</span>
-<span id="cb25-70"><a href="fdm.html#cb25-70" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, N))</span>
-<span id="cb25-71"><a href="fdm.html#cb25-71" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(uic, N))</span>
-<span id="cb25-72"><a href="fdm.html#cb25-72" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>b, <span class="at">val=</span>bc1)</span>
-<span id="cb25-73"><a href="fdm.html#cb25-73" tabindex="-1"></a>  </span>
-<span id="cb25-74"><a href="fdm.html#cb25-74" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
-<span id="cb25-75"><a href="fdm.html#cb25-75" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
-<span id="cb25-76"><a href="fdm.html#cb25-76" tabindex="-1"></a>      bx <span class="ot">=</span> <span class="fu">solve</span>(mat, b <span class="sc">+</span> vs <span class="sc">*</span> DT)</span>
-<span id="cb25-77"><a href="fdm.html#cb25-77" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
-<span id="cb25-78"><a href="fdm.html#cb25-78" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
-<span id="cb25-79"><a href="fdm.html#cb25-79" tabindex="-1"></a>    }</span>
-<span id="cb25-80"><a href="fdm.html#cb25-80" tabindex="-1"></a>    bx <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>bx, <span class="at">val=</span>bc1)</span>
-<span id="cb25-81"><a href="fdm.html#cb25-81" tabindex="-1"></a>    arr[, , i] <span class="ot">=</span> <span class="fu">matrix</span>(bx, <span class="at">nrow =</span> NY, <span class="at">ncol =</span> NX)</span>
-<span id="cb25-82"><a href="fdm.html#cb25-82" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
-<span id="cb25-83"><a href="fdm.html#cb25-83" tabindex="-1"></a>  }</span>
-<span id="cb25-84"><a href="fdm.html#cb25-84" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
-<span id="cb25-85"><a href="fdm.html#cb25-85" tabindex="-1"></a>  arr<span class="ot">=</span>arr[,, <span class="dv">1</span><span class="sc">:</span>NT]</span>
-<span id="cb25-86"><a href="fdm.html#cb25-86" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
-<span id="cb25-87"><a href="fdm.html#cb25-87" tabindex="-1"></a>  <span class="co"># yy = arr; yy[abs(yy)&gt;1e20] = NA</span></span>
-<span id="cb25-88"><a href="fdm.html#cb25-88" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx,</span>
-<span id="cb25-89"><a href="fdm.html#cb25-89" tabindex="-1"></a>             <span class="st">&#39;y&#39;</span> <span class="ot">=</span> yy,</span>
-<span id="cb25-90"><a href="fdm.html#cb25-90" tabindex="-1"></a>             <span class="st">&#39;z&#39;</span> <span class="ot">=</span> arr,</span>
-<span id="cb25-91"><a href="fdm.html#cb25-91" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
-<span id="cb25-92"><a href="fdm.html#cb25-92" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(CFL.x, CFL.y),</span>
-<span id="cb25-93"><a href="fdm.html#cb25-93" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
-<span id="cb25-94"><a href="fdm.html#cb25-94" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT</span>
-<span id="cb25-95"><a href="fdm.html#cb25-95" tabindex="-1"></a>  )</span>
-<span id="cb25-96"><a href="fdm.html#cb25-96" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
-<span id="cb25-97"><a href="fdm.html#cb25-97" tabindex="-1"></a>}</span>
-<span id="cb25-98"><a href="fdm.html#cb25-98" tabindex="-1"></a>plot<span class="fl">.3</span>d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nr=</span><span class="dv">3</span>, <span class="at">nc=</span><span class="dv">4</span>, <span class="at">clim=</span><span class="cn">NULL</span>){</span>
-<span id="cb25-99"><a href="fdm.html#cb25-99" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(nr, nc), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb25-100"><a href="fdm.html#cb25-100" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nc<span class="sc">*</span>nr))</span>
-<span id="cb25-101"><a href="fdm.html#cb25-101" tabindex="-1"></a>  z<span class="ot">=</span>x<span class="sc">$</span>z; </span>
-<span id="cb25-102"><a href="fdm.html#cb25-102" tabindex="-1"></a>  z[ <span class="fu">is.infinite</span>(<span class="fu">abs</span>(z)) ] <span class="ot">=</span> <span class="cn">NA</span></span>
-<span id="cb25-103"><a href="fdm.html#cb25-103" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clim)){</span>
-<span id="cb25-104"><a href="fdm.html#cb25-104" tabindex="-1"></a>    clim <span class="ot">=</span> <span class="fu">range</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb25-105"><a href="fdm.html#cb25-105" tabindex="-1"></a>  }</span>
-<span id="cb25-106"><a href="fdm.html#cb25-106" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> idx ){</span>
-<span id="cb25-107"><a href="fdm.html#cb25-107" tabindex="-1"></a>    plot3D<span class="sc">::</span><span class="fu">persp3D</span>(<span class="at">z=</span>z[, , i], <span class="at">clim=</span>clim,</span>
-<span id="cb25-108"><a href="fdm.html#cb25-108" tabindex="-1"></a>            <span class="at">colvar=</span>z[, , i])</span>
-<span id="cb25-109"><a href="fdm.html#cb25-109" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="fu">paste</span>(<span class="st">&#39;T =&#39;</span>, x<span class="sc">$</span>DT <span class="sc">*</span> i), <span class="at">side=</span> <span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb25-110"><a href="fdm.html#cb25-110" tabindex="-1"></a>  }</span>
-<span id="cb25-111"><a href="fdm.html#cb25-111" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fdm.html#cb26-1" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
-<span id="cb26-2"><a href="fdm.html#cb26-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DIm.R&quot;</span>)</span>
-<span id="cb26-3"><a href="fdm.html#cb26-3" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">CA.Implicit</span>(<span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>,<span class="dv">10</span>, <span class="dv">10</span>),</span>
-<span id="cb26-4"><a href="fdm.html#cb26-4" tabindex="-1"></a>                <span class="at">uic =</span> <span class="dv">25</span>,</span>
-<span id="cb26-5"><a href="fdm.html#cb26-5" tabindex="-1"></a>                <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
-<span id="cb26-6"><a href="fdm.html#cb26-6" tabindex="-1"></a>                <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
-<span id="cb26-7"><a href="fdm.html#cb26-7" tabindex="-1"></a>                <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
-<span id="cb26-8"><a href="fdm.html#cb26-8" tabindex="-1"></a>                <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
-<span id="cb26-9"><a href="fdm.html#cb26-9" tabindex="-1"></a>                <span class="at">DT =</span> <span class="dv">25</span>,</span>
-<span id="cb26-10"><a href="fdm.html#cb26-10" tabindex="-1"></a>                <span class="at">Tmax =</span> <span class="dv">1000</span></span>
-<span id="cb26-11"><a href="fdm.html#cb26-11" tabindex="-1"></a>                )</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fdm.html#cb26-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Confined Aquifer</span></span>
+<span id="cb26-2"><a href="fdm.html#cb26-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = DDx * (dd u / d x^2) + DDy * (dd u / d y^2)</span></span>
+<span id="cb26-3"><a href="fdm.html#cb26-3" tabindex="-1"></a><span class="co">#&#39;  </span></span>
+<span id="cb26-4"><a href="fdm.html#cb26-4" tabindex="-1"></a>diag.matrix <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(id)), <span class="at">n =</span> <span class="dv">3</span>, <span class="at">def.val =</span> <span class="dv">0</span>){</span>
+<span id="cb26-5"><a href="fdm.html#cb26-5" tabindex="-1"></a>  val <span class="ot">=</span> <span class="fu">matrix</span>(x, <span class="at">ncol=</span><span class="fu">length</span>(id), <span class="at">nrow=</span><span class="dv">1</span>)</span>
+<span id="cb26-6"><a href="fdm.html#cb26-6" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(def.val, n, n)</span>
+<span id="cb26-7"><a href="fdm.html#cb26-7" tabindex="-1"></a>  nid <span class="ot">=</span> <span class="fu">length</span>(id)</span>
+<span id="cb26-8"><a href="fdm.html#cb26-8" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb26-9"><a href="fdm.html#cb26-9" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb26-10"><a href="fdm.html#cb26-10" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nid){</span>
+<span id="cb26-11"><a href="fdm.html#cb26-11" tabindex="-1"></a>        <span class="cf">if</span>(i <span class="sc">+</span> id[k] <span class="sc">==</span> j){</span>
+<span id="cb26-12"><a href="fdm.html#cb26-12" tabindex="-1"></a>          mat[i,j] <span class="ot">=</span> val[k]</span>
+<span id="cb26-13"><a href="fdm.html#cb26-13" tabindex="-1"></a>        }</span>
+<span id="cb26-14"><a href="fdm.html#cb26-14" tabindex="-1"></a>      }</span>
+<span id="cb26-15"><a href="fdm.html#cb26-15" tabindex="-1"></a>    }</span>
+<span id="cb26-16"><a href="fdm.html#cb26-16" tabindex="-1"></a>  }</span>
+<span id="cb26-17"><a href="fdm.html#cb26-17" tabindex="-1"></a>  mat</span>
+<span id="cb26-18"><a href="fdm.html#cb26-18" tabindex="-1"></a>}</span>
+<span id="cb26-19"><a href="fdm.html#cb26-19" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="fdm.html#cb26-20" tabindex="-1"></a>toBC <span class="ot">&lt;-</span> <span class="cf">function</span>(idl, x, val){</span>
+<span id="cb26-21"><a href="fdm.html#cb26-21" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb26-22"><a href="fdm.html#cb26-22" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbc){</span>
+<span id="cb26-23"><a href="fdm.html#cb26-23" tabindex="-1"></a>    x[idl[[i]]] <span class="ot">=</span> val[i]</span>
+<span id="cb26-24"><a href="fdm.html#cb26-24" tabindex="-1"></a>  }</span>
+<span id="cb26-25"><a href="fdm.html#cb26-25" tabindex="-1"></a>  x</span>
+<span id="cb26-26"><a href="fdm.html#cb26-26" tabindex="-1"></a>}</span>
+<span id="cb26-27"><a href="fdm.html#cb26-27" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="fdm.html#cb26-28" tabindex="-1"></a>CA.Implicit <span class="ot">&lt;-</span> <span class="cf">function</span>(  <span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb26-29"><a href="fdm.html#cb26-29" tabindex="-1"></a>                          <span class="at">bc2 =</span> <span class="cn">NULL</span>,</span>
+<span id="cb26-30"><a href="fdm.html#cb26-30" tabindex="-1"></a>                          <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb26-31"><a href="fdm.html#cb26-31" tabindex="-1"></a>                          <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb26-32"><a href="fdm.html#cb26-32" tabindex="-1"></a>                          <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
+<span id="cb26-33"><a href="fdm.html#cb26-33" tabindex="-1"></a>                          <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
+<span id="cb26-34"><a href="fdm.html#cb26-34" tabindex="-1"></a>                          <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
+<span id="cb26-35"><a href="fdm.html#cb26-35" tabindex="-1"></a>                          <span class="at">DT =</span> <span class="dv">25</span>,</span>
+<span id="cb26-36"><a href="fdm.html#cb26-36" tabindex="-1"></a>                          <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
+<span id="cb26-37"><a href="fdm.html#cb26-37" tabindex="-1"></a>                          <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>){</span>
+<span id="cb26-38"><a href="fdm.html#cb26-38" tabindex="-1"></a>  DX<span class="ot">=</span>Dxy[<span class="dv">1</span>]; DY<span class="ot">=</span>Dxy[<span class="dv">2</span>];</span>
+<span id="cb26-39"><a href="fdm.html#cb26-39" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Tmax, DT); </span>
+<span id="cb26-40"><a href="fdm.html#cb26-40" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
+<span id="cb26-41"><a href="fdm.html#cb26-41" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">1</span>], DX); NX <span class="ot">=</span> <span class="fu">length</span>(xx)</span>
+<span id="cb26-42"><a href="fdm.html#cb26-42" tabindex="-1"></a>  yy <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">2</span>], DY); NY <span class="ot">=</span> <span class="fu">length</span>(yy)</span>
+<span id="cb26-43"><a href="fdm.html#cb26-43" tabindex="-1"></a>  <span class="co"># NX = Lxy[1] / DX + 1;   NY = Lxy[2] / DY + 1</span></span>
+<span id="cb26-44"><a href="fdm.html#cb26-44" tabindex="-1"></a>  N <span class="ot">=</span> NX <span class="sc">*</span> NY</span>
+<span id="cb26-45"><a href="fdm.html#cb26-45" tabindex="-1"></a>  alpha <span class="ot">=</span> <span class="sc">-</span>DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb26-46"><a href="fdm.html#cb26-46" tabindex="-1"></a>  beta  <span class="ot">=</span> <span class="sc">-</span>DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb26-47"><a href="fdm.html#cb26-47" tabindex="-1"></a>  CFL.x <span class="ot">=</span>  DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb26-48"><a href="fdm.html#cb26-48" tabindex="-1"></a>  CFL.y <span class="ot">=</span>  DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb26-49"><a href="fdm.html#cb26-49" tabindex="-1"></a>  gamma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb26-50"><a href="fdm.html#cb26-50" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;CFL value = (&#39;</span>, CFL.x, <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, CFL.y, <span class="st">&#39;)&#39;</span>)  </span>
+<span id="cb26-51"><a href="fdm.html#cb26-51" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
+<span id="cb26-52"><a href="fdm.html#cb26-52" tabindex="-1"></a>    <span class="cf">if</span>(CFL.x <span class="sc">&gt;=</span>.<span class="dv">5</span> <span class="sc">|</span> CFL.y <span class="sc">&gt;=</span>.<span class="dv">5</span>){</span>
+<span id="cb26-53"><a href="fdm.html#cb26-53" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
+<span id="cb26-54"><a href="fdm.html#cb26-54" tabindex="-1"></a>    }</span>
+<span id="cb26-55"><a href="fdm.html#cb26-55" tabindex="-1"></a>  }</span>
+<span id="cb26-56"><a href="fdm.html#cb26-56" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb26-57"><a href="fdm.html#cb26-57" tabindex="-1"></a>  x0 <span class="ot">=</span> <span class="fu">rep</span>(uic, NX)</span>
+<span id="cb26-58"><a href="fdm.html#cb26-58" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span>NY, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, NY), <span class="at">n=</span>N,</span>
+<span id="cb26-59"><a href="fdm.html#cb26-59" tabindex="-1"></a>                    <span class="at">x=</span><span class="fu">c</span>(alpha, beta, gamma, beta, alpha), <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb26-60"><a href="fdm.html#cb26-60" tabindex="-1"></a>  dmat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id=</span><span class="dv">0</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">n=</span>N, <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb26-61"><a href="fdm.html#cb26-61" tabindex="-1"></a>  idl <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span>NY,</span>
+<span id="cb26-62"><a href="fdm.html#cb26-62" tabindex="-1"></a>             <span class="dv">1</span><span class="sc">+</span>(<span class="dv">1</span><span class="sc">:</span>NX <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(NY),</span>
+<span id="cb26-63"><a href="fdm.html#cb26-63" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">:</span>NX) <span class="sc">*</span> NY,</span>
+<span id="cb26-64"><a href="fdm.html#cb26-64" tabindex="-1"></a>             (NX<span class="dv">-1</span>)<span class="sc">*</span>(NY)<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span>NY) </span>
+<span id="cb26-65"><a href="fdm.html#cb26-65" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb26-66"><a href="fdm.html#cb26-66" tabindex="-1"></a>  id.bc <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">unlist</span>(idl)))</span>
+<span id="cb26-67"><a href="fdm.html#cb26-67" tabindex="-1"></a>  mat[id.bc, ] <span class="ot">=</span> dmat[id.bc,]</span>
+<span id="cb26-68"><a href="fdm.html#cb26-68" tabindex="-1"></a>  </span>
+<span id="cb26-69"><a href="fdm.html#cb26-69" tabindex="-1"></a>  arr <span class="ot">=</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim=</span><span class="fu">c</span>(NY,NX,NT))</span>
+<span id="cb26-70"><a href="fdm.html#cb26-70" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, N))</span>
+<span id="cb26-71"><a href="fdm.html#cb26-71" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(uic, N))</span>
+<span id="cb26-72"><a href="fdm.html#cb26-72" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>b, <span class="at">val=</span>bc1)</span>
+<span id="cb26-73"><a href="fdm.html#cb26-73" tabindex="-1"></a>  </span>
+<span id="cb26-74"><a href="fdm.html#cb26-74" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb26-75"><a href="fdm.html#cb26-75" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb26-76"><a href="fdm.html#cb26-76" tabindex="-1"></a>      bx <span class="ot">=</span> <span class="fu">solve</span>(mat, b <span class="sc">+</span> vs <span class="sc">*</span> DT)</span>
+<span id="cb26-77"><a href="fdm.html#cb26-77" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb26-78"><a href="fdm.html#cb26-78" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb26-79"><a href="fdm.html#cb26-79" tabindex="-1"></a>    }</span>
+<span id="cb26-80"><a href="fdm.html#cb26-80" tabindex="-1"></a>    bx <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>bx, <span class="at">val=</span>bc1)</span>
+<span id="cb26-81"><a href="fdm.html#cb26-81" tabindex="-1"></a>    arr[, , i] <span class="ot">=</span> <span class="fu">matrix</span>(bx, <span class="at">nrow =</span> NY, <span class="at">ncol =</span> NX)</span>
+<span id="cb26-82"><a href="fdm.html#cb26-82" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb26-83"><a href="fdm.html#cb26-83" tabindex="-1"></a>  }</span>
+<span id="cb26-84"><a href="fdm.html#cb26-84" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb26-85"><a href="fdm.html#cb26-85" tabindex="-1"></a>  arr<span class="ot">=</span>arr[,, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb26-86"><a href="fdm.html#cb26-86" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb26-87"><a href="fdm.html#cb26-87" tabindex="-1"></a>  <span class="co"># yy = arr; yy[abs(yy)&gt;1e20] = NA</span></span>
+<span id="cb26-88"><a href="fdm.html#cb26-88" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx,</span>
+<span id="cb26-89"><a href="fdm.html#cb26-89" tabindex="-1"></a>             <span class="st">&#39;y&#39;</span> <span class="ot">=</span> yy,</span>
+<span id="cb26-90"><a href="fdm.html#cb26-90" tabindex="-1"></a>             <span class="st">&#39;z&#39;</span> <span class="ot">=</span> arr,</span>
+<span id="cb26-91"><a href="fdm.html#cb26-91" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb26-92"><a href="fdm.html#cb26-92" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(CFL.x, CFL.y),</span>
+<span id="cb26-93"><a href="fdm.html#cb26-93" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb26-94"><a href="fdm.html#cb26-94" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT</span>
+<span id="cb26-95"><a href="fdm.html#cb26-95" tabindex="-1"></a>  )</span>
+<span id="cb26-96"><a href="fdm.html#cb26-96" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb26-97"><a href="fdm.html#cb26-97" tabindex="-1"></a>}</span>
+<span id="cb26-98"><a href="fdm.html#cb26-98" tabindex="-1"></a>plot<span class="fl">.3</span>d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nr=</span><span class="dv">3</span>, <span class="at">nc=</span><span class="dv">4</span>, <span class="at">clim=</span><span class="cn">NULL</span>){</span>
+<span id="cb26-99"><a href="fdm.html#cb26-99" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(nr, nc), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb26-100"><a href="fdm.html#cb26-100" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nc<span class="sc">*</span>nr))</span>
+<span id="cb26-101"><a href="fdm.html#cb26-101" tabindex="-1"></a>  z<span class="ot">=</span>x<span class="sc">$</span>z; </span>
+<span id="cb26-102"><a href="fdm.html#cb26-102" tabindex="-1"></a>  z[ <span class="fu">is.infinite</span>(<span class="fu">abs</span>(z)) ] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb26-103"><a href="fdm.html#cb26-103" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clim)){</span>
+<span id="cb26-104"><a href="fdm.html#cb26-104" tabindex="-1"></a>    clim <span class="ot">=</span> <span class="fu">range</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-105"><a href="fdm.html#cb26-105" tabindex="-1"></a>  }</span>
+<span id="cb26-106"><a href="fdm.html#cb26-106" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> idx ){</span>
+<span id="cb26-107"><a href="fdm.html#cb26-107" tabindex="-1"></a>    plot3D<span class="sc">::</span><span class="fu">persp3D</span>(<span class="at">z=</span>z[, , i], <span class="at">clim=</span>clim,</span>
+<span id="cb26-108"><a href="fdm.html#cb26-108" tabindex="-1"></a>            <span class="at">colvar=</span>z[, , i])</span>
+<span id="cb26-109"><a href="fdm.html#cb26-109" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="fu">paste</span>(<span class="st">&#39;T =&#39;</span>, x<span class="sc">$</span>DT <span class="sc">*</span> i), <span class="at">side=</span> <span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb26-110"><a href="fdm.html#cb26-110" tabindex="-1"></a>  }</span>
+<span id="cb26-111"><a href="fdm.html#cb26-111" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="fdm.html#cb27-1" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
+<span id="cb27-2"><a href="fdm.html#cb27-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DIm.R&quot;</span>)</span>
+<span id="cb27-3"><a href="fdm.html#cb27-3" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">CA.Implicit</span>(<span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">30</span>,<span class="dv">10</span>, <span class="dv">10</span>),</span>
+<span id="cb27-4"><a href="fdm.html#cb27-4" tabindex="-1"></a>                <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb27-5"><a href="fdm.html#cb27-5" tabindex="-1"></a>                <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb27-6"><a href="fdm.html#cb27-6" tabindex="-1"></a>                <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
+<span id="cb27-7"><a href="fdm.html#cb27-7" tabindex="-1"></a>                <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
+<span id="cb27-8"><a href="fdm.html#cb27-8" tabindex="-1"></a>                <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
+<span id="cb27-9"><a href="fdm.html#cb27-9" tabindex="-1"></a>                <span class="at">DT =</span> <span class="dv">25</span>,</span>
+<span id="cb27-10"><a href="fdm.html#cb27-10" tabindex="-1"></a>                <span class="at">Tmax =</span> <span class="dv">1000</span></span>
+<span id="cb27-11"><a href="fdm.html#cb27-11" tabindex="-1"></a>                )</span></code></pre></div>
 <pre><code>## CFL value = (0.23    0.23)</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="fdm.html#cb28-1" tabindex="-1"></a><span class="fu">plot.3d</span>(x)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="fdm.html#cb29-1" tabindex="-1"></a><span class="fu">plot.3d</span>(x)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>对比隐式与显式求解法的时间步长和效率：</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="fdm.html#cb29-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
-<span id="cb29-2"><a href="fdm.html#cb29-2" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
-<span id="cb29-3"><a href="fdm.html#cb29-3" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DEx.R&quot;</span>)</span>
-<span id="cb29-4"><a href="fdm.html#cb29-4" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DIm.R&quot;</span>)</span>
-<span id="cb29-5"><a href="fdm.html#cb29-5" tabindex="-1"></a>Tmax <span class="ot">=</span> <span class="fl">1e4</span></span>
-<span id="cb29-6"><a href="fdm.html#cb29-6" tabindex="-1"></a>dx <span class="ot">=</span> dy <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb29-7"><a href="fdm.html#cb29-7" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb29-8"><a href="fdm.html#cb29-8" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">CA.Explicit</span>(<span class="at">Tmax =</span> Tmax, <span class="at">DT =</span> <span class="dv">25</span>, </span>
-<span id="cb29-9"><a href="fdm.html#cb29-9" tabindex="-1"></a>                 <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>), <span class="at">Dxy =</span> <span class="fu">c</span>(dx, dy),</span>
-<span id="cb29-10"><a href="fdm.html#cb29-10" tabindex="-1"></a>                 <span class="at">ignore.cfl =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="fdm.html#cb30-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb30-2"><a href="fdm.html#cb30-2" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
+<span id="cb30-3"><a href="fdm.html#cb30-3" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DEx.R&quot;</span>)</span>
+<span id="cb30-4"><a href="fdm.html#cb30-4" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_ConfAq2DIm.R&quot;</span>)</span>
+<span id="cb30-5"><a href="fdm.html#cb30-5" tabindex="-1"></a>Tmax <span class="ot">=</span> <span class="fl">1e4</span></span>
+<span id="cb30-6"><a href="fdm.html#cb30-6" tabindex="-1"></a>dx <span class="ot">=</span> dy <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb30-7"><a href="fdm.html#cb30-7" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb30-8"><a href="fdm.html#cb30-8" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">CA.Explicit</span>(<span class="at">Tmax =</span> Tmax, <span class="at">DT =</span> <span class="dv">25</span>, </span>
+<span id="cb30-9"><a href="fdm.html#cb30-9" tabindex="-1"></a>                 <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>), <span class="at">Dxy =</span> <span class="fu">c</span>(dx, dy),</span>
+<span id="cb30-10"><a href="fdm.html#cb30-10" tabindex="-1"></a>                 <span class="at">ignore.cfl =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## CFL value = (0.23    0.23)</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="fdm.html#cb31-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb31-2"><a href="fdm.html#cb31-2" tabindex="-1"></a>tu.ex <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
-<span id="cb31-3"><a href="fdm.html#cb31-3" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="fdm.html#cb31-4" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb31-5"><a href="fdm.html#cb31-5" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">CA.Implicit</span>(<span class="at">Tmax =</span> Tmax, <span class="at">DT =</span> <span class="dv">25</span>, </span>
-<span id="cb31-6"><a href="fdm.html#cb31-6" tabindex="-1"></a>                 <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>), <span class="at">Dxy =</span> <span class="fu">c</span>(dx, dy),</span>
-<span id="cb31-7"><a href="fdm.html#cb31-7" tabindex="-1"></a>                 <span class="at">ignore.cfl =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="fdm.html#cb32-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb32-2"><a href="fdm.html#cb32-2" tabindex="-1"></a>tu.ex <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
+<span id="cb32-3"><a href="fdm.html#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="fdm.html#cb32-4" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb32-5"><a href="fdm.html#cb32-5" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">CA.Implicit</span>(<span class="at">Tmax =</span> Tmax, <span class="at">DT =</span> <span class="dv">25</span>, </span>
+<span id="cb32-6"><a href="fdm.html#cb32-6" tabindex="-1"></a>                 <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>), <span class="at">Dxy =</span> <span class="fu">c</span>(dx, dy),</span>
+<span id="cb32-7"><a href="fdm.html#cb32-7" tabindex="-1"></a>                 <span class="at">ignore.cfl =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## CFL value = (0.23    0.23)</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="fdm.html#cb33-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb33-2"><a href="fdm.html#cb33-2" tabindex="-1"></a>tu.im <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
-<span id="cb33-3"><a href="fdm.html#cb33-3" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="fdm.html#cb33-4" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>( <span class="st">&#39;Type&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Explicit&#39;</span>, <span class="st">&#39;Implicit&#39;</span>),</span>
-<span id="cb33-5"><a href="fdm.html#cb33-5" tabindex="-1"></a>                 <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>NT, x2<span class="sc">$</span>NT), </span>
-<span id="cb33-6"><a href="fdm.html#cb33-6" tabindex="-1"></a>                 <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>DT, x2<span class="sc">$</span>DT),</span>
-<span id="cb33-7"><a href="fdm.html#cb33-7" tabindex="-1"></a>                 <span class="st">&#39;Time&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(tu.ex, tu.im),</span>
-<span id="cb33-8"><a href="fdm.html#cb33-8" tabindex="-1"></a>                 <span class="st">&#39;CFL.X&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>CFL[<span class="dv">1</span>], x2<span class="sc">$</span>CFL[<span class="dv">1</span>]),</span>
-<span id="cb33-9"><a href="fdm.html#cb33-9" tabindex="-1"></a>                 <span class="st">&#39;CFL.Y&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>CFL[<span class="dv">2</span>], x2<span class="sc">$</span>CFL[<span class="dv">2</span>])</span>
-<span id="cb33-10"><a href="fdm.html#cb33-10" tabindex="-1"></a>)</span>
-<span id="cb33-11"><a href="fdm.html#cb33-11" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
-<pre><code>##       Type  NT DT           Time CFL.X CFL.Y
-## 1 Explicit 401 25  4.811744 secs  0.23  0.23
-## 2 Implicit 401 25 10.126844 secs  0.23  0.23</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="fdm.html#cb34-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb34-2"><a href="fdm.html#cb34-2" tabindex="-1"></a>tu.im <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
+<span id="cb34-3"><a href="fdm.html#cb34-3" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="fdm.html#cb34-4" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>( <span class="st">&#39;Type&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Explicit&#39;</span>, <span class="st">&#39;Implicit&#39;</span>),</span>
+<span id="cb34-5"><a href="fdm.html#cb34-5" tabindex="-1"></a>                 <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>NT, x2<span class="sc">$</span>NT), </span>
+<span id="cb34-6"><a href="fdm.html#cb34-6" tabindex="-1"></a>                 <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>DT, x2<span class="sc">$</span>DT),</span>
+<span id="cb34-7"><a href="fdm.html#cb34-7" tabindex="-1"></a>                 <span class="st">&#39;Time&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(tu.ex, tu.im),</span>
+<span id="cb34-8"><a href="fdm.html#cb34-8" tabindex="-1"></a>                 <span class="st">&#39;CFL.X&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>CFL[<span class="dv">1</span>], x2<span class="sc">$</span>CFL[<span class="dv">1</span>]),</span>
+<span id="cb34-9"><a href="fdm.html#cb34-9" tabindex="-1"></a>                 <span class="st">&#39;CFL.Y&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(x1<span class="sc">$</span>CFL[<span class="dv">2</span>], x2<span class="sc">$</span>CFL[<span class="dv">2</span>])</span>
+<span id="cb34-10"><a href="fdm.html#cb34-10" tabindex="-1"></a>)</span>
+<span id="cb34-11"><a href="fdm.html#cb34-11" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
+<pre><code>##       Type  NT DT          Time CFL.X CFL.Y
+## 1 Explicit 401 25 3.523902 secs  0.23  0.23
+## 2 Implicit 401 25 7.618441 secs  0.23  0.23</code></pre>
 
 </div>
 </div>

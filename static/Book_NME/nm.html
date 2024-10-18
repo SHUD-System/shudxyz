@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 数值方法基础 | 数值地球</title>
   <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 数值方法基础 | 数值地球" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="舒乐乐，孟宪红" />
 
 
-<meta name="date" content="2023-11-21" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -141,8 +145,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.1" data-path="modeling.html"><a href="modeling.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
 <ul>
-<li class="chapter" data-level="" data-path="modeling.html"><a href="modeling.html#案例自由落体运动"><i class="fa fa-check"></i>案例：自由落体运动</a></li>
+<li class="chapter" data-level="" data-path="modeling.html"><a href="modeling.html#落体运动"><i class="fa fa-check"></i>落体运动</a></li>
+<li class="chapter" data-level="1.1.1" data-path="modeling.html"><a href="modeling.html#落体运动的数值求解方法"><i class="fa fa-check"></i><b>1.1.1</b> 落体运动的数值求解方法</a></li>
 </ul></li>
+<li class="chapter" data-level="1.2" data-path="modeling.html"><a href="modeling.html#解析解与数值解"><i class="fa fa-check"></i><b>1.2</b> 解析解与数值解</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="nm.html"><a href="nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
 <ul>
@@ -254,57 +260,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <hr />
 <div class="example">
-<p><span id="exm:unnamed-chunk-2" class="example"><strong>Example 2.1  </strong></span>已知函数：
+<p><span id="exm:unnamed-chunk-3" class="example"><strong>Example 2.1  </strong></span>已知函数：
 <span class="math display">\[\frac{dy}{dt} = y\]</span>
 <span class="math display">\[y(0)=1\]</span>
 <strong>求</strong>：<span class="math display">\[y(4) = ?\]</span></p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="nm.html#cb2-1" tabindex="-1"></a><span class="co"># source: https://en.wikipedia.org/wiki/Euler_method</span></span>
-<span id="cb2-2"><a href="nm.html#cb2-2" tabindex="-1"></a><span class="co"># ============</span></span>
-<span id="cb2-3"><a href="nm.html#cb2-3" tabindex="-1"></a><span class="co"># SOLUTION to</span></span>
-<span id="cb2-4"><a href="nm.html#cb2-4" tabindex="-1"></a><span class="co">#   y&#39; = y,   where y&#39; = f(t,y)</span></span>
-<span id="cb2-5"><a href="nm.html#cb2-5" tabindex="-1"></a><span class="co"># then:</span></span>
-<span id="cb2-6"><a href="nm.html#cb2-6" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(ti,y) y</span>
-<span id="cb2-7"><a href="nm.html#cb2-7" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="nm.html#cb2-8" tabindex="-1"></a><span class="co"># INITIAL VALUES:</span></span>
-<span id="cb2-9"><a href="nm.html#cb2-9" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb2-10"><a href="nm.html#cb2-10" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb2-11"><a href="nm.html#cb2-11" tabindex="-1"></a>h  <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
-<span id="cb2-12"><a href="nm.html#cb2-12" tabindex="-1"></a>tn <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb2-13"><a href="nm.html#cb2-13" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="nm.html#cb2-14" tabindex="-1"></a><span class="co"># Euler&#39;s method: function definition</span></span>
-<span id="cb2-15"><a href="nm.html#cb2-15" tabindex="-1"></a>Euler <span class="ot">&lt;-</span> <span class="cf">function</span>(t0, y0, h, tn, dy.dt) {</span>
-<span id="cb2-16"><a href="nm.html#cb2-16" tabindex="-1"></a>  <span class="co"># dy.dt: derivative function</span></span>
-<span id="cb2-17"><a href="nm.html#cb2-17" tabindex="-1"></a>  </span>
-<span id="cb2-18"><a href="nm.html#cb2-18" tabindex="-1"></a>  <span class="co"># t sequence:</span></span>
-<span id="cb2-19"><a href="nm.html#cb2-19" tabindex="-1"></a>  tt <span class="ot">&lt;-</span> <span class="fu">seq</span>(t0, tn, <span class="at">by=</span>h)</span>
-<span id="cb2-20"><a href="nm.html#cb2-20" tabindex="-1"></a>  <span class="co"># table with as many rows as tt elements:</span></span>
-<span id="cb2-21"><a href="nm.html#cb2-21" tabindex="-1"></a>  tbl <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ti=</span>tt)</span>
-<span id="cb2-22"><a href="nm.html#cb2-22" tabindex="-1"></a>  tbl<span class="sc">$</span>yi <span class="ot">&lt;-</span> y0 <span class="co"># Initializes yi with y0</span></span>
-<span id="cb2-23"><a href="nm.html#cb2-23" tabindex="-1"></a>  tbl<span class="sc">$</span>Dy.dt[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">dy.dt</span>(tbl<span class="sc">$</span>ti[<span class="dv">1</span>],y0) <span class="co"># derivative</span></span>
-<span id="cb2-24"><a href="nm.html#cb2-24" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(tbl)) {</span>
-<span id="cb2-25"><a href="nm.html#cb2-25" tabindex="-1"></a>    tbl<span class="sc">$</span>yi[i] <span class="ot">&lt;-</span> tbl<span class="sc">$</span>yi[i<span class="dv">-1</span>] <span class="sc">+</span> h<span class="sc">*</span>tbl<span class="sc">$</span>Dy.dt[i<span class="dv">-1</span>]</span>
-<span id="cb2-26"><a href="nm.html#cb2-26" tabindex="-1"></a>    <span class="co"># For next iteration:</span></span>
-<span id="cb2-27"><a href="nm.html#cb2-27" tabindex="-1"></a>    tbl<span class="sc">$</span>Dy.dt[i] <span class="ot">&lt;-</span> <span class="fu">dy.dt</span>(tbl<span class="sc">$</span>ti[i],tbl<span class="sc">$</span>yi[i])</span>
-<span id="cb2-28"><a href="nm.html#cb2-28" tabindex="-1"></a>  }</span>
-<span id="cb2-29"><a href="nm.html#cb2-29" tabindex="-1"></a>  <span class="fu">return</span>(tbl)</span>
-<span id="cb2-30"><a href="nm.html#cb2-30" tabindex="-1"></a>}</span>
-<span id="cb2-31"><a href="nm.html#cb2-31" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="nm.html#cb2-32" tabindex="-1"></a><span class="co"># Euler&#39;s method: function application</span></span>
-<span id="cb2-33"><a href="nm.html#cb2-33" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">Euler</span>(t0, y0, h, tn, f)</span>
-<span id="cb2-34"><a href="nm.html#cb2-34" tabindex="-1"></a><span class="fu">rownames</span>(r) <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>(<span class="fu">nrow</span>(r)<span class="sc">-</span><span class="dv">1</span>) <span class="co"># to coincide with index n</span></span>
-<span id="cb2-35"><a href="nm.html#cb2-35" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="nm.html#cb2-36" tabindex="-1"></a><span class="co"># Exact solution for this case: y = exp(t)</span></span>
-<span id="cb2-37"><a href="nm.html#cb2-37" tabindex="-1"></a><span class="co">#       added as an additional column to r</span></span>
-<span id="cb2-38"><a href="nm.html#cb2-38" tabindex="-1"></a>r<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">exp</span>(r<span class="sc">$</span>ti)</span>
-<span id="cb2-39"><a href="nm.html#cb2-39" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="nm.html#cb2-40" tabindex="-1"></a><span class="fu">plot</span>(r<span class="sc">$</span>ti, r<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb2-41"><a href="nm.html#cb2-41" tabindex="-1"></a><span class="fu">lines</span>(r<span class="sc">$</span>ti, r<span class="sc">$</span>yi, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb2-42"><a href="nm.html#cb2-42" tabindex="-1"></a><span class="fu">grid</span>(<span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span>
-<span id="cb2-43"><a href="nm.html#cb2-43" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;top&quot;</span>,  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Exact&quot;</span>, <span class="st">&quot;Euler&quot;</span>), <span class="at">lwd=</span><span class="dv">2</span>,  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="nm.html#cb3-1" tabindex="-1"></a><span class="co"># TABLE with results:</span></span>
-<span id="cb3-2"><a href="nm.html#cb3-2" tabindex="-1"></a><span class="fu">print</span>(r)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="nm.html#cb3-1" tabindex="-1"></a><span class="co"># source: https://en.wikipedia.org/wiki/Euler_method</span></span>
+<span id="cb3-2"><a href="nm.html#cb3-2" tabindex="-1"></a><span class="co"># ============</span></span>
+<span id="cb3-3"><a href="nm.html#cb3-3" tabindex="-1"></a><span class="co"># SOLUTION to</span></span>
+<span id="cb3-4"><a href="nm.html#cb3-4" tabindex="-1"></a><span class="co">#   y&#39; = y,   where y&#39; = f(t,y)</span></span>
+<span id="cb3-5"><a href="nm.html#cb3-5" tabindex="-1"></a><span class="co"># then:</span></span>
+<span id="cb3-6"><a href="nm.html#cb3-6" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(ti,y) y</span>
+<span id="cb3-7"><a href="nm.html#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="nm.html#cb3-8" tabindex="-1"></a><span class="co"># INITIAL VALUES:</span></span>
+<span id="cb3-9"><a href="nm.html#cb3-9" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-10"><a href="nm.html#cb3-10" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-11"><a href="nm.html#cb3-11" tabindex="-1"></a>h  <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb3-12"><a href="nm.html#cb3-12" tabindex="-1"></a>tn <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb3-13"><a href="nm.html#cb3-13" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="nm.html#cb3-14" tabindex="-1"></a><span class="co"># Euler&#39;s method: function definition</span></span>
+<span id="cb3-15"><a href="nm.html#cb3-15" tabindex="-1"></a>Euler <span class="ot">&lt;-</span> <span class="cf">function</span>(t0, y0, h, tn, dy.dt) {</span>
+<span id="cb3-16"><a href="nm.html#cb3-16" tabindex="-1"></a>  <span class="co"># dy.dt: derivative function</span></span>
+<span id="cb3-17"><a href="nm.html#cb3-17" tabindex="-1"></a>  </span>
+<span id="cb3-18"><a href="nm.html#cb3-18" tabindex="-1"></a>  <span class="co"># t sequence:</span></span>
+<span id="cb3-19"><a href="nm.html#cb3-19" tabindex="-1"></a>  tt <span class="ot">&lt;-</span> <span class="fu">seq</span>(t0, tn, <span class="at">by=</span>h)</span>
+<span id="cb3-20"><a href="nm.html#cb3-20" tabindex="-1"></a>  <span class="co"># table with as many rows as tt elements:</span></span>
+<span id="cb3-21"><a href="nm.html#cb3-21" tabindex="-1"></a>  tbl <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ti=</span>tt)</span>
+<span id="cb3-22"><a href="nm.html#cb3-22" tabindex="-1"></a>  tbl<span class="sc">$</span>yi <span class="ot">&lt;-</span> y0 <span class="co"># Initializes yi with y0</span></span>
+<span id="cb3-23"><a href="nm.html#cb3-23" tabindex="-1"></a>  tbl<span class="sc">$</span>Dy.dt[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">dy.dt</span>(tbl<span class="sc">$</span>ti[<span class="dv">1</span>],y0) <span class="co"># derivative</span></span>
+<span id="cb3-24"><a href="nm.html#cb3-24" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(tbl)) {</span>
+<span id="cb3-25"><a href="nm.html#cb3-25" tabindex="-1"></a>    tbl<span class="sc">$</span>yi[i] <span class="ot">&lt;-</span> tbl<span class="sc">$</span>yi[i<span class="dv">-1</span>] <span class="sc">+</span> h<span class="sc">*</span>tbl<span class="sc">$</span>Dy.dt[i<span class="dv">-1</span>]</span>
+<span id="cb3-26"><a href="nm.html#cb3-26" tabindex="-1"></a>    <span class="co"># For next iteration:</span></span>
+<span id="cb3-27"><a href="nm.html#cb3-27" tabindex="-1"></a>    tbl<span class="sc">$</span>Dy.dt[i] <span class="ot">&lt;-</span> <span class="fu">dy.dt</span>(tbl<span class="sc">$</span>ti[i],tbl<span class="sc">$</span>yi[i])</span>
+<span id="cb3-28"><a href="nm.html#cb3-28" tabindex="-1"></a>  }</span>
+<span id="cb3-29"><a href="nm.html#cb3-29" tabindex="-1"></a>  <span class="fu">return</span>(tbl)</span>
+<span id="cb3-30"><a href="nm.html#cb3-30" tabindex="-1"></a>}</span>
+<span id="cb3-31"><a href="nm.html#cb3-31" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="nm.html#cb3-32" tabindex="-1"></a><span class="co"># Euler&#39;s method: function application</span></span>
+<span id="cb3-33"><a href="nm.html#cb3-33" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">Euler</span>(t0, y0, h, tn, f)</span>
+<span id="cb3-34"><a href="nm.html#cb3-34" tabindex="-1"></a><span class="fu">rownames</span>(r) <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>(<span class="fu">nrow</span>(r)<span class="sc">-</span><span class="dv">1</span>) <span class="co"># to coincide with index n</span></span>
+<span id="cb3-35"><a href="nm.html#cb3-35" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="nm.html#cb3-36" tabindex="-1"></a><span class="co"># Exact solution for this case: y = exp(t)</span></span>
+<span id="cb3-37"><a href="nm.html#cb3-37" tabindex="-1"></a><span class="co">#       added as an additional column to r</span></span>
+<span id="cb3-38"><a href="nm.html#cb3-38" tabindex="-1"></a>r<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">exp</span>(r<span class="sc">$</span>ti)</span>
+<span id="cb3-39"><a href="nm.html#cb3-39" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="nm.html#cb3-40" tabindex="-1"></a><span class="fu">plot</span>(r<span class="sc">$</span>ti, r<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb3-41"><a href="nm.html#cb3-41" tabindex="-1"></a><span class="fu">lines</span>(r<span class="sc">$</span>ti, r<span class="sc">$</span>yi, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb3-42"><a href="nm.html#cb3-42" tabindex="-1"></a><span class="fu">grid</span>(<span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span>
+<span id="cb3-43"><a href="nm.html#cb3-43" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;top&quot;</span>,  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Exact&quot;</span>, <span class="st">&quot;Euler&quot;</span>), <span class="at">lwd=</span><span class="dv">2</span>,  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="nm.html#cb4-1" tabindex="-1"></a><span class="co"># TABLE with results:</span></span>
+<span id="cb4-2"><a href="nm.html#cb4-2" tabindex="-1"></a><span class="fu">print</span>(r)</span></code></pre></div>
 <pre><code>##     ti        yi     Dy.dt         y
 ## 0  0.0  1.000000  1.000000  1.000000
 ## 1  0.1  1.100000  1.100000  1.105171
@@ -367,39 +373,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <hr />
 <p>实现四阶龙格-库塔算法的R代码：</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="nm.html#cb5-1" tabindex="-1"></a><span class="co"># Define the derivative function</span></span>
-<span id="cb5-2"><a href="nm.html#cb5-2" tabindex="-1"></a>dydx <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb5-3"><a href="nm.html#cb5-3" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb5-4"><a href="nm.html#cb5-4" tabindex="-1"></a>}</span>
-<span id="cb5-5"><a href="nm.html#cb5-5" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="nm.html#cb5-6" tabindex="-1"></a><span class="co"># Define the Runge-Kutta method</span></span>
-<span id="cb5-7"><a href="nm.html#cb5-7" tabindex="-1"></a>rk4 <span class="ot">&lt;-</span> <span class="cf">function</span>(y0, x0, h, n) {</span>
-<span id="cb5-8"><a href="nm.html#cb5-8" tabindex="-1"></a>  <span class="co"># Initialize arrays</span></span>
-<span id="cb5-9"><a href="nm.html#cb5-9" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb5-10"><a href="nm.html#cb5-10" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb5-11"><a href="nm.html#cb5-11" tabindex="-1"></a>  </span>
-<span id="cb5-12"><a href="nm.html#cb5-12" tabindex="-1"></a>  <span class="co"># Set initial values</span></span>
-<span id="cb5-13"><a href="nm.html#cb5-13" tabindex="-1"></a>  x[<span class="dv">1</span>] <span class="ot">&lt;-</span> x0</span>
-<span id="cb5-14"><a href="nm.html#cb5-14" tabindex="-1"></a>  y[<span class="dv">1</span>] <span class="ot">&lt;-</span> y0</span>
-<span id="cb5-15"><a href="nm.html#cb5-15" tabindex="-1"></a>  </span>
-<span id="cb5-16"><a href="nm.html#cb5-16" tabindex="-1"></a>  <span class="co"># Iterate over n steps</span></span>
-<span id="cb5-17"><a href="nm.html#cb5-17" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb5-18"><a href="nm.html#cb5-18" tabindex="-1"></a>    k1 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i], y[i])</span>
-<span id="cb5-19"><a href="nm.html#cb5-19" tabindex="-1"></a>    k2 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i] <span class="sc">+</span> h<span class="sc">/</span><span class="dv">2</span>, y[i] <span class="sc">+</span> k1<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb5-20"><a href="nm.html#cb5-20" tabindex="-1"></a>    k3 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i] <span class="sc">+</span> h<span class="sc">/</span><span class="dv">2</span>, y[i] <span class="sc">+</span> k2<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb5-21"><a href="nm.html#cb5-21" tabindex="-1"></a>    k4 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i] <span class="sc">+</span> h, y[i] <span class="sc">+</span> k3)</span>
-<span id="cb5-22"><a href="nm.html#cb5-22" tabindex="-1"></a>    y[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> y[i] <span class="sc">+</span> (k1 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>k2 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>k3 <span class="sc">+</span> k4) <span class="sc">/</span> <span class="dv">6</span></span>
-<span id="cb5-23"><a href="nm.html#cb5-23" tabindex="-1"></a>    x[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> x[i] <span class="sc">+</span> h</span>
-<span id="cb5-24"><a href="nm.html#cb5-24" tabindex="-1"></a>  }</span>
-<span id="cb5-25"><a href="nm.html#cb5-25" tabindex="-1"></a>  <span class="co"># Return the arrays</span></span>
-<span id="cb5-26"><a href="nm.html#cb5-26" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">x=</span>x, <span class="at">y=</span>y))</span>
-<span id="cb5-27"><a href="nm.html#cb5-27" tabindex="-1"></a>}</span>
-<span id="cb5-28"><a href="nm.html#cb5-28" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="nm.html#cb5-29" tabindex="-1"></a><span class="co"># Example usage</span></span>
-<span id="cb5-30"><a href="nm.html#cb5-30" tabindex="-1"></a>result<span class="ot">=</span><span class="fu">rk4</span>(<span class="at">y0=</span><span class="dv">0</span>, <span class="at">x0=</span><span class="dv">0</span>, <span class="at">h=</span><span class="fl">0.05</span>, <span class="at">n=</span><span class="dv">20</span>)</span>
-<span id="cb5-31"><a href="nm.html#cb5-31" tabindex="-1"></a><span class="fu">plot</span>(result<span class="sc">$</span>x, result<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">main =</span> <span class="st">&#39;4th-order Runge-Kutta Method&#39;</span>);<span class="fu">grid</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="nm.html#cb6-1" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="nm.html#cb6-1" tabindex="-1"></a><span class="co"># Define the derivative function</span></span>
+<span id="cb6-2"><a href="nm.html#cb6-2" tabindex="-1"></a>dydx <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb6-3"><a href="nm.html#cb6-3" tabindex="-1"></a>  <span class="fu">return</span>(x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb6-4"><a href="nm.html#cb6-4" tabindex="-1"></a>}</span>
+<span id="cb6-5"><a href="nm.html#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="nm.html#cb6-6" tabindex="-1"></a><span class="co"># Define the Runge-Kutta method</span></span>
+<span id="cb6-7"><a href="nm.html#cb6-7" tabindex="-1"></a>rk4 <span class="ot">&lt;-</span> <span class="cf">function</span>(y0, x0, h, n) {</span>
+<span id="cb6-8"><a href="nm.html#cb6-8" tabindex="-1"></a>  <span class="co"># Initialize arrays</span></span>
+<span id="cb6-9"><a href="nm.html#cb6-9" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb6-10"><a href="nm.html#cb6-10" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb6-11"><a href="nm.html#cb6-11" tabindex="-1"></a>  </span>
+<span id="cb6-12"><a href="nm.html#cb6-12" tabindex="-1"></a>  <span class="co"># Set initial values</span></span>
+<span id="cb6-13"><a href="nm.html#cb6-13" tabindex="-1"></a>  x[<span class="dv">1</span>] <span class="ot">&lt;-</span> x0</span>
+<span id="cb6-14"><a href="nm.html#cb6-14" tabindex="-1"></a>  y[<span class="dv">1</span>] <span class="ot">&lt;-</span> y0</span>
+<span id="cb6-15"><a href="nm.html#cb6-15" tabindex="-1"></a>  </span>
+<span id="cb6-16"><a href="nm.html#cb6-16" tabindex="-1"></a>  <span class="co"># Iterate over n steps</span></span>
+<span id="cb6-17"><a href="nm.html#cb6-17" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb6-18"><a href="nm.html#cb6-18" tabindex="-1"></a>    k1 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i], y[i])</span>
+<span id="cb6-19"><a href="nm.html#cb6-19" tabindex="-1"></a>    k2 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i] <span class="sc">+</span> h<span class="sc">/</span><span class="dv">2</span>, y[i] <span class="sc">+</span> k1<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb6-20"><a href="nm.html#cb6-20" tabindex="-1"></a>    k3 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i] <span class="sc">+</span> h<span class="sc">/</span><span class="dv">2</span>, y[i] <span class="sc">+</span> k2<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb6-21"><a href="nm.html#cb6-21" tabindex="-1"></a>    k4 <span class="ot">&lt;-</span> h <span class="sc">*</span> <span class="fu">dydx</span>(x[i] <span class="sc">+</span> h, y[i] <span class="sc">+</span> k3)</span>
+<span id="cb6-22"><a href="nm.html#cb6-22" tabindex="-1"></a>    y[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> y[i] <span class="sc">+</span> (k1 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>k2 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>k3 <span class="sc">+</span> k4) <span class="sc">/</span> <span class="dv">6</span></span>
+<span id="cb6-23"><a href="nm.html#cb6-23" tabindex="-1"></a>    x[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> x[i] <span class="sc">+</span> h</span>
+<span id="cb6-24"><a href="nm.html#cb6-24" tabindex="-1"></a>  }</span>
+<span id="cb6-25"><a href="nm.html#cb6-25" tabindex="-1"></a>  <span class="co"># Return the arrays</span></span>
+<span id="cb6-26"><a href="nm.html#cb6-26" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">x=</span>x, <span class="at">y=</span>y))</span>
+<span id="cb6-27"><a href="nm.html#cb6-27" tabindex="-1"></a>}</span>
+<span id="cb6-28"><a href="nm.html#cb6-28" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="nm.html#cb6-29" tabindex="-1"></a><span class="co"># Example usage</span></span>
+<span id="cb6-30"><a href="nm.html#cb6-30" tabindex="-1"></a>result<span class="ot">=</span><span class="fu">rk4</span>(<span class="at">y0=</span><span class="dv">0</span>, <span class="at">x0=</span><span class="dv">0</span>, <span class="at">h=</span><span class="fl">0.05</span>, <span class="at">n=</span><span class="dv">20</span>)</span>
+<span id="cb6-31"><a href="nm.html#cb6-31" tabindex="-1"></a><span class="fu">plot</span>(result<span class="sc">$</span>x, result<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">main =</span> <span class="st">&#39;4th-order Runge-Kutta Method&#39;</span>);<span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="nm.html#cb7-1" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
 <pre><code>##       x            y
 ## 1  0.00 0.000000e+00
 ## 2  0.05 4.166668e-05

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 应用案例 | 数值地球</title>
   <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 应用案例 | 数值地球" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="舒乐乐，孟宪红" />
 
 
-<meta name="date" content="2023-11-21" />
+<meta name="date" content="2024-10-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -141,8 +145,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.1" data-path="modeling.html"><a href="modeling.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
 <ul>
-<li class="chapter" data-level="" data-path="modeling.html"><a href="modeling.html#案例自由落体运动"><i class="fa fa-check"></i>案例：自由落体运动</a></li>
+<li class="chapter" data-level="" data-path="modeling.html"><a href="modeling.html#落体运动"><i class="fa fa-check"></i>落体运动</a></li>
+<li class="chapter" data-level="1.1.1" data-path="modeling.html"><a href="modeling.html#落体运动的数值求解方法"><i class="fa fa-check"></i><b>1.1.1</b> 落体运动的数值求解方法</a></li>
 </ul></li>
+<li class="chapter" data-level="1.2" data-path="modeling.html"><a href="modeling.html#解析解与数值解"><i class="fa fa-check"></i><b>1.2</b> 解析解与数值解</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="nm.html"><a href="nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
 <ul>
@@ -229,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>以上讲的模型都可以通过spin-up，将初始条件偏离问题解决，可以说：只要时间足够长，任何的初始条件都可以接受。这类问题属于可以新陈代谢的系统。 另外有一些系统——混沌系统，对于初始条件非常敏感，初始条件的细微差异，就会导致未来不可预测——即蝴蝶效应，细微初始条件或者过程的数值波动导致结果不具有可预测性。</p>
 <hr />
 <div class="definition">
-<p><span id="def:unnamed-chunk-16" class="definition"><strong>Definition 6.1  </strong></span>洛伦兹方程(Lorenz equation)描述空气流体 运动的一个简化微分方程组.1963年，美国气象学家洛伦兹(Lorenz,E. N.)将描述大气热对流的非线 性偏微分方程组通过傅里叶展开，大胆地截断而导 出描述垂直速度、上下温差的展开系数x(t),y(t),z(t)的三维自治动力系统。</p>
+<p><span id="def:unnamed-chunk-17" class="definition"><strong>Definition 6.1  </strong></span>洛伦兹方程(Lorenz equation)描述空气流体 运动的一个简化微分方程组.1963年，美国气象学家洛伦兹(Lorenz,E. N.)将描述大气热对流的非线 性偏微分方程组通过傅里叶展开，大胆地截断而导 出描述垂直速度、上下温差的展开系数x(t),y(t),z(t)的三维自治动力系统。</p>
 <p><span class="math display">\[\begin{align}
 \begin{array}{l}\frac{d x}{d t}=b(y-x) \\
 \frac{d y}{d t}=-x z+r x-y \\
@@ -243,80 +249,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 y(t+\Delta t)=y(t)+f_{y}\left(x^{\prime}, y^{\prime}, z^{\prime}, t^{\prime}\right) \Delta t \\
 z(t+\Delta t)=z(t)+f_{z}\left(x^{\prime}, y^{\prime}, z^{\prime}, t^{\prime}\right) \Delta t\end{array}
 \end{align}\]</span></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="app.html#cb35-1" tabindex="-1"></a><span class="fu">rm</span>( <span class="at">list =</span> <span class="fu">ls</span>() )</span>
-<span id="cb35-2"><a href="app.html#cb35-2" tabindex="-1"></a>fun.reaction <span class="ot">&lt;-</span> <span class="cf">function</span> (x, dt, t.end, <span class="at">rt.col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
-<span id="cb35-3"><a href="app.html#cb35-3" tabindex="-1"></a>  f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(sigma, x){</span>
-<span id="cb35-4"><a href="app.html#cb35-4" tabindex="-1"></a>    sigma <span class="sc">*</span> x[<span class="dv">2</span>] <span class="sc">-</span> sigma <span class="sc">*</span> x[<span class="dv">1</span>]</span>
-<span id="cb35-5"><a href="app.html#cb35-5" tabindex="-1"></a>  }</span>
-<span id="cb35-6"><a href="app.html#cb35-6" tabindex="-1"></a>  f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(rho, x){</span>
-<span id="cb35-7"><a href="app.html#cb35-7" tabindex="-1"></a>    rho <span class="sc">*</span> x[<span class="dv">1</span>] <span class="sc">-</span> x[<span class="dv">1</span>] <span class="sc">*</span> x[<span class="dv">3</span>] <span class="sc">-</span> x[<span class="dv">2</span>]</span>
-<span id="cb35-8"><a href="app.html#cb35-8" tabindex="-1"></a>    <span class="co"># rho * x[1] -  x[2]</span></span>
-<span id="cb35-9"><a href="app.html#cb35-9" tabindex="-1"></a>  }</span>
-<span id="cb35-10"><a href="app.html#cb35-10" tabindex="-1"></a>  f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(beta, x){</span>
-<span id="cb35-11"><a href="app.html#cb35-11" tabindex="-1"></a>    x[<span class="dv">1</span>] <span class="sc">*</span> x[<span class="dv">2</span>] <span class="sc">-</span> beta <span class="sc">*</span> x[<span class="dv">3</span>]</span>
-<span id="cb35-12"><a href="app.html#cb35-12" tabindex="-1"></a>    <span class="co"># - beta * x[3]</span></span>
-<span id="cb35-13"><a href="app.html#cb35-13" tabindex="-1"></a>  }</span>
-<span id="cb35-14"><a href="app.html#cb35-14" tabindex="-1"></a>  NT <span class="ot">=</span> t.end <span class="sc">/</span> dt</span>
-<span id="cb35-15"><a href="app.html#cb35-15" tabindex="-1"></a>  mat<span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, NT,<span class="dv">3</span>)</span>
-<span id="cb35-16"><a href="app.html#cb35-16" tabindex="-1"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
-<span id="cb35-17"><a href="app.html#cb35-17" tabindex="-1"></a>    x[<span class="dv">1</span>] <span class="ot">=</span> x[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">f1</span>(sigma, x) <span class="sc">*</span> dt</span>
-<span id="cb35-18"><a href="app.html#cb35-18" tabindex="-1"></a>    x[<span class="dv">2</span>] <span class="ot">=</span> x[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">f2</span>(rho, x) <span class="sc">*</span> dt</span>
-<span id="cb35-19"><a href="app.html#cb35-19" tabindex="-1"></a>    x[<span class="dv">3</span>] <span class="ot">=</span> x[<span class="dv">3</span>] <span class="sc">+</span> <span class="fu">f3</span>(beta, x) <span class="sc">*</span> dt</span>
-<span id="cb35-20"><a href="app.html#cb35-20" tabindex="-1"></a>    mat[i, ]<span class="ot">=</span> x</span>
-<span id="cb35-21"><a href="app.html#cb35-21" tabindex="-1"></a>  }</span>
-<span id="cb35-22"><a href="app.html#cb35-22" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span>NT <span class="sc">*</span> dt,  mat[, rt.col])</span>
-<span id="cb35-23"><a href="app.html#cb35-23" tabindex="-1"></a>  <span class="fu">colnames</span>(ret) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Time&#39;</span>, <span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>, <span class="st">&#39;z&#39;</span>)</span>
-<span id="cb35-24"><a href="app.html#cb35-24" tabindex="-1"></a>  ret<span class="ot">=</span> <span class="fu">data.frame</span>(ret)</span>
-<span id="cb35-25"><a href="app.html#cb35-25" tabindex="-1"></a>  ret</span>
-<span id="cb35-26"><a href="app.html#cb35-26" tabindex="-1"></a>}</span>
-<span id="cb35-27"><a href="app.html#cb35-27" tabindex="-1"></a></span>
-<span id="cb35-28"><a href="app.html#cb35-28" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">10</span>; beta <span class="ot">=</span> <span class="dv">8</span><span class="sc">/</span><span class="dv">3</span>; rho <span class="ot">=</span> <span class="dv">28</span></span>
-<span id="cb35-29"><a href="app.html#cb35-29" tabindex="-1"></a></span>
-<span id="cb35-30"><a href="app.html#cb35-30" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># IC</span></span>
-<span id="cb35-31"><a href="app.html#cb35-31" tabindex="-1"></a>t.end <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb35-32"><a href="app.html#cb35-32" tabindex="-1"></a>dt <span class="ot">=</span> <span class="fl">0.01</span></span>
-<span id="cb35-33"><a href="app.html#cb35-33" tabindex="-1"></a></span>
-<span id="cb35-34"><a href="app.html#cb35-34" tabindex="-1"></a>x0 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb35-35"><a href="app.html#cb35-35" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">fun.reaction</span>(<span class="at">x =</span> x0, dt, t.end)</span>
-<span id="cb35-36"><a href="app.html#cb35-36" tabindex="-1"></a></span>
-<span id="cb35-37"><a href="app.html#cb35-37" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
-<span id="cb35-38"><a href="app.html#cb35-38" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
-<span id="cb35-39"><a href="app.html#cb35-39" tabindex="-1"></a>x <span class="ot">=</span> x1</span>
-<span id="cb35-40"><a href="app.html#cb35-40" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb35-41"><a href="app.html#cb35-41" tabindex="-1"></a><span class="fu">plot</span>(x<span class="sc">$</span>x, x<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span>
-<span id="cb35-42"><a href="app.html#cb35-42" tabindex="-1"></a><span class="fu">plot</span>(x<span class="sc">$</span>x, x<span class="sc">$</span>z, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span>
-<span id="cb35-43"><a href="app.html#cb35-43" tabindex="-1"></a><span class="fu">plot</span>(x<span class="sc">$</span>y, x<span class="sc">$</span>z, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span>
-<span id="cb35-44"><a href="app.html#cb35-44" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="app.html#cb36-1" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb36-2"><a href="app.html#cb36-2" tabindex="-1"></a><span class="co"># rgl::plot3d(x[, 2:4])</span></span>
-<span id="cb36-3"><a href="app.html#cb36-3" tabindex="-1"></a><span class="co"># stop()</span></span>
-<span id="cb36-4"><a href="app.html#cb36-4" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
-<span id="cb36-5"><a href="app.html#cb36-5" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
-<span id="cb36-6"><a href="app.html#cb36-6" tabindex="-1"></a>icol<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb36-7"><a href="app.html#cb36-7" tabindex="-1"></a>epsilon <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">14</span>)</span>
-<span id="cb36-8"><a href="app.html#cb36-8" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="app.html#cb36-9" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">fun.reaction</span>(<span class="at">x =</span> x0 <span class="sc">+</span> epsilon, dt, t.end)</span>
-<span id="cb36-10"><a href="app.html#cb36-10" tabindex="-1"></a><span class="co"># x2 = fun.reaction(x = x0+ c(0, 10^-13, 0), dt, t.end)</span></span>
-<span id="cb36-11"><a href="app.html#cb36-11" tabindex="-1"></a>tr <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x1))[x1[, <span class="dv">1</span>] <span class="sc">&gt;</span> <span class="dv">40</span>]</span>
-<span id="cb36-12"><a href="app.html#cb36-12" tabindex="-1"></a>tr <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x1))[]</span>
-<span id="cb36-13"><a href="app.html#cb36-13" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb36-14"><a href="app.html#cb36-14" tabindex="-1"></a><span class="fu">plot</span>(x1<span class="sc">$</span>Time[tr], x1<span class="sc">$</span>x[tr], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">&#39;Time&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;X&#39;</span>); <span class="fu">grid</span>()</span>
-<span id="cb36-15"><a href="app.html#cb36-15" tabindex="-1"></a><span class="fu">lines</span>(x2<span class="sc">$</span>Time[tr], x2<span class="sc">$</span>x[tr], <span class="at">col=</span><span class="dv">2</span>)</span>
-<span id="cb36-16"><a href="app.html#cb36-16" tabindex="-1"></a></span>
-<span id="cb36-17"><a href="app.html#cb36-17" tabindex="-1"></a><span class="fu">plot</span>(x1<span class="sc">$</span>Time[tr], x1<span class="sc">$</span>y[tr], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">&#39;Time&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Y&#39;</span>); <span class="fu">grid</span>()</span>
-<span id="cb36-18"><a href="app.html#cb36-18" tabindex="-1"></a><span class="fu">lines</span>(x2<span class="sc">$</span>Time[tr], x2<span class="sc">$</span>y[tr], <span class="at">col=</span><span class="dv">2</span>)</span>
-<span id="cb36-19"><a href="app.html#cb36-19" tabindex="-1"></a></span>
-<span id="cb36-20"><a href="app.html#cb36-20" tabindex="-1"></a><span class="fu">plot</span>(x1<span class="sc">$</span>Time[tr], x1<span class="sc">$</span>z[tr], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">&#39;Time&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Z&#39;</span>); <span class="fu">grid</span>()</span>
-<span id="cb36-21"><a href="app.html#cb36-21" tabindex="-1"></a><span class="fu">lines</span>(x2<span class="sc">$</span>Time[tr], x2<span class="sc">$</span>z[tr], <span class="at">col=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="app.html#cb37-1" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
-<span id="cb37-2"><a href="app.html#cb37-2" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
-<span id="cb37-3"><a href="app.html#cb37-3" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
-<span id="cb37-4"><a href="app.html#cb37-4" tabindex="-1"></a>x<span class="ot">=</span>x1</span>
-<span id="cb37-5"><a href="app.html#cb37-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb37-6"><a href="app.html#cb37-6" tabindex="-1"></a><span class="fu">scatter3D</span> (<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>y, <span class="at">z=</span>x<span class="sc">$</span>z, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">theta=</span><span class="dv">45</span>, <span class="at">phi=</span><span class="dv">10</span>, <span class="at">bty=</span><span class="st">&#39;b2&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-17-3.png" width="672" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="app.html#cb36-1" tabindex="-1"></a><span class="fu">rm</span>( <span class="at">list =</span> <span class="fu">ls</span>() )</span>
+<span id="cb36-2"><a href="app.html#cb36-2" tabindex="-1"></a>fun.reaction <span class="ot">&lt;-</span> <span class="cf">function</span> (x, dt, t.end, <span class="at">rt.col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>){</span>
+<span id="cb36-3"><a href="app.html#cb36-3" tabindex="-1"></a>  f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(sigma, x){</span>
+<span id="cb36-4"><a href="app.html#cb36-4" tabindex="-1"></a>    sigma <span class="sc">*</span> x[<span class="dv">2</span>] <span class="sc">-</span> sigma <span class="sc">*</span> x[<span class="dv">1</span>]</span>
+<span id="cb36-5"><a href="app.html#cb36-5" tabindex="-1"></a>  }</span>
+<span id="cb36-6"><a href="app.html#cb36-6" tabindex="-1"></a>  f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(rho, x){</span>
+<span id="cb36-7"><a href="app.html#cb36-7" tabindex="-1"></a>    rho <span class="sc">*</span> x[<span class="dv">1</span>] <span class="sc">-</span> x[<span class="dv">1</span>] <span class="sc">*</span> x[<span class="dv">3</span>] <span class="sc">-</span> x[<span class="dv">2</span>]</span>
+<span id="cb36-8"><a href="app.html#cb36-8" tabindex="-1"></a>    <span class="co"># rho * x[1] -  x[2]</span></span>
+<span id="cb36-9"><a href="app.html#cb36-9" tabindex="-1"></a>  }</span>
+<span id="cb36-10"><a href="app.html#cb36-10" tabindex="-1"></a>  f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(beta, x){</span>
+<span id="cb36-11"><a href="app.html#cb36-11" tabindex="-1"></a>    x[<span class="dv">1</span>] <span class="sc">*</span> x[<span class="dv">2</span>] <span class="sc">-</span> beta <span class="sc">*</span> x[<span class="dv">3</span>]</span>
+<span id="cb36-12"><a href="app.html#cb36-12" tabindex="-1"></a>    <span class="co"># - beta * x[3]</span></span>
+<span id="cb36-13"><a href="app.html#cb36-13" tabindex="-1"></a>  }</span>
+<span id="cb36-14"><a href="app.html#cb36-14" tabindex="-1"></a>  NT <span class="ot">=</span> t.end <span class="sc">/</span> dt</span>
+<span id="cb36-15"><a href="app.html#cb36-15" tabindex="-1"></a>  mat<span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, NT,<span class="dv">3</span>)</span>
+<span id="cb36-16"><a href="app.html#cb36-16" tabindex="-1"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb36-17"><a href="app.html#cb36-17" tabindex="-1"></a>    x[<span class="dv">1</span>] <span class="ot">=</span> x[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">f1</span>(sigma, x) <span class="sc">*</span> dt</span>
+<span id="cb36-18"><a href="app.html#cb36-18" tabindex="-1"></a>    x[<span class="dv">2</span>] <span class="ot">=</span> x[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">f2</span>(rho, x) <span class="sc">*</span> dt</span>
+<span id="cb36-19"><a href="app.html#cb36-19" tabindex="-1"></a>    x[<span class="dv">3</span>] <span class="ot">=</span> x[<span class="dv">3</span>] <span class="sc">+</span> <span class="fu">f3</span>(beta, x) <span class="sc">*</span> dt</span>
+<span id="cb36-20"><a href="app.html#cb36-20" tabindex="-1"></a>    mat[i, ]<span class="ot">=</span> x</span>
+<span id="cb36-21"><a href="app.html#cb36-21" tabindex="-1"></a>  }</span>
+<span id="cb36-22"><a href="app.html#cb36-22" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span>NT <span class="sc">*</span> dt,  mat[, rt.col])</span>
+<span id="cb36-23"><a href="app.html#cb36-23" tabindex="-1"></a>  <span class="fu">colnames</span>(ret) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;Time&#39;</span>, <span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>, <span class="st">&#39;z&#39;</span>)</span>
+<span id="cb36-24"><a href="app.html#cb36-24" tabindex="-1"></a>  ret<span class="ot">=</span> <span class="fu">data.frame</span>(ret)</span>
+<span id="cb36-25"><a href="app.html#cb36-25" tabindex="-1"></a>  ret</span>
+<span id="cb36-26"><a href="app.html#cb36-26" tabindex="-1"></a>}</span>
+<span id="cb36-27"><a href="app.html#cb36-27" tabindex="-1"></a></span>
+<span id="cb36-28"><a href="app.html#cb36-28" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="dv">10</span>; beta <span class="ot">=</span> <span class="dv">8</span><span class="sc">/</span><span class="dv">3</span>; rho <span class="ot">=</span> <span class="dv">28</span></span>
+<span id="cb36-29"><a href="app.html#cb36-29" tabindex="-1"></a></span>
+<span id="cb36-30"><a href="app.html#cb36-30" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># IC</span></span>
+<span id="cb36-31"><a href="app.html#cb36-31" tabindex="-1"></a>t.end <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb36-32"><a href="app.html#cb36-32" tabindex="-1"></a>dt <span class="ot">=</span> <span class="fl">0.01</span></span>
+<span id="cb36-33"><a href="app.html#cb36-33" tabindex="-1"></a></span>
+<span id="cb36-34"><a href="app.html#cb36-34" tabindex="-1"></a>x0 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb36-35"><a href="app.html#cb36-35" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">fun.reaction</span>(<span class="at">x =</span> x0, dt, t.end)</span>
+<span id="cb36-36"><a href="app.html#cb36-36" tabindex="-1"></a></span>
+<span id="cb36-37"><a href="app.html#cb36-37" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
+<span id="cb36-38"><a href="app.html#cb36-38" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
+<span id="cb36-39"><a href="app.html#cb36-39" tabindex="-1"></a>x <span class="ot">=</span> x1</span>
+<span id="cb36-40"><a href="app.html#cb36-40" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb36-41"><a href="app.html#cb36-41" tabindex="-1"></a><span class="fu">plot</span>(x<span class="sc">$</span>x, x<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span>
+<span id="cb36-42"><a href="app.html#cb36-42" tabindex="-1"></a><span class="fu">plot</span>(x<span class="sc">$</span>x, x<span class="sc">$</span>z, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span>
+<span id="cb36-43"><a href="app.html#cb36-43" tabindex="-1"></a><span class="fu">plot</span>(x<span class="sc">$</span>y, x<span class="sc">$</span>z, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span>
+<span id="cb36-44"><a href="app.html#cb36-44" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="app.html#cb37-1" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb37-2"><a href="app.html#cb37-2" tabindex="-1"></a><span class="co"># rgl::plot3d(x[, 2:4])</span></span>
+<span id="cb37-3"><a href="app.html#cb37-3" tabindex="-1"></a><span class="co"># stop()</span></span>
+<span id="cb37-4"><a href="app.html#cb37-4" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
+<span id="cb37-5"><a href="app.html#cb37-5" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
+<span id="cb37-6"><a href="app.html#cb37-6" tabindex="-1"></a>icol<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb37-7"><a href="app.html#cb37-7" tabindex="-1"></a>epsilon <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">14</span>)</span>
+<span id="cb37-8"><a href="app.html#cb37-8" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="app.html#cb37-9" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">fun.reaction</span>(<span class="at">x =</span> x0 <span class="sc">+</span> epsilon, dt, t.end)</span>
+<span id="cb37-10"><a href="app.html#cb37-10" tabindex="-1"></a><span class="co"># x2 = fun.reaction(x = x0+ c(0, 10^-13, 0), dt, t.end)</span></span>
+<span id="cb37-11"><a href="app.html#cb37-11" tabindex="-1"></a>tr <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x1))[x1[, <span class="dv">1</span>] <span class="sc">&gt;</span> <span class="dv">40</span>]</span>
+<span id="cb37-12"><a href="app.html#cb37-12" tabindex="-1"></a>tr <span class="ot">=</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x1))[]</span>
+<span id="cb37-13"><a href="app.html#cb37-13" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb37-14"><a href="app.html#cb37-14" tabindex="-1"></a><span class="fu">plot</span>(x1<span class="sc">$</span>Time[tr], x1<span class="sc">$</span>x[tr], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">&#39;Time&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;X&#39;</span>); <span class="fu">grid</span>()</span>
+<span id="cb37-15"><a href="app.html#cb37-15" tabindex="-1"></a><span class="fu">lines</span>(x2<span class="sc">$</span>Time[tr], x2<span class="sc">$</span>x[tr], <span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb37-16"><a href="app.html#cb37-16" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="app.html#cb37-17" tabindex="-1"></a><span class="fu">plot</span>(x1<span class="sc">$</span>Time[tr], x1<span class="sc">$</span>y[tr], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">&#39;Time&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Y&#39;</span>); <span class="fu">grid</span>()</span>
+<span id="cb37-18"><a href="app.html#cb37-18" tabindex="-1"></a><span class="fu">lines</span>(x2<span class="sc">$</span>Time[tr], x2<span class="sc">$</span>y[tr], <span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb37-19"><a href="app.html#cb37-19" tabindex="-1"></a></span>
+<span id="cb37-20"><a href="app.html#cb37-20" tabindex="-1"></a><span class="fu">plot</span>(x1<span class="sc">$</span>Time[tr], x1<span class="sc">$</span>z[tr], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">col=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">&#39;Time&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Z&#39;</span>); <span class="fu">grid</span>()</span>
+<span id="cb37-21"><a href="app.html#cb37-21" tabindex="-1"></a><span class="fu">lines</span>(x2<span class="sc">$</span>Time[tr], x2<span class="sc">$</span>z[tr], <span class="at">col=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="app.html#cb38-1" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
+<span id="cb38-2"><a href="app.html#cb38-2" tabindex="-1"></a><span class="co">#&#39; ==================================================================</span></span>
+<span id="cb38-3"><a href="app.html#cb38-3" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
+<span id="cb38-4"><a href="app.html#cb38-4" tabindex="-1"></a>x<span class="ot">=</span>x1</span>
+<span id="cb38-5"><a href="app.html#cb38-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb38-6"><a href="app.html#cb38-6" tabindex="-1"></a><span class="fu">scatter3D</span> (<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>y, <span class="at">z=</span>x<span class="sc">$</span>z, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">theta=</span><span class="dv">45</span>, <span class="at">phi=</span><span class="dv">10</span>, <span class="at">bty=</span><span class="st">&#39;b2&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-3.png" width="672" /></p>
 <p>图上画的是最简单的Lorenz系统，混沌系统的代表，只有x,y,z三个变量。黑线是控制实验，红线是控制实验基础上给Y加入10的n次方波动。这张图是给Y一个<span class="math inline">\(10^{-14}\)</span>次方的波动，结果是在40天以后，预测结果失去相关性。</p>
 </div>
 <div id="承压地下水confined-aquifer" class="section level2 hasAnchor" number="6.3">
