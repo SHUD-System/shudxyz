@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 SHUD模型软件与数据 | SHUD水文模型 (ver 2.0)</title>
   <meta name="description" content="SHUD Book" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 SHUD模型软件与数据 | SHUD水文模型 (ver 2.0)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
 
 
-<meta name="date" content="2024-08-02" />
+<meta name="date" content="2024-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,10 +56,15 @@
 
 
 <style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -126,23 +131,25 @@ div.csl-indent {
 <li class="chapter" data-level="2.3.1" data-path="theory.html"><a href="theory.html#降雨"><i class="fa fa-check"></i><b>2.3.1</b> 降雨</a></li>
 <li class="chapter" data-level="2.3.2" data-path="theory.html"><a href="theory.html#蒸散发"><i class="fa fa-check"></i><b>2.3.2</b> 蒸散发</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="theory.html"><a href="theory.html#地表过程-surface"><i class="fa fa-check"></i><b>2.4</b> 地表过程 (Surface)</a>
+<li class="chapter" data-level="2.4" data-path="theory.html"><a href="theory.html#能量过程"><i class="fa fa-check"></i><b>2.4</b> 能量过程</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="theory.html"><a href="theory.html#辐射"><i class="fa fa-check"></i><b>2.4.1</b> 辐射</a></li>
 <li class="chapter" data-level="2.4.2" data-path="theory.html"><a href="theory.html#地表能量平衡"><i class="fa fa-check"></i><b>2.4.2</b> 地表能量平衡</a></li>
-<li class="chapter" data-level="2.4.3" data-path="theory.html"><a href="theory.html#土壤水热耦合"><i class="fa fa-check"></i><b>2.4.3</b> 土壤水热耦合</a></li>
-<li class="chapter" data-level="2.4.4" data-path="theory.html"><a href="theory.html#地表径流-surface-runoff"><i class="fa fa-check"></i><b>2.4.4</b> 地表径流 (Surface Runoff)</a></li>
-<li class="chapter" data-level="2.4.5" data-path="theory.html"><a href="theory.html#入渗与出渗-infiltration-exfiltration"><i class="fa fa-check"></i><b>2.4.5</b> 入渗与出渗 (Infiltration &amp; Exfiltration)</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="theory.html"><a href="theory.html#地下过程-subsurface"><i class="fa fa-check"></i><b>2.5</b> 地下过程 (Subsurface)</a>
+<li class="chapter" data-level="2.5" data-path="theory.html"><a href="theory.html#地表过程-surface"><i class="fa fa-check"></i><b>2.5</b> 地表过程 (Surface)</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="theory.html"><a href="theory.html#未饱和土壤水"><i class="fa fa-check"></i><b>2.5.1</b> 未饱和土壤水</a></li>
-<li class="chapter" data-level="2.5.2" data-path="theory.html"><a href="theory.html#基流"><i class="fa fa-check"></i><b>2.5.2</b> 基流</a></li>
-<li class="chapter" data-level="2.5.3" data-path="theory.html"><a href="theory.html#入渗及地下水补给"><i class="fa fa-check"></i><b>2.5.3</b> 入渗及地下水补给</a></li>
+<li class="chapter" data-level="2.5.1" data-path="theory.html"><a href="theory.html#植被冠层截留"><i class="fa fa-check"></i><b>2.5.1</b> 植被冠层截留</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="theory.html"><a href="theory.html#河流-river"><i class="fa fa-check"></i><b>2.6</b> 河流 (River)</a></li>
-<li class="chapter" data-level="2.7" data-path="theory.html"><a href="theory.html#湖泊与水库-lake-reserviors"><i class="fa fa-check"></i><b>2.7</b> 湖泊与水库 (Lake &amp; Reserviors)</a></li>
-<li class="chapter" data-level="2.8" data-path="theory.html"><a href="theory.html#人类活动影响"><i class="fa fa-check"></i><b>2.8</b> 人类活动影响</a></li>
+<li class="chapter" data-level="2.6" data-path="theory.html"><a href="theory.html#模型结构及原理"><i class="fa fa-check"></i><b>2.6</b> 模型结构及原理</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="theory.html"><a href="theory.html#植被冠层截留-1"><i class="fa fa-check"></i><b>2.6.1</b> 植被冠层截留</a></li>
+<li class="chapter" data-level="2.6.2" data-path="theory.html"><a href="theory.html#蒸散发-1"><i class="fa fa-check"></i><b>2.6.2</b> 蒸散发</a></li>
+<li class="chapter" data-level="2.6.3" data-path="theory.html"><a href="theory.html#积雪"><i class="fa fa-check"></i><b>2.6.3</b> 积雪</a></li>
+<li class="chapter" data-level="2.6.4" data-path="theory.html"><a href="theory.html#地表水"><i class="fa fa-check"></i><b>2.6.4</b> 地表水</a></li>
+<li class="chapter" data-level="2.6.5" data-path="theory.html"><a href="theory.html#土壤水"><i class="fa fa-check"></i><b>2.6.5</b> 2.3.5 土壤水</a></li>
+<li class="chapter" data-level="2.6.6" data-path="theory.html"><a href="theory.html#地下水"><i class="fa fa-check"></i><b>2.6.6</b> 地下水</a></li>
+<li class="chapter" data-level="2.6.7" data-path="theory.html"><a href="theory.html#河道水"><i class="fa fa-check"></i><b>2.6.7</b> 河道水</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>3</b> SHUD模型软件与数据</a>
 <ul>
@@ -345,11 +352,12 @@ Library/Include paths:
 <pre><code>./shud &lt;projectname&gt;</code></pre>
 <p><img src="Fig/CLI.png" alt="Default screen print of shud and command tips" />
 命令的参数模式：</p>
-<pre><code>./shud [-0][-p projectfile] [-o output] [-n Num_Threads] &lt;project_name&gt;</code></pre>
+<pre><code>./shud [-0] [-p projectfile] [-c calibrationfile] [-o output] [-n Num_Threads] &lt;project_name&gt;</code></pre>
 <ul>
 <li><p><code>-0</code> 空计算。读取输入文件并写出结果文件，但是内部没有计算。仅仅用于验证输入文件格式的可靠性和可用性。</p></li>
 <li><p><code>&lt;project name&gt;</code> 项目名称。所有的项目文件必须以此开头。</p></li>
 <li><p><code>[-p projectfile]</code> 指定的项目配置文件，文件中包含了所有输入文件的地址。</p></li>
+<li><p><code>[-c calibrationfile]</code> 指定的参数校准文件（.cfg.calib), 默认的文件为input/xx/xx.cfg.calib。</p></li>
 <li><p><code>[-o output_folder]</code> 制定的结果文件输出地址。默认的输出地址为<code>output/projname.out</code>。</p></li>
 <li><p><code>[-n Num_Threads]</code> 并行计算的线程数量。此参数仅在并行计算打开时可用。</p></li>
 </ul>
@@ -359,7 +367,7 @@ Library/Include paths:
 </div>
 <div id="rshud" class="section level3 hasAnchor" number="3.1.3">
 <h3><span class="header-section-number">3.1.3</span> rSHUD<a href="modeling.html#rshud" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>rSHUD是一个标准R包，但尚未向CRAN提交，因此需要通过github以源码方式安装。在R环境中执行以下命令即可自动安装rSHUD。</p>
+<p>rSHUD是一个标准R包，但尚未向CRAN提交，因此需要通过github以源码方式安装。在R环境中执行以下命令即可自动安装rSHUD。 关于rSHUD的内容，<a href="mailto:请参阅@Shu2024gmd" class="email">请参阅@Shu2024gmd</a>.</p>
 <p>如果您的电脑上尚未在R环境中安装<code>devtools</code>，请先安装。</p>
 <pre><code>install.packages(&#39;devtools&#39;)</code></pre>
 <p>然后通过<code>devtools</code>从github上安装rSHUD。</p>
@@ -591,13 +599,6 @@ Library/Include paths:
 <h3><span class="header-section-number">3.2.2</span> 模型输入文件<a href="modeling.html#模型输入文件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>输入文件列表</p>
 <table>
-<colgroup>
-<col width="11%" />
-<col width="29%" />
-<col width="11%" />
-<col width="11%" />
-<col width="34%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="center">File</th>
@@ -722,10 +723,10 @@ Library/Include paths:
 </tr>
 <tr class="odd">
 <td align="center">gis/domain</td>
+<td align="center">Shapefile</td>
 <td align="center">三角形单元的矢量文件</td>
 <td align="center">x</td>
 <td align="center">x</td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center">gis/river</td>
@@ -744,7 +745,7 @@ Library/Include paths:
 </tbody>
 </table>
 <div class="float">
-<img src="Fig/IO/Inputfiles.png" alt="The screenshot of input files for SHUD" />
+<img src="Fig/IO/inputfiles.png" alt="The screenshot of input files for SHUD" />
 <div class="figcaption">The screenshot of input files for SHUD</div>
 </div>
 <p>在文件夹 <em>gis</em> 和 <em>fig</em> 中的文件与SHUD模拟无关，然后在数据分析和可视化中有很大作用，因此保留在输入文件当中。</p>
@@ -2320,12 +2321,11 @@ Library/Include paths:
 <p>下表为SHUD输出文件列表：</p>
 <table>
 <colgroup>
-<col width="16%" />
+<col width="20%" />
 <col width="11%" />
-<col width="8%" />
-<col width="13%" />
-<col width="15%" />
-<col width="23%" />
+<col width="11%" />
+<col width="18%" />
+<col width="27%" />
 <col width="11%" />
 </colgroup>
 <thead>
@@ -2336,7 +2336,6 @@ Library/Include paths:
 <th align="center">变量名</th>
 <th align="center">含义</th>
 <th align="center">单位</th>
-<th align="center"></th>
 </tr>
 </thead>
 <tbody>
@@ -2347,7 +2346,6 @@ Library/Include paths:
 <td align="center">ic</td>
 <td align="center">储量，冠层截流</td>
 <td align="center"><span class="math inline">\(m\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.eleysnow.</em></td>
@@ -2356,7 +2354,6 @@ Library/Include paths:
 <td align="center">snow</td>
 <td align="center">储量，雪水当量</td>
 <td align="center"><span class="math inline">\(m\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.eleysurf.</em></td>
@@ -2365,7 +2362,6 @@ Library/Include paths:
 <td align="center">surf</td>
 <td align="center">储量，地表水</td>
 <td align="center"><span class="math inline">\(m\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.eleyunsat.</em></td>
@@ -2374,7 +2370,6 @@ Library/Include paths:
 <td align="center">unsat</td>
 <td align="center">储量，未饱和层</td>
 <td align="center"><span class="math inline">\(m\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.eleygw.</em></td>
@@ -2383,7 +2378,6 @@ Library/Include paths:
 <td align="center">gw</td>
 <td align="center">储量，地下水水位</td>
 <td align="center"><span class="math inline">\(m\)</span></td>
-<td align="center">.GW</td>
 </tr>
 <tr class="even">
 <td align="center"><em>.elevetp.</em></td>
@@ -2392,7 +2386,6 @@ Library/Include paths:
 <td align="center">etp</td>
 <td align="center">通量，潜在蒸散发</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.eleveta.</em></td>
@@ -2401,7 +2394,6 @@ Library/Include paths:
 <td align="center">eta</td>
 <td align="center">通量，实际蒸散发</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.elevetic.</em></td>
@@ -2410,7 +2402,6 @@ Library/Include paths:
 <td align="center">etic</td>
 <td align="center">通量，冠层截流蒸发</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.elevettr.</em></td>
@@ -2419,7 +2410,6 @@ Library/Include paths:
 <td align="center">ettr</td>
 <td align="center">通量，植被蒸腾</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.elevetev.</em></td>
@@ -2428,7 +2418,6 @@ Library/Include paths:
 <td align="center">etev</td>
 <td align="center">通量，直接蒸发</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.elevprcp.</em></td>
@@ -2437,7 +2426,6 @@ Library/Include paths:
 <td align="center">prcp</td>
 <td align="center">通量，降雨</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.elevnetprcp.</em></td>
@@ -2446,7 +2434,6 @@ Library/Include paths:
 <td align="center">netprcp</td>
 <td align="center">通量，净降雨量</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.elevinfil.</em></td>
@@ -2455,7 +2442,6 @@ Library/Include paths:
 <td align="center">infil</td>
 <td align="center">通量，下渗</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.elevexfil.</em></td>
@@ -2464,7 +2450,6 @@ Library/Include paths:
 <td align="center">infil</td>
 <td align="center">通量，出渗（反下渗）</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.elevrech.</em></td>
@@ -2473,7 +2458,6 @@ Library/Include paths:
 <td align="center">rech</td>
 <td align="center">通量，地下水补给</td>
 <td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.eleqsurf.</em></td>
@@ -2482,7 +2466,6 @@ Library/Include paths:
 <td align="center">surf</td>
 <td align="center">流量，地表径流（坡面流）</td>
 <td align="center"><span class="math inline">\(m^3/d\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.eleqsub.</em></td>
@@ -2491,7 +2474,6 @@ Library/Include paths:
 <td align="center">sub</td>
 <td align="center">流量， 地下水水平流动</td>
 <td align="center"><span class="math inline">\(m^3/d\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.rivystage.</em></td>
@@ -2500,7 +2482,6 @@ Library/Include paths:
 <td align="center">stage</td>
 <td align="center">储量，河段水位</td>
 <td align="center"><span class="math inline">\(m\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.rivqup.</em></td>
@@ -2509,7 +2490,6 @@ Library/Include paths:
 <td align="center">up</td>
 <td align="center">流量，向上游</td>
 <td align="center"><span class="math inline">\(m^3/d\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center"><em>.rivqdown.</em></td>
@@ -2518,25 +2498,70 @@ Library/Include paths:
 <td align="center">down</td>
 <td align="center">流量，向下游</td>
 <td align="center"><span class="math inline">\(m^3/d\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="center"><em>.rivqsurf.</em></td>
 <td align="center">riv</td>
 <td align="center">q</td>
 <td align="center">surf</td>
-<td align="center">流量，向坡面</td>
+<td align="center">净流量，坡面向外</td>
 <td align="center"><span class="math inline">\(m^3/d\)</span></td>
-<td align="center"></td>
 </tr>
 <tr class="even">
+<td align="center"><em>.rivqsurf1.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，方向1</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqsurf2.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，方向2</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsurf3.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，方向3</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
 <td align="center"><em>.rivqsub.</em></td>
 <td align="center">riv</td>
 <td align="center">q</td>
 <td align="center">sub</td>
-<td align="center">流量，向地下水</td>
+<td align="center">净流量，地下水向外</td>
 <td align="center"><span class="math inline">\(m^3/d\)</span></td>
-<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsub1.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量，方向1</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqsub2.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量，方向2</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsub3.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量，方向3</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
 </tr>
 </tbody>
 </table>
