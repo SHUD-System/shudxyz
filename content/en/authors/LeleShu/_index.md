@@ -7,7 +7,7 @@ superuser: true
 user_groups: ["Principal Investigators", "Researchers", "Member"]
 
 # Role/position/tagline
-role: Ph.D, Associate Professor, PI of SHUD project
+role: Ph.D, Professor, PI of SHUD project
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -67,7 +67,7 @@ social:
 # and uncomment the lines below.
 - icon: cv
   icon_pack: ai
-  link: https://shud.xyz/files/LeleShu_CV_en.pdf
+  link: https://shud.xyz/media/LeleShu_CV_en.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 email: ""

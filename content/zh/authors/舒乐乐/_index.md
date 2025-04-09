@@ -70,7 +70,7 @@ social:
   link: media/weixin.jpg
 - icon: cv
   icon_pack: ai
-  link: LeleShu_CV_cn.pdf
+  link: https://shud.xyz/media/LeleShu_CV_cn.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/media/resume.pdf`, enable `ai` icons in `params.toml`,

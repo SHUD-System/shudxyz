@@ -7,7 +7,7 @@ superuser: false
 user_groups: ["Advisors", "Member"]
 
 # Role/position/tagline
-role: Ph.D, Associate Professor of Atmospheric Science
+role: Ph.D,  Professor of Atmospheric Science
 
 # Organizations/Affiliations to show in About widget
 organizations:
