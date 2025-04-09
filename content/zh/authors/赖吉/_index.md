@@ -7,15 +7,15 @@ superuser: false
 user_groups: ["学生"]
 
 # Role/position/tagline
-role: 联合培养硕士生
+role: 联合培养博士生
 
 # Organizations/Affiliations to show in About widget
 organizations:
 - name: 兰州大学
   url: https://www.lzu.edu.cn
-  
+
 # Short bio (displayed in user profile at end of posts)
-bio: 硕士研究生
+bio: 博士研究生
 
 # Interests to show in About widget
 interests:
@@ -24,8 +24,10 @@ interests:
 # Education to show in About widget
 education:
   courses:
-  - course: 兰州大学，硕士生
-    year: 2023-
+  - course: 兰州大学，博士生生
+    year: 2025-
+  - course: 兰州大学，硕士
+    year: 2023-2025
   - course: 兰州大学，GIS，学士
     year: 2019-2023
 
@@ -36,7 +38,7 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: 'mailto:1016138286@qq.com'
+  link: 'mailto:220220949381@lzu.edu.cn'
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/media/resume.pdf`, enable `ai` icons in `params.toml`,
@@ -51,4 +53,4 @@ email: "220220949381@lzu.edu.cn"
 # Highlight the author in author lists? (true/false)
 highlight_name: false
 ---
-与兰州大学联合培养硕士研究生。主要研究方向为古气候与水文模型。
+与兰州大学联合培养研究生。主要研究方向为古气候与水文模型。

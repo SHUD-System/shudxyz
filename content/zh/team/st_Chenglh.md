@@ -2,7 +2,7 @@
 # About/Biography widget.
 widget = "about"  # Do not modify this line!
 active = true  # Activate this widget? true/false
-weight = 130  # Order that this section will appear in.
+weight = 150  # Order that this section will appear in.
 
 title = "程亮华"
 
