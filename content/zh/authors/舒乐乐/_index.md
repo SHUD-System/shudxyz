@@ -7,7 +7,7 @@ superuser: true
 user_groups: ["团队负责人"]
 
 # Role/position/tagline
-role: 水文学博士、副研究员、硕士生导师
+role: 水文学博士、研究员、硕士生导师
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -17,7 +17,7 @@ organizations:
   url: http://lpcc.careeri.cas.cn
 
 # Short bio (displayed in user profile at end of posts)
-bio: 中国科学院西北生态环境资源研究院副研究员，SHUD模型作者； 从事数值水文模型研发、“大气-陆面-水文”模型耦合、气候/人类活动对水循环的影响研究
+bio: 中国科学院西北生态环境资源研究院研究员，兰州大学兼职教授，SHUD模型作者； 从事数值水文模型研发、“大气-陆面-水文”模型耦合、气候/人类活动对水循环的影响研究
 
 # Interests to show in About widget
 interests:
@@ -70,7 +70,7 @@ social:
   link: media/weixin.jpg
 - icon: cv
   icon_pack: ai
-  link: files/LeleShu_CV_cn.pdf
+  link: LeleShu_CV_cn.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/media/resume.pdf`, enable `ai` icons in `params.toml`,
@@ -82,4 +82,4 @@ email: ""
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
-水文学博士，中国科学院西北生态环境资源研究院副研究员，中国科学院率先行动引才计划获得者(2020-2023)，中国科学院率先行动引才计划择优支持入选者(2024-2026)。2017年毕业于美国宾夕法尼亚州立大学(Pennsylvania State University)土木工程系水资源工程专业，2017-2020加州大学戴维斯分校(UC Davis)博士后研究员。主持开发了SHUD数值方法水文模型([https://www.shud.xyz](https://www.shud.xyz))。长期从事数值水文模型、“大气-陆面-水文”模型耦合、气候/人类活动对水循环的影响等研究工作。担任EGU模型发展领域期刊Geoscientific Model Development主题编辑，负责水文学、数值方法和气候与地球系统模式三个方向。
+水文学博士，中国科学院西北生态环境资源研究院研究员，兰州大学兼职教授，中国科学院率先行动引才计划获得者(2020-2023)，中国科学院率先行动引才计划择优支持入选者(2024-2026)。2017年毕业于美国宾夕法尼亚州立大学(Pennsylvania State University)土木工程系水资源工程专业，2017-2020加州大学戴维斯分校(UC Davis)博士后研究员。主持开发了SHUD数值方法水文模型([https://www.shud.xyz](https://www.shud.xyz))。长期从事数值水文模型、“大气-陆面-水文”模型耦合、气候/人类活动对水循环的影响等研究工作。担任EGU模型发展领域期刊Geoscientific Model Development主题编辑，负责水文学、数值方法和气候与地球系统模式三个方向。
