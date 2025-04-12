@@ -24,7 +24,7 @@ interests:
 # Education to show in About widget
 education:
   courses:
-  - course: 兰州大学，博士生生
+  - course: 兰州大学，博士生
     year: 2025-
   - course: 兰州大学，硕士
     year: 2023-2025
