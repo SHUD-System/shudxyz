@@ -15,7 +15,7 @@ organizations:
   url: https://www.ucas.ac.cn
 - name: 中国科学院西北生态环境资源研究院
   url: http://www.nieer.cas.cn
-  
+
 # Short bio (displayed in user profile at end of posts)
 bio: 硕士研究生
 
