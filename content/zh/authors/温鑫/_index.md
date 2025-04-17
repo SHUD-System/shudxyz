@@ -7,7 +7,7 @@ superuser: false
 user_groups: ["学生"]
 
 # Role/position/tagline
-role: 硕士生
+role: 硕士研究生
 
 # Organizations/Affiliations to show in About widget
 organizations:
