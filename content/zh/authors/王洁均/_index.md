@@ -1,6 +1,6 @@
 ---
 # Display name
-title: 李洁均
+title: 王洁均
 # Is this the primary user of the site?
 superuser: false
 

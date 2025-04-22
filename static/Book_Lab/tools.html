@@ -23,7 +23,7 @@
 <meta name="author" content="舒乐乐和他的学生们、同事们、朋友们" />
 
 
-<meta name="date" content="2025-04-17" />
+<meta name="date" content="2025-04-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -223,7 +223,7 @@
 <li class="chapter" data-level="7.5.2" data-path="tools.html"><a href="tools.html#免密码登录"><i class="fa fa-check"></i><b>7.5.2</b> 免密码登录</a></li>
 <li class="chapter" data-level="7.5.3" data-path="tools.html"><a href="tools.html#wget批量下载数据"><i class="fa fa-check"></i><b>7.5.3</b> wget批量下载数据</a></li>
 </ul></li>
-<li class="chapter" data-level="7.6" data-path="tools.html"><a href="tools.html#linux操作系统-linux"><i class="fa fa-check"></i><b>7.6</b> Linux操作系统 {##linux}</a>
+<li class="chapter" data-level="7.6" data-path="tools.html"><a href="tools.html#sec:linux"><i class="fa fa-check"></i><b>7.6</b> Linux操作系统</a>
 <ul>
 <li class="chapter" data-level="7.6.1" data-path="tools.html"><a href="tools.html#linux-user"><i class="fa fa-check"></i><b>7.6.1</b> 用户名管理</a></li>
 <li class="chapter" data-level="7.6.2" data-path="tools.html"><a href="tools.html#linux常用的命令"><i class="fa fa-check"></i><b>7.6.2</b> Linux常用的命令。</a></li>
@@ -451,8 +451,8 @@ cat ~/.ssh/id_rsa</code></pre>
 <p>关于批量下载数据，请参考博客文章： <a href="https://www.shulele.net/zh/eosdata/">https://www.shulele.net/zh/eosdata/</a>。</p>
 </div>
 </div>
-<div id="linux操作系统-linux" class="section level2 hasAnchor" number="7.6">
-<h2><span class="header-section-number">7.6</span> Linux操作系统 {##linux}<a href="tools.html#linux操作系统-linux" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sec:linux" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Linux操作系统<a href="tools.html#sec:linux" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="linux-user" class="section level3 hasAnchor" number="7.6.1">
 <h3><span class="header-section-number">7.6.1</span> 用户名管理<a href="tools.html#linux-user" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>新建用户<code>userx</code></p>
@@ -465,27 +465,27 @@ cat ~/.ssh/id_rsa</code></pre>
 </div>
 <div id="linux常用的命令" class="section level3 hasAnchor" number="7.6.2">
 <h3><span class="header-section-number">7.6.2</span> Linux常用的命令。<a href="tools.html#linux常用的命令" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><em>部分命令的默认ubuntu系统中不存在时，需要使用apt安装。</em></p>
+<p><em>部分命令的默认Ubuntu系统中不存在时，需要使用apt安装。</em></p>
 <ul>
-<li>安装软件apt: <code>sudo apt install tree</code></li>
+<li>安装软件apt：<code>sudo apt install tree</code></li>
 <li>man：使用man ls则可以查看ls命令的使用说明；man命令组合可以看所有命令的说明。</li>
 <li>cd：切换不同的目录</li>
-<li>ls查看目录和文件</li>
-<li>cat 在屏幕打印出文本文件</li>
+<li>ls：查看目录和文件</li>
+<li>cat：在屏幕打印出文本文件</li>
 <li>more, head, tail，查看文本文件</li>
 <li>tree 查看目录树结构</li>
 <li>ip a： 查看服务器IP信息</li>
 <li>lsblk：查看硬件设备</li>
-<li>df: 查看磁盘设备挂载情况</li>
-<li>du: 查看磁盘使用率</li>
-<li>jobs: 查看后台运行的用户程序</li>
+<li>df：查看磁盘设备挂载情况</li>
+<li>du：查看磁盘使用率</li>
+<li>jobs ：查看后台运行的用户程序</li>
 <li>ps：查看进程</li>
 <li>kill： 杀死/关闭某一个进程</li>
 <li>scp：通过ssh通道拷贝数据</li>
-<li>rsync: 使用数据更新方式拷贝数据，支持本地数据拷贝或者远程ssh数据拷贝。</li>
-<li>wget/curl: 数据下载</li>
+<li>rsync：使用数据更新方式拷贝数据，支持本地数据拷贝或者远程ssh数据拷贝。</li>
+<li>wget/curl：数据下载</li>
 <li>mount/umount：挂载和卸载磁盘。</li>
-<li>grep正则表达式，用于查找文件里符合条件的字符串。</li>
+<li>grep正则表达式：用于查找文件里符合条件的字符串。</li>
 <li>find：用于查找目录中的文件</li>
 </ul>
 </div>
@@ -495,12 +495,12 @@ cat ~/.ssh/id_rsa</code></pre>
 <p>R是高效且灵活的编程语言，可以高效的完成数据读写、统计分析、空间数据处理处理、并行计算等任务。</p>
 <p>R语言是一种免费的、开源的数据分析和统计建模语言，相对于其他统计分析软件，R语言有以下显著优势：</p>
 <ul>
-<li><p>免费且开源：R语言是一款完全免费、开源的软件，用户可以自由地下载、使用和修改它。这使得R语言成为许多研究人员、学生和行业专业人士的首选工具之一。</p></li>
-<li><p>具有强大的统计分析能力：R语言提供了许多统计分析和建模的方法，包括线性回归、非线性回归、时间序列分析、聚类分析、因子分析和机器学习等。R语言还提供了许多常用的数据处理和可视化工具，如数据清洗、数据可视化和报告生成等。</p></li>
-<li><p>社区支持：R语言拥有一个庞大的用户社区，用户可以通过该社区获得技术支持、交流使用经验和分享资源等。R语言社区提供了大量的免费学习资源，包括教程、示例代码和数据集等。</p></li>
-<li><p>可扩展性：R语言可以通过许多扩展包（packages）来扩展其功能。这些扩展包提供了各种各样的功能，从数据可视化到高级统计分析和机器学习。</p></li>
-<li><p>易于学习和使用：R语言拥有易于学习和使用的语法和语言结构，许多人认为R语言比其他统计分析软件更加容易学习和使用。</p></li>
-<li><p>跨平台支持：R语言可以在Windows、MacOS、Linux等多个操作系统上运行，并提供相应的安装程序和二进制文件。</p></li>
+<li><p><strong>免费且开源</strong>：R语言是一款完全免费、开源的软件，用户可以自由地下载、使用和修改它。这使得R语言成为许多研究人员、学生和行业专业人士的首选工具之一。</p></li>
+<li><p><strong>强大的统计分析能力</strong>：R语言提供了许多统计分析和建模的方法，包括线性回归、非线性回归、时间序列分析、聚类分析、因子分析和机器学习等。R语言还提供了许多常用的数据处理和可视化工具，如数据清洗、数据可视化和报告生成等。</p></li>
+<li><p><strong>社区支持</strong>：R语言拥有一个庞大的用户社区，用户可以通过该社区获得技术支持、交流使用经验和分享资源等。R语言社区提供了大量的免费学习资源，包括教程、示例代码和数据集等。</p></li>
+<li><p><strong>可扩展性</strong>：R语言可以通过许多扩展包（packages）来扩展其功能。这些扩展包提供了各种各样的功能，从数据可视化到高级统计分析和机器学习。</p></li>
+<li><p><strong>易于学习和使用</strong>：R语言拥有易于学习和使用的语法和语言结构，许多人认为R语言比其他统计分析软件更加容易学习和使用。</p></li>
+<li><p><strong>跨平台支持</strong>：R语言可以在Windows、MacOS、Linux等多个操作系统上运行，并提供相应的安装程序和二进制文件。</p></li>
 </ul>
 <p>本研究组的rSHUD(<a href="https://github.com/shud-System/rshud">https://github.com/shud-System/rshud</a>), AutoSHUD(<a href="https://github.com/shud-System/autoshud">https://github.com/shud-System/autoshud</a>)和全球数据云平台(<a href="https://ghdc.ac.cn">https://ghdc.ac.cn</a>)都由R语言实现。</p>
 <p>具体的R语言教程请参考《<a href="https://www.shud.xyz/bookr/">R在地球科学中的应用</a>》<a href="https://www.shud.xyz/bookr/">https://www.shud.xyz/bookr/</a>。</p>

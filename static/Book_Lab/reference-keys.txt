@@ -98,7 +98,7 @@ chatgpt
 ssh
 免密码登录
 wget批量下载数据
-linux操作系统-linux
+sec:linux
 linux-user
 linux常用的命令
 r
