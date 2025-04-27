@@ -11,8 +11,8 @@ role: 硕士研究生
 
 # Organizations/Affiliations to show in About widget
 organizations:
-- name: 中国科学院大学
-  url: https://www.ucas.ac.cn
+- name: 兰州大学
+  url: https://www.lzu.edu.cn
 - name: 中国科学院西北生态环境资源研究院
   url: http://www.nieer.cas.cn
 
@@ -25,7 +25,7 @@ interests:
 # Education to show in About widget
 education:
   courses:
-  - course: 中国科学院大学，硕士生
+  - course: 兰州大学，硕士生
     year: 2025-
   - course: 四川大学，水利工程，学士
     year: 2021-2025

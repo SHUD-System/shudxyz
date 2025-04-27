@@ -65,7 +65,7 @@ social:
 #  link: https://www.linkedin.com/in/lele-shu-39884167
 - icon: weixin
   icon_pack: fab
-  link: media/weixin.jpg
+  link: https://shud.xyz/media/weixin.jpg
 - icon: cv
   icon_pack: ai
   link: https://shud.xyz/media/LeleShu_CV_cn.pdf
