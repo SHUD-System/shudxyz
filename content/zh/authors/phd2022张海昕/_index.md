@@ -52,5 +52,4 @@ email: "zhhaixin2023@lzu.edu.cn"
 # Highlight the author in author lists? (true/false)
 highlight_name: false
 ---
-基于可变分辨率陆面-水文耦合模型的复杂山区地形对能水过程影响研究
-
+以黄河源区为核心研究区，通过精细化积雪、土壤、水文关键要素观测及分析，改进SHUD数值水文模型对复杂地形下辐射平衡及土壤水热过程的计算方案，揭示复杂地形山区的坡度坡向对水文产汇流、积雪动态、土壤温湿度、蒸散发等能水耦合过程的影响机制。
