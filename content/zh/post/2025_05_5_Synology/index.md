@@ -19,7 +19,13 @@ categories = []
   focal_point = ""
 +++
 
+本文的教学视频：
+【Ch1入门技能：1.1 Synology使用】https://www.bilibili.com/video/BV1nAEszAEiM?vd_source=69c40b1925e7ee6bd869b19fb46bcc18
+
+
+
 ## 主要内容
+
 1. 账号
     1. 账户激活和登录
     2. Synology账户配置
