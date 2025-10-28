@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 1 建模基本方法论 | 数值地球</title>
+  <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 1 建模基本方法论 | 数值地球" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+  <meta property="og:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 1 建模基本方法论 | 数值地球" />
+  
+  <meta name="twitter:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="twitter:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+
+<meta name="author" content="舒乐乐，孟宪红" />
+
+
+<meta name="date" content="2025-09-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="nm.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">数值地球</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>绪论</a></li>
+<li class="chapter" data-level="1" data-path="建模基本方法论.html"><a href="建模基本方法论.html"><i class="fa fa-check"></i><b>1</b> 建模基本方法论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="建模基本方法论.html"><a href="建模基本方法论.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
+<ul>
+<li class="chapter" data-level="" data-path="建模基本方法论.html"><a href="建模基本方法论.html#案例自由落体运动"><i class="fa fa-check"></i>案例：自由落体运动</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="建模基本方法论.html"><a href="建模基本方法论.html#典型控制方程"><i class="fa fa-check"></i><b>1.2</b> 典型控制方程</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维承压地下水运动"><i class="fa fa-check"></i><b>1.2.1</b> 一维承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.2" data-path="建模基本方法论.html"><a href="建模基本方法论.html#二维承压地下水运动"><i class="fa fa-check"></i><b>1.2.2</b> 二维承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.3" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维非承压地下水运动"><i class="fa fa-check"></i><b>1.2.3</b> 一维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.4" data-path="建模基本方法论.html"><a href="建模基本方法论.html#二维非承压地下水运动"><i class="fa fa-check"></i><b>1.2.4</b> 二维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.5" data-path="建模基本方法论.html"><a href="建模基本方法论.html#三维非承压地下水运动"><i class="fa fa-check"></i><b>1.2.5</b> 三维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.6" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维热传导方程"><i class="fa fa-check"></i><b>1.2.6</b> 一维热传导方程</a></li>
+<li class="chapter" data-level="1.2.7" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.2.7</b> 一维溶质运移-扩散方程</a></li>
+<li class="chapter" data-level="1.2.8" data-path="建模基本方法论.html"><a href="建模基本方法论.html#二维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.2.8</b> 二维溶质运移-扩散方程</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="nm.html"><a href="nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="nm.html"><a href="nm.html#隐式与显式求解法"><i class="fa fa-check"></i><b>2.1</b> 隐式与显式求解法</a></li>
+<li class="chapter" data-level="2.2" data-path="nm.html"><a href="nm.html#数值迭代方法"><i class="fa fa-check"></i><b>2.2</b> 数值迭代方法</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="nm.html"><a href="nm.html#牛顿迭代newton-iteration"><i class="fa fa-check"></i><b>2.2.1</b> 牛顿迭代(Newton Iteration)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="nm.html"><a href="nm.html#欧拉方法euler-method"><i class="fa fa-check"></i><b>2.2.2</b> 欧拉方法(Euler Method)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="nm.html"><a href="nm.html#龙格-库塔方法runge-kutta-method"><i class="fa fa-check"></i><b>2.2.3</b> 龙格-库塔方法(Runge-Kutta Method)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="nm.html"><a href="nm.html#皮卡法picard-method"><i class="fa fa-check"></i><b>2.2.4</b> 皮卡法(Picard Method)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="nm.html"><a href="nm.html#有限元-有限差分-有限体积"><i class="fa fa-check"></i><b>2.3</b> 有限元, 有限差分 ,有限体积</a></li>
+<li class="chapter" data-level="2.4" data-path="nm.html"><a href="nm.html#cfl条件约束"><i class="fa fa-check"></i><b>2.4</b> CFL条件约束</a></li>
+<li class="chapter" data-level="2.5" data-path="nm.html"><a href="nm.html#时空离散化"><i class="fa fa-check"></i><b>2.5</b> 时空离散化</a></li>
+<li class="chapter" data-level="2.6" data-path="nm.html"><a href="nm.html#初始条件"><i class="fa fa-check"></i><b>2.6</b> 初始条件</a></li>
+<li class="chapter" data-level="2.7" data-path="nm.html"><a href="nm.html#边界条件"><i class="fa fa-check"></i><b>2.7</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="fdm.html"><a href="fdm.html"><i class="fa fa-check"></i><b>3</b> 有限差分法</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="fdm.html"><a href="fdm.html#泰勒级数taylor-series"><i class="fa fa-check"></i><b>3.1</b> 泰勒级数(Taylor Series)</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="fdm.html"><a href="fdm.html#截断误差"><i class="fa fa-check"></i><b>3.1.1</b> 截断误差</a></li>
+<li class="chapter" data-level="3.1.2" data-path="fdm.html"><a href="fdm.html#一阶导数"><i class="fa fa-check"></i><b>3.1.2</b> 一阶导数</a></li>
+<li class="chapter" data-level="3.1.3" data-path="fdm.html"><a href="fdm.html#二阶导数"><i class="fa fa-check"></i><b>3.1.3</b> 二阶导数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="fdm.html"><a href="fdm.html#构建数值方法"><i class="fa fa-check"></i><b>3.2</b> 构建数值方法</a></li>
+<li class="chapter" data-level="3.3" data-path="fdm.html"><a href="fdm.html#显式求解法"><i class="fa fa-check"></i><b>3.3</b> 显式求解法</a></li>
+<li class="chapter" data-level="3.4" data-path="fdm.html"><a href="fdm.html#隐式求解法"><i class="fa fa-check"></i><b>3.4</b> 隐式求解法</a></li>
+<li class="chapter" data-level="3.5" data-path="fdm.html"><a href="fdm.html#编程求解"><i class="fa fa-check"></i><b>3.5</b> 编程求解</a></li>
+<li class="chapter" data-level="3.6" data-path="fdm.html"><a href="fdm.html#显式与隐式求解法对比"><i class="fa fa-check"></i><b>3.6</b> 显式与隐式求解法对比</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="fdm.html"><a href="fdm.html#cfl条件"><i class="fa fa-check"></i><b>3.6.1</b> CFL条件</a></li>
+<li class="chapter" data-level="3.6.2" data-path="fdm.html"><a href="fdm.html#计算效率"><i class="fa fa-check"></i><b>3.6.2</b> 计算效率</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="fdm.html"><a href="fdm.html#二维有限差分"><i class="fa fa-check"></i><b>3.7</b> 二维有限差分</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="fdm.html"><a href="fdm.html#编程求解-1"><i class="fa fa-check"></i><b>3.7.1</b> 编程求解</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="fem.html"><a href="fem.html"><i class="fa fa-check"></i><b>4</b> 有限元法</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="fem.html"><a href="fem.html#有限元法理论基础"><i class="fa fa-check"></i><b>4.1</b> 有限元法理论基础</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="fem.html"><a href="fem.html#历史发展与应用背景"><i class="fa fa-check"></i><b>4.1.1</b> 历史发展与应用背景</a></li>
+<li class="chapter" data-level="4.1.2" data-path="fem.html"><a href="fem.html#基本思想与哲学"><i class="fa fa-check"></i><b>4.1.2</b> 基本思想与哲学</a></li>
+<li class="chapter" data-level="4.1.3" data-path="fem.html"><a href="fem.html#详细求解步骤"><i class="fa fa-check"></i><b>4.1.3</b> 详细求解步骤</a></li>
+<li class="chapter" data-level="4.1.4" data-path="fem.html"><a href="fem.html#变分原理的深入理解"><i class="fa fa-check"></i><b>4.1.4</b> 变分原理的深入理解</a></li>
+<li class="chapter" data-level="4.1.5" data-path="fem.html"><a href="fem.html#形函数理论的完整体系"><i class="fa fa-check"></i><b>4.1.5</b> 形函数理论的完整体系</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="fem.html"><a href="fem.html#数学公式论证"><i class="fa fa-check"></i><b>4.2</b> 数学公式论证</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="fem.html"><a href="fem.html#变分形式的推导"><i class="fa fa-check"></i><b>4.2.1</b> 变分形式的推导</a></li>
+<li class="chapter" data-level="4.2.2" data-path="fem.html"><a href="fem.html#有限元离散化"><i class="fa fa-check"></i><b>4.2.2</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.2.3" data-path="fem.html"><a href="fem.html#单元矩阵的构造"><i class="fa fa-check"></i><b>4.2.3</b> 单元矩阵的构造</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="fem.html"><a href="fem.html#一维热传导问题的深入分析与fem求解"><i class="fa fa-check"></i><b>4.3</b> 一维热传导问题的深入分析与FEM求解</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="fem.html"><a href="fem.html#工程背景与实际意义"><i class="fa fa-check"></i><b>4.3.1</b> 工程背景与实际意义</a></li>
+<li class="chapter" data-level="4.3.2" data-path="fem.html"><a href="fem.html#详细问题描述"><i class="fa fa-check"></i><b>4.3.2</b> 详细问题描述</a></li>
+<li class="chapter" data-level="4.3.3" data-path="fem.html"><a href="fem.html#clams方法的系统化建模"><i class="fa fa-check"></i><b>4.3.3</b> CLAMS方法的系统化建模</a></li>
+<li class="chapter" data-level="4.3.4" data-path="fem.html"><a href="fem.html#r代码实现"><i class="fa fa-check"></i><b>4.3.4</b> R代码实现</a></li>
+<li class="chapter" data-level="4.3.5" data-path="fem.html"><a href="fem.html#完整实现代码"><i class="fa fa-check"></i><b>4.3.5</b> 完整实现代码</a></li>
+<li class="chapter" data-level="4.3.6" data-path="fem.html"><a href="fem.html#运行结果示例"><i class="fa fa-check"></i><b>4.3.6</b> 运行结果示例</a></li>
+<li class="chapter" data-level="4.3.7" data-path="fem.html"><a href="fem.html#高级有限元技术实现"><i class="fa fa-check"></i><b>4.3.7</b> 高级有限元技术实现</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="fem.html"><a href="fem.html#地球科学应用案例地下水流模拟"><i class="fa fa-check"></i><b>4.4</b> 地球科学应用案例：地下水流模拟</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="fem.html"><a href="fem.html#问题背景"><i class="fa fa-check"></i><b>4.4.1</b> 问题背景</a></li>
+<li class="chapter" data-level="4.4.2" data-path="fem.html"><a href="fem.html#数学模型"><i class="fa fa-check"></i><b>4.4.2</b> 数学模型</a></li>
+<li class="chapter" data-level="4.4.3" data-path="fem.html"><a href="fem.html#有限元离散化-1"><i class="fa fa-check"></i><b>4.4.3</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.4.4" data-path="fem.html"><a href="fem.html#实际应用案例"><i class="fa fa-check"></i><b>4.4.4</b> 实际应用案例</a></li>
+<li class="chapter" data-level="4.4.5" data-path="fem.html"><a href="fem.html#工程意义"><i class="fa fa-check"></i><b>4.4.5</b> 工程意义</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="fem.html"><a href="fem.html#有限元法的收敛性分析与误差估计"><i class="fa fa-check"></i><b>4.5</b> 有限元法的收敛性分析与误差估计</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="fem.html"><a href="fem.html#收敛性理论基础"><i class="fa fa-check"></i><b>4.5.1</b> 收敛性理论基础</a></li>
+<li class="chapter" data-level="4.5.2" data-path="fem.html"><a href="fem.html#先验误差估计"><i class="fa fa-check"></i><b>4.5.2</b> 先验误差估计</a></li>
+<li class="chapter" data-level="4.5.3" data-path="fem.html"><a href="fem.html#后验误差估计"><i class="fa fa-check"></i><b>4.5.3</b> 后验误差估计</a></li>
+<li class="chapter" data-level="4.5.4" data-path="fem.html"><a href="fem.html#自适应网格细化"><i class="fa fa-check"></i><b>4.5.4</b> 自适应网格细化</a></li>
+<li class="chapter" data-level="4.5.5" data-path="fem.html"><a href="fem.html#数值实验与验证"><i class="fa fa-check"></i><b>4.5.5</b> 数值实验与验证</a></li>
+<li class="chapter" data-level="4.5.6" data-path="fem.html"><a href="fem.html#误差的物理解释"><i class="fa fa-check"></i><b>4.5.6</b> 误差的物理解释</a></li>
+<li class="chapter" data-level="4.5.7" data-path="fem.html"><a href="fem.html#收敛性改进技术"><i class="fa fa-check"></i><b>4.5.7</b> 收敛性改进技术</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="fem.html"><a href="fem.html#有限元法与有限差分法的系统对比"><i class="fa fa-check"></i><b>4.6</b> 有限元法与有限差分法的系统对比</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="fem.html"><a href="fem.html#理论基础对比"><i class="fa fa-check"></i><b>4.6.1</b> 理论基础对比</a></li>
+<li class="chapter" data-level="4.6.2" data-path="fem.html"><a href="fem.html#精度和稳定性对比"><i class="fa fa-check"></i><b>4.6.2</b> 精度和稳定性对比</a></li>
+<li class="chapter" data-level="4.6.3" data-path="fem.html"><a href="fem.html#计算效率对比"><i class="fa fa-check"></i><b>4.6.3</b> 计算效率对比</a></li>
+<li class="chapter" data-level="4.6.4" data-path="fem.html"><a href="fem.html#适用性分析"><i class="fa fa-check"></i><b>4.6.4</b> 适用性分析</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="fem.html"><a href="fem.html#高级有限元技术的深入探讨"><i class="fa fa-check"></i><b>4.7</b> 高级有限元技术的深入探讨</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="fem.html"><a href="fem.html#高阶形函数技术"><i class="fa fa-check"></i><b>4.7.1</b> 高阶形函数技术</a></li>
+<li class="chapter" data-level="4.7.2" data-path="fem.html"><a href="fem.html#自适应有限元技术"><i class="fa fa-check"></i><b>4.7.2</b> 自适应有限元技术</a></li>
+<li class="chapter" data-level="4.7.3" data-path="fem.html"><a href="fem.html#稳定化技术"><i class="fa fa-check"></i><b>4.7.3</b> 稳定化技术</a></li>
+<li class="chapter" data-level="4.7.4" data-path="fem.html"><a href="fem.html#多尺度有限元方法"><i class="fa fa-check"></i><b>4.7.4</b> 多尺度有限元方法</a></li>
+<li class="chapter" data-level="4.7.5" data-path="fem.html"><a href="fem.html#间断有限元方法"><i class="fa fa-check"></i><b>4.7.5</b> 间断有限元方法</a></li>
+<li class="chapter" data-level="4.7.6" data-path="fem.html"><a href="fem.html#混合有限元方法"><i class="fa fa-check"></i><b>4.7.6</b> 混合有限元方法</a></li>
+<li class="chapter" data-level="4.7.7" data-path="fem.html"><a href="fem.html#有限元方法的并行计算"><i class="fa fa-check"></i><b>4.7.7</b> 有限元方法的并行计算</a></li>
+<li class="chapter" data-level="4.7.8" data-path="fem.html"><a href="fem.html#高级技术的应用实例"><i class="fa fa-check"></i><b>4.7.8</b> 高级技术的应用实例</a></li>
+<li class="chapter" data-level="4.7.9" data-path="fem.html"><a href="fem.html#实现考虑"><i class="fa fa-check"></i><b>4.7.9</b> 实现考虑</a></li>
+<li class="chapter" data-level="4.7.10" data-path="fem.html"><a href="fem.html#软件实现框架"><i class="fa fa-check"></i><b>4.7.10</b> 软件实现框架</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="fem.html"><a href="fem.html#总结"><i class="fa fa-check"></i><b>4.8</b> 总结</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="fem.html"><a href="fem.html#本章要点回顾"><i class="fa fa-check"></i><b>4.8.1</b> 本章要点回顾</a></li>
+<li class="chapter" data-level="4.8.2" data-path="fem.html"><a href="fem.html#扩展阅读建议"><i class="fa fa-check"></i><b>4.8.2</b> 扩展阅读建议</a></li>
+<li class="chapter" data-level="4.8.3" data-path="fem.html"><a href="fem.html#实践练习"><i class="fa fa-check"></i><b>4.8.3</b> 实践练习</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fvm.html"><a href="fvm.html"><i class="fa fa-check"></i><b>5</b> 有限体积法</a></li>
+<li class="chapter" data-level="6" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="app.html"><a href="app.html#热传递问题heat-transfer"><i class="fa fa-check"></i><b>6.1</b> 热传递问题(Heat Transfer)</a></li>
+<li class="chapter" data-level="6.2" data-path="app.html"><a href="app.html#大气混沌系统chaos-system-in-atmosphere"><i class="fa fa-check"></i><b>6.2</b> 大气混沌系统（Chaos System in Atmosphere）</a></li>
+<li class="chapter" data-level="6.3" data-path="app.html"><a href="app.html#土壤垂直水分流动"><i class="fa fa-check"></i><b>6.3</b> 土壤垂直水分流动</a></li>
+<li class="chapter" data-level="6.4" data-path="app.html"><a href="app.html#土壤垂直一维水热耦合问题"><i class="fa fa-check"></i><b>6.4</b> 土壤垂直一维水热耦合问题</a></li>
+<li class="chapter" data-level="6.5" data-path="app.html"><a href="app.html#承压地下水confined-aquifer"><i class="fa fa-check"></i><b>6.5</b> 承压地下水（Confined Aquifer）</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="app.html"><a href="app.html#控制方程"><i class="fa fa-check"></i><b>6.5.1</b> 控制方程</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="app.html"><a href="app.html#湖面湍流lake-turbulence"><i class="fa fa-check"></i><b>6.6</b> 湖面湍流（Lake Turbulence）</a></li>
+<li class="chapter" data-level="6.7" data-path="app.html"><a href="app.html#溶质运移solute-transport"><i class="fa fa-check"></i><b>6.7</b> 溶质运移（Solute Transport）</a></li>
+<li class="chapter" data-level="6.8" data-path="app.html"><a href="app.html#地貌侵蚀landscape-evolution"><i class="fa fa-check"></i><b>6.8</b> 地貌侵蚀（Landscape Evolution）</a></li>
+<li class="chapter" data-level="6.9" data-path="app.html"><a href="app.html#熔岩入侵lava-invasion"><i class="fa fa-check"></i><b>6.9</b> 熔岩入侵（Lava Invasion）</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">数值地球</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="建模基本方法论" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">第 1</span> 建模基本方法论<a href="建模基本方法论.html#建模基本方法论" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>本章极少数值方法建模的基本方法论，涉及一些基础的建模思路和数学基础。</p>
+<div id="建模基本思路" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> 建模基本思路<a href="建模基本方法论.html#建模基本思路" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>我称之为CLAMS方法，包含以下步骤：</p>
+<ol style="list-style-type: decimal">
+<li><strong>C</strong>onceptual Model - 描述物理过程，形成概念模型（或认知模型）</li>
+<li><strong>L</strong>aws of Physics - 使用物理规律</li>
+<li><strong>A</strong>ssumptions - 列出合理假设，简化问题</li>
+<li><strong>M</strong>ath equations - 使用数学公式表达物理规律和假设</li>
+<li><strong>S</strong>olver - 求解数学公式</li>
+</ol>
+<p>求解数学公式的过程，可以尝试寻找其解析解(Analytical solution)，也可以使用数值方法求得数值解(Numerical Solution)。</p>
+<p>数值方法本质上是对离散（非连续）时空模型中因变量(Dependant variable)分布和变化的数学近似描述，从理论的解析解到数值解虽然损失了精度，但解析解通常无法求得，而数值方法可给出误差可接受的近似解。</p>
+<div id="案例自由落体运动" class="section level3 unnumbered hasAnchor">
+<h3>案例：自由落体运动<a href="建模基本方法论.html#案例自由落体运动" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>描述</strong>
+问题描述下图。</p>
+<div class="float">
+<img src="image/ch1/FallingObj/FallingObj.001.jpeg" alt="自由落体运动示意图" />
+<div class="figcaption">自由落体运动示意图</div>
+</div>
+<p><strong>问题</strong>：任意<span class="math inline">\(t&gt;0\)</span>时刻的速度，即<span class="math inline">\(v(t) = ?\)</span>。</p>
+<p>建模步骤：</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>认知模型</strong>：</p>
+<p>自由落体运动</p></li>
+<li><p><strong>物理定律</strong>：</p>
+<p>牛顿定律： <span class="math inline">\(F = ma\)</span>。</p></li>
+<li><p><strong>假设</strong>：</p>
+<p><span class="math inline">\(v(t=0) = 0\)</span></p>
+<p>且</p>
+<p><span class="math inline">\(F_{drag}(t) \propto v(t)\)</span>，即<span class="math inline">\(F_{drag} = cv\)</span>。</p></li>
+<li><p><strong>数学公式</strong>：</p>
+<p>由<span class="math inline">\(F = ma\)</span>和<span class="math inline">\(\frac{dv}{dt} = a\)</span>可得：</p>
+<p><span class="math display">\[\tag{1} \frac{dv}{dt} = a = \frac{F}{m}\]</span></p>
+<p>根据物体受力分析, 其受到向下的重力<span class="math inline">\(F_{g} = mg\)</span>和向上的空气阻力<span class="math inline">\(F_{drag} = cv\)</span>，空气阻力在此假设与物体运动速度成正比关系。则其受力平衡公式为：
+<span class="math display">\[\tag{2} F = F_{g} - F_{drag} = mg - cv\]</span></p>
+<p>综合公式（1）和（2），则得到：
+<span class="math display">\[\tag{3} \frac{dv}{dt} = g - \frac{c}{m} v\]</span></p>
+<div class="float">
+<img src="image/ch1/FallingObj/FallingObj.002.jpeg" alt="自由落体运动的受力分析" />
+<div class="figcaption">自由落体运动的受力分析</div>
+</div></li>
+<li><p><strong>公式求解</strong>：</p>
+<p>初始条件：<span class="math inline">\(v(0) = 0\)</span></p>
+<p>积分求解(解析解)：
+<span class="math display">\[v(t) = \frac {mg}{c}\left[ 1- exp(-\frac{c}{m}t) \right]\]</span></p></li>
+<li><p><strong>结果绘图</strong>：</p></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="建模基本方法论.html#cb1-1" tabindex="-1"></a>c <span class="ot">=</span> <span class="dv">15</span> <span class="co"># drag coeefficient</span></span>
+<span id="cb1-2"><a href="建模基本方法论.html#cb1-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="fl">9.8</span> <span class="co"># Gravity</span></span>
+<span id="cb1-3"><a href="建模基本方法论.html#cb1-3" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">150</span>  <span class="co"># Mass in kg</span></span>
+<span id="cb1-4"><a href="建模基本方法论.html#cb1-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>, <span class="dv">1</span>)  <span class="co"># Time</span></span>
+<span id="cb1-5"><a href="建模基本方法论.html#cb1-5" tabindex="-1"></a>y <span class="ot">=</span> m<span class="sc">*</span>g<span class="sc">/</span>c <span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> c <span class="sc">/</span> m <span class="sc">*</span> x))  <span class="co"># Vecocity</span></span>
+<span id="cb1-6"><a href="建模基本方法论.html#cb1-6" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span><span class="st">&#39;Time (s)&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Velocity (m/s)&#39;</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>); </span>
+<span id="cb1-7"><a href="建模基本方法论.html#cb1-7" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="_bookdown_files/01-Modeling_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><em>变量表:</em></p>
+<ul>
+<li><span class="math inline">\(v(t)\)</span> - 随时间变化的物体速度</li>
+<li><span class="math inline">\(m\)</span> - 物体质量</li>
+<li><span class="math inline">\(g\)</span> - 重力加速度</li>
+<li><span class="math inline">\(a\)</span> - 物体运动的加速度</li>
+<li><span class="math inline">\(c\)</span> - 空气阻力系数</li>
+<li><span class="math inline">\(F\)</span> - 物体所受的力</li>
+<li><span class="math inline">\(F_{g}\)</span> - 重力</li>
+<li><span class="math inline">\(F_{drag}\)</span> - 空气阻力</li>
+</ul>
+</div>
+</div>
+<div id="典型控制方程" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> 典型控制方程<a href="建模基本方法论.html#典型控制方程" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="一维承压地下水运动" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> 一维承压地下水运动<a href="建模基本方法论.html#一维承压地下水运动" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sure, let’s derive the governing equation for one-dimensional confined aquifer groundwater flow step by step. We will use Darcy’s Law and the principle of mass conservation.</p>
+<div id="step-1-darcys-law" class="section level4 hasAnchor" number="1.2.1.1">
+<h4><span class="header-section-number">1.2.1.1</span> Step 1: Darcy’s Law<a href="建模基本方法论.html#step-1-darcys-law" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Darcy’s Law describes the flow of groundwater through porous media. It states that the discharge per unit area (specific discharge or Darcy velocity, <span class="math inline">\(q\)</span>) is proportional to the hydraulic gradient:
+<span class="math display">\[q = -K \frac{\partial h}{\partial x}\]</span>
+where:
+- <span class="math inline">\(q\)</span> is the specific discharge (Darcy velocity) [L/T].
+- <span class="math inline">\(K\)</span> is the hydraulic conductivity of the aquifer [L/T].
+- <span class="math inline">\(h\)</span> is the hydraulic head [L].
+- <span class="math inline">\(x\)</span> is the spatial coordinate in the direction of flow [L].</p>
+</div>
+<div id="step-2-conservation-of-mass" class="section level4 hasAnchor" number="1.2.1.2">
+<h4><span class="header-section-number">1.2.1.2</span> Step 2: Conservation of Mass<a href="建模基本方法论.html#step-2-conservation-of-mass" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a control volume of length <span class="math inline">\(\Delta x\)</span>, cross-sectional area <span class="math inline">\(A\)</span>, and located at position <span class="math inline">\(x\)</span> along the direction of flow within a confined aquifer.</p>
+<div id="inflow-and-outflow" class="section level5 hasAnchor" number="1.2.1.2.1">
+<h5><span class="header-section-number">1.2.1.2.1</span> Inflow and Outflow<a href="建模基本方法论.html#inflow-and-outflow" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li>The rate of inflow at <span class="math inline">\(x\)</span>: <span class="math inline">\(q(x) \cdot A\)</span>.</li>
+<li>The rate of outflow at $ x + x $: <span class="math inline">\(q(x + \Delta x) \cdot A\)</span>.</li>
+</ul>
+<p>Using a Taylor series expansion for <span class="math inline">\(q(x + \Delta x)\)</span>:
+<span class="math display">\[q(x + \Delta x) \approx q(x) + \left( \frac{\partial q}{\partial x} \right) \Delta x\]</span></p>
+</div>
+<div id="net-flow" class="section level5 hasAnchor" number="1.2.1.2.2">
+<h5><span class="header-section-number">1.2.1.2.2</span> Net Flow<a href="建模基本方法论.html#net-flow" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The net rate of flow into the control volume is:
+<span class="math display">\[q(x) \cdot A - \left( q(x) + \left( \frac{\partial q}{\partial x} \right) \Delta x \right) \cdot A\]</span>
+<span class="math display">\[= -A \left( \frac{\partial q}{\partial x} \right) \Delta x\]</span></p>
+</div>
+</div>
+<div id="step-3-storage-in-the-aquifer" class="section level4 hasAnchor" number="1.2.1.3">
+<h4><span class="header-section-number">1.2.1.3</span> Step 3: Storage in the Aquifer<a href="建模基本方法论.html#step-3-storage-in-the-aquifer" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The change in storage within the control volume over a time interval <span class="math inline">\(\Delta t\)</span> can be expressed using the specific storage <span class="math inline">\(S_s\)</span>, which is the amount of water per unit volume of the aquifer that is stored or released from storage per unit change in hydraulic head:
+<span class="math display">\[\Delta S = S_s \cdot A \cdot \Delta x \cdot \frac{\partial h}{\partial t} \cdot \Delta t\]</span></p>
+</div>
+<div id="step-4-applying-conservation-of-mass" class="section level4 hasAnchor" number="1.2.1.4">
+<h4><span class="header-section-number">1.2.1.4</span> Step 4: Applying Conservation of Mass<a href="建模基本方法论.html#step-4-applying-conservation-of-mass" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>According to the conservation of mass principle, the rate of change of storage in the control volume must equal the net rate of flow into the control volume:
+<span class="math display">\[-A \left( \frac{\partial q}{\partial x} \right) \Delta x = S_s \cdot A \cdot \Delta x \cdot \frac{\partial h}{\partial t}\]</span></p>
+</div>
+<div id="step-5-substituting-darcys-law" class="section level4 hasAnchor" number="1.2.1.5">
+<h4><span class="header-section-number">1.2.1.5</span> Step 5: Substituting Darcy’s Law<a href="建模基本方法论.html#step-5-substituting-darcys-law" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Substitute <span class="math inline">\(q = -K \frac{\partial h}{\partial x}\)</span> into the equation:
+<span class="math display">\[-A \left( \frac{\partial}{\partial x} \left( -K \frac{\partial h}{\partial x} \right) \right) \Delta x = S_s \cdot A \cdot \Delta x \cdot \frac{\partial h}{\partial t}\]</span></p>
+<p>Simplify the equation:
+<span class="math display">\[A \left( K \frac{\partial^2 h}{\partial x^2} \right) \Delta x = S_s \cdot A \cdot \Delta x \cdot \frac{\partial h}{\partial t}\]</span></p>
+<p>#### Step 6: Simplifying and Rearranging
+Cancel out the common terms <span class="math inline">\(A\)</span> and <span class="math inline">\(\Delta x\)</span>:
+<span class="math display">\[K \frac{\partial^2 h}{\partial x^2} = S_s \frac{\partial h}{\partial t}\]</span></p>
+<p>#### Final Governing Equation
+The one-dimensional groundwater flow equation for a confined aquifer is:
+<span class="math display">\[\frac{\partial h}{\partial t} = \frac{K}{S_s} \frac{\partial^2 h}{\partial x^2}\]</span></p>
+<p>Define the hydraulic diffusivity <span class="math inline">\(D\)</span> as:
+<span class="math display">\[D = \frac{K}{S_s}\]</span></p>
+<p>Thus, the governing equation can also be written as:
+<span class="math display">\[\frac{\partial h}{\partial t} = D \frac{\partial^2 h}{\partial x^2}\]</span></p>
+<p>This partial differential equation describes how the hydraulic head <span class="math inline">\(h\)</span> varies with time <span class="math inline">\(t\)</span> and position <span class="math inline">\(x\)</span> within the confined aquifer.</p>
+</div>
+</div>
+<div id="二维承压地下水运动" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> 二维承压地下水运动<a href="建模基本方法论.html#二维承压地下水运动" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sure, let’s derive the governing equation for two-dimensional confined aquifer groundwater flow step by step using Darcy’s Law and the principle of mass conservation.</p>
+<div id="step-1-darcys-law-1" class="section level4 hasAnchor" number="1.2.2.1">
+<h4><span class="header-section-number">1.2.2.1</span> Step 1: Darcy’s Law<a href="建模基本方法论.html#step-1-darcys-law-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In two dimensions, Darcy’s Law describes the flow of groundwater through porous media. It states that the discharge per unit area (specific discharge or Darcy velocity, <span class="math inline">\(\mathbf{q}\)</span>) is proportional to the hydraulic gradient:
+<span class="math display">\[\mathbf{q} = -K \nabla h\]</span>
+where:
+- <span class="math inline">\(\mathbf{q}\)</span> is the specific discharge (Darcy velocity) vector [L/T].
+- <span class="math inline">\(K\)</span> is the hydraulic conductivity of the aquifer [L/T].
+- <span class="math inline">\(h\)</span> is the hydraulic head [L].
+- <span class="math inline">\(\nabla h\)</span> is the hydraulic gradient, which in two dimensions can be written as:
+<span class="math display">\[\nabla h = \left( \frac{\partial h}{\partial x}, \frac{\partial h}{\partial y} \right)\]</span></p>
+</div>
+<div id="step-2-conservation-of-mass-1" class="section level4 hasAnchor" number="1.2.2.2">
+<h4><span class="header-section-number">1.2.2.2</span> Step 2: Conservation of Mass<a href="建模基本方法论.html#step-2-conservation-of-mass-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a differential control volume in the aquifer with dimensions <span class="math inline">\(dx\)</span> by <span class="math inline">\(dy\)</span> and thickness <span class="math inline">\(b\)</span>.</p>
+<div id="inflow-and-outflow-1" class="section level5 hasAnchor" number="1.2.2.2.1">
+<h5><span class="header-section-number">1.2.2.2.1</span> Inflow and Outflow<a href="建模基本方法论.html#inflow-and-outflow-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>For simplicity, let’s assume the flow is in the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-directions.</p>
+<ul>
+<li><p>The rate of inflow in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x\)</span>: $ q_x(x) b dy $</p>
+<ul>
+<li>The rate of inflow in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y\)</span>: $ q_y(y) b dx $</li>
+</ul>
+<p>The rate of outflow in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x + dx\)</span>:
+<span class="math display">\[q_x(x + dx) \cdot b \cdot dy \approx \left( q_x(x) + \frac{\partial q_x}{\partial x} dx \right) \cdot b \cdot dy\]</span></p>
+<p>The rate of outflow in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y + dy\)</span>:
+<span class="math display">\[q_y(y + dy) \cdot b \cdot dx \approx \left( q_y(y) + \frac{\partial q_y}{\partial y} dy \right) \cdot b \cdot dx\]</span></p>
+<h5 id="net-flow-1" class="hasAnchor">Net Flow<a href="建模基本方法论.html#net-flow-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The net rate of flow into the control volume is:
+<span class="math display">\[\text{Net inflow in } x\text{-direction} = \left[ q_x(x) \cdot b \cdot dy \right] - \left[ \left( q_x(x) + \frac{\partial q_x}{\partial x} dx \right) \cdot b \cdot dy \right]\]</span>
+<span class="math display">\[= -b \cdot dy \cdot \frac{\partial q_x}{\partial x} dx\]</span></p></li>
+</ul>
+<p><span class="math display">\[\text{Net inflow in } y\text{-direction} = \left[ q_y(y) \cdot b \cdot dx \right] - \left[ \left( q_y(y) + \frac{\partial q_y}{\partial y} dy \right) \cdot b \cdot dx \right]\]</span>
+<span class="math display">\[= -b \cdot dx \cdot \frac{\partial q_y}{\partial y} dy\]</span></p>
+<p>The total net inflow into the control volume is:
+<span class="math display">\[-b \left( \frac{\partial q_x}{\partial x} dx \cdot dy + \frac{\partial q_y}{\partial y} dy \cdot dx \right)\]</span>
+<span class="math display">\[= -b \left( \frac{\partial q_x}{\partial x} + \frac{\partial q_y}{\partial y} \right) dx \cdot dy\]</span></p>
+<p>#### Step 3: Storage in the Aquifer
+The change in storage within the control volume over a time interval <span class="math inline">\(\Delta t\)</span> can be expressed using the specific storage <span class="math inline">\(S_s\)</span>:
+<span class="math display">\[\Delta S = S_s \cdot b \cdot dx \cdot dy \cdot \frac{\partial h}{\partial t} \cdot \Delta t\]</span></p>
+<p>#### Step 4: Applying Conservation of Mass
+According to the conservation of mass principle, the rate of change of storage in the control volume must equal the net rate of flow into the control volume:
+<span class="math display">\[-b \left( \frac{\partial q_x}{\partial x} + \frac{\partial q_y}{\partial y} \right) dx \cdot dy = S_s \cdot b \cdot dx \cdot dy \cdot \frac{\partial h}{\partial t}\]</span></p>
+<p>#### Step 5: Substituting Darcy’s Law
+Substitute <span class="math inline">\(q_x = -K \frac{\partial h}{\partial x}\)</span> and <span class="math inline">\(q_y = -K \frac{\partial h}{\partial y}\)</span> into the equation:
+<span class="math display">\[-b \left( \frac{\partial}{\partial x} \left( -K \frac{\partial h}{\partial x} \right) + \frac{\partial}{\partial y} \left( -K \frac{\partial h}{\partial y} \right) \right) dx \cdot dy = S_s \cdot b \cdot dx \cdot dy \cdot \frac{\partial h}{\partial t}\]</span></p>
+<p>Simplify the equation:
+<span class="math display">\[b \left( K \frac{\partial^2 h}{\partial x^2} + K \frac{\partial^2 h}{\partial y^2} \right) dx \cdot dy = S_s \cdot b \cdot dx \cdot dy \cdot \frac{\partial h}{\partial t}\]</span></p>
+<p>#### Step 6: Simplifying and Rearranging
+Cancel out the common terms <span class="math inline">\(b\)</span>, <span class="math inline">\(dx\)</span>, and <span class="math inline">\(dy\)</span>:
+<span class="math display">\[K \left( \frac{\partial^2 h}{\partial x^2} + \frac{\partial^2 h}{\partial y^2} \right) = S_s \frac{\partial h}{\partial t}\]</span></p>
+<p>#### Final Governing Equation
+The two-dimensional groundwater flow equation for a confined aquifer is:
+<span class="math display">\[\frac{\partial h}{\partial t} = \frac{K}{S_s} \left( \frac{\partial^2 h}{\partial x^2} + \frac{\partial^2 h}{\partial y^2} \right)\]</span></p>
+<p>Define the hydraulic diffusivity <span class="math inline">\(D\)</span> as:
+<span class="math display">\[D = \frac{K}{S_s}\]</span></p>
+<p>Thus, the governing equation can also be written as:
+<span class="math display">\[\frac{\partial h}{\partial t} = D \left( \frac{\partial^2 h}{\partial x^2} + \frac{\partial^2 h}{\partial y^2} \right)\]</span></p>
+<p>This partial differential equation describes how the hydraulic head <span class="math inline">\(h\)</span> varies with time <span class="math inline">\(t\)</span> and position <span class="math inline">\((x, y)\)</span> within the confined aquifer.</p>
+</div>
+</div>
+</div>
+<div id="一维非承压地下水运动" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> 一维非承压地下水运动<a href="建模基本方法论.html#一维非承压地下水运动" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s go through the derivation for one-dimensional unconfined aquifer groundwater flow more carefully, considering the variation in aquifer thickness due to changes in the water table.</p>
+<div id="step-by-step-derivation-for-one-dimensional-unconfined-aquifer" class="section level4 hasAnchor" number="1.2.3.1">
+<h4><span class="header-section-number">1.2.3.1</span> Step-by-Step Derivation for One-Dimensional Unconfined Aquifer<a href="建模基本方法论.html#step-by-step-derivation-for-one-dimensional-unconfined-aquifer" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="step-1-darcys-law-2" class="section level4 hasAnchor" number="1.2.3.2">
+<h4><span class="header-section-number">1.2.3.2</span> Step 1: Darcy’s Law<a href="建模基本方法论.html#step-1-darcys-law-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For unconfined groundwater flow, Darcy’s Law in one dimension is:
+<span class="math display">\[q = -K \frac{\partial h}{\partial x}\]</span>
+where:
+- <span class="math inline">\(q\)</span> is the specific discharge (Darcy velocity) [L/T].
+- <span class="math inline">\(K\)</span> is the hydraulic conductivity of the aquifer [L/T].
+- <span class="math inline">\(h\)</span> is the hydraulic head [L].
+- <span class="math inline">\(x\)</span> is the spatial coordinate in the direction of flow [L].</p>
+</div>
+<div id="step-2-volumetric-flow-rate" class="section level4 hasAnchor" number="1.2.3.3">
+<h4><span class="header-section-number">1.2.3.3</span> Step 2: Volumetric Flow Rate<a href="建模基本方法论.html#step-2-volumetric-flow-rate" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The volumetric flow rate <span class="math inline">\(Q\)</span> at a point <span class="math inline">\(x\)</span> for an unconfined aquifer with variable saturated thickness <span class="math inline">\(h\)</span> is given by:
+<span class="math display">\[Q = q \cdot b \cdot h\]</span>
+where <span class="math inline">\(b\)</span> is the aquifer width perpendicular to the flow direction. For simplicity, we assume $ b = 1 $ unit width, leading to:
+<span class="math display">\[Q = q \cdot h = -K h \frac{\partial h}{\partial x}\]</span></p>
+</div>
+<div id="step-3-conservation-of-mass" class="section level4 hasAnchor" number="1.2.3.4">
+<h4><span class="header-section-number">1.2.3.4</span> Step 3: Conservation of Mass<a href="建模基本方法论.html#step-3-conservation-of-mass" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a differential control volume in the unconfined aquifer of width <span class="math inline">\(dx\)</span> and saturated thickness $ h(x) $.</p>
+<div id="inflow-and-outflow-2" class="section level5 hasAnchor" number="1.2.3.4.1">
+<h5><span class="header-section-number">1.2.3.4.1</span> Inflow and Outflow<a href="建模基本方法论.html#inflow-and-outflow-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li>Inflow at <span class="math inline">\(x\)</span>: <span class="math inline">\(Q(x) = -K h \frac{\partial h}{\partial x}\)</span></li>
+<li>Outflow at <span class="math inline">\(x + dx\)</span>: <span class="math inline">\(Q(x + dx) = -K h \frac{\partial h}{\partial x} + \left( \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) \right) dx\)</span></li>
+</ul>
+</div>
+<div id="net-flow-2" class="section level5 hasAnchor" number="1.2.3.4.2">
+<h5><span class="header-section-number">1.2.3.4.2</span> Net Flow<a href="建模基本方法论.html#net-flow-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The net inflow into the control volume is:
+<span class="math display">\[Q(x) - Q(x + dx) = -K h \frac{\partial h}{\partial x} - \left( -K h \frac{\partial h}{\partial x} + \left( \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) \right) dx \right)\]</span>
+<span class="math display">\[= - \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) dx\]</span></p>
+</div>
+</div>
+<div id="step-4-change-in-storage" class="section level4 hasAnchor" number="1.2.3.5">
+<h4><span class="header-section-number">1.2.3.5</span> Step 4: Change in Storage<a href="建模基本方法论.html#step-4-change-in-storage" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The change in storage within the control volume $ dx h $ over a time interval $ t $ can be expressed using the specific yield <span class="math inline">\(S_y\)</span>, which measures the volume of water released from storage per unit decline in the water table:
+<span class="math display">\[\Delta S = S_y \cdot dx \cdot \frac{\partial h}{\partial t} \cdot \Delta t\]</span></p>
+</div>
+<div id="step-5-applying-conservation-of-mass" class="section level4 hasAnchor" number="1.2.3.6">
+<h4><span class="header-section-number">1.2.3.6</span> Step 5: Applying Conservation of Mass<a href="建模基本方法论.html#step-5-applying-conservation-of-mass" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>According to the conservation of mass principle, the rate of change of storage in the control volume must equal the net rate of flow into the control volume:
+<span class="math display">\[- \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) dx = S_y \cdot dx \cdot \frac{\partial h}{\partial t}\]</span></p>
+</div>
+<div id="step-6-simplifying-and-rearranging" class="section level4 hasAnchor" number="1.2.3.7">
+<h4><span class="header-section-number">1.2.3.7</span> Step 6: Simplifying and Rearranging<a href="建模基本方法论.html#step-6-simplifying-and-rearranging" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Simplify the equation:
+<span class="math display">\[\frac{\partial}{\partial x} \left( K h \frac{\partial h}{\partial x} \right) = S_y \frac{\partial h}{\partial t}\]</span></p>
+</div>
+<div id="final-governing-equation" class="section level4 hasAnchor" number="1.2.3.8">
+<h4><span class="header-section-number">1.2.3.8</span> Final Governing Equation<a href="建模基本方法论.html#final-governing-equation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The one-dimensional groundwater flow equation for an unconfined aquifer is:
+<span class="math display">\[S_y \frac{\partial h}{\partial t} = \frac{\partial}{\partial x} \left( K h \frac{\partial h}{\partial x} \right)\]</span></p>
+<p>This is the governing equation for transient groundwater flow in an unconfined aquifer. It accounts for changes in the saturated thickness <span class="math inline">\(h\)</span> due to fluctuations in the water table.</p>
+</div>
+</div>
+<div id="二维非承压地下水运动" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> 二维非承压地下水运动<a href="建模基本方法论.html#二维非承压地下水运动" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sure, let’s derive the governing equation for two-dimensional unconfined aquifer groundwater flow step by step. We’ll again use Darcy’s Law, the principle of mass conservation, and the Dupuit assumption, which simplifies the analysis by assuming horizontal flow and a vertical hydraulic gradient.</p>
+<div id="step-by-step-derivation-for-two-dimensional-unconfined-aquifer" class="section level4 hasAnchor" number="1.2.4.1">
+<h4><span class="header-section-number">1.2.4.1</span> Step-by-Step Derivation for Two-Dimensional Unconfined Aquifer<a href="建模基本方法论.html#step-by-step-derivation-for-two-dimensional-unconfined-aquifer" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="step-1-darcys-law-3" class="section level4 hasAnchor" number="1.2.4.2">
+<h4><span class="header-section-number">1.2.4.2</span> Step 1: Darcy’s Law<a href="建模基本方法论.html#step-1-darcys-law-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In two dimensions, Darcy’s Law for an unconfined aquifer can be written as:</p>
+<p><span class="math display">\[\mathbf{q} = -K \nabla h\]</span></p>
+<p>where:
+- <span class="math inline">\(\mathbf{q}\)</span> is the specific discharge (Darcy velocity) vector [L/T].
+- <span class="math inline">\(K\)</span> is the hydraulic conductivity of the aquifer [L/T].
+- <span class="math inline">\(h\)</span> is the hydraulic head [L].
+- <span class="math inline">\(\nabla h\)</span> is the hydraulic gradient, which in two dimensions can be written as:
+<span class="math display">\[\nabla h = \left( \frac{\partial h}{\partial x}, \frac{\partial h}{\partial y} \right)\]</span></p>
+</div>
+<div id="step-2-volumetric-flow-rate-1" class="section level4 hasAnchor" number="1.2.4.3">
+<h4><span class="header-section-number">1.2.4.3</span> Step 2: Volumetric Flow Rate<a href="建模基本方法论.html#step-2-volumetric-flow-rate-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For a control volume in the unconfined aquifer, the volumetric flow rate <span class="math inline">\(Q\)</span> at a point in two dimensions is given by:</p>
+<p><span class="math display">\[Q_x = q_x \cdot h = -K h \frac{\partial h}{\partial x}\]</span>
+<span class="math display">\[Q_y = q_y \cdot h = -K h \frac{\partial h}{\partial y}\]</span></p>
+<p>where <span class="math inline">\(h\)</span> is the saturated thickness of the aquifer.</p>
+</div>
+<div id="step-3-conservation-of-mass-1" class="section level4 hasAnchor" number="1.2.4.4">
+<h4><span class="header-section-number">1.2.4.4</span> Step 3: Conservation of Mass<a href="建模基本方法论.html#step-3-conservation-of-mass-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a differential control volume in the unconfined aquifer with dimensions <span class="math inline">\(dx\)</span> by <span class="math inline">\(dy\)</span> and saturated thickness <span class="math inline">\(h\)</span>.</p>
+<div id="inflow-and-outflow-3" class="section level5 hasAnchor" number="1.2.4.4.1">
+<h5><span class="header-section-number">1.2.4.4.1</span> Inflow and Outflow<a href="建模基本方法论.html#inflow-and-outflow-3" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>Inflow in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x\)</span>: <span class="math inline">\(Q_x(x) = -K h \frac{\partial h}{\partial x}\)</span></p></li>
+<li><p>Outflow in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x + dx\)</span>: <span class="math inline">\(Q_x(x + dx) = -K h \frac{\partial h}{\partial x} + \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) dx\)</span></p></li>
+<li><p>Inflow in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y\)</span>: <span class="math inline">\(Q_y(y) = -K h \frac{\partial h}{\partial y}\)</span></p></li>
+<li><p>Outflow in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y + dy\)</span>: <span class="math inline">\(Q_y(y + dy) = -K h \frac{\partial h}{\partial y} + \frac{\partial}{\partial y} \left( -K h \frac{\partial h}{\partial y} \right) dy\)</span></p></li>
+</ul>
+</div>
+<div id="net-flow-3" class="section level5 hasAnchor" number="1.2.4.4.2">
+<h5><span class="header-section-number">1.2.4.4.2</span> Net Flow<a href="建模基本方法论.html#net-flow-3" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The net inflow into the control volume is:</p>
+<p><span class="math display">\[\text{Net inflow in } x\text{-direction} = Q_x(x) - Q_x(x + dx)\]</span>
+<span class="math display">\[= -K h \frac{\partial h}{\partial x} - \left( -K h \frac{\partial h}{\partial x} + \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) dx \right)\]</span>
+<span class="math display">\[= - \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) dx\]</span></p>
+<p><span class="math display">\[\text{Net inflow in } y\text{-direction} = Q_y(y) - Q_y(y + dy)\]</span>
+<span class="math display">\[= -K h \frac{\partial h}{\partial y} - \left( -K h \frac{\partial h}{\partial y} + \frac{\partial}{\partial y} \left( -K h \frac{\partial h}{\partial y} \right) dy \right)\]</span>
+<span class="math display">\[= - \frac{\partial}{\partial y} \left( -K h \frac{\partial h}{\partial y} \right) dy\]</span></p>
+<p>The total net inflow into the control volume is:</p>
+<p><span class="math display">\[\text{Net inflow} = - \left( \frac{\partial}{\partial x} \left( -K h \frac{\partial h}{\partial x} \right) dx + \frac{\partial}{\partial y} \left( -K h \frac{\partial h}{\partial y} \right) dy \right)\]</span>
+<span class="math display">\[= \left( \frac{\partial}{\partial x} \left( K h \frac{\partial h}{\partial x} \right) dx + \frac{\partial}{\partial y} \left( K h \frac{\partial h}{\partial y} \right) dy \right)\]</span></p>
+</div>
+</div>
+<div id="step-4-change-in-storage-1" class="section level4 hasAnchor" number="1.2.4.5">
+<h4><span class="header-section-number">1.2.4.5</span> Step 4: Change in Storage<a href="建模基本方法论.html#step-4-change-in-storage-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The change in storage within the control volume over a time interval <span class="math inline">\(\Delta t\)</span> can be expressed using the specific yield <span class="math inline">\(S_y\)</span>, which is the volume of water released from storage per unit surface area per unit decline in the water table:</p>
+<p><span class="math display">\[\Delta S = S_y \cdot dx \cdot dy \cdot \frac{\partial h}{\partial t} \cdot \Delta t\]</span></p>
+</div>
+<div id="step-5-applying-conservation-of-mass-1" class="section level4 hasAnchor" number="1.2.4.6">
+<h4><span class="header-section-number">1.2.4.6</span> Step 5: Applying Conservation of Mass<a href="建模基本方法论.html#step-5-applying-conservation-of-mass-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>According to the conservation of mass principle, the rate of change of storage in the control volume must equal the net rate of flow into the control volume:</p>
+<p><span class="math display">\[\frac{\partial}{\partial x} \left( K h \frac{\partial h}{\partial x} \right) dx + \frac{\partial}{\partial y} \left( K h \frac{\partial h}{\partial y} \right) dy = S_y \cdot dx \cdot dy \cdot \frac{\partial h}{\partial t}\]</span></p>
+</div>
+<div id="step-6-simplifying-and-rearranging-1" class="section level4 hasAnchor" number="1.2.4.7">
+<h4><span class="header-section-number">1.2.4.7</span> Step 6: Simplifying and Rearranging<a href="建模基本方法论.html#step-6-simplifying-and-rearranging-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Divide through by $ dx dy $:</p>
+<p><span class="math display">\[\frac{\partial}{\partial x} \left( K h \frac{\partial h}{\partial x} \right) + \frac{\partial}{\partial y} \left( K h \frac{\partial h}{\partial y} \right) = S_y \frac{\partial h}{\partial t}\]</span></p>
+</div>
+<div id="final-governing-equation-1" class="section level4 hasAnchor" number="1.2.4.8">
+<h4><span class="header-section-number">1.2.4.8</span> Final Governing Equation<a href="建模基本方法论.html#final-governing-equation-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The two-dimensional groundwater flow equation for an unconfined aquifer is:</p>
+<p><span class="math display">\[S_y \frac{\partial h}{\partial t} = \frac{\partial}{\partial x} \left( K h \frac{\partial h}{\partial x} \right) + \frac{\partial}{\partial y} \left( K h \frac{\partial h}{\partial y} \right)\]</span></p>
+<p>This is the governing equation for transient groundwater flow in a two-dimensional unconfined aquifer. It accounts for the variation in the saturated thickness <span class="math inline">\(h\)</span> due to fluctuations in the water table and assumes horizontal flow and a vertical hydraulic gradient, as per the Dupuit approximation.</p>
+</div>
+</div>
+<div id="三维非承压地下水运动" class="section level3 hasAnchor" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> 三维非承压地下水运动<a href="建模基本方法论.html#三维非承压地下水运动" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You are right. The Dupuit assumption is primarily applicable to simplifying two-dimensional flow problems in unconfined aquifers by assuming horizontal flow and neglecting vertical gradients. For a three-dimensional unconfined aquifer groundwater flow, we need to take a different approach that does not rely on the Dupuit assumption.</p>
+<p>Let’s derive the governing equation for three-dimensional unconfined aquifer groundwater flow without using the Dupuit assumption, considering the changes in storage and flow in all three dimensions properly.</p>
+<div id="step-by-step-derivation-for-three-dimensional-unconfined-aquifer" class="section level4 hasAnchor" number="1.2.5.1">
+<h4><span class="header-section-number">1.2.5.1</span> Step-by-Step Derivation for Three-Dimensional Unconfined Aquifer<a href="建模基本方法论.html#step-by-step-derivation-for-three-dimensional-unconfined-aquifer" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="step-1-darcys-law-4" class="section level4 hasAnchor" number="1.2.5.2">
+<h4><span class="header-section-number">1.2.5.2</span> Step 1: Darcy’s Law<a href="建模基本方法论.html#step-1-darcys-law-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In three dimensions, Darcy’s Law for groundwater flow in an unconfined aquifer is given by:</p>
+<p><span class="math display">\[\mathbf{q} = -K \nabla h\]</span></p>
+<p>where:
+- <span class="math inline">\(\mathbf{q}\)</span> is the specific discharge (Darcy velocity) vector [L/T].
+- <span class="math inline">\(K\)</span> is the hydraulic conductivity of the aquifer [L/T].
+- <span class="math inline">\(h\)</span> is the hydraulic head [L].
+- <span class="math inline">\(\nabla h\)</span> is the hydraulic gradient, which in three dimensions is written as:
+<span class="math display">\[\nabla h = \left( \frac{\partial h}{\partial x}, \frac{\partial h}{\partial y}, \frac{\partial h}{\partial z} \right)\]</span></p>
+</div>
+<div id="step-2-conservation-of-mass-2" class="section level4 hasAnchor" number="1.2.5.3">
+<h4><span class="header-section-number">1.2.5.3</span> Step 2: Conservation of Mass<a href="建模基本方法论.html#step-2-conservation-of-mass-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a differential control volume in the unconfined aquifer with dimensions <span class="math inline">\(dx\)</span>, <span class="math inline">\(dy\)</span>, and <span class="math inline">\(dz\)</span>, where <span class="math inline">\(z\)</span> is the vertical direction.</p>
+<div id="inflow-and-outflow-4" class="section level5 hasAnchor" number="1.2.5.3.1">
+<h5><span class="header-section-number">1.2.5.3.1</span> Inflow and Outflow<a href="建模基本方法论.html#inflow-and-outflow-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li>Inflow in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x\)</span>: <span class="math inline">\(Q_x(x) = q_x A_x = -K \frac{\partial h}{\partial x} A_x\)</span>, where <span class="math inline">\(A_x = dy \cdot dz\)</span> is the cross-sectional area perpendicular to the <span class="math inline">\(x\)</span>-direction.</li>
+<li>Outflow in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x + dx\)</span>: <span class="math inline">\(Q_x(x + dx) = \left( q_x + \frac{\partial q_x}{\partial x} dx \right) A_x\)</span></li>
+</ul>
+<p>Similarly, for the <span class="math inline">\(y\)</span>- and <span class="math inline">\(z\)</span>-directions:</p>
+<ul>
+<li><p>Inflow in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y\)</span>: <span class="math inline">\(Q_y(y) = q_y A_y = -K \frac{\partial h}{\partial y} A_y\)</span>, where <span class="math inline">\(A_y = dx \cdot dz\)</span>.</p></li>
+<li><p>Outflow in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y + dy\)</span>: <span class="math inline">\(Q_y(y + dy) = \left( q_y + \frac{\partial q_y}{\partial y} dy \right) A_y\)</span></p></li>
+<li><p>Inflow in the <span class="math inline">\(z\)</span>-direction at <span class="math inline">\(z\)</span>: <span class="math inline">\(Q_z(z) = q_z A_z = -K \frac{\partial h}{\partial z} A_z\)</span>, where <span class="math inline">\(A_z = dx \cdot dy\)</span>.</p></li>
+<li><p>Outflow in the <span class="math inline">\(z\)</span>-direction at <span class="math inline">\(z + dz\)</span>: <span class="math inline">\(Q_z(z + dz) = \left( q_z + \frac{\partial q_z}{\partial z} dz \right) A_z\)</span></p></li>
+</ul>
+</div>
+<div id="net-flow-4" class="section level5 hasAnchor" number="1.2.5.3.2">
+<h5><span class="header-section-number">1.2.5.3.2</span> Net Flow<a href="建模基本方法论.html#net-flow-4" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The net inflow into the control volume is the sum of the net inflows in each direction:</p>
+<p><span class="math display">\[\text{Net inflow in } x\text{-direction} = Q_x(x) - Q_x(x + dx)\]</span>
+<span class="math display">\[= \left( -K \frac{\partial h}{\partial x} \right) A_x - \left( -K \frac{\partial h}{\partial x} + \frac{\partial}{\partial x} \left( -K \frac{\partial h}{\partial x} \right) dx \right) A_x\]</span>
+<span class="math display">\[= - A_x \frac{\partial}{\partial x} \left( -K \frac{\partial h}{\partial x} \right) dx\]</span></p>
+<p>Similarly,</p>
+<p><span class="math display">\[\text{Net inflow in } y\text{-direction} = - A_y \frac{\partial}{\partial y} \left( -K \frac{\partial h}{\partial y} \right) dy\]</span>
+<span class="math display">\[\text{Net inflow in } z\text{-direction} = - A_z \frac{\partial}{\partial z} \left( -K \frac{\partial h}{\partial z} \right) dz\]</span></p>
+<p>The total net inflow into the control volume is:</p>
+<p><span class="math display">\[\text{Net inflow} = - \left( \frac{\partial}{\partial x} \left( -K \frac{\partial h}{\partial x} \right) dx \cdot dy \cdot dz + \frac{\partial}{\partial y} \left( -K \frac{\partial h}{\partial y} \right) dx \cdot dy \cdot dz + \frac{\partial}{\partial z} \left( -K \frac{\partial h}{\partial z} \right) dx \cdot dy \cdot dz \right)\]</span>
+<span class="math display">\[= \left( \frac{\partial}{\partial x} \left( K \frac{\partial h}{\partial x} \right) + \frac{\partial}{\partial y} \left( K \frac{\partial h}{\partial y} \right) + \frac{\partial}{\partial z} \left( K \frac{\partial h}{\partial z} \right) \right) dx \cdot dy \cdot dz\]</span></p>
+</div>
+</div>
+<div id="step-3-change-in-storage" class="section level4 hasAnchor" number="1.2.5.4">
+<h4><span class="header-section-number">1.2.5.4</span> Step 3: Change in Storage<a href="建模基本方法论.html#step-3-change-in-storage" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The change in storage within the control volume over a time interval <span class="math inline">\(\Delta t\)</span> can be expressed using the specific yield <span class="math inline">\(S_y\)</span>, which is the volume of water released from storage per unit surface area per unit decline in the water table:</p>
+<p><span class="math display">\[\Delta S = S_y \cdot dx \cdot dy \cdot dz \cdot \frac{\partial h}{\partial t} \cdot \Delta t\]</span></p>
+</div>
+<div id="step-4-applying-conservation-of-mass-1" class="section level4 hasAnchor" number="1.2.5.5">
+<h4><span class="header-section-number">1.2.5.5</span> Step 4: Applying Conservation of Mass<a href="建模基本方法论.html#step-4-applying-conservation-of-mass-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>According to the conservation of mass principle, the rate of change of storage in the control volume must equal the net rate of flow into the control volume:</p>
+<p><span class="math display">\[S_y \frac{\partial h}{\partial t} \cdot dx \cdot dy \cdot dz = \left( \frac{\partial}{\partial x} \left( K \frac{\partial h}{\partial x} \right) + \frac{\partial}{\partial y} \left( K \frac{\partial h}{\partial y} \right) + \frac{\partial}{\partial z} \left( K \frac{\partial h}{\partial z} \right) \right) dx \cdot dy \cdot dz\]</span></p>
+</div>
+<div id="step-5-simplifying-and-rearranging" class="section level4 hasAnchor" number="1.2.5.6">
+<h4><span class="header-section-number">1.2.5.6</span> Step 5: Simplifying and Rearranging<a href="建模基本方法论.html#step-5-simplifying-and-rearranging" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Divide through by $ dx dy dz $:</p>
+<p><span class="math display">\[S_y \frac{\partial h}{\partial t} = \frac{\partial}{\partial x} \left( K \frac{\partial h}{\partial x} \right) + \frac{\partial}{\partial y} \left( K \frac{\partial h}{\partial y} \right) + \frac{\partial}{\partial z} \left( K \frac{\partial h}{\partial z} \right)\]</span></p>
+</div>
+<div id="final-governing-equation-2" class="section level4 hasAnchor" number="1.2.5.7">
+<h4><span class="header-section-number">1.2.5.7</span> Final Governing Equation<a href="建模基本方法论.html#final-governing-equation-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The three-dimensional groundwater flow equation for an unconfined aquifer is:</p>
+<p><span class="math display">\[S_y \frac{\partial h}{\partial t} = \frac{\partial}{\partial x} \left( K \frac{\partial h}{\partial x} \right) + \frac{\partial}{\partial y} \left( K \frac{\partial h}{\partial y} \right) + \frac{\partial}{\partial z} \left( K \frac{\partial h}{\partial z} \right)\]</span></p>
+<p>This equation describes the transient groundwater flow in a three-dimensional unconfined aquifer, accounting for variations in the hydraulic head in all three spatial dimensions. This derivation does not rely on the Dupuit assumption, making it suitable for three-dimensional flow problems.</p>
+</div>
+</div>
+<div id="一维热传导方程" class="section level3 hasAnchor" number="1.2.6">
+<h3><span class="header-section-number">1.2.6</span> 一维热传导方程<a href="建模基本方法论.html#一维热传导方程" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s go through the step-by-step derivation of the one-dimensional heat conduction equation based on Fourier’s law in a structured manner.</p>
+<div id="step-1-fouriers-law-of-heat-conduction" class="section level4 hasAnchor" number="1.2.6.1">
+<h4><span class="header-section-number">1.2.6.1</span> Step 1: Fourier’s Law of Heat Conduction<a href="建模基本方法论.html#step-1-fouriers-law-of-heat-conduction" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Fourier’s law states that the heat flux <span class="math inline">\(q\)</span> (amount of heat per unit area per unit time) is proportional to the negative gradient of the temperature <span class="math inline">\(T\)</span>:</p>
+<p><span class="math display">\[q = -k \frac{\partial T}{\partial x}\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(q\)</span>is the heat flux [W/m<span class="math inline">\(^2\)</span>].</li>
+<li><span class="math inline">\(k\)</span>is the thermal conductivity of the material [W/(m·K)].</li>
+<li><span class="math inline">\(\frac{\partial T}{\partial x}\)</span>is the temperature gradient in the<span class="math inline">\(x\)</span>-direction [K/m].</li>
+</ul>
+</div>
+<div id="step-2-energy-conservation-in-a-differential-element" class="section level4 hasAnchor" number="1.2.6.2">
+<h4><span class="header-section-number">1.2.6.2</span> Step 2: Energy Conservation in a Differential Element<a href="建模基本方法论.html#step-2-energy-conservation-in-a-differential-element" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a small differential control volume of length<span class="math inline">\(dx\)</span>, cross-sectional area<span class="math inline">\(A\)</span>, and located at position <span class="math inline">\(x\)</span> along the rod’s length.</p>
+<div id="heat-entering-and-leaving-the-control-volume" class="section level5 hasAnchor" number="1.2.6.2.1">
+<h5><span class="header-section-number">1.2.6.2.1</span> Heat Entering and Leaving the Control Volume<a href="建模基本方法论.html#heat-entering-and-leaving-the-control-volume" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li>The rate of heat entering at <span class="math inline">\(x\)</span>: <span class="math inline">\(q(x) \cdot A\)</span></li>
+<li>The rate of heat leaving at <span class="math inline">\(x + dx\)</span>: <span class="math inline">\(q(x + dx) \cdot A\)</span></li>
+</ul>
+<p>Using a Taylor series expansion for <span class="math inline">\(q(x + dx)\)</span>:</p>
+<p><span class="math display">\[q(x + dx) \approx q(x) + \left( \frac{\partial q}{\partial x} \right) dx\]</span></p>
+</div>
+<div id="net-heat-flow" class="section level5 hasAnchor" number="1.2.6.2.2">
+<h5><span class="header-section-number">1.2.6.2.2</span> Net Heat Flow<a href="建模基本方法论.html#net-heat-flow" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The net rate of heat entering the differential element is:
+<span class="math display">\[q(x) \cdot A - \left( q(x) + \left( \frac{\partial q}{\partial x} \right) dx \right) \cdot A\]</span></p>
+<p><span class="math display">\[= -A \left( \frac{\partial q}{\partial x} \right) dx\]</span></p>
+</div>
+</div>
+<div id="step-3-heat-storage-in-the-differential-element" class="section level4 hasAnchor" number="1.2.6.3">
+<h4><span class="header-section-number">1.2.6.3</span> Step 3: Heat Storage in the Differential Element<a href="建模基本方法论.html#step-3-heat-storage-in-the-differential-element" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The change in internal energy (<span class="math inline">\(\Delta U\)</span>) within the differential element over a time interval <span class="math inline">\(\Delta t\)</span> can be expressed using the specific heat capacity <span class="math inline">\(c\)</span> and density <span class="math inline">\(\rho\)</span> of the material:
+<span class="math display">\[\Delta U = \rho \cdot c \cdot A \cdot dx \cdot \frac{\partial T}{\partial t} \cdot \Delta t\]</span></p>
+</div>
+<div id="step-4-applying-conservation-of-energy" class="section level4 hasAnchor" number="1.2.6.4">
+<h4><span class="header-section-number">1.2.6.4</span> Step 4: Applying Conservation of Energy<a href="建模基本方法论.html#step-4-applying-conservation-of-energy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Assuming no internal heat generation and applying the conservation of energy principle, the rate of heat entering the control volume must equal the rate of energy storage within the control volume:
+<span class="math display">\[-A \left( \frac{\partial q}{\partial x} \right) dx = \rho \cdot c \cdot A \cdot dx \cdot \frac{\partial T}{\partial t}\]</span></p>
+</div>
+<div id="step-5-substituting-fouriers-law" class="section level4 hasAnchor" number="1.2.6.5">
+<h4><span class="header-section-number">1.2.6.5</span> Step 5: Substituting Fourier’s Law<a href="建模基本方法论.html#step-5-substituting-fouriers-law" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Substitute<span class="math inline">\(q = -k \frac{\partial T}{\partial x}\)</span>into the equation:
+<span class="math display">\[-A \left( \frac{\partial}{\partial x} \left( -k \frac{\partial T}{\partial x} \right) \right) dx = \rho \cdot c \cdot A \cdot dx \cdot \frac{\partial T}{\partial t}\]</span></p>
+<p>Simplify the equation:
+<span class="math display">\[A \left( k \frac{\partial^2 T}{\partial x^2} \right) dx = \rho \cdot c \cdot A \cdot dx \cdot \frac{\partial T}{\partial t}\]</span></p>
+</div>
+<div id="step-6-simplifying-and-rearranging-2" class="section level4 hasAnchor" number="1.2.6.6">
+<h4><span class="header-section-number">1.2.6.6</span> Step 6: Simplifying and Rearranging<a href="建模基本方法论.html#step-6-simplifying-and-rearranging-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Cancel out the common terms<span class="math inline">\(A\)</span>and<span class="math inline">\(dx\)</span>:
+<span class="math display">\[k \frac{\partial^2 T}{\partial x^2} = \rho c \frac{\partial T}{\partial t}\]</span></p>
+<p>Divide both sides by<span class="math inline">\(\rho c\)</span>:
+<span class="math display">\[\frac{\partial T}{\partial t} = \frac{k}{\rho c} \frac{\partial^2 T}{\partial x^2}\]</span></p>
+<p>Define the thermal diffusivity<span class="math inline">\(\alpha\)</span>as:
+<span class="math display">\[\alpha = \frac{k}{\rho c}\]</span></p>
+</div>
+<div id="final-governing-equation-3" class="section level4 hasAnchor" number="1.2.6.7">
+<h4><span class="header-section-number">1.2.6.7</span> Final Governing Equation<a href="建模基本方法论.html#final-governing-equation-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The one-dimensional heat conduction equation (also called the heat diffusion equation) is:
+<span class="math display">\[\frac{\partial T}{\partial t} = \alpha \frac{\partial^2 T}{\partial x^2}\]</span></p>
+<p>This partial differential equation describes how the temperature <span class="math inline">\(T\)</span> varies with time <span class="math inline">\(t\)</span> and position <span class="math inline">\(x\)</span> within the material.</p>
+</div>
+</div>
+<div id="一维溶质运移-扩散方程" class="section level3 hasAnchor" number="1.2.7">
+<h3><span class="header-section-number">1.2.7</span> 一维溶质运移-扩散方程<a href="建模基本方法论.html#一维溶质运移-扩散方程" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sure, let’s derive the governing equation for a one-dimensional solute advection-diffusion problem step by step. This equation describes how the solute concentration changes over time due to both advection (transport by the flow of the water) and diffusion (spreading due to concentration gradients).</p>
+<div id="step-by-step-derivation-for-one-dimensional-solute-advection-diffusion" class="section level4 hasAnchor" number="1.2.7.1">
+<h4><span class="header-section-number">1.2.7.1</span> Step-by-Step Derivation for One-Dimensional Solute Advection-Diffusion<a href="建模基本方法论.html#step-by-step-derivation-for-one-dimensional-solute-advection-diffusion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="step-1-define-variables" class="section level4 hasAnchor" number="1.2.7.2">
+<h4><span class="header-section-number">1.2.7.2</span> Step 1: Define Variables<a href="建模基本方法论.html#step-1-define-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><span class="math inline">\(c(x, t)\)</span>: Solute concentration [M/L³].</li>
+<li><span class="math inline">\(u\)</span>: Velocity of the fluid in the x-direction [L/T].</li>
+<li><span class="math inline">\(D\)</span>: Diffusion coefficient [L²/T].</li>
+<li><span class="math inline">\(x\)</span>: Spatial coordinate in the x-direction [L].</li>
+<li><span class="math inline">\(t\)</span>: Time [T].</li>
+</ul>
+</div>
+<div id="step-2-conservation-of-mass-continuity-equation" class="section level4 hasAnchor" number="1.2.7.3">
+<h4><span class="header-section-number">1.2.7.3</span> Step 2: Conservation of Mass (Continuity Equation)<a href="建模基本方法论.html#step-2-conservation-of-mass-continuity-equation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a differential control volume of length <span class="math inline">\(dx\)</span> in the x-direction.</p>
+<div id="inflow-and-outflow-by-advection" class="section level5 hasAnchor" number="1.2.7.3.1">
+<h5><span class="header-section-number">1.2.7.3.1</span> Inflow and Outflow by Advection<a href="建模基本方法论.html#inflow-and-outflow-by-advection" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>Inflow of solute by advection at position <span class="math inline">\(x\)</span>:
+<span class="math display">\[
+J_{\text{adv,in}} = u c(x, t)
+\]</span></p></li>
+<li><p>Outflow of solute by advection at position $ x + dx $:
+<span class="math display">\[
+J_{\text{adv,out}} = u c(x + dx, t) \approx u \left( c(x, t) + \frac{\partial c}{\partial x} dx \right)
+\]</span></p></li>
+</ul>
+</div>
+<div id="inflow-and-outflow-by-diffusion" class="section level5 hasAnchor" number="1.2.7.3.2">
+<h5><span class="header-section-number">1.2.7.3.2</span> Inflow and Outflow by Diffusion<a href="建模基本方法论.html#inflow-and-outflow-by-diffusion" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>Inflow of solute by diffusion at position <span class="math inline">\(x\)</span>:
+<span class="math display">\[
+J_{\text{diff,in}} = -D \frac{\partial c}{\partial x}
+\]</span></p></li>
+<li><p>Outflow of solute by diffusion at position $ x + dx $:
+<span class="math display">\[
+J_{\text{diff,out}} = -D \frac{\partial c}{\partial x} \Bigg|_{x+dx} \approx -D \left( \frac{\partial c}{\partial x} + \frac{\partial}{\partial x} \left( \frac{\partial c}{\partial x} \right) dx \right)
+\]</span></p></li>
+</ul>
+</div>
+</div>
+<div id="step-3-net-flow" class="section level4 hasAnchor" number="1.2.7.4">
+<h4><span class="header-section-number">1.2.7.4</span> Step 3: Net Flow<a href="建模基本方法论.html#step-3-net-flow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The net inflow of solute into the control volume is the difference between the inflow and outflow due to both advection and diffusion.</p>
+<div id="net-advection-flow" class="section level5 hasAnchor" number="1.2.7.4.1">
+<h5><span class="header-section-number">1.2.7.4.1</span> Net Advection Flow<a href="建模基本方法论.html#net-advection-flow" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><span class="math display">\[
+\text{Net advective flow} = J_{\text{adv,in}} - J_{\text{adv,out}} = u c(x, t) - u \left( c(x, t) + \frac{\partial c}{\partial x} dx \right) = -u \frac{\partial c}{\partial x} dx
+\]</span></p>
+</div>
+<div id="net-diffusion-flow" class="section level5 hasAnchor" number="1.2.7.4.2">
+<h5><span class="header-section-number">1.2.7.4.2</span> Net Diffusion Flow<a href="建模基本方法论.html#net-diffusion-flow" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><span class="math display">\[
+\text{Net diffusive flow} = J_{\text{diff,in}} - J_{\text{diff,out}} = -D \frac{\partial c}{\partial x} - \left( -D \left( \frac{\partial c}{\partial x} + \frac{\partial}{\partial x} \left( \frac{\partial c}{\partial x} \right) dx \right) \right) = D \frac{\partial^2 c}{\partial x^2} dx
+\]</span></p>
+</div>
+</div>
+<div id="step-4-change-in-storage-2" class="section level4 hasAnchor" number="1.2.7.5">
+<h4><span class="header-section-number">1.2.7.5</span> Step 4: Change in Storage<a href="建模基本方法论.html#step-4-change-in-storage-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The change in solute mass within the control volume over a time interval <span class="math inline">\(\Delta t\)</span> is:</p>
+<p><span class="math display">\[
+\Delta S = \frac{\partial c}{\partial t} dx \Delta t
+\]</span></p>
+</div>
+<div id="step-5-applying-conservation-of-mass-2" class="section level4 hasAnchor" number="1.2.7.6">
+<h4><span class="header-section-number">1.2.7.6</span> Step 5: Applying Conservation of Mass<a href="建模基本方法论.html#step-5-applying-conservation-of-mass-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>According to the conservation of mass principle, the rate of change of solute storage in the control volume must equal the net rate of solute flow into the control volume:</p>
+<p><span class="math display">\[
+\frac{\partial c}{\partial t} dx = -u \frac{\partial c}{\partial x} dx + D \frac{\partial^2 c}{\partial x^2} dx
+\]</span></p>
+</div>
+<div id="step-6-simplifying-and-rearranging-3" class="section level4 hasAnchor" number="1.2.7.7">
+<h4><span class="header-section-number">1.2.7.7</span> Step 6: Simplifying and Rearranging<a href="建模基本方法论.html#step-6-simplifying-and-rearranging-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Divide through by <span class="math inline">\(dx\)</span>:</p>
+<p><span class="math display">\[
+\frac{\partial c}{\partial t} = -u \frac{\partial c}{\partial x} + D \frac{\partial^2 c}{\partial x^2}
+\]</span></p>
+</div>
+<div id="final-governing-equation-4" class="section level4 hasAnchor" number="1.2.7.8">
+<h4><span class="header-section-number">1.2.7.8</span> Final Governing Equation<a href="建模基本方法论.html#final-governing-equation-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The final governing equation for the one-dimensional solute advection-diffusion problem is:</p>
+<p><span class="math display">\[
+\frac{\partial c}{\partial t} + u \frac{\partial c}{\partial x} = D \frac{\partial^2 c}{\partial x^2}
+\]</span></p>
+<p>This partial differential equation describes how the solute concentration <span class="math inline">\(c\)</span> varies with time <span class="math inline">\(t\)</span> and position <span class="math inline">\(x\)</span> due to advection by the flow field <span class="math inline">\(u\)</span> and diffusion characterized by the diffusion coefficient <span class="math inline">\(D\)</span>.</p>
+</div>
+</div>
+<div id="二维溶质运移-扩散方程" class="section level3 hasAnchor" number="1.2.8">
+<h3><span class="header-section-number">1.2.8</span> 二维溶质运移-扩散方程<a href="建模基本方法论.html#二维溶质运移-扩散方程" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s derive the governing equation for a two-dimensional solute advection-diffusion problem step by step. This equation describes how a solute concentration changes over time due to both advection (transport by the flow of the water) and diffusion (spreading due to concentration gradients).</p>
+<div id="step-by-step-derivation-for-two-dimensional-solute-advection-diffusion" class="section level4 hasAnchor" number="1.2.8.1">
+<h4><span class="header-section-number">1.2.8.1</span> Step-by-Step Derivation for Two-Dimensional Solute Advection-Diffusion<a href="建模基本方法论.html#step-by-step-derivation-for-two-dimensional-solute-advection-diffusion" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="step-1-define-variables-1" class="section level4 hasAnchor" number="1.2.8.2">
+<h4><span class="header-section-number">1.2.8.2</span> Step 1: Define Variables<a href="建模基本方法论.html#step-1-define-variables-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>$ c(x, y, t) $: solute concentration [M/L³].</li>
+<li><span class="math inline">\(u\)</span>: velocity component in the x-direction [L/T].</li>
+<li><span class="math inline">\(v\)</span>: velocity component in the y-direction [L/T].</li>
+<li><span class="math inline">\(D_x\)</span>: diffusion coefficient in the x-direction [L²/T].</li>
+<li><span class="math inline">\(D_y\)</span>: diffusion coefficient in the y-direction [L²/T].</li>
+</ul>
+</div>
+<div id="step-2-conservation-of-mass-continuity-equation-1" class="section level4 hasAnchor" number="1.2.8.3">
+<h4><span class="header-section-number">1.2.8.3</span> Step 2: Conservation of Mass (Continuity Equation)<a href="建模基本方法论.html#step-2-conservation-of-mass-continuity-equation-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a differential control volume in the <span class="math inline">\(x\)</span>-<span class="math inline">\(y\)</span> plane with dimensions <span class="math inline">\(dx\)</span> and <span class="math inline">\(dy\)</span>.</p>
+<div id="inflow-and-outflow-5" class="section level5 hasAnchor" number="1.2.8.3.1">
+<h5><span class="header-section-number">1.2.8.3.1</span> Inflow and Outflow<a href="建模基本方法论.html#inflow-and-outflow-5" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>Inflow of solute by advection in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x\)</span>:
+<span class="math display">\[u(x) c(x) \cdot dy\]</span></p></li>
+<li><p>Outflow of solute by advection in the <span class="math inline">\(x\)</span>-direction at $ x + dx $:
+<span class="math display">\[u(x + dx) c(x + dx) \cdot dy \approx (u(x) c(x) + \frac{\partial}{\partial x} (u c) dx) \cdot dy\]</span></p></li>
+<li><p>Inflow of solute by advection in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y\)</span>:
+<span class="math display">\[v(y) c(y) \cdot dx\]</span></p></li>
+<li><p>Outflow of solute by advection in the <span class="math inline">\(y\)</span>-direction at $ y + dy $:
+<span class="math display">\[v(y + dy) c(y + dy) \cdot dx \approx (v(y) c(y) + \frac{\partial}{\partial y} (v c) dy) \cdot dx\]</span></p></li>
+<li><p>Inflow of solute by diffusion in the <span class="math inline">\(x\)</span>-direction at <span class="math inline">\(x\)</span>:
+<span class="math display">\[-D_x \frac{\partial c}{\partial x} \cdot dy\]</span></p></li>
+<li><p>Outflow of solute by diffusion in the <span class="math inline">\(x\)</span>-direction at $ x + dx $:
+<span class="math display">\[-D_x \frac{\partial c}{\partial x} \cdot dy - \frac{\partial}{\partial x} \left( -D_x \frac{\partial c}{\partial x} \right) dx \cdot dy\]</span></p></li>
+<li><p>Inflow of solute by diffusion in the <span class="math inline">\(y\)</span>-direction at <span class="math inline">\(y\)</span>:
+<span class="math display">\[-D_y \frac{\partial c}{\partial y} \cdot dx\]</span></p></li>
+<li><p>Outflow of solute by diffusion in the <span class="math inline">\(y\)</span>-direction at $ y + dy $:
+<span class="math display">\[-D_y \frac{\partial c}{\partial y} \cdot dx - \frac{\partial}{\partial y} \left( -D_y \frac{\partial c}{\partial y} \right) dy \cdot dx\]</span></p></li>
+</ul>
+</div>
+<div id="net-flow-5" class="section level5 hasAnchor" number="1.2.8.3.2">
+<h5><span class="header-section-number">1.2.8.3.2</span> Net Flow<a href="建模基本方法论.html#net-flow-5" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The net inflow of solute into the control volume due to advection and diffusion is:</p>
+<p><span class="math display">\[\text{Net inflow in } x\text{-direction} = \left( u(x) c(x) \cdot dy - (u(x + dx) c(x + dx) \cdot dy) \right) + \left( -D_x \frac{\partial c}{\partial x} \cdot dy - \left( -D_x \frac{\partial c}{\partial x} - \frac{\partial}{\partial x} \left( -D_x \frac{\partial c}{\partial x} \right) dx \right) dy \right)\]</span>
+<span class="math display">\[= - \frac{\partial}{\partial x} \left( u c \right) dx \cdot dy + \frac{\partial}{\partial x} \left( D_x \frac{\partial c}{\partial x} \right) dx \cdot dy\]</span></p>
+<p>Similarly, for the <span class="math inline">\(y\)</span>-direction:</p>
+<p><span class="math display">\[\text{Net inflow in } y\text{-direction} = - \frac{\partial}{\partial y} \left( v c \right) dy \cdot dx + \frac{\partial}{\partial y} \left( D_y \frac{\partial c}{\partial y} \right) dy \cdot dx\]</span></p>
+<p>The total net inflow of solute into the control volume is:</p>
+<p><span class="math display">\[\text{Total net inflow} = \left( \frac{\partial}{\partial x} \left( D_x \frac{\partial c}{\partial x} \right) - \frac{\partial}{\partial x} \left( u c \right) \right) dx \cdot dy + \left( \frac{\partial}{\partial y} \left( D_y \frac{\partial c}{\partial y} \right) - \frac{\partial}{\partial y} \left( v c \right) \right) dy \cdot dx\]</span></p>
+</div>
+</div>
+<div id="step-3-change-in-storage-1" class="section level4 hasAnchor" number="1.2.8.4">
+<h4><span class="header-section-number">1.2.8.4</span> Step 3: Change in Storage<a href="建模基本方法论.html#step-3-change-in-storage-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The change in solute mass within the control volume over a time interval $ t $ is:</p>
+<p><span class="math display">\[\Delta S = \frac{\partial c}{\partial t} \cdot dx \cdot dy \cdot \Delta t\]</span></p>
+</div>
+<div id="step-4-applying-conservation-of-mass-2" class="section level4 hasAnchor" number="1.2.8.5">
+<h4><span class="header-section-number">1.2.8.5</span> Step 4: Applying Conservation of Mass<a href="建模基本方法论.html#step-4-applying-conservation-of-mass-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>According to the conservation of mass principle, the rate of change of solute storage in the control volume must equal the net rate of solute flow into the control volume:</p>
+<p><span class="math display">\[\frac{\partial c}{\partial t} = \left( \frac{\partial}{\partial x} \left( D_x \frac{\partial c}{\partial x} \right) - \frac{\partial}{\partial x} \left( u c \right) \right) + \left( \frac{\partial}{\partial y} \left( D_y \frac{\partial c}{\partial y} \right) - \frac{\partial}{\partial y} \left( v c \right) \right)\]</span></p>
+</div>
+<div id="step-5-simplifying-and-rearranging-1" class="section level4 hasAnchor" number="1.2.8.6">
+<h4><span class="header-section-number">1.2.8.6</span> Step 5: Simplifying and Rearranging<a href="建模基本方法论.html#step-5-simplifying-and-rearranging-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Combine the terms and rearrange:</p>
+<p><span class="math display">\[\frac{\partial c}{\partial t} = D_x \frac{\partial^2 c}{\partial x^2} + D_y \frac{\partial^2 c}{\partial y^2} - \frac{\partial}{\partial x} \left( u c \right) - \frac{\partial}{\partial y} \left( v c \right)\]</span></p>
+</div>
+<div id="final-governing-equation-5" class="section level4 hasAnchor" number="1.2.8.7">
+<h4><span class="header-section-number">1.2.8.7</span> Final Governing Equation<a href="建模基本方法论.html#final-governing-equation-5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The final governing equation for the two-dimensional solute advection-diffusion problem is:</p>
+<p><span class="math display">\[\frac{\partial c}{\partial t} + \frac{\partial}{\partial x} (u c) + \frac{\partial}{\partial y} (v c) = D_x \frac{\partial^2 c}{\partial x^2} + D_y \frac{\partial^2 c}{\partial y^2}\]</span></p>
+<p>This partial differential equation describes how the solute concentration <span class="math inline">\(c\)</span> varies with time <span class="math inline">\(t\)</span> and position $ (x, y) $ due to advection by the flow field $ (u, v) $ and diffusion characterized by the diffusion coefficients <span class="math inline">\(D_x\)</span> and <span class="math inline">\(D_y\)</span>.</p>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["数值地球.pdf", "数值地球.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

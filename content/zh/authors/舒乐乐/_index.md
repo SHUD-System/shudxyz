@@ -7,14 +7,13 @@ superuser: true
 user_groups: ["团队负责人"]
 
 # Role/position/tagline
-role: 水文学博士、研究员、硕士生导师
+role: 水文学博士、研究员、博士生导师
 
 # Organizations/Affiliations to show in About widget
 organizations:
 - name: 中国科学院西北生态环境资源研究院
   url: http://www.nieer.cas.cn
-- name: 中国科学院寒旱区陆面过程与气候变化重点实验室
-  url: http://lpcc.careeri.cas.cn
+
 
 # Short bio (displayed in user profile at end of posts)
 bio: 中国科学院西北生态环境资源研究院研究员，兰州大学兼职教授，SHUD模型作者； 从事数值水文模型研发、“大气-陆面-水文”模型耦合、气候/人类活动对水循环的影响研究

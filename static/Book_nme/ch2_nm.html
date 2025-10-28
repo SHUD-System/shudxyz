@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 2 数值方法基础 | 数值地球</title>
+  <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 2 数值方法基础 | 数值地球" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+  <meta property="og:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 2 数值方法基础 | 数值地球" />
+  
+  <meta name="twitter:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="twitter:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+
+<meta name="author" content="舒乐乐，孟宪红" />
+
+
+<meta name="date" content="2025-09-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch1_modeling.html"/>
+<link rel="next" href="ch3_fdm.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">数值地球</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>绪论</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#数值方法在地球科学中的重要性"><i class="fa fa-check"></i><b>0.1</b> 数值方法在地球科学中的重要性</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#本书的目标与特色"><i class="fa fa-check"></i><b>0.2</b> 本书的目标与特色</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#主要内容概览"><i class="fa fa-check"></i><b>0.3</b> 主要内容概览</a>
+<ul>
+<li class="chapter" data-level="0.3.1" data-path="index.html"><a href="index.html#第一章建模基本方法论"><i class="fa fa-check"></i><b>0.3.1</b> 第一章：建模基本方法论</a></li>
+<li class="chapter" data-level="0.3.2" data-path="index.html"><a href="index.html#第二章数值方法基础"><i class="fa fa-check"></i><b>0.3.2</b> 第二章：数值方法基础</a></li>
+<li class="chapter" data-level="0.3.3" data-path="index.html"><a href="index.html#第三章有限差分法"><i class="fa fa-check"></i><b>0.3.3</b> 第三章：有限差分法</a></li>
+<li class="chapter" data-level="0.3.4" data-path="index.html"><a href="index.html#第四章有限元法"><i class="fa fa-check"></i><b>0.3.4</b> 第四章：有限元法</a></li>
+<li class="chapter" data-level="0.3.5" data-path="index.html"><a href="index.html#第五章有限体积法"><i class="fa fa-check"></i><b>0.3.5</b> 第五章：有限体积法</a></li>
+<li class="chapter" data-level="0.3.6" data-path="index.html"><a href="index.html#第六章应用案例"><i class="fa fa-check"></i><b>0.3.6</b> 第六章：应用案例</a></li>
+</ul></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#学习建议"><i class="fa fa-check"></i><b>0.4</b> 学习建议</a></li>
+<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#代码示例简单的数值积分"><i class="fa fa-check"></i><b>0.5</b> 代码示例：简单的数值积分</a></li>
+<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#结语"><i class="fa fa-check"></i><b>0.6</b> 结语</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="ch1_modeling.html"><a href="ch1_modeling.html"><i class="fa fa-check"></i><b>1</b> 建模基本方法论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="ch1_modeling.html"><a href="ch1_modeling.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1_modeling.html"><a href="ch1_modeling.html#clams方法应用案例落体运动"><i class="fa fa-check"></i>CLAMS方法应用案例：<strong>落体运动</strong></a></li>
+<li class="chapter" data-level="1.1.1" data-path="ch1_modeling.html"><a href="ch1_modeling.html#落体运动的数值求解方法"><i class="fa fa-check"></i><b>1.1.1</b> 落体运动的数值求解方法</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="ch1_modeling.html"><a href="ch1_modeling.html#解析解与数值解"><i class="fa fa-check"></i><b>1.2</b> 解析解与数值解</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1_modeling.html"><a href="ch1_modeling.html#典型控制方程"><i class="fa fa-check"></i><b>1.3</b> 典型控制方程</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维承压地下水运动"><i class="fa fa-check"></i><b>1.3.1</b> 一维承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.2" data-path="ch1_modeling.html"><a href="ch1_modeling.html#二维承压地下水运动"><i class="fa fa-check"></i><b>1.3.2</b> 二维承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.3" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维非承压地下水运动"><i class="fa fa-check"></i><b>1.3.3</b> 一维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.4" data-path="ch1_modeling.html"><a href="ch1_modeling.html#二维非承压地下水运动"><i class="fa fa-check"></i><b>1.3.4</b> 二维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.5" data-path="ch1_modeling.html"><a href="ch1_modeling.html#三维非承压地下水运动"><i class="fa fa-check"></i><b>1.3.5</b> 三维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.6" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维热传导方程"><i class="fa fa-check"></i><b>1.3.6</b> 一维热传导方程</a></li>
+<li class="chapter" data-level="1.3.7" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.3.7</b> 一维溶质运移-扩散方程</a></li>
+<li class="chapter" data-level="1.3.8" data-path="ch1_modeling.html"><a href="ch1_modeling.html#二维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.3.8</b> 二维溶质运移-扩散方程</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2_nm.html"><a href="ch2_nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2_nm.html"><a href="ch2_nm.html#隐式与显式求解法"><i class="fa fa-check"></i><b>2.1</b> 隐式与显式求解法</a></li>
+<li class="chapter" data-level="2.2" data-path="ch2_nm.html"><a href="ch2_nm.html#数值迭代方法"><i class="fa fa-check"></i><b>2.2</b> 数值迭代方法</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ch2_nm.html"><a href="ch2_nm.html#牛顿迭代newton-iteration"><i class="fa fa-check"></i><b>2.2.1</b> 牛顿迭代(Newton Iteration)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="ch2_nm.html"><a href="ch2_nm.html#欧拉方法euler-method"><i class="fa fa-check"></i><b>2.2.2</b> 欧拉方法(Euler Method)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="ch2_nm.html"><a href="ch2_nm.html#龙格-库塔方法runge-kutta-method"><i class="fa fa-check"></i><b>2.2.3</b> 龙格-库塔方法(Runge-Kutta Method)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="ch2_nm.html"><a href="ch2_nm.html#皮卡法picard-method"><i class="fa fa-check"></i><b>2.2.4</b> 皮卡法(Picard Method)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2_nm.html"><a href="ch2_nm.html#有限元-有限差分-有限体积"><i class="fa fa-check"></i><b>2.3</b> 有限元, 有限差分 ,有限体积</a></li>
+<li class="chapter" data-level="2.4" data-path="ch2_nm.html"><a href="ch2_nm.html#cfl条件约束"><i class="fa fa-check"></i><b>2.4</b> CFL条件约束</a></li>
+<li class="chapter" data-level="2.5" data-path="ch2_nm.html"><a href="ch2_nm.html#时空离散化"><i class="fa fa-check"></i><b>2.5</b> 时空离散化</a></li>
+<li class="chapter" data-level="2.6" data-path="ch2_nm.html"><a href="ch2_nm.html#初始条件"><i class="fa fa-check"></i><b>2.6</b> 初始条件</a></li>
+<li class="chapter" data-level="2.7" data-path="ch2_nm.html"><a href="ch2_nm.html#边界条件"><i class="fa fa-check"></i><b>2.7</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3_fdm.html"><a href="ch3_fdm.html"><i class="fa fa-check"></i><b>3</b> 有限差分法</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#泰勒级数taylor-series"><i class="fa fa-check"></i><b>3.1</b> 泰勒级数(Taylor Series)</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#截断误差"><i class="fa fa-check"></i><b>3.1.1</b> 截断误差</a></li>
+<li class="chapter" data-level="3.1.2" data-path="ch3_fdm.html"><a href="ch3_fdm.html#一阶导数"><i class="fa fa-check"></i><b>3.1.2</b> 一阶导数</a></li>
+<li class="chapter" data-level="3.1.3" data-path="ch3_fdm.html"><a href="ch3_fdm.html#二阶导数"><i class="fa fa-check"></i><b>3.1.3</b> 二阶导数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3_fdm.html"><a href="ch3_fdm.html#构建数值方法"><i class="fa fa-check"></i><b>3.2</b> 构建数值方法</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3_fdm.html"><a href="ch3_fdm.html#显式求解法"><i class="fa fa-check"></i><b>3.3</b> 显式求解法</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3_fdm.html"><a href="ch3_fdm.html#隐式求解法"><i class="fa fa-check"></i><b>3.4</b> 隐式求解法</a></li>
+<li class="chapter" data-level="3.5" data-path="ch3_fdm.html"><a href="ch3_fdm.html#编程求解"><i class="fa fa-check"></i><b>3.5</b> 编程求解</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3_fdm.html"><a href="ch3_fdm.html#显式与隐式求解法对比"><i class="fa fa-check"></i><b>3.6</b> 显式与隐式求解法对比</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#cfl条件"><i class="fa fa-check"></i><b>3.6.1</b> CFL条件</a></li>
+<li class="chapter" data-level="3.6.2" data-path="ch3_fdm.html"><a href="ch3_fdm.html#计算效率"><i class="fa fa-check"></i><b>3.6.2</b> 计算效率</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3_fdm.html"><a href="ch3_fdm.html#二维有限差分"><i class="fa fa-check"></i><b>3.7</b> 二维有限差分</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#编程求解-1"><i class="fa fa-check"></i><b>3.7.1</b> 编程求解</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4_fem.html"><a href="ch4_fem.html"><i class="fa fa-check"></i><b>4</b> 有限元法</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元法理论基础"><i class="fa fa-check"></i><b>4.1</b> 有限元法理论基础</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ch4_fem.html"><a href="ch4_fem.html#历史发展与应用背景"><i class="fa fa-check"></i><b>4.1.1</b> 历史发展与应用背景</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ch4_fem.html"><a href="ch4_fem.html#基本思想与哲学"><i class="fa fa-check"></i><b>4.1.2</b> 基本思想与哲学</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ch4_fem.html"><a href="ch4_fem.html#详细求解步骤"><i class="fa fa-check"></i><b>4.1.3</b> 详细求解步骤</a></li>
+<li class="chapter" data-level="4.1.4" data-path="ch4_fem.html"><a href="ch4_fem.html#变分原理的深入理解"><i class="fa fa-check"></i><b>4.1.4</b> 变分原理的深入理解</a></li>
+<li class="chapter" data-level="4.1.5" data-path="ch4_fem.html"><a href="ch4_fem.html#形函数理论的完整体系"><i class="fa fa-check"></i><b>4.1.5</b> 形函数理论的完整体系</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4_fem.html"><a href="ch4_fem.html#数学公式论证"><i class="fa fa-check"></i><b>4.2</b> 数学公式论证</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ch4_fem.html"><a href="ch4_fem.html#变分形式的推导"><i class="fa fa-check"></i><b>4.2.1</b> 变分形式的推导</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元离散化"><i class="fa fa-check"></i><b>4.2.2</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.2.3" data-path="ch4_fem.html"><a href="ch4_fem.html#单元矩阵的构造"><i class="fa fa-check"></i><b>4.2.3</b> 单元矩阵的构造</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4_fem.html"><a href="ch4_fem.html#一维热传导问题的深入分析与fem求解"><i class="fa fa-check"></i><b>4.3</b> 一维热传导问题的深入分析与FEM求解</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ch4_fem.html"><a href="ch4_fem.html#工程背景与实际意义"><i class="fa fa-check"></i><b>4.3.1</b> 工程背景与实际意义</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ch4_fem.html"><a href="ch4_fem.html#详细问题描述"><i class="fa fa-check"></i><b>4.3.2</b> 详细问题描述</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ch4_fem.html"><a href="ch4_fem.html#clams方法的系统化建模"><i class="fa fa-check"></i><b>4.3.3</b> CLAMS方法的系统化建模</a></li>
+<li class="chapter" data-level="4.3.4" data-path="ch4_fem.html"><a href="ch4_fem.html#r代码实现"><i class="fa fa-check"></i><b>4.3.4</b> R代码实现</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ch4_fem.html"><a href="ch4_fem.html#完整实现代码"><i class="fa fa-check"></i><b>4.3.5</b> 完整实现代码</a></li>
+<li class="chapter" data-level="4.3.6" data-path="ch4_fem.html"><a href="ch4_fem.html#运行结果示例"><i class="fa fa-check"></i><b>4.3.6</b> 运行结果示例</a></li>
+<li class="chapter" data-level="4.3.7" data-path="ch4_fem.html"><a href="ch4_fem.html#高级有限元技术实现"><i class="fa fa-check"></i><b>4.3.7</b> 高级有限元技术实现</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ch4_fem.html"><a href="ch4_fem.html#地球科学应用案例地下水流模拟"><i class="fa fa-check"></i><b>4.4</b> 地球科学应用案例：地下水流模拟</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="ch4_fem.html"><a href="ch4_fem.html#问题背景"><i class="fa fa-check"></i><b>4.4.1</b> 问题背景</a></li>
+<li class="chapter" data-level="4.4.2" data-path="ch4_fem.html"><a href="ch4_fem.html#数学模型"><i class="fa fa-check"></i><b>4.4.2</b> 数学模型</a></li>
+<li class="chapter" data-level="4.4.3" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元离散化-1"><i class="fa fa-check"></i><b>4.4.3</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.4.4" data-path="ch4_fem.html"><a href="ch4_fem.html#实际应用案例"><i class="fa fa-check"></i><b>4.4.4</b> 实际应用案例</a></li>
+<li class="chapter" data-level="4.4.5" data-path="ch4_fem.html"><a href="ch4_fem.html#工程意义"><i class="fa fa-check"></i><b>4.4.5</b> 工程意义</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元法的收敛性分析与误差估计"><i class="fa fa-check"></i><b>4.5</b> 有限元法的收敛性分析与误差估计</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="ch4_fem.html"><a href="ch4_fem.html#收敛性理论基础"><i class="fa fa-check"></i><b>4.5.1</b> 收敛性理论基础</a></li>
+<li class="chapter" data-level="4.5.2" data-path="ch4_fem.html"><a href="ch4_fem.html#先验误差估计"><i class="fa fa-check"></i><b>4.5.2</b> 先验误差估计</a></li>
+<li class="chapter" data-level="4.5.3" data-path="ch4_fem.html"><a href="ch4_fem.html#后验误差估计"><i class="fa fa-check"></i><b>4.5.3</b> 后验误差估计</a></li>
+<li class="chapter" data-level="4.5.4" data-path="ch4_fem.html"><a href="ch4_fem.html#自适应网格细化"><i class="fa fa-check"></i><b>4.5.4</b> 自适应网格细化</a></li>
+<li class="chapter" data-level="4.5.5" data-path="ch4_fem.html"><a href="ch4_fem.html#数值实验与验证"><i class="fa fa-check"></i><b>4.5.5</b> 数值实验与验证</a></li>
+<li class="chapter" data-level="4.5.6" data-path="ch4_fem.html"><a href="ch4_fem.html#误差的物理解释"><i class="fa fa-check"></i><b>4.5.6</b> 误差的物理解释</a></li>
+<li class="chapter" data-level="4.5.7" data-path="ch4_fem.html"><a href="ch4_fem.html#收敛性改进技术"><i class="fa fa-check"></i><b>4.5.7</b> 收敛性改进技术</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元法与有限差分法的系统对比"><i class="fa fa-check"></i><b>4.6</b> 有限元法与有限差分法的系统对比</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="ch4_fem.html"><a href="ch4_fem.html#理论基础对比"><i class="fa fa-check"></i><b>4.6.1</b> 理论基础对比</a></li>
+<li class="chapter" data-level="4.6.2" data-path="ch4_fem.html"><a href="ch4_fem.html#精度和稳定性对比"><i class="fa fa-check"></i><b>4.6.2</b> 精度和稳定性对比</a></li>
+<li class="chapter" data-level="4.6.3" data-path="ch4_fem.html"><a href="ch4_fem.html#计算效率对比"><i class="fa fa-check"></i><b>4.6.3</b> 计算效率对比</a></li>
+<li class="chapter" data-level="4.6.4" data-path="ch4_fem.html"><a href="ch4_fem.html#适用性分析"><i class="fa fa-check"></i><b>4.6.4</b> 适用性分析</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="ch4_fem.html"><a href="ch4_fem.html#高级有限元技术的深入探讨"><i class="fa fa-check"></i><b>4.7</b> 高级有限元技术的深入探讨</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="ch4_fem.html"><a href="ch4_fem.html#高阶形函数技术"><i class="fa fa-check"></i><b>4.7.1</b> 高阶形函数技术</a></li>
+<li class="chapter" data-level="4.7.2" data-path="ch4_fem.html"><a href="ch4_fem.html#自适应有限元技术"><i class="fa fa-check"></i><b>4.7.2</b> 自适应有限元技术</a></li>
+<li class="chapter" data-level="4.7.3" data-path="ch4_fem.html"><a href="ch4_fem.html#稳定化技术"><i class="fa fa-check"></i><b>4.7.3</b> 稳定化技术</a></li>
+<li class="chapter" data-level="4.7.4" data-path="ch4_fem.html"><a href="ch4_fem.html#多尺度有限元方法"><i class="fa fa-check"></i><b>4.7.4</b> 多尺度有限元方法</a></li>
+<li class="chapter" data-level="4.7.5" data-path="ch4_fem.html"><a href="ch4_fem.html#间断有限元方法"><i class="fa fa-check"></i><b>4.7.5</b> 间断有限元方法</a></li>
+<li class="chapter" data-level="4.7.6" data-path="ch4_fem.html"><a href="ch4_fem.html#混合有限元方法"><i class="fa fa-check"></i><b>4.7.6</b> 混合有限元方法</a></li>
+<li class="chapter" data-level="4.7.7" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元方法的并行计算"><i class="fa fa-check"></i><b>4.7.7</b> 有限元方法的并行计算</a></li>
+<li class="chapter" data-level="4.7.8" data-path="ch4_fem.html"><a href="ch4_fem.html#高级技术的应用实例"><i class="fa fa-check"></i><b>4.7.8</b> 高级技术的应用实例</a></li>
+<li class="chapter" data-level="4.7.9" data-path="ch4_fem.html"><a href="ch4_fem.html#实现考虑"><i class="fa fa-check"></i><b>4.7.9</b> 实现考虑</a></li>
+<li class="chapter" data-level="4.7.10" data-path="ch4_fem.html"><a href="ch4_fem.html#软件实现框架"><i class="fa fa-check"></i><b>4.7.10</b> 软件实现框架</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="ch4_fem.html"><a href="ch4_fem.html#总结"><i class="fa fa-check"></i><b>4.8</b> 总结</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="ch4_fem.html"><a href="ch4_fem.html#本章要点回顾"><i class="fa fa-check"></i><b>4.8.1</b> 本章要点回顾</a></li>
+<li class="chapter" data-level="4.8.2" data-path="ch4_fem.html"><a href="ch4_fem.html#扩展阅读建议"><i class="fa fa-check"></i><b>4.8.2</b> 扩展阅读建议</a></li>
+<li class="chapter" data-level="4.8.3" data-path="ch4_fem.html"><a href="ch4_fem.html#实践练习"><i class="fa fa-check"></i><b>4.8.3</b> 实践练习</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5_fvm.html"><a href="ch5_fvm.html"><i class="fa fa-check"></i><b>5</b> 有限体积法</a></li>
+<li class="chapter" data-level="6" data-path="ch6_app.html"><a href="ch6_app.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6_app.html"><a href="ch6_app.html#热传递问题heat-transfer"><i class="fa fa-check"></i><b>6.1</b> 热传递问题(Heat Transfer)</a></li>
+<li class="chapter" data-level="6.2" data-path="ch6_app.html"><a href="ch6_app.html#大气混沌系统chaos-system-in-atmosphere"><i class="fa fa-check"></i><b>6.2</b> 大气混沌系统（Chaos System in Atmosphere）</a></li>
+<li class="chapter" data-level="6.3" data-path="ch6_app.html"><a href="ch6_app.html#土壤垂直水分流动"><i class="fa fa-check"></i><b>6.3</b> 土壤垂直水分流动</a></li>
+<li class="chapter" data-level="6.4" data-path="ch6_app.html"><a href="ch6_app.html#土壤垂直一维水热耦合问题"><i class="fa fa-check"></i><b>6.4</b> 土壤垂直一维水热耦合问题</a></li>
+<li class="chapter" data-level="6.5" data-path="ch6_app.html"><a href="ch6_app.html#承压地下水confined-aquifer"><i class="fa fa-check"></i><b>6.5</b> 承压地下水（Confined Aquifer）</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="ch6_app.html"><a href="ch6_app.html#控制方程"><i class="fa fa-check"></i><b>6.5.1</b> 控制方程</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6_app.html"><a href="ch6_app.html#湖面湍流lake-turbulence"><i class="fa fa-check"></i><b>6.6</b> 湖面湍流（Lake Turbulence）</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6_app.html"><a href="ch6_app.html#溶质运移solute-transport"><i class="fa fa-check"></i><b>6.7</b> 溶质运移（Solute Transport）</a></li>
+<li class="chapter" data-level="6.8" data-path="ch6_app.html"><a href="ch6_app.html#地貌侵蚀landscape-evolution"><i class="fa fa-check"></i><b>6.8</b> 地貌侵蚀（Landscape Evolution）</a></li>
+<li class="chapter" data-level="6.9" data-path="ch6_app.html"><a href="ch6_app.html#熔岩入侵lava-invasion"><i class="fa fa-check"></i><b>6.9</b> 熔岩入侵（Lava Invasion）</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">数值地球</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch2_nm" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">第 2</span> 数值方法基础<a href="ch2_nm.html#ch2_nm" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="隐式与显式求解法" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 隐式与显式求解法<a href="ch2_nm.html#隐式与显式求解法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>数值方法可分为显式求解(Explicit method)与隐式求解(Implicit method)：</p>
+<div class="definition">
+<p><span id="def:dfex" class="definition"><strong>Definition 2.1  (显式求解法) </strong></span>当下一时刻变量由前一时刻变量直接计算得到的，称为显式求解法。数学表达可写为：
+<span class="math display">\[Y(t+\Delta t)=F(Y(t))\]</span></p>
+</div>
+<div class="definition">
+<p><span id="def:dfim" class="definition"><strong>Definition 2.2  (隐式求解法) </strong></span>当下一时刻变量由一系列公式、矩阵或者迭代算法计算得到，称为隐式求解法。数学表达可写为：
+<span class="math display">\[G(Y(t), Y(t+\Delta t))=0\]</span></p>
+</div>
+<p>相同时空分辨率条件下，显式求解法的计算速度显著高于隐式求解法，但是隐式求解法可以保证计算的稳定性，因此可采用较大时间步长进行计算，而显式求解法必须受制于CFL条件。</p>
+</div>
+<div id="数值迭代方法" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> 数值迭代方法<a href="ch2_nm.html#数值迭代方法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="牛顿迭代newton-iteration" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> 牛顿迭代(Newton Iteration)<a href="ch2_nm.html#牛顿迭代newton-iteration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>牛顿迭代法（Newton’s method）又称为牛顿-拉夫逊（拉弗森）方法（Newton-Raphson method），是一种在实数域和复数域上近似求解方程的方法。方法使用函数<span class="math inline">\(f (x)\)</span>的泰勒级数的前面几项来寻找方程<span class="math inline">\(f(x) = 0\)</span>的根。</p>
+<p>以下我们将通过一个实例，展示如何使用R语言实现牛顿迭代法。</p>
+<p>我们选取的方程是 <span class="math inline">\(e^x - 3x = 0\)</span>，这是一个没有显式解的方程。我们的目标是找到这个方程的一个根。</p>
+<p>牛顿迭代法的核心思想是利用函数在某点的切线来逼近函数的根。其迭代公式如下：</p>
+<p><span class="math display">\[x_{n+1} = x_n - \frac{f(x_n)}{f&#39;(x_n)}\]</span></p>
+<p>其中，<span class="math inline">\(x_n\)</span> 是第 n 次迭代的近似值，<span class="math inline">\(f(x)\)</span> 是我们要解决的方程，<span class="math inline">\(f&#39;(x)\)</span> 是 <span class="math inline">\(f(x)\)</span> 的导数。</p>
+<p>下面是使用R语言实现牛顿迭代法求解 <span class="math inline">\(e^x - 3x = 0\)</span> 的代码：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ch2_nm.html#cb4-1" tabindex="-1"></a><span class="co"># 定义方程 f(x) 和它的导数 f_prime(x)</span></span>
+<span id="cb4-2"><a href="ch2_nm.html#cb4-2" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb4-3"><a href="ch2_nm.html#cb4-3" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">exp</span>(x) <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> x)</span>
+<span id="cb4-4"><a href="ch2_nm.html#cb4-4" tabindex="-1"></a>}</span>
+<span id="cb4-5"><a href="ch2_nm.html#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="ch2_nm.html#cb4-6" tabindex="-1"></a>f_prime <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb4-7"><a href="ch2_nm.html#cb4-7" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">exp</span>(x) <span class="sc">-</span> <span class="dv">3</span>)</span>
+<span id="cb4-8"><a href="ch2_nm.html#cb4-8" tabindex="-1"></a>}</span>
+<span id="cb4-9"><a href="ch2_nm.html#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="ch2_nm.html#cb4-10" tabindex="-1"></a><span class="co"># 牛顿迭代法</span></span>
+<span id="cb4-11"><a href="ch2_nm.html#cb4-11" tabindex="-1"></a>newton_method <span class="ot">&lt;-</span> <span class="cf">function</span>(f, f_prime, x0, <span class="at">tol =</span> <span class="fl">1e-6</span>, <span class="at">max_iter =</span> <span class="dv">1000</span>) {</span>
+<span id="cb4-12"><a href="ch2_nm.html#cb4-12" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x0</span>
+<span id="cb4-13"><a href="ch2_nm.html#cb4-13" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_iter) {</span>
+<span id="cb4-14"><a href="ch2_nm.html#cb4-14" tabindex="-1"></a>    x_new <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">f</span>(x) <span class="sc">/</span> <span class="fu">f_prime</span>(x)</span>
+<span id="cb4-15"><a href="ch2_nm.html#cb4-15" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">abs</span>(x_new <span class="sc">-</span> x) <span class="sc">&lt;</span> tol) {</span>
+<span id="cb4-16"><a href="ch2_nm.html#cb4-16" tabindex="-1"></a>      <span class="fu">return</span>(x_new)</span>
+<span id="cb4-17"><a href="ch2_nm.html#cb4-17" tabindex="-1"></a>    }</span>
+<span id="cb4-18"><a href="ch2_nm.html#cb4-18" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x_new</span>
+<span id="cb4-19"><a href="ch2_nm.html#cb4-19" tabindex="-1"></a>  }</span>
+<span id="cb4-20"><a href="ch2_nm.html#cb4-20" tabindex="-1"></a>  <span class="fu">warning</span>(<span class="st">&quot;迭代未收敛&quot;</span>)</span>
+<span id="cb4-21"><a href="ch2_nm.html#cb4-21" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb4-22"><a href="ch2_nm.html#cb4-22" tabindex="-1"></a>}</span>
+<span id="cb4-23"><a href="ch2_nm.html#cb4-23" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="ch2_nm.html#cb4-24" tabindex="-1"></a><span class="co"># 初始猜测值</span></span>
+<span id="cb4-25"><a href="ch2_nm.html#cb4-25" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fl">1.0</span></span>
+<span id="cb4-26"><a href="ch2_nm.html#cb4-26" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="ch2_nm.html#cb4-27" tabindex="-1"></a><span class="co"># 执行牛顿迭代</span></span>
+<span id="cb4-28"><a href="ch2_nm.html#cb4-28" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="fu">newton_method</span>(f, f_prime, x0)</span>
+<span id="cb4-29"><a href="ch2_nm.html#cb4-29" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="ch2_nm.html#cb4-30" tabindex="-1"></a><span class="co"># 输出结果</span></span>
+<span id="cb4-31"><a href="ch2_nm.html#cb4-31" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;方程 e^x - 3x = 0 的近似根为：&quot;</span>, root, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## 方程 e^x - 3x = 0 的近似根为： 0.6190613</code></pre>
+<p>牛顿迭代法虽然是一种非常有效的数值方法，但它也存在一些局限性，以下是一些主要的局限性：</p>
+<ol style="list-style-type: decimal">
+<li><strong>初始猜测的重要性</strong>：牛顿迭代法的收敛速度和是否收敛很大程度上取决于初始猜测值。如果初始猜测远离实际根，迭代可能会发散，或者收敛到错误的根。</li>
+<li><strong>导数的计算</strong>：牛顿迭代法需要计算函数的导数。对于一些复杂的函数，这可能非常困难或者计算成本很高。</li>
+<li><strong>不可导函数</strong>：如果函数在某些点不可导，或者导数为零，牛顿迭代法可能无法应用或者失效。</li>
+<li><strong>多根问题</strong>：对于具有多个根的方程，牛顿迭代法可能只收敛到其中的一个根，这取决于初始猜测值。它可能无法找到所有的根。</li>
+<li><strong>奇点附近的问题</strong>：如果函数在根的附近有奇点（例如，函数值或导数趋向于无穷大），牛顿迭代法可能无法正确工作。</li>
+<li><strong>全局收敛性</strong>：牛顿迭代法通常保证局部收敛，但不保证全局收敛。这意味着即使方程有多个根，迭代过程也可能只收敛到离初始猜测最近的根。</li>
+<li><strong>数值稳定性</strong>：在某些情况下，由于浮点数的精度限制，牛顿迭代法可能产生数值不稳定。</li>
+</ol>
+<p>以下是这些局限性的详细说明：</p>
+<ul>
+<li>初始猜测的重要性
+<ul>
+<li><strong>收敛性</strong>：如果初始猜测接近实际根，牛顿迭代法通常能快速收敛。但如果初始猜测远离根，或者接近函数的拐点，迭代可能发散。</li>
+<li><strong>根的选择</strong>：对于具有多个根的方程，迭代可能只收敛到某个特定的根，这取决于初始猜测。</li>
+</ul></li>
+<li>导数的计算
+<ul>
+<li><strong>复杂性</strong>：对于复杂的函数，计算导数可能非常困难，尤其是当函数涉及多个变量或者嵌套的数学表达式时。</li>
+<li><strong>成本</strong>：在某些情况下，导数的计算可能比函数本身的计算还要昂贵。
+-不可导函数</li>
+<li><strong>应用限制</strong>：如果函数在某点不可导，或者导数为零，牛顿迭代法的迭代公式将无法应用。</li>
+</ul></li>
+<li>多根问题
+<ul>
+<li><strong>局部收敛</strong>：牛顿迭代法可能只找到离初始猜测最近的根，而忽略了其他根。</li>
+</ul></li>
+<li>奇点附近的问题
+<ul>
+<li><strong>发散</strong>：如果函数在根的附近有奇点，迭代过程可能会发散。</li>
+</ul></li>
+<li>全局收敛性
+<ul>
+<li><strong>局限性</strong>：牛顿迭代法不保证找到方程的所有根，特别是当根分布复杂时。</li>
+</ul></li>
+<li>数值稳定性
+<ul>
+<li><strong>精度问题</strong>：由于计算机的有限精度，牛顿迭代法可能产生舍入误差，影响结果的准确性。
+了解这些局限性有助于我们更好地选择和使用牛顿迭代法，以及采取相应的策略来克服这些问题，例如使用更好的初始猜测，或者结合其他数值方法来提高解的可靠性。</li>
+</ul></li>
+</ul>
+</div>
+<div id="欧拉方法euler-method" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> 欧拉方法(Euler Method)<a href="ch2_nm.html#欧拉方法euler-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>在数学和计算机科学中，欧拉方法，命名自它的发明者萊昂哈德·歐拉，是一种一阶数值方法，用以对给定初值的常微分方程（即初值問題）求解。它是常微分方程數值方法中最基本的显式方法（Explicit method）。</p>
+<p>欧拉方法是一个一阶方法，意味着其局部截断误差（每步误差）正比于步长的平方，并且其全局截断误差正比于步长。欧拉方法经常应用于作为构建一些更复杂方法的基础，例如，预估-校正方法。</p>
+<hr />
+<div class="definition">
+<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 2.3  (欧拉方法) </strong></span>欧拉方法数学表达为:
+<span class="math display">\[y^{\prime}(t)=f(t, y(t))\]</span>
+<span class="math display">\[y(t_0) = y_0\]</span>
+求解时：
+<span class="math display">\[y_{n+1} = y_n + h f&#39;(t_n, y_n)\]</span>
+其中<span class="math inline">\(t_n = t0+nh\)</span>，<span class="math inline">\(h\)</span>即迭代步长， <span class="math inline">\(h = t_{n+1} - t _{n}\)</span>。
+欧拉方法属于显式求解法。</p>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:unnamed-chunk-2" class="example"><strong>Example 2.1  </strong></span>已知函数：
+<span class="math display">\[\frac{dy}{dt} = y\]</span>
+<span class="math display">\[y(0)=1\]</span>
+<strong>求</strong>：<span class="math display">\[y(4) = ?\]</span></p>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ch2_nm.html#cb6-1" tabindex="-1"></a><span class="co"># source: https://en.wikipedia.org/wiki/Euler_method</span></span>
+<span id="cb6-2"><a href="ch2_nm.html#cb6-2" tabindex="-1"></a><span class="co"># ============</span></span>
+<span id="cb6-3"><a href="ch2_nm.html#cb6-3" tabindex="-1"></a><span class="co"># SOLUTION to</span></span>
+<span id="cb6-4"><a href="ch2_nm.html#cb6-4" tabindex="-1"></a><span class="co">#   y&#39; = y,   where y&#39; = f(t,y)</span></span>
+<span id="cb6-5"><a href="ch2_nm.html#cb6-5" tabindex="-1"></a><span class="co"># then:</span></span>
+<span id="cb6-6"><a href="ch2_nm.html#cb6-6" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(ti,y) y</span>
+<span id="cb6-7"><a href="ch2_nm.html#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="ch2_nm.html#cb6-8" tabindex="-1"></a><span class="co"># INITIAL VALUES:</span></span>
+<span id="cb6-9"><a href="ch2_nm.html#cb6-9" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-10"><a href="ch2_nm.html#cb6-10" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-11"><a href="ch2_nm.html#cb6-11" tabindex="-1"></a>h  <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb6-12"><a href="ch2_nm.html#cb6-12" tabindex="-1"></a>tn <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb6-13"><a href="ch2_nm.html#cb6-13" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="ch2_nm.html#cb6-14" tabindex="-1"></a><span class="co"># Euler&#39;s method: function definition</span></span>
+<span id="cb6-15"><a href="ch2_nm.html#cb6-15" tabindex="-1"></a>Euler <span class="ot">&lt;-</span> <span class="cf">function</span>(t0, y0, h, tn, dy.dt) {</span>
+<span id="cb6-16"><a href="ch2_nm.html#cb6-16" tabindex="-1"></a>  <span class="co"># dy.dt: derivative function</span></span>
+<span id="cb6-17"><a href="ch2_nm.html#cb6-17" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="ch2_nm.html#cb6-18" tabindex="-1"></a>  <span class="co"># t sequence:</span></span>
+<span id="cb6-19"><a href="ch2_nm.html#cb6-19" tabindex="-1"></a>  tt <span class="ot">&lt;-</span> <span class="fu">seq</span>(t0, tn, <span class="at">by=</span>h)</span>
+<span id="cb6-20"><a href="ch2_nm.html#cb6-20" tabindex="-1"></a>  <span class="co"># table with as many rows as tt elements:</span></span>
+<span id="cb6-21"><a href="ch2_nm.html#cb6-21" tabindex="-1"></a>  tbl <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ti=</span>tt)</span>
+<span id="cb6-22"><a href="ch2_nm.html#cb6-22" tabindex="-1"></a>  tbl<span class="sc">$</span>yi <span class="ot">&lt;-</span> y0 <span class="co"># Initializes yi with y0</span></span>
+<span id="cb6-23"><a href="ch2_nm.html#cb6-23" tabindex="-1"></a>  tbl<span class="sc">$</span>Dy.dt[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">dy.dt</span>(tbl<span class="sc">$</span>ti[<span class="dv">1</span>],y0) <span class="co"># derivative</span></span>
+<span id="cb6-24"><a href="ch2_nm.html#cb6-24" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(tbl)) {</span>
+<span id="cb6-25"><a href="ch2_nm.html#cb6-25" tabindex="-1"></a>    tbl<span class="sc">$</span>yi[i] <span class="ot">&lt;-</span> tbl<span class="sc">$</span>yi[i<span class="dv">-1</span>] <span class="sc">+</span> h<span class="sc">*</span>tbl<span class="sc">$</span>Dy.dt[i<span class="dv">-1</span>]</span>
+<span id="cb6-26"><a href="ch2_nm.html#cb6-26" tabindex="-1"></a>    <span class="co"># For next iteration:</span></span>
+<span id="cb6-27"><a href="ch2_nm.html#cb6-27" tabindex="-1"></a>    tbl<span class="sc">$</span>Dy.dt[i] <span class="ot">&lt;-</span> <span class="fu">dy.dt</span>(tbl<span class="sc">$</span>ti[i],tbl<span class="sc">$</span>yi[i])</span>
+<span id="cb6-28"><a href="ch2_nm.html#cb6-28" tabindex="-1"></a>  }</span>
+<span id="cb6-29"><a href="ch2_nm.html#cb6-29" tabindex="-1"></a>  <span class="fu">return</span>(tbl)</span>
+<span id="cb6-30"><a href="ch2_nm.html#cb6-30" tabindex="-1"></a>}</span>
+<span id="cb6-31"><a href="ch2_nm.html#cb6-31" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="ch2_nm.html#cb6-32" tabindex="-1"></a><span class="co"># Euler&#39;s method: function application</span></span>
+<span id="cb6-33"><a href="ch2_nm.html#cb6-33" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">Euler</span>(t0, y0, h, tn, f)</span>
+<span id="cb6-34"><a href="ch2_nm.html#cb6-34" tabindex="-1"></a><span class="fu">rownames</span>(r) <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>(<span class="fu">nrow</span>(r)<span class="sc">-</span><span class="dv">1</span>) <span class="co"># to coincide with index n</span></span>
+<span id="cb6-35"><a href="ch2_nm.html#cb6-35" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="ch2_nm.html#cb6-36" tabindex="-1"></a><span class="co"># Exact solution for this case: y = exp(t)</span></span>
+<span id="cb6-37"><a href="ch2_nm.html#cb6-37" tabindex="-1"></a><span class="co">#       added as an additional column to r</span></span>
+<span id="cb6-38"><a href="ch2_nm.html#cb6-38" tabindex="-1"></a>r<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">exp</span>(r<span class="sc">$</span>ti)</span>
+<span id="cb6-39"><a href="ch2_nm.html#cb6-39" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="ch2_nm.html#cb6-40" tabindex="-1"></a><span class="fu">plot</span>(r<span class="sc">$</span>ti, r<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb6-41"><a href="ch2_nm.html#cb6-41" tabindex="-1"></a><span class="fu">lines</span>(r<span class="sc">$</span>ti, r<span class="sc">$</span>yi, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb6-42"><a href="ch2_nm.html#cb6-42" tabindex="-1"></a><span class="fu">grid</span>(<span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span>
+<span id="cb6-43"><a href="ch2_nm.html#cb6-43" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;top&quot;</span>,  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Exact&quot;</span>, <span class="st">&quot;Euler&quot;</span>), <span class="at">lwd=</span><span class="dv">2</span>,  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<p><img src="_bookdown_files/02-NumericMethods_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ch2_nm.html#cb7-1" tabindex="-1"></a><span class="co"># TABLE with results:</span></span>
+<span id="cb7-2"><a href="ch2_nm.html#cb7-2" tabindex="-1"></a><span class="fu">print</span>(r)</span></code></pre></div>
+<pre><code>##     ti        yi     Dy.dt         y
+## 0  0.0  1.000000  1.000000  1.000000
+## 1  0.1  1.100000  1.100000  1.105171
+## 2  0.2  1.210000  1.210000  1.221403
+## 3  0.3  1.331000  1.331000  1.349859
+## 4  0.4  1.464100  1.464100  1.491825
+## 5  0.5  1.610510  1.610510  1.648721
+## 6  0.6  1.771561  1.771561  1.822119
+## 7  0.7  1.948717  1.948717  2.013753
+## 8  0.8  2.143589  2.143589  2.225541
+## 9  0.9  2.357948  2.357948  2.459603
+## 10 1.0  2.593742  2.593742  2.718282
+## 11 1.1  2.853117  2.853117  3.004166
+## 12 1.2  3.138428  3.138428  3.320117
+## 13 1.3  3.452271  3.452271  3.669297
+## 14 1.4  3.797498  3.797498  4.055200
+## 15 1.5  4.177248  4.177248  4.481689
+## 16 1.6  4.594973  4.594973  4.953032
+## 17 1.7  5.054470  5.054470  5.473947
+## 18 1.8  5.559917  5.559917  6.049647
+## 19 1.9  6.115909  6.115909  6.685894
+## 20 2.0  6.727500  6.727500  7.389056
+## 21 2.1  7.400250  7.400250  8.166170
+## 22 2.2  8.140275  8.140275  9.025013
+## 23 2.3  8.954302  8.954302  9.974182
+## 24 2.4  9.849733  9.849733 11.023176
+## 25 2.5 10.834706 10.834706 12.182494
+## 26 2.6 11.918177 11.918177 13.463738
+## 27 2.7 13.109994 13.109994 14.879732
+## 28 2.8 14.420994 14.420994 16.444647
+## 29 2.9 15.863093 15.863093 18.174145
+## 30 3.0 17.449402 17.449402 20.085537
+## 31 3.1 19.194342 19.194342 22.197951
+## 32 3.2 21.113777 21.113777 24.532530
+## 33 3.3 23.225154 23.225154 27.112639
+## 34 3.4 25.547670 25.547670 29.964100
+## 35 3.5 28.102437 28.102437 33.115452
+## 36 3.6 30.912681 30.912681 36.598234
+## 37 3.7 34.003949 34.003949 40.447304
+## 38 3.8 37.404343 37.404343 44.701184
+## 39 3.9 41.144778 41.144778 49.402449
+## 40 4.0 45.259256 45.259256 54.598150</code></pre>
+</div>
+<div id="龙格-库塔方法runge-kutta-method" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> 龙格-库塔方法(Runge-Kutta Method)<a href="ch2_nm.html#龙格-库塔方法runge-kutta-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>数值分析中，龙格-库塔方法（Runge-Kutta Methods）是用于非线性常微分方程的解的重要的一类隐式或显式迭代法。这些技术由数学家卡尔·龙格和马丁·威尔海姆·库塔于1900年左右发明。</p>
+<hr />
+<div class="definition">
+<p><span id="def:unlabeled-div-2" class="definition"><strong>Definition 2.4  (4阶Runge-Kutta) </strong></span>4阶Runge-Kutta方法的基本步骤如下：</p>
+<ol style="list-style-type: decimal">
+<li>计算<span class="math inline">\(k_1 = f(x_n, y_n)\)</span></li>
+<li>计算<span class="math inline">\(k_2 = f(x_n + \frac{h}{2}, y_n + \frac{h}{2}k_1)\)</span></li>
+<li>计算<span class="math inline">\(k_3 = f(x_n + \frac{h}{2}, y_n + \frac{h}{2}k_2)\)</span></li>
+<li>计算<span class="math inline">\(k_4 = f(x_n + h, y_n + hk_3)\)</span></li>
+<li>更新<span class="math inline">\(y_{n+1} = y_n + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)\)</span></li>
+</ol>
+</div>
+<hr />
+<blockquote>
+<p>例子1:
+考虑以下常微分方程初值问题：
+<span class="math display">\[y&#39; = 1 + (y - x)^2, \quad y(0) = 0.5\]</span>
+我们需要使用4阶Runge-Kutta方法（RK4）来数值求解该微分方程在区间<span class="math inline">\((0, 2)\)</span>上的解。</p>
+</blockquote>
+<p>接下来我们将使用R语言实现该数值解法。</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="ch2_nm.html#cb9-1" tabindex="-1"></a><span class="co"># 4阶Runge-Kutta方法</span></span>
+<span id="cb9-2"><a href="ch2_nm.html#cb9-2" tabindex="-1"></a>rungeKutta4 <span class="ot">&lt;-</span> <span class="cf">function</span>(func, x0, y0, x_end, n) {</span>
+<span id="cb9-3"><a href="ch2_nm.html#cb9-3" tabindex="-1"></a>  h <span class="ot">&lt;-</span> (x_end <span class="sc">-</span> x0) <span class="sc">/</span> n</span>
+<span id="cb9-4"><a href="ch2_nm.html#cb9-4" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x0</span>
+<span id="cb9-5"><a href="ch2_nm.html#cb9-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> y0</span>
+<span id="cb9-6"><a href="ch2_nm.html#cb9-6" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x0, <span class="at">y =</span> y0)</span>
+<span id="cb9-7"><a href="ch2_nm.html#cb9-7" tabindex="-1"></a>  </span>
+<span id="cb9-8"><a href="ch2_nm.html#cb9-8" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb9-9"><a href="ch2_nm.html#cb9-9" tabindex="-1"></a>    k1 <span class="ot">&lt;-</span> <span class="fu">func</span>(x, y)</span>
+<span id="cb9-10"><a href="ch2_nm.html#cb9-10" tabindex="-1"></a>    k2 <span class="ot">&lt;-</span> <span class="fu">func</span>(x <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> h, y <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> h <span class="sc">*</span> k1)</span>
+<span id="cb9-11"><a href="ch2_nm.html#cb9-11" tabindex="-1"></a>    k3 <span class="ot">&lt;-</span> <span class="fu">func</span>(x <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> h, y <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> h <span class="sc">*</span> k2)</span>
+<span id="cb9-12"><a href="ch2_nm.html#cb9-12" tabindex="-1"></a>    k4 <span class="ot">&lt;-</span> <span class="fu">func</span>(x <span class="sc">+</span> h, y <span class="sc">+</span> h <span class="sc">*</span> k3)</span>
+<span id="cb9-13"><a href="ch2_nm.html#cb9-13" tabindex="-1"></a>    </span>
+<span id="cb9-14"><a href="ch2_nm.html#cb9-14" tabindex="-1"></a>    y <span class="ot">&lt;-</span> y <span class="sc">+</span> h<span class="sc">/</span><span class="dv">6</span> <span class="sc">*</span> (k1 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>k2 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>k3 <span class="sc">+</span> k4)</span>
+<span id="cb9-15"><a href="ch2_nm.html#cb9-15" tabindex="-1"></a>    x <span class="ot">&lt;-</span> x <span class="sc">+</span> h</span>
+<span id="cb9-16"><a href="ch2_nm.html#cb9-16" tabindex="-1"></a>    results <span class="ot">&lt;-</span> <span class="fu">rbind</span>(results, <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y))</span>
+<span id="cb9-17"><a href="ch2_nm.html#cb9-17" tabindex="-1"></a>  }</span>
+<span id="cb9-18"><a href="ch2_nm.html#cb9-18" tabindex="-1"></a>  </span>
+<span id="cb9-19"><a href="ch2_nm.html#cb9-19" tabindex="-1"></a>  <span class="fu">return</span>(results)</span>
+<span id="cb9-20"><a href="ch2_nm.html#cb9-20" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ch2_nm.html#cb10-1" tabindex="-1"></a><span class="co"># 定义微分方程</span></span>
+<span id="cb10-2"><a href="ch2_nm.html#cb10-2" tabindex="-1"></a>dydx <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb10-3"><a href="ch2_nm.html#cb10-3" tabindex="-1"></a>  <span class="fu">return</span>(<span class="dv">1</span> <span class="sc">+</span> (y <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb10-4"><a href="ch2_nm.html#cb10-4" tabindex="-1"></a>}</span>
+<span id="cb10-5"><a href="ch2_nm.html#cb10-5" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="ch2_nm.html#cb10-6" tabindex="-1"></a><span class="co"># 初始条件</span></span>
+<span id="cb10-7"><a href="ch2_nm.html#cb10-7" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb10-8"><a href="ch2_nm.html#cb10-8" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb10-9"><a href="ch2_nm.html#cb10-9" tabindex="-1"></a>x_end <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb10-10"><a href="ch2_nm.html#cb10-10" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span>  <span class="co"># 步数</span></span>
+<span id="cb10-11"><a href="ch2_nm.html#cb10-11" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="ch2_nm.html#cb10-12" tabindex="-1"></a><span class="co"># 计算</span></span>
+<span id="cb10-13"><a href="ch2_nm.html#cb10-13" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">rungeKutta4</span>(dydx, x0, y0, x_end, n)</span>
+<span id="cb10-14"><a href="ch2_nm.html#cb10-14" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="ch2_nm.html#cb10-15" tabindex="-1"></a><span class="co"># 打印结果</span></span>
+<span id="cb10-16"><a href="ch2_nm.html#cb10-16" tabindex="-1"></a><span class="fu">print</span>(results)</span></code></pre></div>
+<pre><code>##      x          y
+## 1  0.0  0.5000000
+## 2  0.2  0.7555552
+## 3  0.4  1.0249990
+## 4  0.6  1.3142831
+## 5  0.8  1.6333266
+## 6  1.0  1.9999816
+## 7  1.2  2.4499414
+## 8  1.4  3.0664221
+## 9  1.6  4.0983141
+## 10 1.8  6.7645620
+## 11 2.0 42.9981995</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ch2_nm.html#cb12-1" tabindex="-1"></a><span class="fu">plot</span>(results<span class="sc">$</span>x, results<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&#39;o&#39;</span>)</span>
+<span id="cb12-2"><a href="ch2_nm.html#cb12-2" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="_bookdown_files/02-NumericMethods_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<blockquote>
+<p>例子2：
+考虑以下常微分方程初值问题：
+<span class="math display">\[y&#39; = -2xy, \quad y(0) = 1\]</span>
+我们将使用4阶Runge-Kutta方法（RK4）来数值求解该微分方程在区间<span class="math inline">\((0, 1)\)</span>上的解。</p>
+</blockquote>
+<p>以下是R语言的实现代码：</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="ch2_nm.html#cb13-1" tabindex="-1"></a><span class="co"># 定义微分方程</span></span>
+<span id="cb13-2"><a href="ch2_nm.html#cb13-2" tabindex="-1"></a>dydx <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb13-3"><a href="ch2_nm.html#cb13-3" tabindex="-1"></a>  <span class="fu">return</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> x <span class="sc">*</span> y)</span>
+<span id="cb13-4"><a href="ch2_nm.html#cb13-4" tabindex="-1"></a>}</span>
+<span id="cb13-5"><a href="ch2_nm.html#cb13-5" tabindex="-1"></a><span class="co"># 初始条件</span></span>
+<span id="cb13-6"><a href="ch2_nm.html#cb13-6" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb13-7"><a href="ch2_nm.html#cb13-7" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb13-8"><a href="ch2_nm.html#cb13-8" tabindex="-1"></a>x_end <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb13-9"><a href="ch2_nm.html#cb13-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span>  <span class="co"># 步数</span></span>
+<span id="cb13-10"><a href="ch2_nm.html#cb13-10" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="ch2_nm.html#cb13-11" tabindex="-1"></a><span class="co"># 计算</span></span>
+<span id="cb13-12"><a href="ch2_nm.html#cb13-12" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">rungeKutta4</span>(dydx, x0, y0, x_end, n)</span>
+<span id="cb13-13"><a href="ch2_nm.html#cb13-13" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="ch2_nm.html#cb13-14" tabindex="-1"></a><span class="co"># 打印结果</span></span>
+<span id="cb13-15"><a href="ch2_nm.html#cb13-15" tabindex="-1"></a><span class="fu">plot</span>(results<span class="sc">$</span>x, results<span class="sc">$</span>y, <span class="at">type=</span><span class="st">&#39;o&#39;</span>)</span>
+<span id="cb13-16"><a href="ch2_nm.html#cb13-16" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="_bookdown_files/02-NumericMethods_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="皮卡法picard-method" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> 皮卡法(Picard Method)<a href="ch2_nm.html#皮卡法picard-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>皮卡逐次逼近法（Picard Successive Approximation Method）是常微分方程解的一种主要近似计算方法。皮卡(Picard,(C.-)É)最早在数学上完善处理这样的逐次逼近的函数序列，所以称为皮卡逐次逼近法。</p>
+</div>
+</div>
+<div id="有限元-有限差分-有限体积" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> 有限元, 有限差分 ,有限体积<a href="ch2_nm.html#有限元-有限差分-有限体积" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>数值方法中主要有有限差分（Finite Difference, FD）、有限元（Finite Element, FE）和有限体积（Finite Volume，FV）法三类。三类方法并无明显优劣之分，但其中各有特点。有限差分法方法简洁，物理意义清晰，编程容易，因而是水文/气象领域应用最多的方法。
+有限元法可以保证全局物质/能量守恒，但是无法保证局部守恒；有限体积法弥补了有限元这一缺陷，既可以保证全局守恒，也可以保证局部守恒。</p>
+<p>三类方法的数学的意义略有不同：有限差分法计算为空间某一点的值，有限元法计算某一计算单元内的近似拟合曲线，有限体积法作为有限元法的特例，计算该计算单元内的均值。因此对于三种不同方法计算的结果的解读应当略有不同，但实际模型用户层面通常将其视为相同含义。</p>
+<div class="float">
+<img src="image/ch2/figures/ch2.004.jpeg" alt="三种数值方法对比" />
+<div class="figcaption">三种数值方法对比</div>
+</div>
+</div>
+<div id="cfl条件约束" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> CFL条件约束<a href="ch2_nm.html#cfl条件约束" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>CFL条件是数值方法求解常/偏微分方程保证其收敛性和稳定性的<strong>必要条件</strong>，但不是充分条件；以Courant， Fredrichs和Lewy共同命名（cite）。CFL条件即数值方法的时间步长要足够小，方能够保证计算精度，否则结果不收敛或者不稳定。</p>
+<p>最简单可以理解为时间推进求解的速度必须大于物理扰动传播的速度，只有这样才能将物理上所有的扰动俘获到。</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-3" class="definition"><strong>Definition 2.5  (CFL条件) </strong></span>CFL条件数学表达形式为：
+<span class="math display">\[\frac {c \Delta t} {\Delta x ^n} &lt; C_{max}\]</span>
+其中<span class="math inline">\(c\)</span>即为系统中变量的变化速率。<span class="math inline">\(C_{max}\)</span>是保持求解系统稳定和收敛的最大值，常见值为0.5。有的系统中<span class="math inline">\(n=1\)</span>，但有的科学问题中<span class="math inline">\(n&gt;1\)</span>。</p>
+</div>
+</div>
+<div id="时空离散化" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> 时空离散化<a href="ch2_nm.html#时空离散化" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>空间离散化，即分割连续的空间称为空间若干子集的过程,由一维<span class="math inline">\(\Delta x\)</span>, 二维<span class="math inline">\((\Delta x, \Delta y)\)</span>, 或者三维<span class="math inline">\((\Delta x, \Delta y, \Delta z)\)</span>构成的最小计算单元或质点。</p>
+<p>时间离散化即模型时间步长，即<span class="math inline">\(\Delta t\)</span>。</p>
+<p>时间步长和空间分辨率的组合关系，对于数值方法求解的稳定性和收敛性都有显著影响。CFL条件是限制因素。为保证数值方法稳定性，空间分辨率越高，则要求时间分辨率也越高，时间分辨率与空间分辨率的（一次或多次）幂存在正比关系。</p>
+<div class="float">
+<img src="image/ch2/figures/ch2.001.jpeg" alt="一维空间离散化" />
+<div class="figcaption">一维空间离散化</div>
+</div>
+<div class="float">
+<img src="image/ch2/figures/ch2.002.jpeg" alt="二维空间离散化" />
+<div class="figcaption">二维空间离散化</div>
+</div>
+<div class="float">
+<img src="image/ch2/figures/ch2.003.jpeg" alt="三维空间离散化" />
+<div class="figcaption">三维空间离散化</div>
+</div>
+<p>通常的空间离散化分为结构化(Structured)与非结构化(Unstructured)网格。</p>
+<p>结构化网格主要是划分为形状和面积相同的计算单元。矩形规则化网格的好处是：求解过程直观易懂，编程实现简单，并且易于并行化；输入和输出数据都直接使用矩阵方式表达；数据制备、处理和可视化都直观且便捷。规则化网格常见矩形，也有正三角形和正六边形的方案。</p>
+<p>非结构化网格的优势在于：（1）更好的表现不规则三维地形；（2）更好的表现不规则研究区(流域）的边界，边界条件处理更合理，其边界条件控制也更符合数值理论；（3）计算单元的面积大小灵活可变，可以在保证整体边界条件情况下，对重点地区进行局部加密——亦或相反设置。非结构化网格既可以保证重点区域的高分辨率，在保证可靠的边界条件情况下，不显著增加计算单元数量，保证重点区域模拟精度和计算负担之间的平衡。非结构化网格的主要缺陷是：（1）计算过程相对复杂，仅支持有限元和有限体积法；（2）数据解读和可视化复杂，需要针对性的数据前处理和后处理软件。
+<img src="image/common/diagrams/vs_structured.png" alt="三维空间离散化" /></p>
+</div>
+<div id="初始条件" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> 初始条件<a href="ch2_nm.html#初始条件" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="definition">
+<p><span id="def:unlabeled-div-4" class="definition"><strong>Definition 2.6  (初始条件) </strong></span>初始条件定义为
+<span class="math display">\[y(t_0) = y_0\]</span>
+其中<span class="math inline">\(t_0\)</span>为问题的初始时刻，<span class="math inline">\(y_0\)</span>为初始时刻包含目标变量值的向量。</p>
+</div>
+<p>数值方法研究中，模拟结果对初始条件具有一定敏感性。但是，初始条件的敏感性问题与描述该系统的控制方程有关。部分问题的初始条件误差，可以通过一定时间的模型预热(Spin-up)消除；但另有一部分问题（例如Lorenz System为代表的混沌系统），初始条件敏感性极高。</p>
+</div>
+<div id="边界条件" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> 边界条件<a href="ch2_nm.html#边界条件" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>数值方法的边界条件通常分为Dirichlet和Neumann两类。</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-5" class="definition"><strong>Definition 2.7  (第一类边界条件) </strong></span>Dirichlet边界条件(Dirichlet Boundary Condition, DBC)是常/偏微分方程的第一类边界条件，也称为固定边界条件，其指定了空间某点的固定值，比如在地下水中，Dirichlet边界条件限定固定地下水水头高度。</p>
+</div>
+<div class="definition">
+<p><span id="def:unlabeled-div-6" class="definition"><strong>Definition 2.8  (第二类边界条件) </strong></span>诺伊曼边界条件（Neumann boundary condition, NBC) 也被称为常/偏微分方程的“第二类边界条件”，其给定空间特定位置上目标变量的一阶导数，在地下水问题中，通常某一点处固定的流量，如注水或者取水量。</p>
+</div>
+<p>作为三维的数值模型，两类边界条件都可以施加在空间任意位置的任意方向上。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch1_modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch3_fdm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["数值地球.pdf", "数值地球.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
