@@ -1,3 +1,11 @@
 .DS_Store
 local_docs/
 localhost*
+
+# Hugo 生成的文件
+public/
+resources/_gen/
+
+# Hugo 构建锁文件
+.hugo_build.lock
+.hugo_lock
