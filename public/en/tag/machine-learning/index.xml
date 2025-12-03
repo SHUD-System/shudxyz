@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Machine Learning | SHUD Group</title><link>http://localhost:1313/en/tag/machine-learning/</link><atom:link href="http://localhost:1313/en/tag/machine-learning/index.xml" rel="self" type="application/rss+xml"/><description>Machine Learning</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 23 Feb 2019 21:13:14 +0000</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Machine Learning</title><link>http://localhost:1313/en/tag/machine-learning/</link></image><item><title>Hydrologic modeling in project HYPERION</title><link>http://localhost:1313/en/project0/2019hyperion/</link><pubDate>Sat, 23 Feb 2019 21:13:14 +0000</pubDate><guid>http://localhost:1313/en/project0/2019hyperion/</guid><description>&lt;h2 id="introduction-of-hyperion-i-classfas-fa-external-link-altihttpsclimateucdaviseduhyperion">Introduction of HYPERION &lt;a href="https://climate.ucdavis.edu/hyperion/" target="_blank" rel="noopener">&lt;i class="fas fa-external-link-alt">&lt;/i>&lt;/a>&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Machine Learning | SHUD Group</title><link>https://shud.xyz/en/tag/machine-learning/</link><atom:link href="https://shud.xyz/en/tag/machine-learning/index.xml" rel="self" type="application/rss+xml"/><description>Machine Learning</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 23 Feb 2019 21:13:14 +0000</lastBuildDate><image><url>https://shud.xyz/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Machine Learning</title><link>https://shud.xyz/en/tag/machine-learning/</link></image><item><title>Hydrologic modeling in project HYPERION</title><link>https://shud.xyz/en/project0/2019hyperion/</link><pubDate>Sat, 23 Feb 2019 21:13:14 +0000</pubDate><guid>https://shud.xyz/en/project0/2019hyperion/</guid><description>&lt;h2 id="introduction-of-hyperion-i-classfas-fa-external-link-altihttpsclimateucdaviseduhyperion">Introduction of HYPERION &lt;a href="https://climate.ucdavis.edu/hyperion/" target="_blank" rel="noopener">&lt;i class="fas fa-external-link-alt">&lt;/i>&lt;/a>&lt;/h2>
 &lt;p>The objective of HYPERION is the development of a comprehensive regional hydroclimate data assessment capability focused on feature-specific metrics and stakeholder-relevant outcomes. The secondary objective of this proposal is to leverage this assessment capability to improve our ability to predict these outcomes, by identifying the process-level drivers of outcome biases and evaluating the most appropriate and efficient ways to couple climate models, hydrologic models, and models of human impacts.&lt;/p>
 &lt;p>
 &lt;figure >
@@ -7,7 +7,7 @@
 /en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_f063dbd1d1a03204eb690448161dddd1.webp 400w,
 /en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_92e7ebc8da539c59d1d37dec266da8ae.webp 760w,
 /en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_f063dbd1d1a03204eb690448161dddd1.webp"
+src="https://shud.xyz/en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_f063dbd1d1a03204eb690448161dddd1.webp"
 width="750"
 height="234"
 loading="lazy" data-zoomable />&lt;/div>
@@ -36,7 +36,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_24d1440e7df53e19111f0e69bbb60a1e.webp 400w,
 /en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_86bcf03c6884068bfd7169a55ab6dada.webp 760w,
 /en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_24d1440e7df53e19111f0e69bbb60a1e.webp"
+src="https://shud.xyz/en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_24d1440e7df53e19111f0e69bbb60a1e.webp"
 width="760"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -49,7 +49,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_593124efb77efd891b23e131983fbe59.webp 400w,
 /en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_f00f550dbeac3096435a4177e61fd732.webp 760w,
 /en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_593124efb77efd891b23e131983fbe59.webp"
+src="https://shud.xyz/en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_593124efb77efd891b23e131983fbe59.webp"
 width="507"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -80,7 +80,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_62e85fb0a8cd5e14f6f4c796d2753721.webp 400w,
 /en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_3ad18a5f671ae99ab772d0ff46063302.webp 760w,
 /en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_62e85fb0a8cd5e14f6f4c796d2753721.webp"
+src="https://shud.xyz/en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_62e85fb0a8cd5e14f6f4c796d2753721.webp"
 width="600"
 height="382"
 loading="lazy" data-zoomable />&lt;/div>
@@ -93,7 +93,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_9d8427faae3fc089691cbf88182b46dc.webp 400w,
 /en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_8298e7e7dd87ecc0c0cb9f090e63b547.webp 760w,
 /en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_9d8427faae3fc089691cbf88182b46dc.webp"
+src="https://shud.xyz/en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_9d8427faae3fc089691cbf88182b46dc.webp"
 width="600"
 height="436"
 loading="lazy" data-zoomable />&lt;/div>
@@ -128,7 +128,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_e1c3c50769e9fccfc0367e187300b09b.webp 400w,
 /en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_d778e4311bdfb55f2a561fe9bcd2697a.webp 760w,
 /en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_e1c3c50769e9fccfc0367e187300b09b.webp"
+src="https://shud.xyz/en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_e1c3c50769e9fccfc0367e187300b09b.webp"
 width="600"
 height="733"
 loading="lazy" data-zoomable />&lt;/div>
@@ -141,7 +141,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_d0b748ffadd8f5247b0b8d43f2f54d33.webp 400w,
 /en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_82594036ee8aeac211ab9fe4a1b87748.webp 760w,
 /en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_d0b748ffadd8f5247b0b8d43f2f54d33.webp"
+src="https://shud.xyz/en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_d0b748ffadd8f5247b0b8d43f2f54d33.webp"
 width="600"
 height="550"
 loading="lazy" data-zoomable />&lt;/div>

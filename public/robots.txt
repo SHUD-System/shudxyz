@@ -2,9 +2,9 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: http://localhost:1313/sitemap.xml
-Sitemap: http://localhost:1313/zh/sitemap.xml
-Sitemap: http://localhost:1313/en/sitemap.xml
+Sitemap: https://shud.xyz/sitemap.xml
+Sitemap: https://shud.xyz/zh/sitemap.xml
+Sitemap: https://shud.xyz/en/sitemap.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 0

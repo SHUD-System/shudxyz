@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Latest News | SHUD研究组</title><link>http://localhost:1313/zh/post/</link><atom:link href="http://localhost:1313/zh/post/index.xml" rel="self" type="application/rss+xml"/><description>Latest News</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-CN</language><lastBuildDate>Mon, 05 May 2025 00:00:00 +0000</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Latest News</title><link>http://localhost:1313/zh/post/</link></image><item><title>Synology Drive云盘, NAS, Note使用说明</title><link>http://localhost:1313/zh/post/2025_05_5_synology/</link><pubDate>Mon, 05 May 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/post/2025_05_5_synology/</guid><description>&lt;p>本文的教学视频：
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Latest News | SHUD研究组</title><link>https://shud.xyz/zh/post/</link><atom:link href="https://shud.xyz/zh/post/index.xml" rel="self" type="application/rss+xml"/><description>Latest News</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-CN</language><lastBuildDate>Mon, 05 May 2025 00:00:00 +0000</lastBuildDate><image><url>https://shud.xyz/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Latest News</title><link>https://shud.xyz/zh/post/</link></image><item><title>Synology Drive云盘, NAS, Note使用说明</title><link>https://shud.xyz/zh/post/2025_05_5_synology/</link><pubDate>Mon, 05 May 2025 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/post/2025_05_5_synology/</guid><description>&lt;p>本文的教学视频：
 【Ch1入门技能：1.1 Synology使用】https://www.bilibili.com/video/BV1nAEszAEiM?vd_source=69c40b1925e7ee6bd869b19fb46bcc18&lt;/p>
 &lt;h2 id="主要内容">主要内容&lt;/h2>
 &lt;ol>
@@ -131,14 +131,14 @@
 &lt;li>其他用户可以查看或编辑共享的笔记，具体取决于设置的权限&lt;/li>
 &lt;li>共享的笔记可以随时取消共享，方法是打开笔记，点击“共享”按钮，选择“取消共享”&lt;/li>
 &lt;li>取消共享后，其他用户将无法再访问该笔记&lt;/li>
-&lt;/ol></description></item><item><title>有限差分法证明Dupuit Assumption的不适应性场景</title><link>http://localhost:1313/zh/post/2022_11_29_dupuit/</link><pubDate>Thu, 24 Nov 2022 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/post/2022_11_29_dupuit/</guid><description>&lt;p>
+&lt;/ol></description></item><item><title>有限差分法证明Dupuit Assumption的不适应性场景</title><link>https://shud.xyz/zh/post/2022_11_29_dupuit/</link><pubDate>Thu, 24 Nov 2022 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/post/2022_11_29_dupuit/</guid><description>&lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Figure 1: Scheme of Dupuit-Forchheimer assumption" srcset="
 /zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_de2a2ee003af45dcb9b182cfc94a8f67.webp 400w,
 /zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_a7ffba2596df7e27b63a2f692499ae06.webp 760w,
 /zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_de2a2ee003af45dcb9b182cfc94a8f67.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_de2a2ee003af45dcb9b182cfc94a8f67.webp"
 width="760"
 height="444"
 loading="lazy" data-zoomable />&lt;/div>
@@ -178,7 +178,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_17769d975b7d162fe6d2401d61e17f4c.webp 400w,
 /zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_1885f5c9c5627c2ef2f83f1ba119473c.webp 760w,
 /zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_17769d975b7d162fe6d2401d61e17f4c.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_17769d975b7d162fe6d2401d61e17f4c.webp"
 width="760"
 height="201"
 loading="lazy" data-zoomable />&lt;/div>
@@ -194,7 +194,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1db866068bfbf8877d69d688676a15fa.webp 400w,
 /zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_4f3baf971ad7bb1821671d8b64c59d7e.webp 760w,
 /zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1db866068bfbf8877d69d688676a15fa.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1db866068bfbf8877d69d688676a15fa.webp"
 width="760"
 height="487"
 loading="lazy" data-zoomable />&lt;/div>
@@ -207,7 +207,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_0fd82680f72b2ccb15fb38a7e67b654b.webp 400w,
 /zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_a6295a2ec4bd728acde7dba61869ba61.webp 760w,
 /zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_0fd82680f72b2ccb15fb38a7e67b654b.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_0fd82680f72b2ccb15fb38a7e67b654b.webp"
 width="760"
 height="435"
 loading="lazy" data-zoomable />&lt;/div>
@@ -228,7 +228,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_184ad16430b4e544f5e6e3dba9154ec2.webp 400w,
 /zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_5ac54e8ab43155181c7ccbc83196cb57.webp 760w,
 /zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_184ad16430b4e544f5e6e3dba9154ec2.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_184ad16430b4e544f5e6e3dba9154ec2.webp"
 width="760"
 height="265"
 loading="lazy" data-zoomable />&lt;/div>
@@ -242,7 +242,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_054474886dd8a6d4c9581ebafa626748.webp 400w,
 /zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_74e3f1165139ef27944410ed5f518356.webp 760w,
 /zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_054474886dd8a6d4c9581ebafa626748.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_054474886dd8a6d4c9581ebafa626748.webp"
 width="760"
 height="114"
 loading="lazy" data-zoomable />&lt;/div>
@@ -256,7 +256,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_62a4c312f9a0a31837f787c15be92d9a.webp 400w,
 /zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_4b60da62b9098e00d25c2c1c90d1fc81.webp 760w,
 /zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_62a4c312f9a0a31837f787c15be92d9a.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_62a4c312f9a0a31837f787c15be92d9a.webp"
 width="760"
 height="101"
 loading="lazy" data-zoomable />&lt;/div>
@@ -271,7 +271,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_52d208436de48486bf59f1e102f1e114.webp 400w,
 /zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_2f9e236d3ae1e517e0374e450d31f2e0.webp 760w,
 /zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_52d208436de48486bf59f1e102f1e114.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_52d208436de48486bf59f1e102f1e114.webp"
 width="760"
 height="117"
 loading="lazy" data-zoomable />&lt;/div>
@@ -290,7 +290,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_982fe5ddd5d4356c9ec0b4b7e7f3a658.webp 400w,
 /zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_fd1bc7d227b73738701b0f48d2857d75.webp 760w,
 /zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_982fe5ddd5d4356c9ec0b4b7e7f3a658.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_982fe5ddd5d4356c9ec0b4b7e7f3a658.webp"
 width="760"
 height="254"
 loading="lazy" data-zoomable />&lt;/div>
@@ -305,7 +305,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_e11041da33f09e0f48336e998b9fc6a7.webp 400w,
 /zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_de9ed95d03c79c5d1fa89635fd3a2aac.webp 760w,
 /zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_e11041da33f09e0f48336e998b9fc6a7.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_e11041da33f09e0f48336e998b9fc6a7.webp"
 width="760"
 height="253"
 loading="lazy" data-zoomable />&lt;/div>
@@ -320,7 +320,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_9c853138f7b0a8ab7c7055de5273ccf1.webp 400w,
 /zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_8c1c19b9927838a16fd709bce7357049.webp 760w,
 /zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_9c853138f7b0a8ab7c7055de5273ccf1.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_9c853138f7b0a8ab7c7055de5273ccf1.webp"
 width="760"
 height="279"
 loading="lazy" data-zoomable />&lt;/div>
@@ -335,7 +335,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_b7c6e25e795206c54013e8daf93054d2.webp 400w,
 /zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_a4c089b81087c7f6d66d39828bc3b4f2.webp 760w,
 /zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_b7c6e25e795206c54013e8daf93054d2.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_b7c6e25e795206c54013e8daf93054d2.webp"
 width="760"
 height="346"
 loading="lazy" data-zoomable />&lt;/div>
@@ -350,7 +350,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_8bebf502dfabf8d00593c25d76eabd24.webp 400w,
 /zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_64498824e1591898c636a32216804619.webp 760w,
 /zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_8bebf502dfabf8d00593c25d76eabd24.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_8bebf502dfabf8d00593c25d76eabd24.webp"
 width="760"
 height="385"
 loading="lazy" data-zoomable />&lt;/div>
@@ -366,7 +366,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_dfd310747da0213eaaa862fc891ef705.webp 400w,
 /zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_82f7b411e69e6f9f2d4e0ce223e3632b.webp 760w,
 /zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_dfd310747da0213eaaa862fc891ef705.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_dfd310747da0213eaaa862fc891ef705.webp"
 width="760"
 height="410"
 loading="lazy" data-zoomable />&lt;/div>
@@ -381,7 +381,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_cab0540878223910d6c02ee3d68bf647.webp 400w,
 /zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_d62b80932dffc5983376ba287b7ceb8a.webp 760w,
 /zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_cab0540878223910d6c02ee3d68bf647.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_cab0540878223910d6c02ee3d68bf647.webp"
 width="564"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -744,6 +744,6 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">title(&amp;#39;Streamline&amp;#39;);
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">%grid on;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">end
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这些代码多年前写的。手头暂时没有Matlab，所以无法检验。如果大家试用发现代码不全，那和我联系，我把全部代码给你。&lt;/p></description></item><item><title>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器) v1.0 正式发布</title><link>http://localhost:1313/zh/post/2019_11_24_releasev1.0/</link><pubDate>Sat, 23 Nov 2019 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/post/2019_11_24_releasev1.0/</guid><description>&lt;p>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器)。 SHUD模型已在美国、非洲各地有诸多研究案例。美国国防高级研究计划(DARPA)正在利用SHUD模型与人工智能结合，模拟非洲国家粮食安全和社会经济稳定性。模型的源代码向全球研究者开放：&lt;a href="https://github.com/SHUD-System/SHUD" target="_blank" rel="noopener">GitHub&lt;/a>.&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这些代码多年前写的。手头暂时没有Matlab，所以无法检验。如果大家试用发现代码不全，那和我联系，我把全部代码给你。&lt;/p></description></item><item><title>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器) v1.0 正式发布</title><link>https://shud.xyz/zh/post/2019_11_24_releasev1.0/</link><pubDate>Sat, 23 Nov 2019 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/post/2019_11_24_releasev1.0/</guid><description>&lt;p>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器)。 SHUD模型已在美国、非洲各地有诸多研究案例。美国国防高级研究计划(DARPA)正在利用SHUD模型与人工智能结合，模拟非洲国家粮食安全和社会经济稳定性。模型的源代码向全球研究者开放：&lt;a href="https://github.com/SHUD-System/SHUD" target="_blank" rel="noopener">GitHub&lt;/a>.&lt;/p>
 &lt;p>SHUD模型的概念、过程和数学模型发表在&lt;a href="https://www.geosci-model-dev-discuss.net/gmd-2019-354/" target="_blank" rel="noopener">Geoscientific Model Development Model&lt;/a>.&lt;/p>
-&lt;p>有关模型的使用、改进和合作请直接联系模型作者&lt;a href="emailto:shulele@lzb.acn">舒乐乐&lt;/a>.&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>http://localhost:1313/zh/post/2019_07_11_unsolved/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/zh/post/2019_07_11_unsolved/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>http://localhost:1313/zh/post/2019_11_23_websites/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/zh/post/2019_11_23_websites/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item></channel></rss>
+&lt;p>有关模型的使用、改进和合作请直接联系模型作者&lt;a href="emailto:shulele@lzb.acn">舒乐乐&lt;/a>.&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>https://shud.xyz/zh/post/2019_07_11_unsolved/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/zh/post/2019_07_11_unsolved/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>https://shud.xyz/zh/post/2019_11_23_websites/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/zh/post/2019_11_23_websites/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item></channel></rss>

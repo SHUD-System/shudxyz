@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maya | SHUD Group</title><link>http://localhost:1313/en/tag/maya/</link><atom:link href="http://localhost:1313/en/tag/maya/index.xml" rel="self" type="application/rss+xml"/><description>Maya</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 23 Jul 2016 21:13:14 -0500</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Maya</title><link>http://localhost:1313/en/tag/maya/</link></image><item><title>Reconstructing the role of landuse change on water yield at the Maya urban</title><link>http://localhost:1313/en/project0/2015tikal/</link><pubDate>Sat, 23 Jul 2016 21:13:14 -0500</pubDate><guid>http://localhost:1313/en/project0/2015tikal/</guid><description>&lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maya | SHUD Group</title><link>https://shud.xyz/en/tag/maya/</link><atom:link href="https://shud.xyz/en/tag/maya/index.xml" rel="self" type="application/rss+xml"/><description>Maya</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 23 Jul 2016 21:13:14 -0500</lastBuildDate><image><url>https://shud.xyz/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Maya</title><link>https://shud.xyz/en/tag/maya/</link></image><item><title>Reconstructing the role of landuse change on water yield at the Maya urban</title><link>https://shud.xyz/en/project0/2015tikal/</link><pubDate>Sat, 23 Jul 2016 21:13:14 -0500</pubDate><guid>https://shud.xyz/en/project0/2015tikal/</guid><description>&lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
 &lt;figure id="figure-location-of-tikal">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Location of Tikal" srcset="
 /en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_e6b571ab262f69a137a5894e136521cc.webp 400w,
 /en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_ada1d64b4514f568937937c9cd071943.webp 760w,
 /en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_e6b571ab262f69a137a5894e136521cc.webp"
+src="https://shud.xyz/en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_e6b571ab262f69a137a5894e136521cc.webp"
 width="760"
 height="538"
 loading="lazy" data-zoomable />&lt;/div>
@@ -19,7 +19,7 @@ Location of Tikal
 /en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_466309e8f516ad2e877f1672e7f19f94.webp 400w,
 /en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_bd3b29ad23311c527a083b96c4eaf260.webp 760w,
 /en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_466309e8f516ad2e877f1672e7f19f94.webp"
+src="https://shud.xyz/en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_466309e8f516ad2e877f1672e7f19f94.webp"
 width="760"
 height="538"
 loading="lazy" data-zoomable />&lt;/div>
@@ -32,7 +32,7 @@ Land use map of Tikal
 /en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_0afe2d052cad08ea4874c67caaa13335.webp 400w,
 /en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_be9441058e0bec6cda26931d07f11577.webp 760w,
 /en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_0afe2d052cad08ea4874c67caaa13335.webp"
+src="https://shud.xyz/en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_0afe2d052cad08ea4874c67caaa13335.webp"
 width="760"
 height="634"
 loading="lazy" data-zoomable />&lt;/div>

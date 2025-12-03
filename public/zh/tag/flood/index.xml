@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Flood | SHUD研究组</title><link>http://localhost:1313/zh/tag/flood/</link><atom:link href="http://localhost:1313/zh/tag/flood/index.xml" rel="self" type="application/rss+xml"/><description>Flood</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Nov 2019 00:00:00 +0000</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Flood</title><link>http://localhost:1313/zh/tag/flood/</link></image><item><title>Automatic hydrologic deployment and modeling</title><link>http://localhost:1313/zh/project0/2019mint/</link><pubDate>Tue, 05 Nov 2019 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/project0/2019mint/</guid><description>&lt;p>This project is the hydrologic modeling part of the project &lt;em>Model Integration through Knowledge-Rich Data and Process Composition&lt;/em>.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Flood | SHUD研究组</title><link>https://shud.xyz/zh/tag/flood/</link><atom:link href="https://shud.xyz/zh/tag/flood/index.xml" rel="self" type="application/rss+xml"/><description>Flood</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Nov 2019 00:00:00 +0000</lastBuildDate><image><url>https://shud.xyz/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Flood</title><link>https://shud.xyz/zh/tag/flood/</link></image><item><title>Automatic hydrologic deployment and modeling</title><link>https://shud.xyz/zh/project0/2019mint/</link><pubDate>Tue, 05 Nov 2019 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/project0/2019mint/</guid><description>&lt;p>This project is the hydrologic modeling part of the project &lt;em>Model Integration through Knowledge-Rich Data and Process Composition&lt;/em>.&lt;/p>
 &lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
 &lt;p>&lt;a href="http://mint-project.info" target="_blank" rel="noopener">&lt;i class="fas fa-external-link-alt">&lt;/i>&lt;/a>&lt;/p>
 &lt;figure id="figure-overview-of-the-use-of-artificial-intelligence-techniques-to-support-model-integration">
@@ -7,7 +7,7 @@
 /zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp 400w,
 /zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_79760674aa61c0cfad96ecbbd97741b8.webp 760w,
 /zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp"
+src="https://shud.xyz/zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp"
 width="760"
 height="599"
 loading="lazy" data-zoomable />&lt;/div>
@@ -21,7 +21,7 @@ Overview of the use of artificial intelligence techniques to support model integ
 /zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp 400w,
 /zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_79760674aa61c0cfad96ecbbd97741b8.webp 760w,
 /zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp"
+src="https://shud.xyz/zh/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp"
 width="760"
 height="599"
 loading="lazy" data-zoomable />&lt;/div>
@@ -31,7 +31,7 @@ The completed workflow of hydrologic modeling with PIHM model and national/globa
 &lt;figure id="figure-animation-of-flood-plant-in-south-sudan-from-2001-to-2017-based-on-fldas-data">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Animation of flood plant in South Sudan from 2001 to 2017 based on FLDAS data. "
-src="http://localhost:1313/zh/project0/2019mint/fig/Animation.gif"
+src="https://shud.xyz/zh/project0/2019mint/fig/Animation.gif"
 loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;figcaption>
 Animation of flood plant in South Sudan from 2001 to 2017 based on FLDAS data.
@@ -42,7 +42,7 @@ Animation of flood plant in South Sudan from 2001 to 2017 based on FLDAS data.
 /zh/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_c9737d0c743404b795c11eb2e28c772d.webp 400w,
 /zh/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_945884462da9ae351b25b97ec49624c3.webp 760w,
 /zh/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_c9737d0c743404b795c11eb2e28c772d.webp"
+src="https://shud.xyz/zh/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_c9737d0c743404b795c11eb2e28c772d.webp"
 width="760"
 height="664"
 loading="lazy" data-zoomable />&lt;/div>
@@ -50,7 +50,7 @@ loading="lazy" data-zoomable />&lt;/div>
 Elevation and PIHM mesh of the Pongo watershed in South Sudan
 &lt;/figcaption>&lt;/figure>
 &lt;h2 id="accomplishment-of-the-project">Accomplishment of the project&lt;/h2>
-&lt;p>&lt;strong>keep updating&lt;/strong>&lt;/p></description></item><item><title>Impact in hydrology from landuse and climate change</title><link>http://localhost:1313/zh/project0/2012stormwater/</link><pubDate>Thu, 23 Jul 2015 21:13:14 +0000</pubDate><guid>http://localhost:1313/zh/project0/2012stormwater/</guid><description>&lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
+&lt;p>&lt;strong>keep updating&lt;/strong>&lt;/p></description></item><item><title>Impact in hydrology from landuse and climate change</title><link>https://shud.xyz/zh/project0/2012stormwater/</link><pubDate>Thu, 23 Jul 2015 21:13:14 +0000</pubDate><guid>https://shud.xyz/zh/project0/2012stormwater/</guid><description>&lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
 &lt;h2 id="tasks-in-hydrologic-modeling">Tasks in hydrologic modeling&lt;/h2>
 &lt;h2 id="accomplishment-of-the-project">Accomplishment of the project&lt;/h2>
 &lt;p>&lt;strong>keep updating&lt;/strong>&lt;/p></description></item></channel></rss>

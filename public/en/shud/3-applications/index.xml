@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Applications | SHUD Group</title><link>http://localhost:1313/en/shud/3-applications/</link><atom:link href="http://localhost:1313/en/shud/3-applications/index.xml" rel="self" type="application/rss+xml"/><description>Applications</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 23 Feb 2020 00:00:00 +0000</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Applications</title><link>http://localhost:1313/en/shud/3-applications/</link></image><item><title>Cache Creek Watershed, California</title><link>http://localhost:1313/en/shud/3-applications/ccw/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/en/shud/3-applications/ccw/</guid><description>&lt;p>Code is available at &lt;a href="https://zenodo.org/badge/latestdoi/226413148" target="_blank" rel="noopener">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Applications | SHUD Group</title><link>https://shud.xyz/en/shud/3-applications/</link><atom:link href="https://shud.xyz/en/shud/3-applications/index.xml" rel="self" type="application/rss+xml"/><description>Applications</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 23 Feb 2020 00:00:00 +0000</lastBuildDate><image><url>https://shud.xyz/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Applications</title><link>https://shud.xyz/en/shud/3-applications/</link></image><item><title>Cache Creek Watershed, California</title><link>https://shud.xyz/en/shud/3-applications/ccw/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/en/shud/3-applications/ccw/</guid><description>&lt;p>Code is available at &lt;a href="https://zenodo.org/badge/latestdoi/226413148" target="_blank" rel="noopener">
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img src="https://zenodo.org/badge/226413148.svg" alt="DOI" loading="lazy" data-zoomable />&lt;/div>
@@ -10,14 +10,14 @@ and &lt;a href="https://github.com/Model-Intercomparison-Datasets/Cache-Creek" t
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/CacheCreek/sac5_map.png" alt="Location and data for Cache Creek Watershed" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/CacheCreek/sac5_map.png" alt="Location and data for Cache Creek Watershed" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;p>According to NLDAS-2, between 2000 and 2017 the mean temperature and precipitation was $12.8 ^\circ C$ and $\approx 817 mm$, respectively, in this catchment. Precipitation is unevenly distributed through the year, with winter and spring precipitation being the vast majority of the contribution to the annual total (Fig. below).&lt;/p>
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/CacheCreek/sac5_PT.png" alt="Precipitation and temperature" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/CacheCreek/sac5_PT.png" alt="Precipitation and temperature" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;h2 id="shud-simulation-and-calibration">SHUD simulation and calibration&lt;/h2>
@@ -29,7 +29,7 @@ The calibration procedure exploits the Covariance Matrix Adaptation &amp;ndash; 
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/CacheCreek/sac5_hydrograph_daily.png" alt="The hydrograph in calibration and validation period" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/CacheCreek/sac5_hydrograph_daily.png" alt="The hydrograph in calibration and validation period" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;p>We use the groundwater distribution (Fig. below) to demonstrate the spatial distribution of hydroligcal metrics calculated from the SHUD model.&lt;/p>
@@ -38,38 +38,38 @@ The groundwater table and elevation along the green line on the upper map are ex
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/CacheCreek/sac5_rgw.png" alt="Groundwater spatial distribution map" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/CacheCreek/sac5_rgw.png" alt="Groundwater spatial distribution map" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/CacheCreek/sac5_sgw.png" alt="The groundwater condition along the cross-section line" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/CacheCreek/sac5_sgw.png" alt="The groundwater condition along the cross-section line" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/CacheCreek/sac5_wb.png" alt="Water balance in the simulation period" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/CacheCreek/sac5_wb.png" alt="Water balance in the simulation period" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
-&lt;/p></description></item><item><title>Vauclin Experiment</title><link>http://localhost:1313/en/shud/3-applications/vauclin/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/en/shud/3-applications/vauclin/</guid><description>&lt;p>
+&lt;/p></description></item><item><title>Vauclin Experiment</title><link>https://shud.xyz/en/shud/3-applications/vauclin/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/en/shud/3-applications/vauclin/</guid><description>&lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/Vauclin/Vauclin.png" alt="Vaucline (1979) experiment" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/Vauclin/Vauclin.png" alt="Vaucline (1979) experiment" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;p>Vauclin&amp;rsquo;s experiment [@Vauclin1979] is designed to assess groundwater table change and soil moisture in the unsaturated layer under precipitation or irrigation. The experiment was conducted in a sandbox with dimension 3 m long $ \times $ 2 m deep $\times $ 0.05 m wide. The box was filled with uniform sand particles with measured hydraulic parameters: the saturated hydraulic conductivity was $35 cm/hr $ and porosity was $0.33$ m$^3$/m$^3$. The left and bottom of the sandbox were impervious layers, and the top and the right side were open. A hydraulic head was set constant at $0.65 m$. Constant irrigation ($1.48$ cm/hr) was applied over the first $50$ cm of the top-left of the sandbox while the rest of the top was covered to avoid water loss via evaporation.&lt;/p>
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/Vauclin/Vauclin_res.png" alt="SHUD result" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/Vauclin/Vauclin_res.png" alt="SHUD result" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;p>The experiment&amp;rsquo;s initial condition is an equilibrium water table under constant hydraulic head from the right side. That is, the saturated water table across the sandbox was kept stable at $0.65$ m. When the groundwater table reached equilibrium, irrigation was initiated at $t = 0$. The groundwater table was then measured at 2, 4, 6, and 8 hours at several locations along the length of the box.&lt;/p>
 &lt;p>Besides the parameters specified in [@Vauclin1979], additional information is needed by the SHUD, including the $\alpha$ and $\beta$ in the van Genutchen equation and water content ($\theta _s$). Therefore, we use a calibration tool to estimate the representative values of these parameters. The use of calibration in this simulation is reasonable because the model &amp;ndash; inevitably &amp;ndash; simplifies the real hydraulic processes. The calibration thus nudges the parameters to &lt;em>representative&lt;/em> values that approach or fit the &lt;em>true&lt;/em> natural processes. The calibrated values are $\theta _s = 0.32 m^3/m^3$, $\alpha = 6.0$ and $\beta = 6.0$. Like the simulated results in [@Vauclin1979] and [@Shen2010], a mismatch exists between the simulations and measurements.
 This mismatch may be due to (1) the aquifer description of unsaturated and saturated layers limiting the capability to simulate infiltration and recharge in the unsaturated zone, or (2) the horizontal unsaturated flow assumptions no longer hold at the relatively microscopic scales of this experiment.&lt;/p>
 &lt;p>The SHUD simulated the groundwater table at all four measurement points (see Figure). The maximum bias between simulation and Vauclin&amp;rsquo;s observations is $ 4.6cm$, with $R^2$ = $0.99$. When the calibration takes more soil parameters into account, the bias in simulation decreases to $3 cm$. Certainly, the simplifications employed by SHUD for the unsaturated and saturated zone benefits the computation efficiency while limiting the applicability of the model for micro-scale problems.&lt;/p>
-&lt;p>The simulations, compared against Vauclin&amp;rsquo;s experiment, validate the algorithm for infiltration, recharge, and lateral groundwater flow. More reliable vertical flow within unsaturated layer requires multiple layers, which is planned in next version of SHUD.&lt;/p></description></item><item><title>Flooding inundation area, Houston (2017)</title><link>http://localhost:1313/en/shud/3-applications/harvey/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/en/shud/3-applications/harvey/</guid><description>&lt;h2 id="background">Background&lt;/h2>
+&lt;p>The simulations, compared against Vauclin&amp;rsquo;s experiment, validate the algorithm for infiltration, recharge, and lateral groundwater flow. More reliable vertical flow within unsaturated layer requires multiple layers, which is planned in next version of SHUD.&lt;/p></description></item><item><title>Flooding inundation area, Houston (2017)</title><link>https://shud.xyz/en/shud/3-applications/harvey/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/en/shud/3-applications/harvey/</guid><description>&lt;h2 id="background">Background&lt;/h2>
 &lt;p>This study is to estimate the inundation area during Harvey Hurricane 2017 in Houston, Texas, from Aug 27 to Sept 3, 2017 (&lt;a href="https://en.wikipedia.org/wiki/Hurricane_Harvey" target="_blank" rel="noopener">Wikipedia&lt;/a>). This hurricane is one of most costliest U.S. Atlantic hurricanes, that cost 125 billion USD. The similar costly hurricane is Katrina 2015.&lt;/p>
 &lt;p>
 &lt;figure >
@@ -88,7 +88,7 @@ This mismatch may be due to (1) the aquifer description of unsaturated and satur
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/Harvey/Watershed.png" alt="Watershed" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/Harvey/Watershed.png" alt="Watershed" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;em>The Buffalo Bayou River (BBR) watershed. Area = 2713 $km^2$. BBR watershed covers Houston City in Texas.&lt;/em>&lt;/p>
 &lt;h3 id="data">Data&lt;/h3>
@@ -96,7 +96,7 @@ This mismatch may be due to (1) the aquifer description of unsaturated and satur
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/Harvey/hd_elevprcp.png" alt="precp" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/Harvey/hd_elevprcp.png" alt="precp" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;em>The daily precipitation in the BBR watershed. Maximum precipitation is ~ 40 $cm/day$.&lt;/em>&lt;/p>
 &lt;h3 id="modeling-domain">Modeling domain&lt;/h3>
@@ -176,7 +176,7 @@ This mismatch may be due to (1) the aquifer description of unsaturated and satur
 &lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/Harvey/SHUD_domain.png" alt="Modeling_domain" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/Harvey/SHUD_domain.png" alt="Modeling_domain" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
 &lt;p>&lt;em>Hydrologic Unstructured Domains for Buffalo Bayou River (BBR) watershed. Color is elemvationf from 0 to 80 meters above sea level. Total number of elements is 8571; average area of the elements is 0.32 $km^2$— equivalence of $560m \times 560m$ resolution.&lt;/em>&lt;/p>
@@ -184,7 +184,7 @@ This mismatch may be due to (1) the aquifer description of unsaturated and satur
 &lt;p>Below is the simulated inundation area, compared to MODIS data.
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img src="http://localhost:1313/media/app/Harvey/vs1.png" alt="vs" loading="lazy" data-zoomable />&lt;/div>
+&lt;div class="w-100" >&lt;img src="https://shud.xyz/media/app/Harvey/vs1.png" alt="vs" loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;em>Comparison of the SHUD modeling results and MODIS analysis from USGS&lt;/em>.&lt;/p>
 &lt;p>There is agreement, more or less, between the SHUD model and MODIS analysis. The analysis of MODIS data suggested the northwestern rural area was flooded, but the model simulation barely captured the inundation in those rural areas. In contrast, the flooding in urban areas was less in MODIS result than SHUD simulation.&lt;/p>

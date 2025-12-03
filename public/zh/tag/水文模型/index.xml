@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>水文模型 | SHUD研究组</title><link>http://localhost:1313/zh/tag/%E6%B0%B4%E6%96%87%E6%A8%A1%E5%9E%8B/</link><atom:link href="http://localhost:1313/zh/tag/%E6%B0%B4%E6%96%87%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml"/><description>水文模型</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-CN</language><lastBuildDate>Tue, 17 Jan 2023 00:00:00 +0000</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>水文模型</title><link>http://localhost:1313/zh/tag/%E6%B0%B4%E6%96%87%E6%A8%A1%E5%9E%8B/</link></image><item><title>📚SHUD水文模型</title><link>http://localhost:1313/zh/xcourse/10_shudbook/</link><pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/xcourse/10_shudbook/</guid><description/></item><item><title>📚全球水文数据云平台</title><link>http://localhost:1313/zh/xcourse/12_ghdc/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/xcourse/12_ghdc/</guid><description/></item><item><title>📚数值地球</title><link>http://localhost:1313/zh/xcourse/40_nme/</link><pubDate>Tue, 02 Nov 2021 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/xcourse/40_nme/</guid><description>&lt;p>这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。&lt;/p></description></item><item><title>有限差分法证明Dupuit Assumption的不适应性场景</title><link>http://localhost:1313/zh/post/2022_11_29_dupuit/</link><pubDate>Thu, 24 Nov 2022 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/post/2022_11_29_dupuit/</guid><description>&lt;p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>水文模型 | SHUD研究组</title><link>https://shud.xyz/zh/tag/%E6%B0%B4%E6%96%87%E6%A8%A1%E5%9E%8B/</link><atom:link href="https://shud.xyz/zh/tag/%E6%B0%B4%E6%96%87%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml"/><description>水文模型</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>zh-CN</language><lastBuildDate>Tue, 17 Jan 2023 00:00:00 +0000</lastBuildDate><image><url>https://shud.xyz/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>水文模型</title><link>https://shud.xyz/zh/tag/%E6%B0%B4%E6%96%87%E6%A8%A1%E5%9E%8B/</link></image><item><title>📚SHUD水文模型</title><link>https://shud.xyz/zh/xcourse/10_shudbook/</link><pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/xcourse/10_shudbook/</guid><description/></item><item><title>📚全球水文数据云平台</title><link>https://shud.xyz/zh/xcourse/12_ghdc/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/xcourse/12_ghdc/</guid><description/></item><item><title>📚数值地球</title><link>https://shud.xyz/zh/xcourse/40_nme/</link><pubDate>Tue, 02 Nov 2021 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/xcourse/40_nme/</guid><description>&lt;p>这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。&lt;/p></description></item><item><title>有限差分法证明Dupuit Assumption的不适应性场景</title><link>https://shud.xyz/zh/post/2022_11_29_dupuit/</link><pubDate>Thu, 24 Nov 2022 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/post/2022_11_29_dupuit/</guid><description>&lt;p>
 &lt;figure >
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Figure 1: Scheme of Dupuit-Forchheimer assumption" srcset="
 /zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_de2a2ee003af45dcb9b182cfc94a8f67.webp 400w,
 /zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_a7ffba2596df7e27b63a2f692499ae06.webp 760w,
 /zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_de2a2ee003af45dcb9b182cfc94a8f67.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640_hucaaaee905f4493fced75f7c4ba62dac4_20985_de2a2ee003af45dcb9b182cfc94a8f67.webp"
 width="760"
 height="444"
 loading="lazy" data-zoomable />&lt;/div>
@@ -45,7 +45,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_17769d975b7d162fe6d2401d61e17f4c.webp 400w,
 /zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_1885f5c9c5627c2ef2f83f1ba119473c.webp 760w,
 /zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_17769d975b7d162fe6d2401d61e17f4c.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-1_hubd505e97911480994c547298044408d7_8770_17769d975b7d162fe6d2401d61e17f4c.webp"
 width="760"
 height="201"
 loading="lazy" data-zoomable />&lt;/div>
@@ -61,7 +61,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1db866068bfbf8877d69d688676a15fa.webp 400w,
 /zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_4f3baf971ad7bb1821671d8b64c59d7e.webp 760w,
 /zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1db866068bfbf8877d69d688676a15fa.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-2_hu746620c6da031e38b64e80baac884b31_27961_1db866068bfbf8877d69d688676a15fa.webp"
 width="760"
 height="487"
 loading="lazy" data-zoomable />&lt;/div>
@@ -74,7 +74,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_0fd82680f72b2ccb15fb38a7e67b654b.webp 400w,
 /zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_a6295a2ec4bd728acde7dba61869ba61.webp 760w,
 /zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_0fd82680f72b2ccb15fb38a7e67b654b.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/featured_hudf64e9e38c7fd9e719e5005717c77ff2_262495_0fd82680f72b2ccb15fb38a7e67b654b.webp"
 width="760"
 height="435"
 loading="lazy" data-zoomable />&lt;/div>
@@ -95,7 +95,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_184ad16430b4e544f5e6e3dba9154ec2.webp 400w,
 /zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_5ac54e8ab43155181c7ccbc83196cb57.webp 760w,
 /zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_184ad16430b4e544f5e6e3dba9154ec2.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-5_hu70af67e4bbe78e34bf023aa2e5625eba_71828_184ad16430b4e544f5e6e3dba9154ec2.webp"
 width="760"
 height="265"
 loading="lazy" data-zoomable />&lt;/div>
@@ -109,7 +109,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_054474886dd8a6d4c9581ebafa626748.webp 400w,
 /zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_74e3f1165139ef27944410ed5f518356.webp 760w,
 /zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_054474886dd8a6d4c9581ebafa626748.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-6_hu34c02ed924ce20c7d518d3a3339c0b93_16417_054474886dd8a6d4c9581ebafa626748.webp"
 width="760"
 height="114"
 loading="lazy" data-zoomable />&lt;/div>
@@ -123,7 +123,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_62a4c312f9a0a31837f787c15be92d9a.webp 400w,
 /zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_4b60da62b9098e00d25c2c1c90d1fc81.webp 760w,
 /zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_62a4c312f9a0a31837f787c15be92d9a.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-7_hu6eaee73750466bf06d6307c3e8abe036_6801_62a4c312f9a0a31837f787c15be92d9a.webp"
 width="760"
 height="101"
 loading="lazy" data-zoomable />&lt;/div>
@@ -138,7 +138,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_52d208436de48486bf59f1e102f1e114.webp 400w,
 /zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_2f9e236d3ae1e517e0374e450d31f2e0.webp 760w,
 /zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_52d208436de48486bf59f1e102f1e114.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-8_hu6274faab6f705a5d7376623ef30553af_6335_52d208436de48486bf59f1e102f1e114.webp"
 width="760"
 height="117"
 loading="lazy" data-zoomable />&lt;/div>
@@ -157,7 +157,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_982fe5ddd5d4356c9ec0b4b7e7f3a658.webp 400w,
 /zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_fd1bc7d227b73738701b0f48d2857d75.webp 760w,
 /zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_982fe5ddd5d4356c9ec0b4b7e7f3a658.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-9_hu1ac145fbdc73cb8f761e4bb94f9cce77_45986_982fe5ddd5d4356c9ec0b4b7e7f3a658.webp"
 width="760"
 height="254"
 loading="lazy" data-zoomable />&lt;/div>
@@ -172,7 +172,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_e11041da33f09e0f48336e998b9fc6a7.webp 400w,
 /zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_de9ed95d03c79c5d1fa89635fd3a2aac.webp 760w,
 /zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_e11041da33f09e0f48336e998b9fc6a7.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-10_hu9b427833e79f89f3b5a2abf320c51a11_19956_e11041da33f09e0f48336e998b9fc6a7.webp"
 width="760"
 height="253"
 loading="lazy" data-zoomable />&lt;/div>
@@ -187,7 +187,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_9c853138f7b0a8ab7c7055de5273ccf1.webp 400w,
 /zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_8c1c19b9927838a16fd709bce7357049.webp 760w,
 /zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_9c853138f7b0a8ab7c7055de5273ccf1.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-11_hud8cd3c1e8d52e6e08dfb5c89007897b7_99099_9c853138f7b0a8ab7c7055de5273ccf1.webp"
 width="760"
 height="279"
 loading="lazy" data-zoomable />&lt;/div>
@@ -202,7 +202,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_b7c6e25e795206c54013e8daf93054d2.webp 400w,
 /zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_a4c089b81087c7f6d66d39828bc3b4f2.webp 760w,
 /zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_b7c6e25e795206c54013e8daf93054d2.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-12_hud13c798ac21b5c4b3abce254e6a183ca_46479_b7c6e25e795206c54013e8daf93054d2.webp"
 width="760"
 height="346"
 loading="lazy" data-zoomable />&lt;/div>
@@ -217,7 +217,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_8bebf502dfabf8d00593c25d76eabd24.webp 400w,
 /zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_64498824e1591898c636a32216804619.webp 760w,
 /zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_8bebf502dfabf8d00593c25d76eabd24.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-13_huc4ee65eadf0ac64ae5b517c4d84d8f13_119692_8bebf502dfabf8d00593c25d76eabd24.webp"
 width="760"
 height="385"
 loading="lazy" data-zoomable />&lt;/div>
@@ -233,7 +233,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_dfd310747da0213eaaa862fc891ef705.webp 400w,
 /zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_82f7b411e69e6f9f2d4e0ce223e3632b.webp 760w,
 /zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_dfd310747da0213eaaa862fc891ef705.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-14_huad6c291ca8e8994b5ca9ad2b106b778a_113672_dfd310747da0213eaaa862fc891ef705.webp"
 width="760"
 height="410"
 loading="lazy" data-zoomable />&lt;/div>
@@ -248,7 +248,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_cab0540878223910d6c02ee3d68bf647.webp 400w,
 /zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_d62b80932dffc5983376ba287b7ceb8a.webp 760w,
 /zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_cab0540878223910d6c02ee3d68bf647.webp"
+src="https://shud.xyz/zh/post/2022_11_29_dupuit/640-15_hu7199e0192d1705685b13fe8e46ccb59f_176623_cab0540878223910d6c02ee3d68bf647.webp"
 width="564"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -611,9 +611,9 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">title(&amp;#39;Streamline&amp;#39;);
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">%grid on;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">end
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这些代码多年前写的。手头暂时没有Matlab，所以无法检验。如果大家试用发现代码不全，那和我联系，我把全部代码给你。&lt;/p></description></item><item><title>2022 年中国水文地理学术年会 (2022-09-23, 江苏南京)</title><link>http://localhost:1313/zh/talk/202209_nanjing/</link><pubDate>Sun, 25 Sep 2022 00:15:00 -1600</pubDate><guid>http://localhost:1313/zh/talk/202209_nanjing/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 河海大学国际交流中心(隽恒酒店)&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这些代码多年前写的。手头暂时没有Matlab，所以无法检验。如果大家试用发现代码不全，那和我联系，我把全部代码给你。&lt;/p></description></item><item><title>2022 年中国水文地理学术年会 (2022-09-23, 江苏南京)</title><link>https://shud.xyz/zh/talk/202209_nanjing/</link><pubDate>Sun, 25 Sep 2022 00:15:00 -1600</pubDate><guid>https://shud.xyz/zh/talk/202209_nanjing/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 河海大学国际交流中心(隽恒酒店)&lt;/p>
 &lt;p>&lt;strong>时间:&lt;/strong> 2022年09月23 - 09月24&lt;/p>
-&lt;p>&lt;strong>报告题目:&lt;/strong> 快速、可重复、开放的全球水文模拟云平台 （Quick, Reproducible, and Open Global Hydrological Data Cloud）&lt;/p></description></item><item><title>SHUD数值方法分布式水文模型介绍</title><link>http://localhost:1313/zh/publication/2022shu-adearth/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/publication/2022shu-adearth/</guid><description>&lt;p>考虑到冰冻圈、生态系统、环境化学对能量—水分循环的直接影响，数值方法模型需深入探索“冰冻圈—水文—生态—环境化学”紧密耦合的集成模型，以便更好地理解气候变化和人类活动影响下的水资源和水循环响应，为国家生态文明建设提供科学支撑。ParFlow v3.5探索了CLM陆面过程模型（Community Land Model）与数值水文模型ParFlow的紧密耦合［48］，开拓了模型耦合的新思路。&lt;/p>
+&lt;p>&lt;strong>报告题目:&lt;/strong> 快速、可重复、开放的全球水文模拟云平台 （Quick, Reproducible, and Open Global Hydrological Data Cloud）&lt;/p></description></item><item><title>SHUD数值方法分布式水文模型介绍</title><link>https://shud.xyz/zh/publication/2022shu-adearth/</link><pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/publication/2022shu-adearth/</guid><description>&lt;p>考虑到冰冻圈、生态系统、环境化学对能量—水分循环的直接影响，数值方法模型需深入探索“冰冻圈—水文—生态—环境化学”紧密耦合的集成模型，以便更好地理解气候变化和人类活动影响下的水资源和水循环响应，为国家生态文明建设提供科学支撑。ParFlow v3.5探索了CLM陆面过程模型（Community Land Model）与数值水文模型ParFlow的紧密耦合［48］，开拓了模型耦合的新思路。&lt;/p>
 &lt;p>地表—地下耦合的数值方法水文模型的研发面临的关键挑战在于：①有限计算能力与时空分辨率的无限要求之间的矛盾；②模型对大数量和高质量物理参数的要求与有限观测手段和观测覆盖范围之间的矛盾；③模型需要多尺度、多问题的应用测试的需求与有限验证数据之间的矛盾；④精细的多物理过程表达与关键变量快速模拟响应之间的矛盾。模型研发工作结合水文、数学、工程和计算机领域的进展，也需要人才、经费和时间方面的巨大投入。以ParFlow模型［20，49-50］为例，该模型由美国普林斯顿大学、科罗拉多矿业大学、华盛顿州立大学、雪城大学、劳伦斯—利佛摩国家实验室、德国的伯恩大学、利希研究中心、地球系统超算中心和法国地球环境研究所等多家大学和研究机构共同参与研发（https：//parflow.org/#team），足见其研究的重要性和研发难度。&lt;/p>
 &lt;p>当前我国科学家在概念水文模型和大尺度分布式水文模型方面已有较多原创性成果，但是对数值方法分布式水文模型的探讨、开发和应用都较为薄弱，亟需在此领域进行更多原创性探索。在模型应用方面，根据知网关键词搜索结果，SWAT、VIC和TopModel等传统模型为关键词的文献数量分别约为2 700篇、700篇和300篇，但是以MIKE SHE为关键词的文献搜索结果数量则小于100篇，其他数值方法水文模型的中文文献数量则接近或等于0篇。因此，未来我国在水文研究领域，不仅需要支持新模型研发，同时需丰富已有模型在全球不同区域和应用需求的验证、推广和改进工作。&lt;/p>
 &lt;p>
@@ -623,7 +623,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/publication/2022shu-adearth/eq_hub702613e933ec665e6091ab82b6c9ea5_220339_b09ec8c19918828c407066113b4c3339.webp 400w,
 /zh/publication/2022shu-adearth/eq_hub702613e933ec665e6091ab82b6c9ea5_220339_62998ec5318af835c8f939bcd9b0d92d.webp 760w,
 /zh/publication/2022shu-adearth/eq_hub702613e933ec665e6091ab82b6c9ea5_220339_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/publication/2022shu-adearth/eq_hub702613e933ec665e6091ab82b6c9ea5_220339_b09ec8c19918828c407066113b4c3339.webp"
+src="https://shud.xyz/zh/publication/2022shu-adearth/eq_hub702613e933ec665e6091ab82b6c9ea5_220339_b09ec8c19918828c407066113b4c3339.webp"
 width="740"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -636,19 +636,19 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/publication/2022shu-adearth/output_hu503983de66ee6e217bd41a1da2e95ae4_129484_61f07631c6e0a9244ee7f709a64fb16b.webp 400w,
 /zh/publication/2022shu-adearth/output_hu503983de66ee6e217bd41a1da2e95ae4_129484_ea27ce0c4f5c209c22991c2f5e830e63.webp 760w,
 /zh/publication/2022shu-adearth/output_hu503983de66ee6e217bd41a1da2e95ae4_129484_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/publication/2022shu-adearth/output_hu503983de66ee6e217bd41a1da2e95ae4_129484_61f07631c6e0a9244ee7f709a64fb16b.webp"
+src="https://shud.xyz/zh/publication/2022shu-adearth/output_hu503983de66ee6e217bd41a1da2e95ae4_129484_61f07631c6e0a9244ee7f709a64fb16b.webp"
 width="760"
 height="612"
 loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
 &lt;/p>
-&lt;p>&lt;strong>How to cite.&lt;/strong> 舒乐乐，常燕，王建，等.SHUD数值方法分布式水文模型介绍[J].地球科学进展，2022，37(7):680-691. DOI:10.11867/j.issn.1001-8166.2022.025[.SHU Lele，CHANG Yan，WANG Jian，et al. A brief review of numerical distributed hydrological model SHUD[J]. Advances in Earth Science，2022，37(7):680-691. DOI:10.11867/j.issn.1001-8166.2022.025.]&lt;/p></description></item><item><title>SHUD模型应用与合作研讨会 (2022-6-27, 西安山脉)</title><link>http://localhost:1313/zh/talk/202206_summit/</link><pubDate>Sat, 25 Jun 2022 00:15:00 -1600</pubDate><guid>http://localhost:1313/zh/talk/202206_summit/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 山脉集团，西安高新区&lt;/p>
-&lt;p>&lt;strong>时间:&lt;/strong> 2022年06月27 - 07月01&lt;/p></description></item><item><title>漫谈水文模型——从入门到前沿 (2022-6-27, Online)</title><link>http://localhost:1313/zh/talk/202210_online/</link><pubDate>Sat, 25 Jun 2022 00:15:00 -1600</pubDate><guid>http://localhost:1313/zh/talk/202210_online/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 腾讯会议&lt;/p>
+&lt;p>&lt;strong>How to cite.&lt;/strong> 舒乐乐，常燕，王建，等.SHUD数值方法分布式水文模型介绍[J].地球科学进展，2022，37(7):680-691. DOI:10.11867/j.issn.1001-8166.2022.025[.SHU Lele，CHANG Yan，WANG Jian，et al. A brief review of numerical distributed hydrological model SHUD[J]. Advances in Earth Science，2022，37(7):680-691. DOI:10.11867/j.issn.1001-8166.2022.025.]&lt;/p></description></item><item><title>SHUD模型应用与合作研讨会 (2022-6-27, 西安山脉)</title><link>https://shud.xyz/zh/talk/202206_summit/</link><pubDate>Sat, 25 Jun 2022 00:15:00 -1600</pubDate><guid>https://shud.xyz/zh/talk/202206_summit/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 山脉集团，西安高新区&lt;/p>
+&lt;p>&lt;strong>时间:&lt;/strong> 2022年06月27 - 07月01&lt;/p></description></item><item><title>漫谈水文模型——从入门到前沿 (2022-6-27, Online)</title><link>https://shud.xyz/zh/talk/202210_online/</link><pubDate>Sat, 25 Jun 2022 00:15:00 -1600</pubDate><guid>https://shud.xyz/zh/talk/202210_online/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 腾讯会议&lt;/p>
 &lt;p>&lt;strong>时间:&lt;/strong> 2022年10月15&lt;/p>
 &lt;p>&lt;strong>题目:&lt;/strong> 漫谈水文模型——从入门到前沿(Wandering in Hydrological Models ——From the old friends to the new )&lt;/p>
-&lt;p>&lt;strong>讲座录屏:&lt;/strong> &lt;a href="https://mp.weixin.qq.com/s/GgjKowbyNNOqd4C3JSJNFg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/GgjKowbyNNOqd4C3JSJNFg&lt;/a>&lt;/p></description></item><item><title>地表地下耦合的数值方法水文模型开发与前景 (2022-02-15, 武汉大学)</title><link>http://localhost:1313/zh/talk/202202_whu/</link><pubDate>Sat, 12 Feb 2022 00:15:00 -1600</pubDate><guid>http://localhost:1313/zh/talk/202202_whu/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 武汉大学&lt;/p>
+&lt;p>&lt;strong>讲座录屏:&lt;/strong> &lt;a href="https://mp.weixin.qq.com/s/GgjKowbyNNOqd4C3JSJNFg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/GgjKowbyNNOqd4C3JSJNFg&lt;/a>&lt;/p></description></item><item><title>地表地下耦合的数值方法水文模型开发与前景 (2022-02-15, 武汉大学)</title><link>https://shud.xyz/zh/talk/202202_whu/</link><pubDate>Sat, 12 Feb 2022 00:15:00 -1600</pubDate><guid>https://shud.xyz/zh/talk/202202_whu/</guid><description>&lt;p>&lt;strong>地址:&lt;/strong> 武汉大学&lt;/p>
 &lt;p>&lt;strong>在线:&lt;/strong> B站直播，武大水院学工办，房间号:22060156&lt;/p>
-&lt;p>&lt;strong>时间:&lt;/strong> 2022年2月15日，10:00 - 12:00，&lt;/p></description></item><item><title>水文模型自动化建模系统研发(国家冰川冻土沙漠数据中心)</title><link>http://localhost:1313/zh/project0/2022_ncdc/</link><pubDate>Mon, 03 Jan 2022 21:13:14 -0500</pubDate><guid>http://localhost:1313/zh/project0/2022_ncdc/</guid><description>&lt;p>&lt;strong>通过自动化程序收集公开的全球基础地理数据，同时建立一套自动化数据处理系统，为水文建模用户快速提供研究区所需要的关键地理数据和水文模型输入数据。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>时间:&lt;/strong> 2022年2月15日，10:00 - 12:00，&lt;/p></description></item><item><title>水文模型自动化建模系统研发(国家冰川冻土沙漠数据中心)</title><link>https://shud.xyz/zh/project0/2022_ncdc/</link><pubDate>Mon, 03 Jan 2022 21:13:14 -0500</pubDate><guid>https://shud.xyz/zh/project0/2022_ncdc/</guid><description>&lt;p>&lt;strong>通过自动化程序收集公开的全球基础地理数据，同时建立一套自动化数据处理系统，为水文建模用户快速提供研究区所需要的关键地理数据和水文模型输入数据。&lt;/strong>&lt;/p>
 &lt;h2 id="研究目标">研究目标&lt;/h2>
 &lt;p>研究旨在降低水文模型数据收集和输入数据准备的障碍，提高水文建模效率，同时提高水文模拟的可重复性，形成标准化的水文建模流程和工具。
 用于水文建模的基础数据分布于不同的数据库和数据中心，尚无集中的数据分享平台，因此用户本身需要通过不同渠道获取数据。并且数据的格式、变量含义、变量单位各有不同，建模用户需要较长时间方能为其研究区建立合理的水文模型数据集，费时费力，阻碍了数据应用和模拟工作。因此针对水文建模数据的的标准化、统一化和格式化势在必行。本项目将在程序内实现水文建模的关键地理数据的标准化、格式化和统一化。&lt;/p>
@@ -662,7 +662,7 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/project0/2022_ncdc/workflow_hu54a6359b9748ac053d7ae6d7ada74e0e_101358_0214a282c3a5010440eb83dbc9f0b605.webp 400w,
 /zh/project0/2022_ncdc/workflow_hu54a6359b9748ac053d7ae6d7ada74e0e_101358_d14f70981ceea327805d25c178b96354.webp 760w,
 /zh/project0/2022_ncdc/workflow_hu54a6359b9748ac053d7ae6d7ada74e0e_101358_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/project0/2022_ncdc/workflow_hu54a6359b9748ac053d7ae6d7ada74e0e_101358_0214a282c3a5010440eb83dbc9f0b605.webp"
+src="https://shud.xyz/zh/project0/2022_ncdc/workflow_hu54a6359b9748ac053d7ae6d7ada74e0e_101358_0214a282c3a5010440eb83dbc9f0b605.webp"
 width="741"
 height="760"
 loading="lazy" data-zoomable />&lt;/div>
@@ -735,7 +735,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;li>用户不仅可以获取开放的关键地理数据，而且可获取初始水文参数集。&lt;/li>
 &lt;li>项目研究开发采用R语言，可在Mac，Windows和Linux平台上快速移植。&lt;/li>
 &lt;li>国际上尚无此类建模系统出现，未来此自动建模系统可部署在云端，为更多用户服务。&lt;/li>
-&lt;/ul></description></item><item><title>SHUD模型专题研讨会 （2021-03-02, 兰州）</title><link>http://localhost:1313/zh/talk/2021_03_02_workshop/</link><pubDate>Mon, 01 Mar 2021 00:15:00 -1600</pubDate><guid>http://localhost:1313/zh/talk/2021_03_02_workshop/</guid><description>&lt;h2 id="概况">概况&lt;/h2>
+&lt;/ul></description></item><item><title>SHUD模型专题研讨会 （2021-03-02, 兰州）</title><link>https://shud.xyz/zh/talk/2021_03_02_workshop/</link><pubDate>Mon, 01 Mar 2021 00:15:00 -1600</pubDate><guid>https://shud.xyz/zh/talk/2021_03_02_workshop/</guid><description>&lt;h2 id="概况">概况&lt;/h2>
 &lt;p>SHUD模型团队与青海省气象科学研究所研究人员在兰州展开交流活动，旨在通过合作交流扩展SHUD模型在青海省的科研应用。
 本次研讨会预期参会者可了解SHUD模型基本原理和结构，了解SHUD的模拟能力和效果；通过实际操作，掌握SHUD模型的程序安装、模型源代码编译、数据制备、数据分析，可视化以及模型参数校准方法等。&lt;/p>
 &lt;p>&lt;strong>地点&lt;/strong>: 中国科学院西北生态环境资源研究院，7号楼712&lt;/p>
@@ -837,7 +837,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;ul>
 &lt;li>&lt;strong>模型文章&lt;/strong>： &lt;a href="https://gmd.copernicus.org/articles/13/2743/2020/" target="_blank" rel="noopener">https://gmd.copernicus.org/articles/13/2743/2020/&lt;/a>&lt;/li>
 &lt;li>&lt;strong>SHUD模型资源&lt;/strong>：&lt;a href="https://www.shud.xyz/" target="_blank" rel="noopener">https://www.shud.xyz/&lt;/a>&lt;/li>
-&lt;li>&lt;strong>SHUD模型用户手册:&lt;/strong> &lt;a href="http://localhost:1313/Book_CN">html&lt;i class="fas fa-external-link-alt">&lt;/i>&lt;/a>&lt;/li>
+&lt;li>&lt;strong>SHUD模型用户手册:&lt;/strong> &lt;a href="https://shud.xyz/Book_CN">html&lt;i class="fas fa-external-link-alt">&lt;/i>&lt;/a>&lt;/li>
 &lt;li>&lt;strong>建议操作系统&lt;/strong>: Mac OS，Linux, Windows&lt;/li>
 &lt;/ul>
 &lt;h2 id="本地天气">本地天气&lt;/h2>
@@ -848,12 +848,12 @@ loading="lazy" data-zoomable />&lt;/div>
 /zh/talk/2021_03_02_workshop/weather_hub9ed68a948cd999dbc53e728dd658922_37149_2ebe14d1be0a6e31b9a3c3a9e7ccda19.webp 400w,
 /zh/talk/2021_03_02_workshop/weather_hub9ed68a948cd999dbc53e728dd658922_37149_fdd511470eca5b205988cc6ccb1db7c3.webp 760w,
 /zh/talk/2021_03_02_workshop/weather_hub9ed68a948cd999dbc53e728dd658922_37149_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/talk/2021_03_02_workshop/weather_hub9ed68a948cd999dbc53e728dd658922_37149_2ebe14d1be0a6e31b9a3c3a9e7ccda19.webp"
+src="https://shud.xyz/zh/talk/2021_03_02_workshop/weather_hub9ed68a948cd999dbc53e728dd658922_37149_2ebe14d1be0a6e31b9a3c3a9e7ccda19.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;/figure>
-&lt;/p></description></item><item><title>数值方法分布式水文模型研发(中国科学院率先行动人才项目)</title><link>http://localhost:1313/zh/project0/2020hundredstalents/</link><pubDate>Thu, 03 Sep 2020 21:13:14 -0500</pubDate><guid>http://localhost:1313/zh/project0/2020hundredstalents/</guid><description>&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;/p></description></item><item><title>数值方法分布式水文模型研发(中国科学院率先行动人才项目)</title><link>https://shud.xyz/zh/project0/2020hundredstalents/</link><pubDate>Thu, 03 Sep 2020 21:13:14 -0500</pubDate><guid>https://shud.xyz/zh/project0/2020hundredstalents/</guid><description>&lt;h2 id="介绍">介绍&lt;/h2>
 &lt;p>数值方法水文模型可视为一类特殊的分布式水文模型，典型特征是采用数值方法，并且紧密耦合了地表和地下水过程。&lt;/p>
 &lt;p>水文模型面临表达复杂系统的挑战，包含非线性反馈、时空异质性、生物化学过程、生态过程、和人类系统的相互作用，水文模型比如需要在微观到宏观尺度上反映水在复杂系统中的作用，必然催生自下而上的数值方法水文模型(Wagener et al. 2010)。&lt;/p>
 &lt;p>作为流域水文计算最重要和新兴发展方向，地表-地下集成的数值方法水文模型( Integrated Surface-Subsurface Hydrologic Model with a Numeric Method)利用了数值方法以较高时间分辨率（秒至小时级）计算流域连续水文过程，更接近自然界水的运动本质，更准确反映人类活动影响，以及易于耦合其他物理过程，因而已经获得广泛关注和影响力(Maxwell et al.2014; Paniconi et al. 2015; Peel and McMahon, 2020; Fatichi et al. 2016; Hrachowitz and Clark, 2017)。2000年以来，全球水文研究者新发展了20多个重要的数值方法水文模型(Peel and McMahon; 2020)，包括Mike SHE, ParFlow, CATHY, PAWS, HydroGeoSphere, PIHM, SHUD等。&lt;/p>
@@ -892,7 +892,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>数值方法水文模型发展历史并不长，但其更进一步探索自然水循环过程，因而引起了科学和工业界的重视。借助近年工程数学和计算技术的进步，数值方法水文模型的研究越来越多，并展现出其显著优势。
 地表地下集成耦合模型结合水文、数学、工程和计算机领域最新发展，因而研发工作的人才、经费和时间投入巨大，一定程度阻碍了数值方法水文模型快速发展。&lt;/p>
 &lt;p>与此同时，我国学界对于数值方法水文模型的探讨、开发和应用都非常薄弱，因此亟需在此领域的原创性、基础性探索；在支持新模型研发的同时，加强已有模型在全球的验证、推广和改进研究，不仅实践中给科学研究和工程应用提供支撑，也能够改进和提升对自然水循环的理解。&lt;/p>
-&lt;p>中国科研面临“缺芯少软”局面，不仅制约我国科学研究前进步伐，也给未来发展埋下隐患。与国外研究比，我国在地表地下集成数值方法水文模型的开发、测试和应用方面研究都较为薄弱，受制于代码开源、数据制备、全球适应性验证等限制，国产模型工作尚未展示出足够科学影响力。因此，我国科学界亟需数值方法水文模型方向的开放性平台和原创性贡献。&lt;/p></description></item><item><title>SHUD全耦合水文模型 HSGG报告 (2020-03-12, Davis)</title><link>http://localhost:1313/zh/talk/2020ucd_hsgg/</link><pubDate>Thu, 12 Mar 2020 00:15:00 -1600</pubDate><guid>http://localhost:1313/zh/talk/2020ucd_hsgg/</guid><description>&lt;h3 id="abstract">Abstract:&lt;/h3>
+&lt;p>中国科研面临“缺芯少软”局面，不仅制约我国科学研究前进步伐，也给未来发展埋下隐患。与国外研究比，我国在地表地下集成数值方法水文模型的开发、测试和应用方面研究都较为薄弱，受制于代码开源、数据制备、全球适应性验证等限制，国产模型工作尚未展示出足够科学影响力。因此，我国科学界亟需数值方法水文模型方向的开放性平台和原创性贡献。&lt;/p></description></item><item><title>SHUD全耦合水文模型 HSGG报告 (2020-03-12, Davis)</title><link>https://shud.xyz/zh/talk/2020ucd_hsgg/</link><pubDate>Thu, 12 Mar 2020 00:15:00 -1600</pubDate><guid>https://shud.xyz/zh/talk/2020ucd_hsgg/</guid><description>&lt;h3 id="abstract">Abstract:&lt;/h3>
 &lt;p>Hydrological modeling is an essential strategy for understanding natural flows, particularly where observations are lacking in either space or time, or where topographic roughness leads to a disconnect in the characteristic timescales of overland and groundwater flow. Simulator for Hydrologic Unstructured Domains (SHUD) is an integrated multi-process, multi-scale, multi-timestep hydrological model, in which hydrological processes are fully coupled using the semi-discrete Finite Volume Method. The SHUD integrates overland flow, snow accumulation/melting, evapotranspiration, subsurface and groundwater flow, and river routing, while realistically capturing the physical processes in a watershed.
 This seminar introduces the design of SHUD, the conceptual and mathematical description of hydrological processes in a watershed. Two SHUD modeling applications demonstrate the modeling of water storage in Central Valley of California and inundation area under Harvey Hurricane.
 The possible applications of then SHUD model include hydrological studies from the hillslope to regional scale, stormwater management, and water-driven coupling researches. In general, SHUD is a valuable scientific tool for any modeling task involving simulating and understanding the hydrological response.&lt;/p>
@@ -903,7 +903,7 @@ The possible applications of then SHUD model include hydrological studies from t
 /zh/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_491829becdc03f322e80b246673b60e9.webp 400w,
 /zh/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_3b61791638230b91f45a73ad5b22df2e.webp 760w,
 /zh/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
-src="http://localhost:1313/zh/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_491829becdc03f322e80b246673b60e9.webp"
+src="https://shud.xyz/zh/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_491829becdc03f322e80b246673b60e9.webp"
 width="760"
 height="271"
 loading="lazy" data-zoomable />&lt;/div>
@@ -912,7 +912,7 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;h3 id="speaker-bio">Speaker Bio:&lt;/h3>
 &lt;p>Lele Shu is a postdoctoral researcher in the Department of Land, Air and Water Resources, UC Davis. He obtained a Ph.D. degree in Water Resource Engineering and a minor degree of Computational Science from Pennsylvania State University in 2017. He developed the Simulator for Hydrologic Unstructured Domains (SHUD) model. His research interest includes the computational distributed hydrological model, integrated Coupled Nature-Human System modeling, the impact of landuse and climate change, and hydrology-remote-sensing data mining.&lt;/p>
 &lt;p>&lt;strong>Address:&lt;/strong> PES 3001, UC Davis&lt;/p>
-&lt;p>&lt;strong>Time:&lt;/strong> 3:00 - 4:00 PM, Mar 12, 2020.&lt;/p></description></item><item><title>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器) v1.0 正式发布</title><link>http://localhost:1313/zh/post/2019_11_24_releasev1.0/</link><pubDate>Sat, 23 Nov 2019 00:00:00 +0000</pubDate><guid>http://localhost:1313/zh/post/2019_11_24_releasev1.0/</guid><description>&lt;p>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器)。 SHUD模型已在美国、非洲各地有诸多研究案例。美国国防高级研究计划(DARPA)正在利用SHUD模型与人工智能结合，模拟非洲国家粮食安全和社会经济稳定性。模型的源代码向全球研究者开放：&lt;a href="https://github.com/SHUD-System/SHUD" target="_blank" rel="noopener">GitHub&lt;/a>.&lt;/p>
+&lt;p>&lt;strong>Time:&lt;/strong> 3:00 - 4:00 PM, Mar 12, 2020.&lt;/p></description></item><item><title>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器) v1.0 正式发布</title><link>https://shud.xyz/zh/post/2019_11_24_releasev1.0/</link><pubDate>Sat, 23 Nov 2019 00:00:00 +0000</pubDate><guid>https://shud.xyz/zh/post/2019_11_24_releasev1.0/</guid><description>&lt;p>SHUD (Simulator for Hydrologic Unstructured Domains，水文非结构域模拟器)。 SHUD模型已在美国、非洲各地有诸多研究案例。美国国防高级研究计划(DARPA)正在利用SHUD模型与人工智能结合，模拟非洲国家粮食安全和社会经济稳定性。模型的源代码向全球研究者开放：&lt;a href="https://github.com/SHUD-System/SHUD" target="_blank" rel="noopener">GitHub&lt;/a>.&lt;/p>
 &lt;p>SHUD模型的概念、过程和数学模型发表在&lt;a href="https://www.geosci-model-dev-discuss.net/gmd-2019-354/" target="_blank" rel="noopener">Geoscientific Model Development Model&lt;/a>.&lt;/p>
-&lt;p>有关模型的使用、改进和合作请直接联系模型作者&lt;a href="emailto:shulele@lzb.acn">舒乐乐&lt;/a>.&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>http://localhost:1313/zh/post/2019_07_11_unsolved/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/zh/post/2019_07_11_unsolved/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>http://localhost:1313/zh/post/2019_11_23_websites/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/zh/post/2019_11_23_websites/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item><item><title>快速SHUD模型全球快速、可重复、自动部署（2019-12, AGU, San Francisco）</title><link>http://localhost:1313/zh/talk/2019_11_01_commingagu/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/zh/talk/2019_11_01_commingagu/</guid><description>&lt;p>In coming AGU fall meeting in San Francisco, Dr. Shu will present the &amp;ldquo;Quick and reproducible automated watershed modeling with the SHUD:
+&lt;p>有关模型的使用、改进和合作请直接联系模型作者&lt;a href="emailto:shulele@lzb.acn">舒乐乐&lt;/a>.&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>https://shud.xyz/zh/post/2019_07_11_unsolved/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/zh/post/2019_07_11_unsolved/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item><item><title>SHUD模型网站正式上线</title><link>https://shud.xyz/zh/post/2019_11_23_websites/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/zh/post/2019_11_23_websites/</guid><description>&lt;p>SHUD模型网站&lt;a href="https://www.shud.xyz" target="_blank" rel="noopener">https://www.shud.xyz&lt;/a>正式上线。&lt;/p></description></item><item><title>快速SHUD模型全球快速、可重复、自动部署（2019-12, AGU, San Francisco）</title><link>https://shud.xyz/zh/talk/2019_11_01_commingagu/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>https://shud.xyz/zh/talk/2019_11_01_commingagu/</guid><description>&lt;p>In coming AGU fall meeting in San Francisco, Dr. Shu will present the &amp;ldquo;Quick and reproducible automated watershed modeling with the SHUD:
 data, simulation, applications and visualization&amp;rdquo; on Friday, Dec 13, 2019. Poster ID is &lt;strong>H53K-1918&lt;/strong>. Please come and have a chat.&lt;/p></description></item></channel></rss>

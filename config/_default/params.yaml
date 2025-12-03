@@ -30,7 +30,7 @@ marketing:
   verification:
     google: 'cXuEvzqGXqYRwtc2t0olg_QubrtNc_2u_2LXONMFKeg'
     baidu: 'code-caLY3Fu6xB'
-    bing: "8707F677BE38954F712BC57BA2D1CEFB'  # 从 Bing Webmaster Tools 获取
+    bing: "8707F677BE38954F712BC57BA2D1CEFB"  # 从 Bing Webmaster Tools 获取
 # Site header
 
 header:
