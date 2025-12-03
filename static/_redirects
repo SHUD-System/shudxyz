@@ -1,0 +1,6 @@
+# 重定向 www 到非 www（301 永久重定向）
+https://www.shud.xyz/* https://shud.xyz/:splat 301!
+
+# 确保 HTTPS
+http://shud.xyz/* https://shud.xyz/:splat 301!
+http://www.shud.xyz/* https://shud.xyz/:splat 301!

@@ -2,6 +2,13 @@
   command = "hugo --gc --minify -b $URL && npx pagefind --source 'public'"
   publish = "public"
 
+# 重定向 www 到非 www
+[[redirects]]
+  from = "https://www.shud.xyz/*"
+  to = "https://shud.xyz/:splat"
+  status = 301
+  force = true
+
 [build.environment]
   HUGO_VERSION = "0.126.3"
   HUGO_ENABLEGITINFO = "true"
