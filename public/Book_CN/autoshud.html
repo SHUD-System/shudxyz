@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 自动化建模 | SHUD水文模型 (ver 2.0)</title>
+  <meta name="description" content="SHUD Book" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 自动化建模 | SHUD水文模型 (ver 2.0)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="SHUD Book" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 自动化建模 | SHUD水文模型 (ver 2.0)" />
+  
+  <meta name="twitter:description" content="SHUD Book" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2024-11-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modeling.html"/>
+<link rel="next" href="calibration.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SHUD Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> 绪论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#水文模型"><i class="fa fa-check"></i><b>1.1</b> 水文模型</a></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#数值水文模型"><i class="fa fa-check"></i><b>1.2</b> 数值水文模型</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="overview.html"><a href="overview.html#数学模型"><i class="fa fa-check"></i><b>1.2.1</b> 数学模型</a></li>
+<li class="chapter" data-level="1.2.2" data-path="overview.html"><a href="overview.html#数值方法求解"><i class="fa fa-check"></i><b>1.2.2</b> 数值方法求解</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#shud模型"><i class="fa fa-check"></i><b>1.3</b> SHUD模型</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#站在巨人的肩上"><i class="fa fa-check"></i><b>1.3.1</b> 站在巨人的肩上</a></li>
+<li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#pihm模型简史"><i class="fa fa-check"></i><b>1.3.2</b> PIHM模型简史</a></li>
+<li class="chapter" data-level="1.3.3" data-path="overview.html"><a href="overview.html#重要时间线"><i class="fa fa-check"></i><b>1.3.3</b> 重要时间线</a></li>
+<li class="chapter" data-level="1.3.4" data-path="overview.html"><a href="overview.html#shud与pihm的区别"><i class="fa fa-check"></i><b>1.3.4</b> SHUD与PIHM的区别</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#shud模型的特点"><i class="fa fa-check"></i><b>1.4</b> SHUD模型的特点</a></li>
+<li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#参考文献"><i class="fa fa-check"></i><b>1.5</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="theory.html"><a href="theory.html"><i class="fa fa-check"></i><b>2</b> 理论与公式</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="theory.html"><a href="theory.html#流域水循环"><i class="fa fa-check"></i><b>2.1</b> 流域水循环</a></li>
+<li class="chapter" data-level="2.2" data-path="theory.html"><a href="theory.html#建模思路"><i class="fa fa-check"></i><b>2.2</b> 建模思路</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="theory.html"><a href="theory.html#水量平衡"><i class="fa fa-check"></i><b>2.2.1</b> 水量平衡</a></li>
+<li class="chapter" data-level="2.2.2" data-path="theory.html"><a href="theory.html#边界条件"><i class="fa fa-check"></i><b>2.2.2</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="theory.html"><a href="theory.html#气象驱动"><i class="fa fa-check"></i><b>2.3</b> 气象驱动</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="theory.html"><a href="theory.html#降雨"><i class="fa fa-check"></i><b>2.3.1</b> 降雨</a></li>
+<li class="chapter" data-level="2.3.2" data-path="theory.html"><a href="theory.html#蒸散发"><i class="fa fa-check"></i><b>2.3.2</b> 蒸散发</a></li>
+<li class="chapter" data-level="2.3.3" data-path="theory.html"><a href="theory.html#风廓线-wind-profile"><i class="fa fa-check"></i><b>2.3.3</b> 风廓线 (Wind profile)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="theory.html"><a href="theory.html#能量过程"><i class="fa fa-check"></i><b>2.4</b> 能量过程</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="theory.html"><a href="theory.html#辐射"><i class="fa fa-check"></i><b>2.4.1</b> 辐射</a></li>
+<li class="chapter" data-level="2.4.2" data-path="theory.html"><a href="theory.html#地表能量平衡"><i class="fa fa-check"></i><b>2.4.2</b> 地表能量平衡</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="theory.html"><a href="theory.html#模型结构及原理"><i class="fa fa-check"></i><b>2.5</b> 模型结构及原理</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="theory.html"><a href="theory.html#植被冠层截留"><i class="fa fa-check"></i><b>2.5.1</b> 植被冠层截留</a></li>
+<li class="chapter" data-level="2.5.2" data-path="theory.html"><a href="theory.html#蒸散发-1"><i class="fa fa-check"></i><b>2.5.2</b> 蒸散发</a></li>
+<li class="chapter" data-level="2.5.3" data-path="theory.html"><a href="theory.html#积雪"><i class="fa fa-check"></i><b>2.5.3</b> 积雪</a></li>
+<li class="chapter" data-level="2.5.4" data-path="theory.html"><a href="theory.html#地表水"><i class="fa fa-check"></i><b>2.5.4</b> 地表水</a></li>
+<li class="chapter" data-level="2.5.5" data-path="theory.html"><a href="theory.html#土壤水"><i class="fa fa-check"></i><b>2.5.5</b> 2.3.5 土壤水</a></li>
+<li class="chapter" data-level="2.5.6" data-path="theory.html"><a href="theory.html#地下水"><i class="fa fa-check"></i><b>2.5.6</b> 地下水</a></li>
+<li class="chapter" data-level="2.5.7" data-path="theory.html"><a href="theory.html#河道水"><i class="fa fa-check"></i><b>2.5.7</b> 河道水</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>3</b> SHUD模型软件与数据</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modeling.html"><a href="modeling.html#install"><i class="fa fa-check"></i><b>3.1</b> 安装 SHUD and rSHUD</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="modeling.html"><a href="modeling.html#sundialscvode"><i class="fa fa-check"></i><b>3.1.1</b> SUNDIALS/CVODE</a></li>
+<li class="chapter" data-level="3.1.2" data-path="modeling.html"><a href="modeling.html#编译shud"><i class="fa fa-check"></i><b>3.1.2</b> 编译SHUD</a></li>
+<li class="chapter" data-level="3.1.3" data-path="modeling.html"><a href="modeling.html#rshud"><i class="fa fa-check"></i><b>3.1.3</b> rSHUD</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modeling.html"><a href="modeling.html#inputfiles"><i class="fa fa-check"></i><b>3.2</b> 模型输入数据</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="modeling.html"><a href="modeling.html#原始数据"><i class="fa fa-check"></i><b>3.2.1</b> 原始数据</a></li>
+<li class="chapter" data-level="3.2.2" data-path="modeling.html"><a href="modeling.html#模型输入文件"><i class="fa fa-check"></i><b>3.2.2</b> 模型输入文件</a></li>
+<li class="chapter" data-level="3.2.3" data-path="modeling.html"><a href="modeling.html#空间数据"><i class="fa fa-check"></i><b>3.2.3</b> 空间数据</a></li>
+<li class="chapter" data-level="3.2.4" data-path="modeling.html"><a href="modeling.html#水力学参数"><i class="fa fa-check"></i><b>3.2.4</b> 水力学参数</a></li>
+<li class="chapter" data-level="3.2.5" data-path="modeling.html"><a href="modeling.html#模型配置文件"><i class="fa fa-check"></i><b>3.2.5</b> 模型配置文件</a></li>
+<li class="chapter" data-level="3.2.6" data-path="modeling.html"><a href="modeling.html#时间序列数据"><i class="fa fa-check"></i><b>3.2.6</b> 时间序列数据</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="modeling.html"><a href="modeling.html#outputfiles"><i class="fa fa-check"></i><b>3.3</b> 结果输出文件</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="modeling.html"><a href="modeling.html#文件名格式"><i class="fa fa-check"></i><b>3.3.1</b> 文件名格式</a></li>
+<li class="chapter" data-level="3.3.2" data-path="modeling.html"><a href="modeling.html#文本格式输出文件.csv"><i class="fa fa-check"></i><b>3.3.2</b> 文本格式输出文件（.csv）</a></li>
+<li class="chapter" data-level="3.3.3" data-path="modeling.html"><a href="modeling.html#二进制输出文件.dat"><i class="fa fa-check"></i><b>3.3.3</b> 二进制输出文件（.dat）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="autoshud.html"><a href="autoshud.html"><i class="fa fa-check"></i><b>4</b> 自动化建模</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="autoshud.html"><a href="autoshud.html#简介"><i class="fa fa-check"></i><b>4.1</b> 简介</a></li>
+<li class="chapter" data-level="4.2" data-path="autoshud.html"><a href="autoshud.html#建模思路-1"><i class="fa fa-check"></i><b>4.2</b> 建模思路</a></li>
+<li class="chapter" data-level="4.3" data-path="autoshud.html"><a href="autoshud.html#建模步骤"><i class="fa fa-check"></i><b>4.3</b> 建模步骤</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="autoshud.html"><a href="autoshud.html#建模参数"><i class="fa fa-check"></i><b>4.3.1</b> 建模参数</a></li>
+<li class="chapter" data-level="4.3.2" data-path="autoshud.html"><a href="autoshud.html#step1.-数据子集提取与数据规则化"><i class="fa fa-check"></i><b>4.3.2</b> Step1. 数据子集提取与数据规则化</a></li>
+<li class="chapter" data-level="4.3.3" data-path="autoshud.html"><a href="autoshud.html#step2.-水文参数和气象数据生成"><i class="fa fa-check"></i><b>4.3.3</b> Step2. 水文参数和气象数据生成</a></li>
+<li class="chapter" data-level="4.3.4" data-path="autoshud.html"><a href="autoshud.html#step3.-建模"><i class="fa fa-check"></i><b>4.3.4</b> Step3. 建模</a></li>
+<li class="chapter" data-level="4.3.5" data-path="autoshud.html"><a href="autoshud.html#step4.-模拟"><i class="fa fa-check"></i><b>4.3.5</b> Step4. 模拟</a></li>
+<li class="chapter" data-level="4.3.6" data-path="autoshud.html"><a href="autoshud.html#step5.-模拟结果后处理"><i class="fa fa-check"></i><b>4.3.6</b> Step5. 模拟结果后处理</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="autoshud.html"><a href="autoshud.html#可移植性"><i class="fa fa-check"></i><b>4.4</b> 可移植性</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="calibration.html"><a href="calibration.html"><i class="fa fa-check"></i><b>5</b> 模型校准</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="calibration.html"><a href="calibration.html#参数敏感性"><i class="fa fa-check"></i><b>5.1</b> 参数敏感性</a></li>
+<li class="chapter" data-level="5.2" data-path="calibration.html"><a href="calibration.html#手动模型校准"><i class="fa fa-check"></i><b>5.2</b> 手动模型校准</a></li>
+<li class="chapter" data-level="5.3" data-path="calibration.html"><a href="calibration.html#cma-es自动化模型校准"><i class="fa fa-check"></i><b>5.3</b> CMA-ES自动化模型校准</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="application.html"><a href="application.html#v形流域"><i class="fa fa-check"></i><b>6.1</b> V形流域</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="application.html"><a href="application.html#shen等2010-中的结果"><i class="fa fa-check"></i><b>6.1.1</b> Shen等(2010) 中的结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="application.html"><a href="application.html#vauclin水槽箱试验"><i class="fa fa-check"></i><b>6.2</b> Vauclin水槽箱试验</a></li>
+<li class="chapter" data-level="6.3" data-path="application.html"><a href="application.html#美国加州cache河流域"><i class="fa fa-check"></i><b>6.3</b> 美国加州Cache河流域</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="application.html"><a href="application.html#cache-creek-watershed"><i class="fa fa-check"></i><b>6.3.1</b> Cache Creek Watershed</a></li>
+<li class="chapter" data-level="6.3.2" data-path="application.html"><a href="application.html#shud-模拟和校准"><i class="fa fa-check"></i><b>6.3.2</b> SHUD 模拟和校准</a></li>
+<li class="chapter" data-level="6.3.3" data-path="application.html"><a href="application.html#结果"><i class="fa fa-check"></i><b>6.3.3</b> 结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="application.html"><a href="application.html#宁夏岩画村山洪"><i class="fa fa-check"></i><b>6.4</b> 宁夏岩画村山洪</a></li>
+<li class="chapter" data-level="6.5" data-path="application.html"><a href="application.html#休斯顿城市内涝"><i class="fa fa-check"></i><b>6.5</b> 休斯顿城市内涝</a></li>
+<li class="chapter" data-level="6.6" data-path="application.html"><a href="application.html#南苏丹尼罗河上游"><i class="fa fa-check"></i><b>6.6</b> 南苏丹尼罗河上游</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sourcecode.html"><a href="sourcecode.html"><i class="fa fa-check"></i><b>7</b> 源码和程序设计</a></li>
+<li class="chapter" data-level="8" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>8</b> 常见问题</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="faq.html"><a href="faq.html#模型理论"><i class="fa fa-check"></i><b>8.1</b> 模型理论</a></li>
+<li class="chapter" data-level="8.2" data-path="faq.html"><a href="faq.html#模型安装编译"><i class="fa fa-check"></i><b>8.2</b> 模型安装/编译</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="faq.html"><a href="faq.html#linuxmac-os"><i class="fa fa-check"></i><b>8.2.1</b> Linux/Mac OS</a></li>
+<li class="chapter" data-level="8.2.2" data-path="faq.html"><a href="faq.html#windows"><i class="fa fa-check"></i><b>8.2.2</b> Windows</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="faq.html"><a href="faq.html#rshud-1"><i class="fa fa-check"></i><b>8.3</b> rSHUD</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="faq.html"><a href="faq.html#rshud安装"><i class="fa fa-check"></i><b>8.3.1</b> rSHUD安装</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="faq.html"><a href="faq.html#数据"><i class="fa fa-check"></i><b>8.4</b> 数据</a></li>
+<li class="chapter" data-level="8.5" data-path="faq.html"><a href="faq.html#结果分析"><i class="fa fa-check"></i><b>8.5</b> 结果分析</a></li>
+<li class="chapter" data-level="8.6" data-path="faq.html"><a href="faq.html#模型校准"><i class="fa fa-check"></i><b>8.6</b> 模型校准</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="faq.html"><a href="faq.html#手动校准"><i class="fa fa-check"></i><b>8.6.1</b> 手动校准</a></li>
+<li class="chapter" data-level="8.6.2" data-path="faq.html"><a href="faq.html#自动化校准"><i class="fa fa-check"></i><b>8.6.2</b> 自动化校准</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="faq.html"><a href="faq.html#可视化"><i class="fa fa-check"></i><b>8.7</b> 可视化</a></li>
+<li class="chapter" data-level="8.8" data-path="faq.html"><a href="faq.html#全球水文数据云"><i class="fa fa-check"></i><b>8.8</b> 全球水文数据云</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SHUD水文模型 (ver 2.0)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="autoshud" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 自动化建模<a href="autoshud.html#autoshud" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="简介" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 简介<a href="autoshud.html#简介" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>autoshud是一个用于快速、可重现和自动部署水文模型的工具，它可以帮助用户从全球数据源截取必要的数据，如高程、土壤、土地利用等，并将其通过空间 计算和分析，制作为SHUD模型运行所需的输入文件；并完成模型模拟，并进行初步数据分析的一系列工具的集合。
+autoshud可以利用开放的数据库和空间数据自身特征，自动构建和运行适合不同流域和目标的水文模型，从而提高水文模拟的效率和可重现性。
+AutoSHUD工具的价值不仅在提升SHUD模型模拟的效率和灵活性，同时也开创了水文模型自动化、标准化建模的基本范式。</p>
+<p>简单来说，autoshud是一个可以自动构建和运行SHUD水文模型的软件。</p>
+<p>范式一词指的是科学家在进行科学研究时所持有的世界观和方法论，是一种科学思维和实践的模式。 《科学革命的结构》的作者托马斯·库恩(Thomas Kuhn)认为，范式是一种公认的模型或模式，它为某种科学研究传统提供了范例。这些范例包括定律、理论、应用和仪器设备等。库恩认为，范式反映了科学家集团对本体论、认识论和方法论的基本承诺，是他们共同接受的一组假说、理论、准则和方法的总和，也是他们心理上形成的共同信念。</p>
+<p>在水文学或水文模型领域，我们想探索以下几个基本问题：</p>
+<ul>
+<li>真正影响水文过程的地面要素是什么？地形、地貌、河网拓扑关系、土壤质地、地质背景、土地利用、水利工程？</li>
+<li>哪些数据或变量能反映这些地面要素？数据如何标准化或规则化？</li>
+<li>不同水文模型有哪些相同、相似或可移植的过程和方法？</li>
+<li>水文模型的部署、模拟和结果分析是否具有可重复性？即在相同参数条件下，不同建模者能否得到一致的结果？</li>
+<li>数据处理、建模和结果分析过程如何减少建模者自身的认知和经验的影响，使之更客观？</li>
+</ul>
+</div>
+<div id="建模思路-1" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 建模思路<a href="autoshud.html#建模思路-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>AutoSHUD是一自动化SHUD模型部署为案例，探索高效、可重复水文模型部署的基本范式。
+<img src="Fig/autoshud/autoshud_workflow.png" alt="AutoSHUD基本流程图" />
+上图是AutoSHUD研究所总结的水文建模基本步骤，包括：数据获取、数据前处理、建模、模拟和结果分析。这五个步骤适用于不同的水文模型，但各个模型对这些步骤的要求不同。例如，新安江模型、HBV和FLEX等简单模型，对前三个步骤的需求较低；而基于物理过程的分布式水文模型，特别是数值方法水文模型，对所有步骤都有很高的要求，并且难以让初学者快速掌握。</p>
+<p>快速、可重复的水文建模流程中分为5个步骤，但需要注意的是这5个步骤与AutoSHUD程序中的5个步骤并不完全一致。 本研究中水文建模范式第一步是定义和获取关键地理数据，这一步在AutoSHUD的程序中不存在——因为数据已获取并存储于指定位置，是AutuSHUD程序运行的必要条件。因此在AutoSHUD的代码中，Step1和Step2实际上都是数据前处理过程，并不包含数据获取。换句话说，AutoSHUD的代码实际上是从上图第二步开始的。</p>
+</div>
+<div id="建模步骤" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 建模步骤<a href="autoshud.html#建模步骤" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="建模参数" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> 建模参数<a href="autoshud.html#建模参数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>所有建模参数保存在一个ASCII 文本文件中，其中不仅包含了各种时空数据的保存路径，也包括了建模者的建模要求——或称为建模参数。</p>
+<p>建模参数文件是一个<span class="math inline">\(N \times 2\)</span>的表格。<span class="math inline">\(N\)</span>为参数数量。某些参数为可缺省参数(表格中加入*变量)。</p>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="41%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">变量名</th>
+<th align="center">取值类型</th>
+<th align="center">说明</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">prjname</td>
+<td align="center">Text</td>
+<td align="center">项目名称</td>
+<td align="center">jh</td>
+</tr>
+<tr class="even">
+<td align="center">startyear</td>
+<td align="center">Text</td>
+<td align="center">模拟开始年份</td>
+<td align="center">1986</td>
+</tr>
+<tr class="odd">
+<td align="center">endyear</td>
+<td align="center">Number</td>
+<td align="center">模拟结束年份</td>
+<td align="center">2000</td>
+</tr>
+<tr class="even">
+<td align="center">dir.out</td>
+<td align="center">Number</td>
+<td align="center">工作路径</td>
+<td align="center">~/RunJH</td>
+</tr>
+<tr class="odd">
+<td align="center">dout.forc</td>
+<td align="center">Text</td>
+<td align="center">气象驱动数据输出路径</td>
+<td align="center">~/forcing_jh</td>
+</tr>
+<tr class="even">
+<td align="center">fsp.crs*</td>
+<td align="center">Shapfile</td>
+<td align="center">投影参数文件，须PCS。</td>
+<td align="center">~/rawData/wbd_pcs.shp</td>
+</tr>
+<tr class="odd">
+<td align="center">fsp.wbd</td>
+<td align="center">Shapfile</td>
+<td align="center">模拟的流域边界</td>
+<td align="center">~/rawData/wbd.shp</td>
+</tr>
+<tr class="even">
+<td align="center">fsp.stm</td>
+<td align="center">Shapfile</td>
+<td align="center">河流文件</td>
+<td align="center">~/rawData/river.shp</td>
+</tr>
+<tr class="odd">
+<td align="center">fr.dem</td>
+<td align="center">GeoTiff</td>
+<td align="center">DEM文件</td>
+<td align="center">~/rawData/dem.tif</td>
+</tr>
+<tr class="even">
+<td align="center">fsp.lake*</td>
+<td align="center">Shapfile</td>
+<td align="center">湖泊文件</td>
+<td align="center">~/rawData/Lake.shp</td>
+</tr>
+<tr class="odd">
+<td align="center">Forcing</td>
+<td align="center">Number</td>
+<td align="center">驱动数据类别</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="even">
+<td align="center">fsp.forc</td>
+<td align="center">Shapfile</td>
+<td align="center">气象站点覆盖数据</td>
+<td align="center">~/rawData/metero.shp</td>
+</tr>
+<tr class="odd">
+<td align="center">dir.ldas</td>
+<td align="center">Text</td>
+<td align="center">气象再分析数据存储路径</td>
+<td align="center">~/CMFD/Data_03hr_010deg</td>
+</tr>
+<tr class="even">
+<td align="center">Soil</td>
+<td align="center">Number</td>
+<td align="center">土壤数据类别</td>
+<td align="center">0.1</td>
+</tr>
+<tr class="odd">
+<td align="center">dir.soil</td>
+<td align="center">Text</td>
+<td align="center">土壤数据存储路径</td>
+<td align="center">/repo/Soil/HWSD_RASTER</td>
+</tr>
+<tr class="even">
+<td align="center">fa.soil</td>
+<td align="center">Text</td>
+<td align="center">土壤属性数据路径</td>
+<td align="center">/repo/Soil/HWSD/hwsd.csv</td>
+</tr>
+<tr class="odd">
+<td align="center">fa.geol</td>
+<td align="center">Text</td>
+<td align="center">地质属性数据路径</td>
+<td align="center">/repo/Soil/HWSD/hwsd.csv</td>
+</tr>
+<tr class="even">
+<td align="center">fn.soil</td>
+<td align="center">GeoTiff</td>
+<td align="center">土壤分类数据路径</td>
+<td align="center">~/RunJH/GISdatahwsd.tif</td>
+</tr>
+<tr class="odd">
+<td align="center">fn.geol</td>
+<td align="center">GeoTiff</td>
+<td align="center">地质分类数据路径</td>
+<td align="center">~/RunJH/GISdatahwsd.tif</td>
+</tr>
+<tr class="even">
+<td align="center">Landuse</td>
+<td align="center">Number</td>
+<td align="center">土地利用数据类别</td>
+<td align="center">0.1</td>
+</tr>
+<tr class="odd">
+<td align="center">fn.landuse</td>
+<td align="center">GeoTiff</td>
+<td align="center">土地利用数据路径</td>
+<td align="center">/repo/USGS_LCI/LCType.tif</td>
+</tr>
+<tr class="even">
+<td align="center">tab.landuse</td>
+<td align="center">Text</td>
+<td align="center">土地利用属性表路径</td>
+<td align="center">/repo/USGS_LCI/LCType.tif</td>
+</tr>
+<tr class="odd">
+<td align="center">NumCells</td>
+<td align="center">Number</td>
+<td align="center">最小建模单元数</td>
+<td align="center">1000</td>
+</tr>
+<tr class="even">
+<td align="center">MaxArea</td>
+<td align="center">Number</td>
+<td align="center">最大建模单元面积 (km2)</td>
+<td align="center">5</td>
+</tr>
+<tr class="odd">
+<td align="center">AqDepth</td>
+<td align="center">Number</td>
+<td align="center">默认含水层厚度(m)</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="center">MinAngle*</td>
+<td align="center">Number</td>
+<td align="center">最小三角形夹角(degree)</td>
+<td align="center">30</td>
+</tr>
+<tr class="odd">
+<td align="center">tol.wb</td>
+<td align="center">Number</td>
+<td align="center">流域边界简化阈值(m)</td>
+<td align="center">500</td>
+</tr>
+<tr class="even">
+<td align="center">tol.rivlen</td>
+<td align="center">Number</td>
+<td align="center">河流最长分段阈值(m)</td>
+<td align="center">500</td>
+</tr>
+<tr class="odd">
+<td align="center">RivWidth</td>
+<td align="center">Number</td>
+<td align="center">一阶河流的截面底部宽度(m)</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">RivDepth</td>
+<td align="center">Number</td>
+<td align="center">一阶河流的截面深度(m)</td>
+<td align="center">3</td>
+</tr>
+<tr class="odd">
+<td align="center">DistBuffer</td>
+<td align="center">Number</td>
+<td align="center">数据处理缓冲区(m)</td>
+<td align="center">2000</td>
+</tr>
+<tr class="even">
+<td align="center">flowpath</td>
+<td align="center">Number</td>
+<td align="center">是否重新计算河流流向关系（速度较慢）</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">QuickMode*</td>
+<td align="center">Number</td>
+<td align="center">是否快速模型，快速模型会跳过若干步骤，建立最简单模型</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">MAX_SOLVER_STEP*</td>
+<td align="center">Number</td>
+<td align="center">SHUD模型迭代求解的最大时间不长</td>
+<td align="center">6</td>
+</tr>
+<tr class="odd">
+<td align="center">CRYOSPHERE*</td>
+<td align="center">Number</td>
+<td align="center">是否开启冰冻圈模块</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">STARTDAY*</td>
+<td align="center">Number</td>
+<td align="center">开始日(天)</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">ENDDAY*</td>
+<td align="center">Number</td>
+<td align="center">结束日(天)</td>
+<td align="center">365</td>
+</tr>
+</tbody>
+</table>
+<p><strong>详细取值说明</strong></p>
+<ul>
+<li>Forcing取值：
+<ul>
+<li>-1 Dummy. No data provided.</li>
+<li>0 LDAS mode: 0.1 CLDAS, 0.2 FLDAS, 0.3 GLDAS 0.4 NLDAS 0.5 CMFD 0.6 CMIP6</li>
+<li>1 Local data: 1.1 Points of metereo-station 1.2 Polygon of coverage</li>
+</ul></li>
+<li>Soil/Geol取值:
+<ul>
+<li>0-glocal soil data. 0.1 HWSD, 0.2 ISRIC</li>
+<li>1-local map + soil texture table. 1.1 Raster, 1.2 Spatial polygon.</li>
+</ul></li>
+<li>Landuse取值
+<ul>
+<li>0-global 0.1 USGS LCI</li>
+<li>1-local data with attribute table. 1.1 Raster, 1.2 Spatial Polygon</li>
+</ul></li>
+</ul>
+<p>AutoSHUD中<code>GetReady.R</code>脚本负责读取建模参数文件，并且加载其中文件和变量值。</p>
+</div>
+<div id="step1.-数据子集提取与数据规则化" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Step1. 数据子集提取与数据规则化<a href="autoshud.html#step1.-数据子集提取与数据规则化" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>这一步的目的是从指定的文件中，以指定的研究区(<code>fsp.wbd</code>)为边界的数据自己，并对基础的空间数据将进行重投影和规则化。</p>
+<p>步骤：</p>
+<ol style="list-style-type: decimal">
+<li>读取建模参数加载必要工具库。</li>
+<li>处理建模边界，包括：去孔洞、投影、生成缓冲区等。</li>
+<li>处理DEM数据，包括：剪切(从原始数据中提取研究区范围内数据)，栅格数据重投影为PCS。</li>
+<li>河网数据处理，包括：数据重投影、河道线段简化、去除重复点、去除重复线段、河流流向一致性检查/修复等。</li>
+<li>湖泊数据处理，包括：数据重投影、去除孔洞、边界简化等</li>
+<li>绘图，对以上数据处理过程中的原始空间数据和结果数据进行绘图，方便用户检查和确认数据对象和处理结果。</li>
+</ol>
+</div>
+<div id="step2.-水文参数和气象数据生成" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Step2. 水文参数和气象数据生成<a href="autoshud.html#step2.-水文参数和气象数据生成" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>这一步的主要任务处理包含有水文物理参数的原始数据和气象数据进行处理，包括土壤、地质、土地利用和气象时间序列数据。</p>
+<p>步骤：</p>
+<ol style="list-style-type: decimal">
+<li>土壤/地质数据，包括：土壤/地质分类数据子集提取、重投影、分类数据属性表提取、根据土壤/地质的属性利用Pedo-Transfer Function计算水力学参数(水平/垂直水力传导度、饱和含水量等)等。</li>
+<li>土地利用数据处理，包括：土地利用分类数据的子集提取、重投影、建立土地利用属性的水力学参数表（粗糙度、植被根系深度、土壤劣化系数、不透水面比例等）。</li>
+<li>气象驱动数据处理，包括气象站点（或再分析数据格点）覆盖范围计算、从NetCDF数据中提取研究区数据并保存RDS二进制格式、数据单位转换、保存气象时间序列数据。</li>
+</ol>
+</div>
+<div id="step3.-建模" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Step3. 建模<a href="autoshud.html#step3.-建模" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>基于已经进行过预处理的时空数据，构建SHUD水文模型。尽管当前AutoSHUD程序的Step3仅服务于SHUUD模型，但作为一种水文建模的范式，这一步的数据处理过程可根据模型不同而做适应性修改，以适应其他物理性分布式水文模型。</p>
+<p>步骤：</p>
+<ol style="list-style-type: decimal">
+<li>读取建模参数，生成可用的建模参数，包括最大计算单元面积、流域边界简化阈值、河流简化阈值、模拟天数、计算单元数量等。</li>
+<li>缓冲区制备。</li>
+<li>湖泊文件处理。</li>
+<li>流域单元划分，即由流域边界、湖泊边界、加密区域等空间数据，生成不规则三角网。 并计算单元个体的面积、单元数量等。</li>
+<li>河网数据处理，包括河流分级、流向验证等。</li>
+<li>生成泰森多边形的气象站点覆盖矢量数据。</li>
+<li>空间数据匹配，将土壤分类、地质分类、土地利用分类、气象站点代号等与三角形单元做空间匹配，生成空间属性.att文件(.sp.att)。</li>
+<li>从DEM等提取河道信息，包括坡度，起始点等；设置河道截面积信息(.sp.riv)。</li>
+<li>将三角形单元与河流段进行切割，生成河流与三角形交互的河流片段(.sp.rivseg)。</li>
+<li>生成三角形网、河流段、河流片段的shapefile文件。</li>
+<li>生成模型初始条件(.cfg.ic)。</li>
+<li>生成模型运行参数文件(.cfg.para)。</li>
+<li>利用Pendo-Transfer Function计算水利参数，生成土壤和地质层的水力学参数(.para.soil, .para.geol)。</li>
+<li>生成土地利用参数表(.para.lc)</li>
+<li>将模型输入的数据及参数写入指定文件。</li>
+<li>自动绘制建模过程中的图件。</li>
+</ol>
+</div>
+<div id="step4.-模拟" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Step4. 模拟<a href="autoshud.html#step4.-模拟" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>这一步获取模型最新源代码，对源码进行编译，然后后运行模型。</p>
+<p>步骤：</p>
+<ol style="list-style-type: decimal">
+<li>读取建模参数</li>
+<li>从github获取最新模型源代码。</li>
+<li>编译模型。</li>
+<li>运行模型，开展研究区水文模拟。</li>
+<li>写出模型运行的日志文件。</li>
+</ol>
+</div>
+<div id="step5.-模拟结果后处理" class="section level3 hasAnchor" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Step5. 模拟结果后处理<a href="autoshud.html#step5.-模拟结果后处理" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>模型结果后处理主要的任务是读取模型输入和输出文件，针对特定问题进行的水文分析和可视化。</p>
+<p>步骤：</p>
+<ol style="list-style-type: decimal">
+<li>读取建模参数和模型输入/输出路径。</li>
+<li>配置模型分析环境，关键变量是项目名称、输入数据路径和输出数据路径。</li>
+<li>由输入数据计算模型和研究区的基础特征数据，包括计算单元面积、总面积、等效分辨率、流域出口的河流代号。</li>
+<li>读取输出结果数据。</li>
+<li>计算流域逐月/逐年的水量平衡关系，绘制水量平衡时间序列图。</li>
+<li>计算地下水多年平均值，绘制地下水埋藏深度的空间分布图。</li>
+<li>读取出口径流数据，绘制径流时线图。</li>
+<li>根据空间数据（地下水、土壤水、蒸发等）生成批量空间地图，制作变量随时间变化的动画。</li>
+</ol>
+</div>
+</div>
+<div id="可移植性" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 可移植性<a href="autoshud.html#可移植性" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="calibration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

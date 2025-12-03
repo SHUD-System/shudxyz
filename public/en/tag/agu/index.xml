@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AGU | SHUD Group</title><link>http://localhost:1313/en/tag/agu/</link><atom:link href="http://localhost:1313/en/tag/agu/index.xml" rel="self" type="application/rss+xml"/><description>AGU</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 12 Mar 2020 00:15:00 -1600</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>AGU</title><link>http://localhost:1313/en/tag/agu/</link></image><item><title>Fully coupled hydrological modeling with SHUD @HSGG</title><link>http://localhost:1313/en/talk/2020ucd_hsgg/</link><pubDate>Thu, 12 Mar 2020 00:15:00 -1600</pubDate><guid>http://localhost:1313/en/talk/2020ucd_hsgg/</guid><description>&lt;h3 id="abstract">Abstract:&lt;/h3>
+&lt;p>Hydrological modeling is an essential strategy for understanding natural flows, particularly where observations are lacking in either space or time, or where topographic roughness leads to a disconnect in the characteristic timescales of overland and groundwater flow. Simulator for Hydrologic Unstructured Domains (SHUD) is an integrated multi-process, multi-scale, multi-timestep hydrological model, in which hydrological processes are fully coupled using the semi-discrete Finite Volume Method. The SHUD integrates overland flow, snow accumulation/melting, evapotranspiration, subsurface and groundwater flow, and river routing, while realistically capturing the physical processes in a watershed.
+This seminar introduces the design of SHUD, the conceptual and mathematical description of hydrological processes in a watershed. Two SHUD modeling applications demonstrate the modeling of water storage in Central Valley of California and inundation area under Harvey Hurricane.
+The possible applications of then SHUD model include hydrological studies from the hillslope to regional scale, stormwater management, and water-driven coupling researches. In general, SHUD is a valuable scientific tool for any modeling task involving simulating and understanding the hydrological response.&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="WB3D" srcset="
+/en/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_491829becdc03f322e80b246673b60e9.webp 400w,
+/en/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_3b61791638230b91f45a73ad5b22df2e.webp 760w,
+/en/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/talk/2020ucd_hsgg/WB3D_hu35a1e9637d5ea66c6995b44c68e5ce85_35080_491829becdc03f322e80b246673b60e9.webp"
+width="760"
+height="271"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;h3 id="speaker-bio">Speaker Bio:&lt;/h3>
+&lt;p>Lele Shu is a postdoctoral researcher in the Department of Land, Air and Water Resources, UC Davis. He obtained a Ph.D. degree in Water Resource Engineering and a minor degree of Computational Science from Pennsylvania State University in 2017. He developed the Simulator for Hydrologic Unstructured Domains (SHUD) model. His research interest includes the computational distributed hydrological model, integrated Coupled Nature-Human System modeling, the impact of landuse and climate change, and hydrology-remote-sensing data mining.&lt;/p>
+&lt;p>&lt;strong>Address:&lt;/strong> PES 3001, UC Davis&lt;/p>
+&lt;p>&lt;strong>Time:&lt;/strong> 3:00 - 4:00 PM, Mar 12, 2020.&lt;/p></description></item><item><title>Poster about quick model deployment in AGU 2019</title><link>http://localhost:1313/en/talk/2019_11_01_commingagu/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/en/talk/2019_11_01_commingagu/</guid><description>&lt;p>In coming AGU fall meeting in San Francisco, Dr. Shu will present the &amp;ldquo;Quick and reproducible automated watershed modeling with the SHUD: Essential data, simulation, applications and visualization&amp;rdquo; on Friday, Dec 13, 2019. Poster ID is &lt;strong>H53K-1918&lt;/strong>. Please come and have a chat.&lt;/p></description></item></channel></rss>

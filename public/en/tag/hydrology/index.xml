@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hydrology | SHUD Group</title><link>http://localhost:1313/en/tag/hydrology/</link><atom:link href="http://localhost:1313/en/tag/hydrology/index.xml" rel="self" type="application/rss+xml"/><description>Hydrology</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sun, 12 Sep 2021 00:00:00 +0000</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Hydrology</title><link>http://localhost:1313/en/tag/hydrology/</link></image><item><title>Artificial Intelligence for Modeling Complex Systems: Taming the Complexity of Expert Models to Improve Decision Making</title><link>http://localhost:1313/en/publication/2021gil_acm/</link><pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate><guid>http://localhost:1313/en/publication/2021gil_acm/</guid><description>&lt;p>&lt;strong>How to cite.&lt;/strong> Y. Gil &lt;em>et al.&lt;/em>, Artificial Intelligence for Modeling Complex Systems: Taming the Complexity of Expert Models to Improve Decision Making. &lt;em>ACM Trans. Interact. Intell. Syst.&lt;/em> &lt;strong>11&lt;/strong>, 1–49 (2021).&lt;/p></description></item><item><title>Simulator for Hydrologic Unstructured Domains (SHUD v1.0): Numerical modeling of watershed hydrology with the finite volume method</title><link>http://localhost:1313/en/publication/2020shu_shud/</link><pubDate>Sun, 12 Jan 2020 00:00:00 +0000</pubDate><guid>http://localhost:1313/en/publication/2020shu_shud/</guid><description>&lt;p>Hydrologic modeling is an essential strategy for understanding and predicting natural flows, particularly where observations are lacking in either space or time or where complex terrain leads to a disconnect in the characteristic time and space scales of overland and groundwater flow. However, significant difficulties remain for the development of efficient and extensible modeling systems that operate robustly across complex regions. This paper introduces the Simulator for Hydrologic Unstructured Domains (SHUD), an integrated, multiprocess, multiscale, flexible-time-step model, in which hydrologic processes are fully coupled using the finite volume method. SHUD integrates overland flow, snow accumulation/melt, evapotranspiration, subsurface flow, groundwater flow, and river routing, thus allowing physical processes in general watersheds to be realistically captured. SHUD incorporates one-dimensional unsaturated flow, two-dimensional groundwater flow, and a fully connected river channel network with hillslopes supporting overland flow and baseflow.&lt;/p>
+&lt;p>The paper introduces the design of SHUD, from the conceptual and mathematical description of hydrologic processes in a watershed to the model&amp;rsquo;s computational structures. To demonstrate and validate the model performance, we employ three hydrologic experiments: the V-catchment experiment, Vauclin&amp;rsquo;s experiment, and a model study of the Cache Creek Watershed in northern California. Ongoing applications of the SHUD model include hydrologic analyses of hillslope to regional scales (1 m2 to 106 km2), water resource and stormwater management, and interdisciplinary research for questions in limnology, agriculture, geochemistry, geomorphology, water quality, ecology, climate and land-use change. The strength of SHUD is its flexibility as a scientific and resource evaluation tool where modeling and simulation are required.&lt;/p>
+&lt;p>&lt;strong>How to cite.&lt;/strong> Shu, L., Ullrich, P. A., and Duffy, C. J.: Simulator for Hydrologic Unstructured Domains (SHUD v1.0): numerical modeling of watershed hydrology with the finite volume method, Geosci. Model Dev., 13, 2743–2762, &lt;a href="https://doi.org/10.5194/gmd-13-2743-2020" target="_blank" rel="noopener">https://doi.org/10.5194/gmd-13-2743-2020&lt;/a>, 2020.&lt;/p></description></item><item><title>Automatic hydrologic deployment and modeling</title><link>http://localhost:1313/en/project0/2019mint/</link><pubDate>Tue, 05 Nov 2019 00:00:00 +0000</pubDate><guid>http://localhost:1313/en/project0/2019mint/</guid><description>&lt;p>This project is the hydrologic modeling part of the project &lt;em>Model Integration through Knowledge-Rich Data and Process Composition&lt;/em>.&lt;/p>
+&lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
+&lt;p>&lt;a href="http://mint-project.info" target="_blank" rel="noopener">&lt;i class="fas fa-external-link-alt">&lt;/i>&lt;/a>&lt;/p>
+&lt;figure id="figure-overview-of-the-use-of-artificial-intelligence-techniques-to-support-model-integration">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Overview of the use of artificial intelligence techniques to support model integration" srcset="
+/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp 400w,
+/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_79760674aa61c0cfad96ecbbd97741b8.webp 760w,
+/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp"
+width="760"
+height="599"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Overview of the use of artificial intelligence techniques to support model integration
+&lt;/figcaption>&lt;/figure>
+&lt;h2 id="tasks-in-hydrologic-modeling">Tasks in hydrologic modeling&lt;/h2>
+&lt;figure id="figure-the-completed-workflow-of-hydrologic-modeling-with-pihm-model-and-nationalglobal-data-services">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="The completed workflow of hydrologic modeling with PIHM model and national/global data services." srcset="
+/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp 400w,
+/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_79760674aa61c0cfad96ecbbd97741b8.webp 760w,
+/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019mint/featured_hu401a2471b1f40084f3a1ed8c4f2c36d8_779139_d333a2f44eff6206f98466597bf23a70.webp"
+width="760"
+height="599"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+The completed workflow of hydrologic modeling with PIHM model and national/global data services.
+&lt;/figcaption>&lt;/figure>
+&lt;figure id="figure-animation-of-flood-plant-in-south-sudan-from-2001-to-2017-based-on-fldas-data">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Animation of flood plant in South Sudan from 2001 to 2017 based on FLDAS data. "
+src="http://localhost:1313/en/project0/2019mint/fig/Animation.gif"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Animation of flood plant in South Sudan from 2001 to 2017 based on FLDAS data.
+&lt;/figcaption>&lt;/figure>
+&lt;figure id="figure-elevation-and-pihm-mesh-of-the-pongo-watershed-in-south-sudan">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Elevation and PIHM mesh of the Pongo watershed in South Sudan" srcset="
+/en/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_c9737d0c743404b795c11eb2e28c772d.webp 400w,
+/en/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_945884462da9ae351b25b97ec49624c3.webp 760w,
+/en/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019mint/fig/pongo_dem_huf81a107d48fcbd4605c91ce6f9a55f2c_860743_c9737d0c743404b795c11eb2e28c772d.webp"
+width="760"
+height="664"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Elevation and PIHM mesh of the Pongo watershed in South Sudan
+&lt;/figcaption>&lt;/figure>
+&lt;h2 id="accomplishment-of-the-project">Accomplishment of the project&lt;/h2>
+&lt;p>&lt;strong>keep updating&lt;/strong>&lt;/p></description></item><item><title>Hydrologic modeling in project HYPERION</title><link>http://localhost:1313/en/project0/2019hyperion/</link><pubDate>Sat, 23 Feb 2019 21:13:14 +0000</pubDate><guid>http://localhost:1313/en/project0/2019hyperion/</guid><description>&lt;h2 id="introduction-of-hyperion-i-classfas-fa-external-link-altihttpsclimateucdaviseduhyperion">Introduction of HYPERION &lt;a href="https://climate.ucdavis.edu/hyperion/" target="_blank" rel="noopener">&lt;i class="fas fa-external-link-alt">&lt;/i>&lt;/a>&lt;/h2>
+&lt;p>The objective of HYPERION is the development of a comprehensive regional hydroclimate data assessment capability focused on feature-specific metrics and stakeholder-relevant outcomes. The secondary objective of this proposal is to leverage this assessment capability to improve our ability to predict these outcomes, by identifying the process-level drivers of outcome biases and evaluating the most appropriate and efficient ways to couple climate models, hydrologic models, and models of human impacts.&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="HYPERION logo" srcset="
+/en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_f063dbd1d1a03204eb690448161dddd1.webp 400w,
+/en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_92e7ebc8da539c59d1d37dec266da8ae.webp 760w,
+/en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019hyperion/fig/hyperion_hubf40e31639857d4fcd59ada11783ab45_8746_f063dbd1d1a03204eb690448161dddd1.webp"
+width="750"
+height="234"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;h2 id="tasks-in-hydrologic-modeling">Tasks in hydrologic modeling&lt;/h2>
+&lt;ul>
+&lt;li>Develop a hydrologic modeling system for both the Sacramento watershed and several subcatchments. Calculate key hydrological metrics, including stream flow, groundwater table, soil moisture, and snow pack.&lt;/li>
+&lt;li>Evaluate the quality of the hydrologic model and identify potential issues related to its performance.&lt;/li>
+&lt;li>Develop a statistical downscaling technique using both traditional statistical and machine learning methods that digests input to the hydrologic model and mimics the output of the model.&lt;/li>
+&lt;li>Determine which input variables are most relevant for producing an accurate statistical model.&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Spatial Data&lt;/th>
+&lt;th style="text-align:center">Annual Precipitation&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Data" srcset="
+/en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_24d1440e7df53e19111f0e69bbb60a1e.webp 400w,
+/en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_86bcf03c6884068bfd7169a55ab6dada.webp 760w,
+/en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019hyperion/fig/pihmdata_hu44fe08fd0cb1a0625319733d959bb227_620958_24d1440e7df53e19111f0e69bbb60a1e.webp"
+width="760"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/td>
+&lt;td style="text-align:center">
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Precipitation" srcset="
+/en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_593124efb77efd891b23e131983fbe59.webp 400w,
+/en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_f00f550dbeac3096435a4177e61fd732.webp 760w,
+/en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019hyperion/fig/AnnualPRCP_hu328f67e87fa137b444df20634443eac9_342501_593124efb77efd891b23e131983fbe59.webp"
+width="507"
+height="760"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="sacramento-watershed">Sacramento Watershed&lt;/h2>
+&lt;p>The Sacramento River flows from Southern Oregon and to San Francisco Bay. Total drainage area is ~72000 km2. Elevation ranges from 0 to 4200m. The climate in SW is semi-arid hot Mediterranean. The spatial climatic characteristics are not only affected by latitude, terrain and snow coverage, but also by wind and ocean currents. Dramatic seasonal and annual climatic variations exist as well as large spatial heterogeneity. The mountains on the eastern and northern edges of the domain accumulate rain and snow which funnels into the groundwater of the whole watershed. Annual precipitation ranges from 400 mm/year to 1500 mm/year, however extreme annual precipitation was more than 4000 mm/year in Northern mountainous area in 1983, and mean precipitation was only 270 mm/year from the 2013 extreme drought year.&lt;/p>
+&lt;figure class="image">
+&lt;img src="fig/Animation.gif", width=400px>
+&lt;figcaption>Animation of spatial annual precipitation in Sacramento Watershed&lt;/figcaption>
+&lt;/figure>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Monthly variation of precipitation in Sacramento Watershed&lt;/th>
+&lt;th style="text-align:center">Annual precipitation variation from 1979 to 2017 based on NLDAS data&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Data" srcset="
+/en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_62e85fb0a8cd5e14f6f4c796d2753721.webp 400w,
+/en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_3ad18a5f671ae99ab772d0ff46063302.webp 760w,
+/en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019hyperion/fig/prcp_boxMonth_hu691602faf487871572568a668f41152b_64773_62e85fb0a8cd5e14f6f4c796d2753721.webp"
+width="600"
+height="382"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/td>
+&lt;td style="text-align:center">
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Precipitation" srcset="
+/en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_9d8427faae3fc089691cbf88182b46dc.webp 400w,
+/en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_8298e7e7dd87ecc0c0cb9f090e63b547.webp 760w,
+/en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019hyperion/fig/prcp_boxyr_hua874b672de5cc5a3abb8de28a37aadf9_111661_9d8427faae3fc089691cbf88182b46dc.webp"
+width="600"
+height="436"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="simulation-and-results">Simulation and Results&lt;/h2>
+&lt;p>The calibration of the PIHM model used the Covariance Matrix Adaptation Evolution Strategy (CMA-ES) (Hansen 2006,Auger 2005). The automatic CMA-ES calibration is robust and able to converge to global optimization with low computing cost.&lt;/p>
+&lt;h3 id="river-discharge">River discharge&lt;/h3>
+&lt;p>The stream flow in the watershed follows the seasonal variation of precipitation. During drought years, the base flow from groundwater depletion contributes to the streamflow, and the excess infiltration replenishes ground water in wet seasons. For small watersheds in the Central Valley, such as catchment #9 where precipitation is less and the aquifer is thicker, the contribution from groundwater is small.&lt;/p>
+&lt;figure class="image">
+&lt;img src="fig/calib.png">
+&lt;figcaption>Calibration based on discharge of four subcatchments&lt;/figcaption>
+&lt;/figure>
+&lt;h3 id="ground-water-variation">Ground water variation&lt;/h3>
+&lt;p>The ground water near the river channel is shallower than the hill-slope. The spatial distribution pattern of ground water is controlled by topography, soil/geology characteristics and shape of the watershed. Steep slopes store less ground water than moderate slopes, because a steep hydraulic gradient on steep slopes drive the lateral groundwater flow.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_e1c3c50769e9fccfc0367e187300b09b.webp 400w,
+/en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_d778e4311bdfb55f2a561fe9bcd2697a.webp 760w,
+/en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019hyperion/fig/GWmap_hu0278030a2501fe44e7b87dd0b4c1cfa5_292429_e1c3c50769e9fccfc0367e187300b09b.webp"
+width="600"
+height="733"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/td>
+&lt;td style="text-align:center">
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_d0b748ffadd8f5247b0b8d43f2f54d33.webp 400w,
+/en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_82594036ee8aeac211ab9fe4a1b87748.webp 760w,
+/en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2019hyperion/fig/gwd_hu073edf066dfed639d272fed93ad60d87_143733_d0b748ffadd8f5247b0b8d43f2f54d33.webp"
+width="600"
+height="550"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Ground water spatial distribution&lt;/td>
+&lt;td style="text-align:center">Temporal fluctuation from 2000 to 2017.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Ground water seasonal fluctuation follows the climatic variation. However, the seasonal variations in some catchments are relatively larger than others. The inter-annual variation in #5 sub-catchment is larger than seasonal variation. Although the annual precipitation trends in each sub-catchments are comparable, the trend in multiple-year changes of ground water table varies. This requires further analysis on water balance and the memory effect of ground water storage.&lt;/p></description></item><item><title>Reconstructing the role of landuse change on water yield at the Maya urban</title><link>http://localhost:1313/en/project0/2015tikal/</link><pubDate>Sat, 23 Jul 2016 21:13:14 -0500</pubDate><guid>http://localhost:1313/en/project0/2015tikal/</guid><description>&lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
+&lt;figure id="figure-location-of-tikal">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Location of Tikal" srcset="
+/en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_e6b571ab262f69a137a5894e136521cc.webp 400w,
+/en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_ada1d64b4514f568937937c9cd071943.webp 760w,
+/en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2015tikal/fig/Locations_hu786d4092b430bac1f65bc8fa1156cf96_455287_e6b571ab262f69a137a5894e136521cc.webp"
+width="760"
+height="538"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Location of Tikal
+&lt;/figcaption>&lt;/figure>
+&lt;h2 id="tasks-in-hydrologic-modeling">Tasks in hydrologic modeling&lt;/h2>
+&lt;figure id="figure-land-use-map-of-tikal">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Land use map of Tikal" srcset="
+/en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_466309e8f516ad2e877f1672e7f19f94.webp 400w,
+/en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_bd3b29ad23311c527a083b96c4eaf260.webp 760w,
+/en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2015tikal/fig/LandUse_hua85aea20666614698519dce299e4df1d_361005_466309e8f516ad2e877f1672e7f19f94.webp"
+width="760"
+height="538"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Land use map of Tikal
+&lt;/figcaption>&lt;/figure>
+&lt;figure id="figure-elevation-of-tikal">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Elevation of Tikal" srcset="
+/en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_0afe2d052cad08ea4874c67caaa13335.webp 400w,
+/en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_be9441058e0bec6cda26931d07f11577.webp 760w,
+/en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/project0/2015tikal/fig/tk_dem_lan_hu9805c136bd2ace091a8137ca0ef8f301_640663_0afe2d052cad08ea4874c67caaa13335.webp"
+width="760"
+height="634"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Elevation of Tikal
+&lt;/figcaption>&lt;/figure>
+&lt;h2 id="accomplishment-of-the-project">Accomplishment of the project&lt;/h2>
+&lt;p>&lt;strong>keep updating&lt;/strong>&lt;/p></description></item><item><title>Impact in hydrology from landuse and climate change</title><link>http://localhost:1313/en/project0/2012stormwater/</link><pubDate>Thu, 23 Jul 2015 21:13:14 +0000</pubDate><guid>http://localhost:1313/en/project0/2012stormwater/</guid><description>&lt;h2 id="introduction-of-project">Introduction of project&lt;/h2>
+&lt;h2 id="tasks-in-hydrologic-modeling">Tasks in hydrologic modeling&lt;/h2>
+&lt;h2 id="accomplishment-of-the-project">Accomplishment of the project&lt;/h2>
+&lt;p>&lt;strong>keep updating&lt;/strong>&lt;/p></description></item></channel></rss>

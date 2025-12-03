@@ -4,7 +4,7 @@
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 title: 'SHUD Group' # Website name
-baseURL: 'https://example.com/' # Website URL
+baseURL: 'https://shud.xyz/' # Website URL
 
 ############################
 ## PAGE OPTIONS
@@ -72,6 +72,11 @@ related:
 security:
   _merge: deep
 sitemap:
-  _merge: deep
+  changefreq: weekly
+  filename: sitemap.xml
+  priority: 0.5
 minify:
   _merge: deep
+services:
+  rss:
+    limit: 50

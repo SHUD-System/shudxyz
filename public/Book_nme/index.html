@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>数值地球</title>
+  <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="数值地球" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+  <meta property="og:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="数值地球" />
+  
+  <meta name="twitter:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="twitter:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+
+<meta name="author" content="舒乐乐，孟宪红" />
+
+
+<meta name="date" content="2025-09-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="ch1_modeling.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">数值地球</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>绪论</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#数值方法在地球科学中的重要性"><i class="fa fa-check"></i><b>0.1</b> 数值方法在地球科学中的重要性</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#本书的目标与特色"><i class="fa fa-check"></i><b>0.2</b> 本书的目标与特色</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#主要内容概览"><i class="fa fa-check"></i><b>0.3</b> 主要内容概览</a>
+<ul>
+<li class="chapter" data-level="0.3.1" data-path="index.html"><a href="index.html#第一章建模基本方法论"><i class="fa fa-check"></i><b>0.3.1</b> 第一章：建模基本方法论</a></li>
+<li class="chapter" data-level="0.3.2" data-path="index.html"><a href="index.html#第二章数值方法基础"><i class="fa fa-check"></i><b>0.3.2</b> 第二章：数值方法基础</a></li>
+<li class="chapter" data-level="0.3.3" data-path="index.html"><a href="index.html#第三章有限差分法"><i class="fa fa-check"></i><b>0.3.3</b> 第三章：有限差分法</a></li>
+<li class="chapter" data-level="0.3.4" data-path="index.html"><a href="index.html#第四章有限元法"><i class="fa fa-check"></i><b>0.3.4</b> 第四章：有限元法</a></li>
+<li class="chapter" data-level="0.3.5" data-path="index.html"><a href="index.html#第五章有限体积法"><i class="fa fa-check"></i><b>0.3.5</b> 第五章：有限体积法</a></li>
+<li class="chapter" data-level="0.3.6" data-path="index.html"><a href="index.html#第六章应用案例"><i class="fa fa-check"></i><b>0.3.6</b> 第六章：应用案例</a></li>
+</ul></li>
+<li class="chapter" data-level="0.4" data-path="index.html"><a href="index.html#学习建议"><i class="fa fa-check"></i><b>0.4</b> 学习建议</a></li>
+<li class="chapter" data-level="0.5" data-path="index.html"><a href="index.html#代码示例简单的数值积分"><i class="fa fa-check"></i><b>0.5</b> 代码示例：简单的数值积分</a></li>
+<li class="chapter" data-level="0.6" data-path="index.html"><a href="index.html#结语"><i class="fa fa-check"></i><b>0.6</b> 结语</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="ch1_modeling.html"><a href="ch1_modeling.html"><i class="fa fa-check"></i><b>1</b> 建模基本方法论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="ch1_modeling.html"><a href="ch1_modeling.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
+<ul>
+<li class="chapter" data-level="" data-path="ch1_modeling.html"><a href="ch1_modeling.html#clams方法应用案例落体运动"><i class="fa fa-check"></i>CLAMS方法应用案例：<strong>落体运动</strong></a></li>
+<li class="chapter" data-level="1.1.1" data-path="ch1_modeling.html"><a href="ch1_modeling.html#落体运动的数值求解方法"><i class="fa fa-check"></i><b>1.1.1</b> 落体运动的数值求解方法</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="ch1_modeling.html"><a href="ch1_modeling.html#解析解与数值解"><i class="fa fa-check"></i><b>1.2</b> 解析解与数值解</a></li>
+<li class="chapter" data-level="1.3" data-path="ch1_modeling.html"><a href="ch1_modeling.html#典型控制方程"><i class="fa fa-check"></i><b>1.3</b> 典型控制方程</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维承压地下水运动"><i class="fa fa-check"></i><b>1.3.1</b> 一维承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.2" data-path="ch1_modeling.html"><a href="ch1_modeling.html#二维承压地下水运动"><i class="fa fa-check"></i><b>1.3.2</b> 二维承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.3" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维非承压地下水运动"><i class="fa fa-check"></i><b>1.3.3</b> 一维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.4" data-path="ch1_modeling.html"><a href="ch1_modeling.html#二维非承压地下水运动"><i class="fa fa-check"></i><b>1.3.4</b> 二维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.5" data-path="ch1_modeling.html"><a href="ch1_modeling.html#三维非承压地下水运动"><i class="fa fa-check"></i><b>1.3.5</b> 三维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.3.6" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维热传导方程"><i class="fa fa-check"></i><b>1.3.6</b> 一维热传导方程</a></li>
+<li class="chapter" data-level="1.3.7" data-path="ch1_modeling.html"><a href="ch1_modeling.html#一维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.3.7</b> 一维溶质运移-扩散方程</a></li>
+<li class="chapter" data-level="1.3.8" data-path="ch1_modeling.html"><a href="ch1_modeling.html#二维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.3.8</b> 二维溶质运移-扩散方程</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2_nm.html"><a href="ch2_nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2_nm.html"><a href="ch2_nm.html#隐式与显式求解法"><i class="fa fa-check"></i><b>2.1</b> 隐式与显式求解法</a></li>
+<li class="chapter" data-level="2.2" data-path="ch2_nm.html"><a href="ch2_nm.html#数值迭代方法"><i class="fa fa-check"></i><b>2.2</b> 数值迭代方法</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ch2_nm.html"><a href="ch2_nm.html#牛顿迭代newton-iteration"><i class="fa fa-check"></i><b>2.2.1</b> 牛顿迭代(Newton Iteration)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="ch2_nm.html"><a href="ch2_nm.html#欧拉方法euler-method"><i class="fa fa-check"></i><b>2.2.2</b> 欧拉方法(Euler Method)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="ch2_nm.html"><a href="ch2_nm.html#龙格-库塔方法runge-kutta-method"><i class="fa fa-check"></i><b>2.2.3</b> 龙格-库塔方法(Runge-Kutta Method)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="ch2_nm.html"><a href="ch2_nm.html#皮卡法picard-method"><i class="fa fa-check"></i><b>2.2.4</b> 皮卡法(Picard Method)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch2_nm.html"><a href="ch2_nm.html#有限元-有限差分-有限体积"><i class="fa fa-check"></i><b>2.3</b> 有限元, 有限差分 ,有限体积</a></li>
+<li class="chapter" data-level="2.4" data-path="ch2_nm.html"><a href="ch2_nm.html#cfl条件约束"><i class="fa fa-check"></i><b>2.4</b> CFL条件约束</a></li>
+<li class="chapter" data-level="2.5" data-path="ch2_nm.html"><a href="ch2_nm.html#时空离散化"><i class="fa fa-check"></i><b>2.5</b> 时空离散化</a></li>
+<li class="chapter" data-level="2.6" data-path="ch2_nm.html"><a href="ch2_nm.html#初始条件"><i class="fa fa-check"></i><b>2.6</b> 初始条件</a></li>
+<li class="chapter" data-level="2.7" data-path="ch2_nm.html"><a href="ch2_nm.html#边界条件"><i class="fa fa-check"></i><b>2.7</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ch3_fdm.html"><a href="ch3_fdm.html"><i class="fa fa-check"></i><b>3</b> 有限差分法</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#泰勒级数taylor-series"><i class="fa fa-check"></i><b>3.1</b> 泰勒级数(Taylor Series)</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#截断误差"><i class="fa fa-check"></i><b>3.1.1</b> 截断误差</a></li>
+<li class="chapter" data-level="3.1.2" data-path="ch3_fdm.html"><a href="ch3_fdm.html#一阶导数"><i class="fa fa-check"></i><b>3.1.2</b> 一阶导数</a></li>
+<li class="chapter" data-level="3.1.3" data-path="ch3_fdm.html"><a href="ch3_fdm.html#二阶导数"><i class="fa fa-check"></i><b>3.1.3</b> 二阶导数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3_fdm.html"><a href="ch3_fdm.html#构建数值方法"><i class="fa fa-check"></i><b>3.2</b> 构建数值方法</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3_fdm.html"><a href="ch3_fdm.html#显式求解法"><i class="fa fa-check"></i><b>3.3</b> 显式求解法</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3_fdm.html"><a href="ch3_fdm.html#隐式求解法"><i class="fa fa-check"></i><b>3.4</b> 隐式求解法</a></li>
+<li class="chapter" data-level="3.5" data-path="ch3_fdm.html"><a href="ch3_fdm.html#编程求解"><i class="fa fa-check"></i><b>3.5</b> 编程求解</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3_fdm.html"><a href="ch3_fdm.html#显式与隐式求解法对比"><i class="fa fa-check"></i><b>3.6</b> 显式与隐式求解法对比</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#cfl条件"><i class="fa fa-check"></i><b>3.6.1</b> CFL条件</a></li>
+<li class="chapter" data-level="3.6.2" data-path="ch3_fdm.html"><a href="ch3_fdm.html#计算效率"><i class="fa fa-check"></i><b>3.6.2</b> 计算效率</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="ch3_fdm.html"><a href="ch3_fdm.html#二维有限差分"><i class="fa fa-check"></i><b>3.7</b> 二维有限差分</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="ch3_fdm.html"><a href="ch3_fdm.html#编程求解-1"><i class="fa fa-check"></i><b>3.7.1</b> 编程求解</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch4_fem.html"><a href="ch4_fem.html"><i class="fa fa-check"></i><b>4</b> 有限元法</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元法理论基础"><i class="fa fa-check"></i><b>4.1</b> 有限元法理论基础</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ch4_fem.html"><a href="ch4_fem.html#历史发展与应用背景"><i class="fa fa-check"></i><b>4.1.1</b> 历史发展与应用背景</a></li>
+<li class="chapter" data-level="4.1.2" data-path="ch4_fem.html"><a href="ch4_fem.html#基本思想与哲学"><i class="fa fa-check"></i><b>4.1.2</b> 基本思想与哲学</a></li>
+<li class="chapter" data-level="4.1.3" data-path="ch4_fem.html"><a href="ch4_fem.html#详细求解步骤"><i class="fa fa-check"></i><b>4.1.3</b> 详细求解步骤</a></li>
+<li class="chapter" data-level="4.1.4" data-path="ch4_fem.html"><a href="ch4_fem.html#变分原理的深入理解"><i class="fa fa-check"></i><b>4.1.4</b> 变分原理的深入理解</a></li>
+<li class="chapter" data-level="4.1.5" data-path="ch4_fem.html"><a href="ch4_fem.html#形函数理论的完整体系"><i class="fa fa-check"></i><b>4.1.5</b> 形函数理论的完整体系</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ch4_fem.html"><a href="ch4_fem.html#数学公式论证"><i class="fa fa-check"></i><b>4.2</b> 数学公式论证</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ch4_fem.html"><a href="ch4_fem.html#变分形式的推导"><i class="fa fa-check"></i><b>4.2.1</b> 变分形式的推导</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元离散化"><i class="fa fa-check"></i><b>4.2.2</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.2.3" data-path="ch4_fem.html"><a href="ch4_fem.html#单元矩阵的构造"><i class="fa fa-check"></i><b>4.2.3</b> 单元矩阵的构造</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ch4_fem.html"><a href="ch4_fem.html#一维热传导问题的深入分析与fem求解"><i class="fa fa-check"></i><b>4.3</b> 一维热传导问题的深入分析与FEM求解</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ch4_fem.html"><a href="ch4_fem.html#工程背景与实际意义"><i class="fa fa-check"></i><b>4.3.1</b> 工程背景与实际意义</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ch4_fem.html"><a href="ch4_fem.html#详细问题描述"><i class="fa fa-check"></i><b>4.3.2</b> 详细问题描述</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ch4_fem.html"><a href="ch4_fem.html#clams方法的系统化建模"><i class="fa fa-check"></i><b>4.3.3</b> CLAMS方法的系统化建模</a></li>
+<li class="chapter" data-level="4.3.4" data-path="ch4_fem.html"><a href="ch4_fem.html#r代码实现"><i class="fa fa-check"></i><b>4.3.4</b> R代码实现</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ch4_fem.html"><a href="ch4_fem.html#完整实现代码"><i class="fa fa-check"></i><b>4.3.5</b> 完整实现代码</a></li>
+<li class="chapter" data-level="4.3.6" data-path="ch4_fem.html"><a href="ch4_fem.html#运行结果示例"><i class="fa fa-check"></i><b>4.3.6</b> 运行结果示例</a></li>
+<li class="chapter" data-level="4.3.7" data-path="ch4_fem.html"><a href="ch4_fem.html#高级有限元技术实现"><i class="fa fa-check"></i><b>4.3.7</b> 高级有限元技术实现</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ch4_fem.html"><a href="ch4_fem.html#地球科学应用案例地下水流模拟"><i class="fa fa-check"></i><b>4.4</b> 地球科学应用案例：地下水流模拟</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="ch4_fem.html"><a href="ch4_fem.html#问题背景"><i class="fa fa-check"></i><b>4.4.1</b> 问题背景</a></li>
+<li class="chapter" data-level="4.4.2" data-path="ch4_fem.html"><a href="ch4_fem.html#数学模型"><i class="fa fa-check"></i><b>4.4.2</b> 数学模型</a></li>
+<li class="chapter" data-level="4.4.3" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元离散化-1"><i class="fa fa-check"></i><b>4.4.3</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.4.4" data-path="ch4_fem.html"><a href="ch4_fem.html#实际应用案例"><i class="fa fa-check"></i><b>4.4.4</b> 实际应用案例</a></li>
+<li class="chapter" data-level="4.4.5" data-path="ch4_fem.html"><a href="ch4_fem.html#工程意义"><i class="fa fa-check"></i><b>4.4.5</b> 工程意义</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元法的收敛性分析与误差估计"><i class="fa fa-check"></i><b>4.5</b> 有限元法的收敛性分析与误差估计</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="ch4_fem.html"><a href="ch4_fem.html#收敛性理论基础"><i class="fa fa-check"></i><b>4.5.1</b> 收敛性理论基础</a></li>
+<li class="chapter" data-level="4.5.2" data-path="ch4_fem.html"><a href="ch4_fem.html#先验误差估计"><i class="fa fa-check"></i><b>4.5.2</b> 先验误差估计</a></li>
+<li class="chapter" data-level="4.5.3" data-path="ch4_fem.html"><a href="ch4_fem.html#后验误差估计"><i class="fa fa-check"></i><b>4.5.3</b> 后验误差估计</a></li>
+<li class="chapter" data-level="4.5.4" data-path="ch4_fem.html"><a href="ch4_fem.html#自适应网格细化"><i class="fa fa-check"></i><b>4.5.4</b> 自适应网格细化</a></li>
+<li class="chapter" data-level="4.5.5" data-path="ch4_fem.html"><a href="ch4_fem.html#数值实验与验证"><i class="fa fa-check"></i><b>4.5.5</b> 数值实验与验证</a></li>
+<li class="chapter" data-level="4.5.6" data-path="ch4_fem.html"><a href="ch4_fem.html#误差的物理解释"><i class="fa fa-check"></i><b>4.5.6</b> 误差的物理解释</a></li>
+<li class="chapter" data-level="4.5.7" data-path="ch4_fem.html"><a href="ch4_fem.html#收敛性改进技术"><i class="fa fa-check"></i><b>4.5.7</b> 收敛性改进技术</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元法与有限差分法的系统对比"><i class="fa fa-check"></i><b>4.6</b> 有限元法与有限差分法的系统对比</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="ch4_fem.html"><a href="ch4_fem.html#理论基础对比"><i class="fa fa-check"></i><b>4.6.1</b> 理论基础对比</a></li>
+<li class="chapter" data-level="4.6.2" data-path="ch4_fem.html"><a href="ch4_fem.html#精度和稳定性对比"><i class="fa fa-check"></i><b>4.6.2</b> 精度和稳定性对比</a></li>
+<li class="chapter" data-level="4.6.3" data-path="ch4_fem.html"><a href="ch4_fem.html#计算效率对比"><i class="fa fa-check"></i><b>4.6.3</b> 计算效率对比</a></li>
+<li class="chapter" data-level="4.6.4" data-path="ch4_fem.html"><a href="ch4_fem.html#适用性分析"><i class="fa fa-check"></i><b>4.6.4</b> 适用性分析</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="ch4_fem.html"><a href="ch4_fem.html#高级有限元技术的深入探讨"><i class="fa fa-check"></i><b>4.7</b> 高级有限元技术的深入探讨</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="ch4_fem.html"><a href="ch4_fem.html#高阶形函数技术"><i class="fa fa-check"></i><b>4.7.1</b> 高阶形函数技术</a></li>
+<li class="chapter" data-level="4.7.2" data-path="ch4_fem.html"><a href="ch4_fem.html#自适应有限元技术"><i class="fa fa-check"></i><b>4.7.2</b> 自适应有限元技术</a></li>
+<li class="chapter" data-level="4.7.3" data-path="ch4_fem.html"><a href="ch4_fem.html#稳定化技术"><i class="fa fa-check"></i><b>4.7.3</b> 稳定化技术</a></li>
+<li class="chapter" data-level="4.7.4" data-path="ch4_fem.html"><a href="ch4_fem.html#多尺度有限元方法"><i class="fa fa-check"></i><b>4.7.4</b> 多尺度有限元方法</a></li>
+<li class="chapter" data-level="4.7.5" data-path="ch4_fem.html"><a href="ch4_fem.html#间断有限元方法"><i class="fa fa-check"></i><b>4.7.5</b> 间断有限元方法</a></li>
+<li class="chapter" data-level="4.7.6" data-path="ch4_fem.html"><a href="ch4_fem.html#混合有限元方法"><i class="fa fa-check"></i><b>4.7.6</b> 混合有限元方法</a></li>
+<li class="chapter" data-level="4.7.7" data-path="ch4_fem.html"><a href="ch4_fem.html#有限元方法的并行计算"><i class="fa fa-check"></i><b>4.7.7</b> 有限元方法的并行计算</a></li>
+<li class="chapter" data-level="4.7.8" data-path="ch4_fem.html"><a href="ch4_fem.html#高级技术的应用实例"><i class="fa fa-check"></i><b>4.7.8</b> 高级技术的应用实例</a></li>
+<li class="chapter" data-level="4.7.9" data-path="ch4_fem.html"><a href="ch4_fem.html#实现考虑"><i class="fa fa-check"></i><b>4.7.9</b> 实现考虑</a></li>
+<li class="chapter" data-level="4.7.10" data-path="ch4_fem.html"><a href="ch4_fem.html#软件实现框架"><i class="fa fa-check"></i><b>4.7.10</b> 软件实现框架</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="ch4_fem.html"><a href="ch4_fem.html#总结"><i class="fa fa-check"></i><b>4.8</b> 总结</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="ch4_fem.html"><a href="ch4_fem.html#本章要点回顾"><i class="fa fa-check"></i><b>4.8.1</b> 本章要点回顾</a></li>
+<li class="chapter" data-level="4.8.2" data-path="ch4_fem.html"><a href="ch4_fem.html#扩展阅读建议"><i class="fa fa-check"></i><b>4.8.2</b> 扩展阅读建议</a></li>
+<li class="chapter" data-level="4.8.3" data-path="ch4_fem.html"><a href="ch4_fem.html#实践练习"><i class="fa fa-check"></i><b>4.8.3</b> 实践练习</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch5_fvm.html"><a href="ch5_fvm.html"><i class="fa fa-check"></i><b>5</b> 有限体积法</a></li>
+<li class="chapter" data-level="6" data-path="ch6_app.html"><a href="ch6_app.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6_app.html"><a href="ch6_app.html#热传递问题heat-transfer"><i class="fa fa-check"></i><b>6.1</b> 热传递问题(Heat Transfer)</a></li>
+<li class="chapter" data-level="6.2" data-path="ch6_app.html"><a href="ch6_app.html#大气混沌系统chaos-system-in-atmosphere"><i class="fa fa-check"></i><b>6.2</b> 大气混沌系统（Chaos System in Atmosphere）</a></li>
+<li class="chapter" data-level="6.3" data-path="ch6_app.html"><a href="ch6_app.html#土壤垂直水分流动"><i class="fa fa-check"></i><b>6.3</b> 土壤垂直水分流动</a></li>
+<li class="chapter" data-level="6.4" data-path="ch6_app.html"><a href="ch6_app.html#土壤垂直一维水热耦合问题"><i class="fa fa-check"></i><b>6.4</b> 土壤垂直一维水热耦合问题</a></li>
+<li class="chapter" data-level="6.5" data-path="ch6_app.html"><a href="ch6_app.html#承压地下水confined-aquifer"><i class="fa fa-check"></i><b>6.5</b> 承压地下水（Confined Aquifer）</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="ch6_app.html"><a href="ch6_app.html#控制方程"><i class="fa fa-check"></i><b>6.5.1</b> 控制方程</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ch6_app.html"><a href="ch6_app.html#湖面湍流lake-turbulence"><i class="fa fa-check"></i><b>6.6</b> 湖面湍流（Lake Turbulence）</a></li>
+<li class="chapter" data-level="6.7" data-path="ch6_app.html"><a href="ch6_app.html#溶质运移solute-transport"><i class="fa fa-check"></i><b>6.7</b> 溶质运移（Solute Transport）</a></li>
+<li class="chapter" data-level="6.8" data-path="ch6_app.html"><a href="ch6_app.html#地貌侵蚀landscape-evolution"><i class="fa fa-check"></i><b>6.8</b> 地貌侵蚀（Landscape Evolution）</a></li>
+<li class="chapter" data-level="6.9" data-path="ch6_app.html"><a href="ch6_app.html#熔岩入侵lava-invasion"><i class="fa fa-check"></i><b>6.9</b> 熔岩入侵（Lava Invasion）</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">数值地球</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">数值地球</h1>
+<p class="author"><em>舒乐乐，孟宪红</em></p>
+<p class="date"><em>2025-09-16</em></p>
+</div>
+<div id="绪论" class="section level1 unnumbered hasAnchor">
+<h1>绪论<a href="index.html#绪论" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="数值方法在地球科学中的重要性" class="section level2 hasAnchor" number="0.1">
+<h2><span class="header-section-number">0.1</span> 数值方法在地球科学中的重要性<a href="index.html#数值方法在地球科学中的重要性" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>地球科学是研究地球系统各组成部分及其相互作用的综合性学科，涵盖大气科学、水文学、地质学、地貌学、环境科学等多个领域。随着科学技术的不断发展和计算能力的快速提升，数值方法已成为现代地球科学研究中不可或缺的重要工具。</p>
+<div class="float">
+<img src="image/common/diagrams/vs_structured.png" style="width:80.0%" alt="数值方法在地球科学中的应用" />
+<div class="figcaption">数值方法在地球科学中的应用</div>
+</div>
+<p>数值方法通过将复杂的物理过程转化为数学方程，并利用计算机进行数值求解，使我们能够：</p>
+<ul>
+<li><strong>模拟复杂的地球系统过程</strong>：从大气环流到地下水流动，从冰川运动到地震波传播</li>
+<li><strong>预测未来变化趋势</strong>：气候变化预测、洪水预报、地震预警等</li>
+<li><strong>优化资源管理</strong>：水资源配置、环境治理、灾害防控等</li>
+<li><strong>验证理论假设</strong>：通过数值实验验证科学理论的有效性</li>
+</ul>
+</div>
+<div id="本书的目标与特色" class="section level2 hasAnchor" number="0.2">
+<h2><span class="header-section-number">0.2</span> 本书的目标与特色<a href="index.html#本书的目标与特色" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>本书旨在为地球科学领域的学生、研究人员和工程师提供一套系统、实用的数值方法教材。我们采用理论与实践相结合的方式，通过丰富的代码示例和实际应用案例，帮助读者：</p>
+<ol style="list-style-type: decimal">
+<li><strong>掌握数值方法的基本原理</strong>：理解各种数值方法的数学基础和适用条件</li>
+<li><strong>学会编程实现</strong>：使用R语言实现各种数值算法</li>
+<li><strong>解决实际问题</strong>：将数值方法应用于具体的地球科学问题</li>
+<li><strong>培养计算思维</strong>：提高利用计算机解决科学问题的能力</li>
+</ol>
+</div>
+<div id="主要内容概览" class="section level2 hasAnchor" number="0.3">
+<h2><span class="header-section-number">0.3</span> 主要内容概览<a href="index.html#主要内容概览" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>本书共分为六个主要章节，内容安排如下：</p>
+<div id="第一章建模基本方法论" class="section level3 hasAnchor" number="0.3.1">
+<h3><span class="header-section-number">0.3.1</span> 第一章：建模基本方法论<a href="index.html#第一章建模基本方法论" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>介绍CLAMS方法（概念模型、物理定律、假设、数学公式、求解器），这是将现实世界问题转化为可计算数学模型的标准流程。详见<a href="#chapter:modeling"><strong>??</strong></a>。</p>
+</div>
+<div id="第二章数值方法基础" class="section level3 hasAnchor" number="0.3.2">
+<h3><span class="header-section-number">0.3.2</span> 第二章：数值方法基础<a href="index.html#第二章数值方法基础" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>讲解显式与隐式求解法、数值迭代方法等基础概念，为后续章节的学习奠定基础。详见<a href="#chapter:numeric-methods"><strong>??</strong></a>。</p>
+</div>
+<div id="第三章有限差分法" class="section level3 hasAnchor" number="0.3.3">
+<h3><span class="header-section-number">0.3.3</span> 第三章：有限差分法<a href="index.html#第三章有限差分法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>详细介绍泰勒级数展开、差分格式构造、稳定性分析等有限差分法的核心内容。详见<a href="#chapter:fdm"><strong>??</strong></a>。</p>
+</div>
+<div id="第四章有限元法" class="section level3 hasAnchor" number="0.3.4">
+<h3><span class="header-section-number">0.3.4</span> 第四章：有限元法<a href="index.html#第四章有限元法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>深入探讨变分原理、形函数理论、单元矩阵构造等有限元法的理论基础和实现方法。详见<a href="#chapter:fem"><strong>??</strong></a>。</p>
+</div>
+<div id="第五章有限体积法" class="section level3 hasAnchor" number="0.3.5">
+<h3><span class="header-section-number">0.3.5</span> 第五章：有限体积法<a href="index.html#第五章有限体积法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>系统介绍控制体积、通量计算、离散化方程等有限体积法的关键概念。详见<a href="#chapter:fvm"><strong>??</strong></a>。</p>
+</div>
+<div id="第六章应用案例" class="section level3 hasAnchor" number="0.3.6">
+<h3><span class="header-section-number">0.3.6</span> 第六章：应用案例<a href="index.html#第六章应用案例" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>通过大气科学、水文学、地质学、环境科学等领域的实际案例，展示数值方法的具体应用。详见<a href="#chapter:applications"><strong>??</strong></a>。</p>
+</div>
+</div>
+<div id="学习建议" class="section level2 hasAnchor" number="0.4">
+<h2><span class="header-section-number">0.4</span> 学习建议<a href="index.html#学习建议" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>为了更好地学习本书内容，建议读者：</p>
+<ol style="list-style-type: decimal">
+<li><strong>具备必要的数学基础</strong>：微积分、线性代数、常微分方程等</li>
+<li><strong>熟悉R语言编程</strong>：本书所有代码示例均使用R语言实现</li>
+<li><strong>动手实践</strong>：认真完成每章的练习题和编程作业</li>
+<li><strong>理论联系实际</strong>：将所学方法应用到自己的研究领域</li>
+</ol>
+</div>
+<div id="代码示例简单的数值积分" class="section level2 hasAnchor" number="0.5">
+<h2><span class="header-section-number">0.5</span> 代码示例：简单的数值积分<a href="index.html#代码示例简单的数值积分" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>让我们通过一个简单的例子来感受数值方法的魅力。考虑计算定积分：</p>
+<p><span class="math display">\[\int_0^1 e^{-x^2} dx\]</span></p>
+<p>这个积分没有解析解，但我们可以用数值方法近似计算：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="co"># 使用梯形法则进行数值积分</span></span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a>trapezoidal_rule <span class="ot">&lt;-</span> <span class="cf">function</span>(f, a, b, n) {</span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a>  h <span class="ot">&lt;-</span> (b <span class="sc">-</span> a) <span class="sc">/</span> n</span>
+<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(a, b, <span class="at">length.out =</span> n <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">f</span>(x)</span>
+<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a>  <span class="fu">return</span>(h <span class="sc">*</span> (<span class="fu">sum</span>(y) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> (y[<span class="dv">1</span>] <span class="sc">+</span> y[<span class="fu">length</span>(y)])))</span>
+<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a><span class="co"># 定义被积函数</span></span>
+<span id="cb1-10"><a href="index.html#cb1-10" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1-11"><a href="index.html#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="index.html#cb1-12" tabindex="-1"></a><span class="co"># 计算积分值</span></span>
+<span id="cb1-13"><a href="index.html#cb1-13" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">trapezoidal_rule</span>(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1000</span>)</span>
+<span id="cb1-14"><a href="index.html#cb1-14" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;数值积分结果:&quot;</span>, result, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-15"><a href="index.html#cb1-15" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;与精确值比较:&quot;</span>, <span class="fu">abs</span>(result <span class="sc">-</span> <span class="fl">0.7468241</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-16"><a href="index.html#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="index.html#cb1-17" tabindex="-1"></a><span class="co"># 可视化积分过程</span></span>
+<span id="cb1-18"><a href="index.html#cb1-18" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-19"><a href="index.html#cb1-19" tabindex="-1"></a>x_plot <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb1-20"><a href="index.html#cb1-20" tabindex="-1"></a>y_plot <span class="ot">&lt;-</span> <span class="fu">f</span>(x_plot)</span>
+<span id="cb1-21"><a href="index.html#cb1-21" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_plot, <span class="at">y =</span> y_plot)</span>
+<span id="cb1-22"><a href="index.html#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="index.html#cb1-23" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="index.html#cb1-24" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-25"><a href="index.html#cb1-25" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb1-26"><a href="index.html#cb1-26" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;数值积分示例：∫₀¹ e^(-x²) dx&quot;</span>,</span>
+<span id="cb1-27"><a href="index.html#cb1-27" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;f(x) = e^(-x²)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="index.html#cb1-28" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p>这个简单的例子展示了数值方法如何帮助我们解决看似复杂的问题。在后续章节中，我们将学习更多高级的数值方法，并探索它们在地球科学中的广泛应用。</p>
+</div>
+<div id="结语" class="section level2 hasAnchor" number="0.6">
+<h2><span class="header-section-number">0.6</span> 结语<a href="index.html#结语" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>数值方法作为现代科学计算的核心工具，在地球科学研究中发挥着越来越重要的作用。掌握这些方法不仅能够帮助我们更好地理解地球系统的运行机制，还能为解决人类面临的环境挑战提供科学依据。</p>
+<p>希望本书能够成为您学习数值方法的良师益友，帮助您在地球科学的道路上走得更远。让我们一起探索数值方法的奥秘，为地球科学的进步贡献自己的力量。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="ch1_modeling.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["数值地球.pdf", "数值地球.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

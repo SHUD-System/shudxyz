@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 建模方法 | 数值地球</title>
+  <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 建模方法 | 数值地球" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+  <meta property="og:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 建模方法 | 数值地球" />
+  
+  <meta name="twitter:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="twitter:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+
+<meta name="author" content="舒乐乐，孟宪红" />
+
+
+<meta name="date" content="2024-10-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="nm.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">数值地球</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>绪论</a></li>
+<li class="chapter" data-level="1" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>1</b> 建模方法</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="modeling.html"><a href="modeling.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
+<ul>
+<li class="chapter" data-level="" data-path="modeling.html"><a href="modeling.html#落体运动"><i class="fa fa-check"></i>落体运动</a></li>
+<li class="chapter" data-level="1.1.1" data-path="modeling.html"><a href="modeling.html#落体运动的数值求解方法"><i class="fa fa-check"></i><b>1.1.1</b> 落体运动的数值求解方法</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="modeling.html"><a href="modeling.html#解析解与数值解"><i class="fa fa-check"></i><b>1.2</b> 解析解与数值解</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="nm.html"><a href="nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="nm.html"><a href="nm.html#隐式与显式求解法"><i class="fa fa-check"></i><b>2.1</b> 隐式与显式求解法</a></li>
+<li class="chapter" data-level="2.2" data-path="nm.html"><a href="nm.html#数值迭代方法"><i class="fa fa-check"></i><b>2.2</b> 数值迭代方法</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="nm.html"><a href="nm.html#牛顿迭代newton-iteration"><i class="fa fa-check"></i><b>2.2.1</b> 牛顿迭代(Newton Iteration)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="nm.html"><a href="nm.html#欧拉方法euler-method"><i class="fa fa-check"></i><b>2.2.2</b> 欧拉方法(Euler Method)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="nm.html"><a href="nm.html#龙格-库塔方法runge-kutta-method"><i class="fa fa-check"></i><b>2.2.3</b> 龙格-库塔方法(Runge-Kutta Method)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="nm.html"><a href="nm.html#皮卡法picard-method"><i class="fa fa-check"></i><b>2.2.4</b> 皮卡法(Picard Method)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="nm.html"><a href="nm.html#有限元-有限差分-有限体积"><i class="fa fa-check"></i><b>2.3</b> 有限元, 有限差分 ,有限体积</a></li>
+<li class="chapter" data-level="2.4" data-path="nm.html"><a href="nm.html#cfl条件约束"><i class="fa fa-check"></i><b>2.4</b> CFL条件约束</a></li>
+<li class="chapter" data-level="2.5" data-path="nm.html"><a href="nm.html#时空离散化"><i class="fa fa-check"></i><b>2.5</b> 时空离散化</a></li>
+<li class="chapter" data-level="2.6" data-path="nm.html"><a href="nm.html#初始条件"><i class="fa fa-check"></i><b>2.6</b> 初始条件</a></li>
+<li class="chapter" data-level="2.7" data-path="nm.html"><a href="nm.html#边界条件"><i class="fa fa-check"></i><b>2.7</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="fdm.html"><a href="fdm.html"><i class="fa fa-check"></i><b>3</b> 有限差分法</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="fdm.html"><a href="fdm.html#泰勒展开式taylor-series"><i class="fa fa-check"></i><b>3.1</b> 泰勒展开式(Taylor Series)</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="fdm.html"><a href="fdm.html#一阶导数"><i class="fa fa-check"></i><b>3.1.1</b> 一阶导数</a></li>
+<li class="chapter" data-level="3.1.2" data-path="fdm.html"><a href="fdm.html#二阶导数"><i class="fa fa-check"></i><b>3.1.2</b> 二阶导数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="fdm.html"><a href="fdm.html#构建数值方法"><i class="fa fa-check"></i><b>3.2</b> 构建数值方法</a></li>
+<li class="chapter" data-level="3.3" data-path="fdm.html"><a href="fdm.html#显式求解法"><i class="fa fa-check"></i><b>3.3</b> 显式求解法</a></li>
+<li class="chapter" data-level="3.4" data-path="fdm.html"><a href="fdm.html#隐式求解法"><i class="fa fa-check"></i><b>3.4</b> 隐式求解法</a></li>
+<li class="chapter" data-level="3.5" data-path="fdm.html"><a href="fdm.html#编程求解"><i class="fa fa-check"></i><b>3.5</b> 编程求解</a></li>
+<li class="chapter" data-level="3.6" data-path="fdm.html"><a href="fdm.html#显式与隐式求解法对比"><i class="fa fa-check"></i><b>3.6</b> 显式与隐式求解法对比</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="fdm.html"><a href="fdm.html#cfl条件"><i class="fa fa-check"></i><b>3.6.1</b> CFL条件</a></li>
+<li class="chapter" data-level="3.6.2" data-path="fdm.html"><a href="fdm.html#计算效率"><i class="fa fa-check"></i><b>3.6.2</b> 计算效率</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="fdm.html"><a href="fdm.html#二维有限差分"><i class="fa fa-check"></i><b>3.7</b> 二维有限差分</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="fdm.html"><a href="fdm.html#编程求解-1"><i class="fa fa-check"></i><b>3.7.1</b> 编程求解</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="fem.html"><a href="fem.html"><i class="fa fa-check"></i><b>4</b> 有限元法</a></li>
+<li class="chapter" data-level="5" data-path="fvm.html"><a href="fvm.html"><i class="fa fa-check"></i><b>5</b> 有限体积法</a></li>
+<li class="chapter" data-level="6" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="app.html"><a href="app.html#热传播问题heat-transfer"><i class="fa fa-check"></i><b>6.1</b> 热传播问题(Heat Transfer)</a></li>
+<li class="chapter" data-level="6.2" data-path="app.html"><a href="app.html#大气混沌系统chaos-system-in-atmosphere"><i class="fa fa-check"></i><b>6.2</b> 大气混沌系统（Chaos System in Atmosphere）</a></li>
+<li class="chapter" data-level="6.3" data-path="app.html"><a href="app.html#承压地下水confined-aquifer"><i class="fa fa-check"></i><b>6.3</b> 承压地下水（Confined Aquifer）</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="app.html"><a href="app.html#控制方程"><i class="fa fa-check"></i><b>6.3.1</b> 控制方程</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="app.html"><a href="app.html#湖面湍流lake-turbulence"><i class="fa fa-check"></i><b>6.4</b> 湖面湍流（Lake Turbulence）</a></li>
+<li class="chapter" data-level="6.5" data-path="app.html"><a href="app.html#溶质运移solute-transport"><i class="fa fa-check"></i><b>6.5</b> 溶质运移（Solute Transport）</a></li>
+<li class="chapter" data-level="6.6" data-path="app.html"><a href="app.html#地貌侵蚀landscape-evolution"><i class="fa fa-check"></i><b>6.6</b> 地貌侵蚀（Landscape Evolution）</a></li>
+<li class="chapter" data-level="6.7" data-path="app.html"><a href="app.html#熔岩入侵lava-invasion"><i class="fa fa-check"></i><b>6.7</b> 熔岩入侵（Lava Invasion）</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://shud.xyz/Book_NME" target="blank">本书网址</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">数值地球</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> 建模方法<a href="modeling.html#modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>本章极少数值方法建模的基本方法论，涉及一些基础的建模思路和数学基础。</p>
+<div id="建模基本思路" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> 建模基本思路<a href="modeling.html#建模基本思路" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>我们提出一个CLAMS的基本建模思路。这个建模思路可以描述为：</p>
+<ol style="list-style-type: decimal">
+<li>描述物理过程，形成概念模型（或认知模型）(Conceptual Model, or Mind Model)</li>
+<li>使用物理规律(Physical Laws)</li>
+<li>列出合理假设，简化问题 (Assumptions)</li>
+<li>使用数学公式表达物理规律和假设(Math equations)</li>
+<li>求解数学公式(Solver)</li>
+</ol>
+<p>求解数学公式的过程，可以尝试寻找其解析解(Analytical solution)，也可以使用数值方法求得数值解(Numerical Solution)。</p>
+<p>数值方法本质上是对离散（非连续）时空模型中因变量(Dependant variable)分布和变化的数学近似描述，从理论的解析解到数值解虽然损失了精度，但解析解通常无法求得，而数值方法可给出误差可接受的近似解。</p>
+<div id="落体运动" class="section level3 unnumbered hasAnchor">
+<h3>落体运动<a href="modeling.html#落体运动" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>描述</strong>
+问题描述下图。</p>
+<div class="float">
+<img src="image/ch1/FallingObj/FallingObj.001.jpeg" alt="自由落体运动示意图" />
+<div class="figcaption">自由落体运动示意图</div>
+</div>
+<p><strong>问题</strong>：任意<span class="math inline">\(t&gt;0\)</span>时刻的速度，即<span class="math inline">\(v(t) = ?\)</span>。</p>
+<p>建模步骤：</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>认知模型</strong>：</p>
+<p>落体运动(Fall motion): 落体运动是指物体在重力作用下从一定高度自由下落的运动。</p>
+<p>当考虑风阻时，物体的运动会受到空气阻力的影响，这种阻力通常与物体的速度、形状、大小以及空气的密度有关。在实际的落体运动中，空气阻力会对物体的速度产生显著影响，主要体现在以下几个方面：</p>
+<ul>
+<li>减小物体的加速度：在自由落体运动中，如果不考虑空气阻力，物体将以恒定的加速度（重力加速度）下落。但当考虑空气阻力时，物体受到的合外力将不再等于其重力，导致物体的净加速度减小。根据牛顿第二定律，物体的净加速度等于合外力除以物体的质量。因此，空气阻力的存在会导致物体的速度增长速度减慢。</li>
+<li>使物体达到终端速度：随着物体下落速度的增加，空气阻力也会增大，直到与重力相平衡。此时，物体的速度不再增加，达到一个恒定值，这个速度称为终端速度。终端速度取决于物体的形状、大小以及空气的密度。一般来说，形状较大、大小较小的物体终端速度较小，而形状较小、大小较大的物体终端速度较大。</li>
+<li>影响物体的下落轨迹：空气阻力不仅影响物体的速度，还可能影响物体的下落轨迹。例如，在北半球自由落体运动中，空气阻力可能导致物体的偏离，使得落体运动的轨迹发生偏移。</li>
+</ul>
+<p>在实际应用中，如汽车空气动力学研究，风阻是一个重要的考虑因素。通过风洞实验和数值计算，可以研究模型周围流动的物理特征，理解气动力产生机理，研究气动力控制方法等。这些研究有助于优化汽车等物体的设计，以减少风阻、提高效率。</p>
+<p>总的来说，考虑风阻的落体运动是一个复杂的物理过程，涉及到流体力学、物体的动力学特性以及环境因素等多个方面。通过实验和理论分析，可以更准确地描述和预测物体在实际环境中的运动行为。</p></li>
+<li><p><strong>物理定律</strong>：
+牛顿定律： <span class="math inline">\(F = ma\)</span>。</p>
+<p>牛顿第二定律的描述是：<strong>物体的加速度与作用在物体上的合外力成正比，与物体的质量成反比，且加速度的方向与合外力的方向相同。</strong>牛顿第二定律是经典力学中描述物体运动的基本定律之一，由艾萨克·牛顿在1687年出版的《自然哲学的数学原理》中提出。</p></li>
+<li><p><strong>假设</strong>：</p>
+<ul>
+<li>假设1： <span class="math inline">\(v(t=0) = 0\)</span></li>
+<li>假设2：<span class="math inline">\(F_{drag}(t) \propto v(t)\)</span>，即<span class="math inline">\(F_{drag} = cv\)</span>。</li>
+</ul>
+<p>假设1属于初始条件，即进行计算最一开始的系统状态，基于这个“初始状态”系统开始变化。
+假设2属于系统内过程的假设，这里假设了风的阻力与运动速度的一次方成正比。我们其实也可以假设风阻力与速度的二次方成正比，这一假设在实际应用中更常见。</p></li>
+<li><p><strong>数学公式</strong>：</p>
+<p>由<span class="math inline">\(F = ma\)</span>和<span class="math inline">\(\frac{dv}{dt} = a\)</span>可得：</p>
+<p><span class="math display">\[\tag{1} \frac{dv}{dt} = a = \frac{F}{m}\]</span></p>
+<p>根据物体受力分析, 其受到向下的重力<span class="math inline">\(F_{g} = mg\)</span>和向上的空气阻力<span class="math inline">\(F_{drag} = cv\)</span>，空气阻力在此假设与物体运动速度成正比关系。则其受力平衡公式为：
+<span class="math display">\[\tag{2} F = F_{g} - F_{drag} = mg - cv\]</span></p>
+<p>综合公式（1）和（2），则得到：
+<span class="math display">\[\tag{3} \frac{dv}{dt} = g - \frac{c}{m} v\]</span></p>
+<div class="float">
+<img src="image/ch1/FallingObj/FallingObj.002.jpeg" alt="自由落体运动的受力分析" />
+<div class="figcaption">自由落体运动的受力分析</div>
+</div></li>
+<li><p><strong>公式求解</strong>：</p>
+<p>初始条件：<span class="math inline">\(v(0) = 0\)</span></p>
+<p>积分求解(解析解)：
+<span class="math display">\[v(t) = \frac {mg}{c}\left[ 1- exp(-\frac{c}{m}t) \right]\]</span></p></li>
+<li><p><strong>结果绘图</strong>：</p></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="modeling.html#cb1-1" tabindex="-1"></a>c <span class="ot">=</span> <span class="dv">15</span> <span class="co"># drag coeefficient</span></span>
+<span id="cb1-2"><a href="modeling.html#cb1-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="fl">9.8</span> <span class="co"># Gravity</span></span>
+<span id="cb1-3"><a href="modeling.html#cb1-3" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">150</span>  <span class="co"># Mass in kg</span></span>
+<span id="cb1-4"><a href="modeling.html#cb1-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>, <span class="dv">1</span>)  <span class="co"># Time</span></span>
+<span id="cb1-5"><a href="modeling.html#cb1-5" tabindex="-1"></a>y <span class="ot">=</span> m<span class="sc">*</span>g<span class="sc">/</span>c <span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> c <span class="sc">/</span> m <span class="sc">*</span> x))  <span class="co"># Vecocity</span></span>
+<span id="cb1-6"><a href="modeling.html#cb1-6" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span><span class="st">&#39;Time (s)&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Velocity (m/s)&#39;</span>, <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>); </span>
+<span id="cb1-7"><a href="modeling.html#cb1-7" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><em>变量表:</em></p>
+<ul>
+<li><span class="math inline">\(v(t)\)</span> - 随时间变化的物体速度</li>
+<li><span class="math inline">\(m\)</span> - 物体质量</li>
+<li><span class="math inline">\(g\)</span> - 重力加速度</li>
+<li><span class="math inline">\(a\)</span> - 物体运动的加速度</li>
+<li><span class="math inline">\(c\)</span> - 空气阻力系数</li>
+<li><span class="math inline">\(F\)</span> - 物体所受的力</li>
+<li><span class="math inline">\(F_{g}\)</span> - 重力</li>
+<li><span class="math inline">\(F_{drag}\)</span> - 空气阻力</li>
+</ul>
+</div>
+<div id="落体运动的数值求解方法" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> 落体运动的数值求解方法<a href="modeling.html#落体运动的数值求解方法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>前一节我们使用了解析解对落体运动进行了求解。但是现实中很多问题很难寻找的解析解，但是可以通过不同的数值方法和计算方案得到所需时间和空间上某一变量的数值解，数值解是解析解的近似。</p>
+<p>针对以上的落体运动，我们首先跳过CLAMS方法的前4步，我们使用数值方法来完成Solver这个步骤。</p>
+<div id="求解数学公式solver" class="section level4 hasAnchor" number="1.1.1.1">
+<h4><span class="header-section-number">1.1.1.1</span> 求解数学公式(Solver)<a href="modeling.html#求解数学公式solver" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>初始条件：<span class="math inline">\(v(0) = 0\)</span></li>
+<li>控制方程：<span class="math display">\[\frac{dv}{dt} = g - \frac{c}{m} v\]</span></li>
+<li>根据极限理论，当时间不长无限趋近于0时，我们可以根据前一时刻的系统状态（状态），和此时的变化趋势（导数）计算出相邻时刻的系统状态（未来状态）。 则： <span class="math display">\[v_{t-1} = v_{t} + \frac{dv}{dt} * \Delta t\]</span>
+更进一步，可得到：<span class="math display">\[v_{t-1} = v_{t} + [g - \frac{c}{m} \cdot v_{t-1}]* \Delta t\]</span></li>
+</ul>
+<p>我们可以在Excel中进行如下计算。</p>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="8%" />
+<col width="10%" />
+<col width="12%" />
+<col width="12%" />
+<col width="14%" />
+<col width="12%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Time</th>
+<th>V_t</th>
+<th>dV/dt</th>
+<th>V_t+1</th>
+<th>V_analytic</th>
+<th>Error</th>
+<th>ERROR %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0.0000</td>
+<td>4.9000</td>
+<td>4.9000</td>
+<td>0.0000</td>
+<td>0.0000</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0.5</td>
+<td>4.9000</td>
+<td>4.6550</td>
+<td>9.5550</td>
+<td>4.7795</td>
+<td>0.1205</td>
+<td>0.025208325</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>1</td>
+<td>9.5550</td>
+<td>4.4223</td>
+<td>13.9773</td>
+<td>9.3259</td>
+<td>0.2291</td>
+<td>0.024562365</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1.5</td>
+<td>13.9773</td>
+<td>4.2011</td>
+<td>18.1784</td>
+<td>13.6506</td>
+<td>0.3266</td>
+<td>0.023927978</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>2</td>
+<td>18.1784</td>
+<td>3.9911</td>
+<td>22.1695</td>
+<td>17.7644</td>
+<td>0.4140</td>
+<td>0.023305128</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>2.5</td>
+<td>22.1695</td>
+<td>3.7915</td>
+<td>25.9610</td>
+<td>21.6775</td>
+<td>0.4919</td>
+<td>0.022693776</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>3</td>
+<td>25.9610</td>
+<td>3.6020</td>
+<td>29.5629</td>
+<td>25.3998</td>
+<td>0.5612</td>
+<td>0.022093876</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>3.5</td>
+<td>29.5629</td>
+<td>3.4219</td>
+<td>32.9848</td>
+<td>28.9406</td>
+<td>0.6224</td>
+<td>0.021505376</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>4</td>
+<td>32.9848</td>
+<td>3.2508</td>
+<td>36.2356</td>
+<td>32.3086</td>
+<td>0.6762</td>
+<td>0.02092822</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>4.5</td>
+<td>36.2356</td>
+<td>3.0882</td>
+<td>39.3238</td>
+<td>35.5124</td>
+<td>0.7231</td>
+<td>0.020362349</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>使用R进行计算结果为：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="modeling.html#cb2-1" tabindex="-1"></a>c <span class="ot">=</span> <span class="dv">15</span> <span class="co"># drag coeefficient</span></span>
+<span id="cb2-2"><a href="modeling.html#cb2-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="fl">9.8</span> <span class="co"># Gravity</span></span>
+<span id="cb2-3"><a href="modeling.html#cb2-3" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">150</span>  <span class="co"># Mass in kg</span></span>
+<span id="cb2-4"><a href="modeling.html#cb2-4" tabindex="-1"></a>dt <span class="ot">=</span> <span class="fl">0.1</span></span>
+<span id="cb2-5"><a href="modeling.html#cb2-5" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>, dt)  <span class="co"># Time</span></span>
+<span id="cb2-6"><a href="modeling.html#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="modeling.html#cb2-7" tabindex="-1"></a><span class="co"># Analytic solution</span></span>
+<span id="cb2-8"><a href="modeling.html#cb2-8" tabindex="-1"></a>y <span class="ot">=</span> m<span class="sc">*</span>g<span class="sc">/</span>c <span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span> <span class="sc">*</span> c <span class="sc">/</span> m <span class="sc">*</span> x))  <span class="co"># Vecocity</span></span>
+<span id="cb2-9"><a href="modeling.html#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="modeling.html#cb2-10" tabindex="-1"></a><span class="co"># Numeric solution</span></span>
+<span id="cb2-11"><a href="modeling.html#cb2-11" tabindex="-1"></a>nx<span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb2-12"><a href="modeling.html#cb2-12" tabindex="-1"></a>y_ana <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>, nx)</span>
+<span id="cb2-13"><a href="modeling.html#cb2-13" tabindex="-1"></a>y_ana[<span class="dv">1</span>]<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb2-14"><a href="modeling.html#cb2-14" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>nx){</span>
+<span id="cb2-15"><a href="modeling.html#cb2-15" tabindex="-1"></a>  dydt <span class="ot">=</span> g <span class="sc">-</span> c <span class="sc">/</span> m <span class="sc">*</span> y_ana[i<span class="dv">-1</span>]</span>
+<span id="cb2-16"><a href="modeling.html#cb2-16" tabindex="-1"></a>  y_ana[i] <span class="ot">=</span> y_ana[i<span class="dv">-1</span>] <span class="sc">+</span> dydt <span class="sc">*</span> dt</span>
+<span id="cb2-17"><a href="modeling.html#cb2-17" tabindex="-1"></a>}</span>
+<span id="cb2-18"><a href="modeling.html#cb2-18" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="modeling.html#cb2-19" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="st">&#39;Time&#39;</span><span class="ot">=</span>x, <span class="st">&#39;V&#39;</span><span class="ot">=</span>y, <span class="st">&#39;V_ana&#39;</span><span class="ot">=</span>y_ana)</span>
+<span id="cb2-20"><a href="modeling.html#cb2-20" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>,<span class="dv">0</span>))</span>
+<span id="cb2-21"><a href="modeling.html#cb2-21" tabindex="-1"></a><span class="fu">matplot</span>(x, <span class="fu">cbind</span>(y, y_ana), <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span><span class="st">&#39;Time (s)&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Velocity (m/s)&#39;</span>, </span>
+<span id="cb2-22"><a href="modeling.html#cb2-22" tabindex="-1"></a>        <span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>); <span class="fu">grid</span>()</span>
+<span id="cb2-23"><a href="modeling.html#cb2-23" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&#39;bottomright&#39;</span>, <span class="fu">c</span>(<span class="st">&#39;Analytic&#39;</span>, <span class="st">&#39;Numeric&#39;</span>), <span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb2-24"><a href="modeling.html#cb2-24" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb2-25"><a href="modeling.html#cb2-25" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="modeling.html#cb2-26" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">abs</span>(y <span class="sc">-</span> y_ana));</span>
+<span id="cb2-27"><a href="modeling.html#cb2-27" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&#39;Error&#39;</span>, <span class="at">side=</span><span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="dv">2</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="dv">2</span>)</span>
+<span id="cb2-28"><a href="modeling.html#cb2-28" tabindex="-1"></a><span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="解析解与数值解" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> 解析解与数值解<a href="modeling.html#解析解与数值解" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>数值解(Numeric solution)和解析解(Analytic solution)是解决科学和工程问题时得到的两种不同类型的解。它们的主要区别在于解的形式和求解过程：</p>
+<ol style="list-style-type: decimal">
+<li><strong>形式上的区别</strong>：
+<ul>
+<li><strong>解析解</strong>：通常是一个精确的数学表达式，可以是一个公式、方程或者函数。解析解能够给出问题的完整描述，包括所有的细节和特性。</li>
+<li><strong>数值解</strong>：是一个近似值，通常是一个数字或者一组数字。数值解是通过数值方法在计算机上计算得到的，只能近似地表示问题的解。</li>
+</ul></li>
+<li><strong>求解过程的区别</strong>：
+<ul>
+<li><strong>解析解</strong>：通过数学推导和符号运算得到。这种方法通常需要对问题进行简化和抽象，以便于找到精确的数学表达式。</li>
+<li><strong>数值解</strong>：通过数值算法和计算机程序实现。数值方法不需要对问题进行简化，而是直接在计算机上模拟问题的物理过程，通过迭代和逼近来获得解。</li>
+</ul></li>
+<li><strong>精确度</strong>：
+<ul>
+<li><strong>解析解</strong>：是精确的，没有误差，可以提供问题的完整信息。</li>
+<li><strong>数值解</strong>：是近似的，存在一定的误差。这种误差可能来源于数值方法的离散化、舍入误差等。</li>
+</ul></li>
+<li><strong>适用性</strong>：
+<ul>
+<li><strong>解析解</strong>：适用于那些可以找到精确数学表达式的问题。解析解在理论上非常有价值，因为它们提供了对问题的深入理解。</li>
+<li><strong>数值解</strong>：适用于那些难以找到解析解的复杂问题，或者解析解过于复杂难以直接使用的情况。数值解在工程和科学实践中非常常见，因为它们可以处理实际问题中的复杂性和不确定性。</li>
+</ul></li>
+<li><strong>计算成本</strong>：
+<ul>
+<li><strong>解析解</strong>：一旦找到，计算成本通常很低，因为解析解可以直接用于计算。</li>
+<li><strong>数值解</strong>：可能需要较高的计算成本，尤其是在需要高精度解或者问题规模很大时。</li>
+</ul></li>
+<li><strong>通用性</strong>：
+<ul>
+<li><strong>解析解</strong>：通常具有很好的通用性，因为它们是精确的数学表达式，可以应用于各种情况。</li>
+<li><strong>数值解</strong>：可能需要针对具体问题调整数值方法和参数，以获得更好的近似效果。</li>
+</ul></li>
+</ol>
+<p>简洁地总结了数值解和解析解在不同方面的主要区别。</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="43%" />
+<col width="42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>特性</th>
+<th>数值解</th>
+<th>解析解</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>形式</strong></td>
+<td>近似值，通常是一个数字或一组数字。</td>
+<td>精确的数学表达式，如公式、方程或函数。</td>
+</tr>
+<tr class="even">
+<td><strong>求解过程</strong></td>
+<td>通过数值算法和计算机程序实现。</td>
+<td>通过数学推导和符号运算得到。</td>
+</tr>
+<tr class="odd">
+<td><strong>精确度</strong></td>
+<td>近似，存在误差。</td>
+<td>精确，没有误差。</td>
+</tr>
+<tr class="even">
+<td><strong>适用性</strong></td>
+<td>适用于难以找到解析解的复杂问题。</td>
+<td>适用于可以找到精确数学表达式的问题。</td>
+</tr>
+<tr class="odd">
+<td><strong>计算成本</strong></td>
+<td>可能需要较高的计算成本。</td>
+<td>一旦找到，计算成本通常很低。</td>
+</tr>
+<tr class="even">
+<td><strong>通用性</strong></td>
+<td>需要针对具体问题调整数值方法和参数。</td>
+<td>具有很好的通用性，可以直接用于计算。</td>
+</tr>
+</tbody>
+</table>
+<p>总的来说，解析解和数值解各有优势和局限，选择哪种解法取决于问题的性质、求解的精度要求以及可用的计算资源。在实际应用中，数值解因其灵活性和适用性而被广泛使用。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-Modeling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

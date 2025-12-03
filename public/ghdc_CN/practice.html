@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 练习 | 全球水文模拟云平台</title>
+  <meta name="description" content="GHDC User Guide" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 练习 | 全球水文模拟云平台" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="GHDC User Guide" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 练习 | 全球水文模拟云平台" />
+  
+  <meta name="twitter:description" content="GHDC User Guide" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2023-05-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="model.html"/>
+<link rel="next" href="app.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">GHDC User Guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> 绪论</a></li>
+<li class="chapter" data-level="2" data-path="method.html"><a href="method.html"><i class="fa fa-check"></i><b>2</b> 方法论</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="method.html"><a href="method.html#etv"><i class="fa fa-check"></i><b>2.1</b> 关键地理数据</a></li>
+<li class="chapter" data-level="2.2" data-path="method.html"><a href="method.html#theory-data"><i class="fa fa-check"></i><b>2.2</b> 数据仓库</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="method.html"><a href="method.html#原始数据源"><i class="fa fa-check"></i><b>2.2.1</b> 原始数据源</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="struct.html"><a href="struct.html"><i class="fa fa-check"></i><b>3</b> 设计结构</a></li>
+<li class="chapter" data-level="4" data-path="model.html"><a href="model.html"><i class="fa fa-check"></i><b>4</b> 模型库</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="model.html"><a href="model.html#model-shud"><i class="fa fa-check"></i><b>4.1</b> SHUD</a></li>
+<li class="chapter" data-level="4.2" data-path="model.html"><a href="model.html#model-topmodel"><i class="fa fa-check"></i><b>4.2</b> TopModel</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>5</b> 练习</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="practice.html"><a href="practice.html#上传边界文件设定模拟参数"><i class="fa fa-check"></i><b>5.1</b> 上传边界文件，设定模拟参数</a></li>
+<li class="chapter" data-level="5.2" data-path="practice.html"><a href="practice.html#查收邮件点击确认链接"><i class="fa fa-check"></i><b>5.2</b> 查收邮件，点击确认链接</a></li>
+<li class="chapter" data-level="5.3" data-path="practice.html"><a href="practice.html#查收邮件下载数据"><i class="fa fa-check"></i><b>5.3</b> 查收邮件，下载数据</a></li>
+<li class="chapter" data-level="5.4" data-path="practice.html"><a href="practice.html#编译模型开始模型模拟"><i class="fa fa-check"></i><b>5.4</b> 编译模型，开始模型模拟</a></li>
+<li class="chapter" data-level="5.5" data-path="practice.html"><a href="practice.html#分析结果"><i class="fa fa-check"></i><b>5.5</b> 分析结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="app.html"><a href="app.html#结果"><i class="fa fa-check"></i><b>6.1</b> 结果</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>7</b> 常见问题</a></li>
+<li class="chapter" data-level="8" data-path="dev.html"><a href="dev.html"><i class="fa fa-check"></i><b>8</b> 开发指南</a></li>
+<li class="chapter" data-level="9" data-path="ref.html"><a href="ref.html"><i class="fa fa-check"></i><b>9</b> 参考文献</a></li>
+<li class="chapter" data-level="" data-path="ack.html"><a href="ack.html"><i class="fa fa-check"></i>致谢</a></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">全球水文模拟云平台</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="practice" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> 练习<a href="practice.html#practice" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>本节我们通过一个案例来展示，如何通过GHDC获取数据与建立水文模型。</p>
+<p>这里的案例是使用四川彭州市的龙漕沟，是一个16 <span class="math inline">\(km^2\)</span> 的小山沟。</p>
+<div id="上传边界文件设定模拟参数" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> 上传边界文件，设定模拟参数<a href="practice.html#上传边界文件设定模拟参数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>流域：龙漕沟，面积 16 <span class="math inline">\(km^2\)</span>. 四川成都，彭州市</li>
+<li>年份：2017-2018</li>
+<li>单元数：400个； <span class="math inline">\(16\times10^6 m^2/ 400 = 40,000 m^2 \approx 200 m\times 200 m\)</span></li>
+<li>气象驱动：CMFD （He et al., 2020），数据可用范围1979-2018</li>
+</ul>
+<div class="float">
+<img src="Figure/practice/s1.png" alt="网页显示的流域边界" />
+<div class="figcaption">网页显示的流域边界</div>
+</div>
+</div>
+<div id="查收邮件点击确认链接" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> 查收邮件，点击确认链接<a href="practice.html#查收邮件点击确认链接" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="Figure/practice/s2.1.png" alt="接收到的邮件" />
+<div class="figcaption">接收到的邮件</div>
+</div>
+<div class="float">
+<img src="Figure/practice/s2.2.png" alt="点击确认邮件之后" />
+<div class="figcaption">点击确认邮件之后</div>
+</div>
+</div>
+<div id="查收邮件下载数据" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> 查收邮件，下载数据<a href="practice.html#查收邮件下载数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="Figure/practice/s3.png" alt="网页显示的流域边界" />
+<div class="figcaption">网页显示的流域边界</div>
+</div>
+<pre class="shell"><code>wget -cr https://shudfile.shuddata.com/download/20230528_admin@shuddata.com_log/</code></pre>
+<div class="float">
+<img src="Figure/practice/s3.1.png" alt="建模的流域边界等" />
+<div class="figcaption">建模的流域边界等</div>
+</div>
+<div class="float">
+<img src="Figure/practice/s3.2.png" alt="SHUD模型三角形网" />
+<div class="figcaption">SHUD模型三角形网</div>
+</div>
+<div class="float">
+<img src="Figure/practice/s3.3.png" alt="SHUD模型单元的面积/分辨率分布" />
+<div class="figcaption">SHUD模型单元的面积/分辨率分布</div>
+</div>
+</div>
+<div id="编译模型开始模型模拟" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> 编译模型，开始模型模拟<a href="practice.html#编译模型开始模型模拟" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>进入到StaticFiles/SHUD_model文件夹，执行</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="practice.html#cb2-1" tabindex="-1"></a><span class="fu">chmod</span> +x configure</span>
+<span id="cb2-2"><a href="practice.html#cb2-2" tabindex="-1"></a><span class="ex">./configure</span></span>
+<span id="cb2-3"><a href="practice.html#cb2-3" tabindex="-1"></a><span class="fu">make</span> clean</span>
+<span id="cb2-4"><a href="practice.html#cb2-4" tabindex="-1"></a><span class="fu">make</span> shud</span></code></pre></div>
+<p>拷贝编译好的shud可执行程序到模型输入数据的文件夹。</p>
+<p>运行模型</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="practice.html#cb3-1" tabindex="-1"></a><span class="ex">./shud</span> lcg</span></code></pre></div>
+</div>
+<div id="分析结果" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> 分析结果<a href="practice.html#分析结果" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>在StaticFiles/SHUD_model/rAnalysis中，使用RStudio打开rAnalysis.Rproj来分析数据。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="practice.html#cb4-1" tabindex="-1"></a><span class="co">#&#39; ===================================================</span></span>
+<span id="cb4-2"><a href="practice.html#cb4-2" tabindex="-1"></a><span class="co">#&#39; Analysis the output results from SHUD model</span></span>
+<span id="cb4-3"><a href="practice.html#cb4-3" tabindex="-1"></a><span class="co">#&#39; Author: Lele Shu &lt;shulele@lzb.ac.cn&gt;</span></span>
+<span id="cb4-4"><a href="practice.html#cb4-4" tabindex="-1"></a><span class="co">#&#39; Website: www.shud.xyz</span></span>
+<span id="cb4-5"><a href="practice.html#cb4-5" tabindex="-1"></a><span class="co">#&#39; Date: 2023-05-27</span></span>
+<span id="cb4-6"><a href="practice.html#cb4-6" tabindex="-1"></a><span class="co">#&#39; Copyright: MIT-Licence</span></span>
+<span id="cb4-7"><a href="practice.html#cb4-7" tabindex="-1"></a><span class="co">#&#39; ===================================================</span></span>
+<span id="cb4-8"><a href="practice.html#cb4-8" tabindex="-1"></a><span class="co">#&#39; Function:</span></span>
+<span id="cb4-9"><a href="practice.html#cb4-9" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb4-10"><a href="practice.html#cb4-10" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb4-11"><a href="practice.html#cb4-11" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="practice.html#cb4-12" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb4-13"><a href="practice.html#cb4-13" tabindex="-1"></a><span class="fu">library</span>(rSHUD) <span class="co"># 加载rSHUD包</span></span>
+<span id="cb4-14"><a href="practice.html#cb4-14" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb4-15"><a href="practice.html#cb4-15" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb4-16"><a href="practice.html#cb4-16" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb4-17"><a href="practice.html#cb4-17" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb4-18"><a href="practice.html#cb4-18" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-19"><a href="practice.html#cb4-19" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="practice.html#cb4-20" tabindex="-1"></a>prjname <span class="ot">=</span> <span class="st">&#39;lcg&#39;</span>  <span class="co"># 本项目名称</span></span>
+<span id="cb4-21"><a href="practice.html#cb4-21" tabindex="-1"></a><span class="fu">shud.env</span>(<span class="at">prjname =</span> prjname,</span>
+<span id="cb4-22"><a href="practice.html#cb4-22" tabindex="-1"></a>         <span class="at">inpath =</span> <span class="fu">file.path</span>(<span class="st">&#39;../../../Modeling/input/&#39;</span>, prjname),</span>
+<span id="cb4-23"><a href="practice.html#cb4-23" tabindex="-1"></a>         <span class="at">outpath =</span> <span class="fu">file.path</span>(<span class="st">&#39;../../../Modeling/output/&#39;</span>, <span class="fu">paste0</span>(prjname, <span class="st">&#39;.out&#39;</span>)))</span>
+<span id="cb4-24"><a href="practice.html#cb4-24" tabindex="-1"></a>AA <span class="ot">=</span> <span class="fu">getArea</span>() <span class="co"># 读取三角形单元面积</span></span>
+<span id="cb4-25"><a href="practice.html#cb4-25" tabindex="-1"></a>oid <span class="ot">=</span> <span class="fu">getOutlets</span>() <span class="co"># 读取河流出口的ID号</span></span>
+<span id="cb4-26"><a href="practice.html#cb4-26" tabindex="-1"></a>spr<span class="ot">=</span><span class="fu">sp.riv2shp</span>()  <span class="co"># 生成河流的shapefile</span></span>
+<span id="cb4-27"><a href="practice.html#cb4-27" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="practice.html#cb4-28" tabindex="-1"></a>qdown <span class="ot">=</span> <span class="fu">readout</span>(<span class="st">&#39;rivqdown&#39;</span>) <span class="co"># 读取所有河流的向下径流</span></span>
+<span id="cb4-29"><a href="practice.html#cb4-29" tabindex="-1"></a>qs <span class="ot">=</span> <span class="fu">ts2Daily</span>(qdown[, oid[<span class="dv">1</span>]])  </span>
+<span id="cb4-30"><a href="practice.html#cb4-30" tabindex="-1"></a>ts <span class="ot">=</span> <span class="fu">time</span>(qs)</span>
+<span id="cb4-31"><a href="practice.html#cb4-31" tabindex="-1"></a><span class="fu">autoplot</span>(qs[,]) <span class="co"># 绘制径流过程线图</span></span>
+<span id="cb4-32"><a href="practice.html#cb4-32" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="practice.html#cb4-33" tabindex="-1"></a>gw<span class="ot">=</span><span class="fu">readout</span>(<span class="st">&#39;eleygw&#39;</span>)  <span class="co"># 读取所有三角形单元的地下水变化时间序列</span></span>
+<span id="cb4-34"><a href="practice.html#cb4-34" tabindex="-1"></a>mgw <span class="ot">=</span> <span class="fu">colMeans</span>(gw) <span class="co"># 计算时间段内的地下水均值。</span></span>
+<span id="cb4-35"><a href="practice.html#cb4-35" tabindex="-1"></a>sp.mesh <span class="ot">=</span> <span class="fu">sp.mesh2Shape</span>(<span class="at">dbf =</span> <span class="fu">data.frame</span>(<span class="st">&#39;gw&#39;</span><span class="ot">=</span>mgw))  <span class="co"># 生成三角形的shapefile。</span></span>
+<span id="cb4-36"><a href="practice.html#cb4-36" tabindex="-1"></a><span class="fu">plot_sp</span>(sp.mesh, <span class="at">zcol =</span> <span class="st">&#39;gw&#39;</span>)</span>
+<span id="cb4-37"><a href="practice.html#cb4-37" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span>T, spr, <span class="at">col=</span><span class="st">&#39;red&#39;</span>)</span></code></pre></div>
+<p>[出口径流的过程线](Figure/practice/s5.1.png]
+[流域地下水储量的空间分布](Figure/practice/s5.2.png]</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="app.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

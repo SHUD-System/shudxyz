@@ -46,7 +46,7 @@ en:
         url: 'course/'
         weight: 70
       - name: SHUD Model📚
-        url: '../book_en'
+        url: '../Book_EN'
         weight: 73
       - name: Open Funding⭐
         url: '../openfunding/'
@@ -93,7 +93,7 @@ zh:
         url: 'course/'
         weight: 70
       - name: SHUD模型📚
-        url: '../book_cn/'
+        url: '../Book_CN/'
         weight: 73
       - name: 开放基金⭐
         url: '../openfunding/'

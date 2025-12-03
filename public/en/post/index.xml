@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts | SHUD Group</title><link>http://localhost:1313/en/post/</link><atom:link href="http://localhost:1313/en/post/index.xml" rel="self" type="application/rss+xml"/><description>Posts</description><generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate><image><url>http://localhost:1313/media/icon_hu4b7ba8d7b72b8d90530142c1f3cd9f35_73534_512x512_fill_lanczos_center_3.png</url><title>Posts</title><link>http://localhost:1313/en/post/</link></image><item><title>The SHUD model description paper is published on Geoscientific Model Development</title><link>http://localhost:1313/en/post/2020_06_18_gmd/</link><pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate><guid>http://localhost:1313/en/post/2020_06_18_gmd/</guid><description>&lt;p>The SHUD model description paper is published on the Geoscientific Model Development.&lt;/p>
+&lt;p>Total readers is more than 300 after the preprint.
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="reader" srcset="
+/en/post/2020_06_18_gmd/reader_hu580a0a68847797172a80a7283fb6f8c7_26844_3fcb37c1e93f18da803368c395216da1.webp 400w,
+/en/post/2020_06_18_gmd/reader_hu580a0a68847797172a80a7283fb6f8c7_26844_fb30a56269d5dba3a0e2efe0df28fb96.webp 760w,
+/en/post/2020_06_18_gmd/reader_hu580a0a68847797172a80a7283fb6f8c7_26844_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="http://localhost:1313/en/post/2020_06_18_gmd/reader_hu580a0a68847797172a80a7283fb6f8c7_26844_3fcb37c1e93f18da803368c395216da1.webp"
+width="760"
+height="390"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>Web page: &lt;a href="https://www.geosci-model-dev.net/13/2743/2020/" target="_blank" rel="noopener">https://www.geosci-model-dev.net/13/2743/2020/&lt;/a>&lt;/p>
+&lt;p>PDF link: &lt;a href="https://www.geosci-model-dev.net/13/2743/2020/gmd-13-2743-2020.pdf" target="_blank" rel="noopener">https://www.geosci-model-dev.net/13/2743/2020/gmd-13-2743-2020.pdf&lt;/a>&lt;/p>
+&lt;p>&lt;em>Thanks to the editor Dr. Andrew Wickert and two anonymous referees.&lt;/em>&lt;/p></description></item><item><title>Release of SHUD v1.0</title><link>http://localhost:1313/en/post/2019_11_24_releasev1.0/</link><pubDate>Sat, 23 Nov 2019 00:00:00 +0000</pubDate><guid>http://localhost:1313/en/post/2019_11_24_releasev1.0/</guid><description>&lt;p>The release of SHUD v1.0 on GitHub(&lt;a href="https://github.com/SHUD-System/SHUD%29" target="_blank" rel="noopener">https://github.com/SHUD-System/SHUD)&lt;/a>.&lt;/p>
+&lt;p>The conceputal and procedual design of the SHUD model can be found in our model description paper at Geoscientific Model Development Model &lt;a href="https://www.geosci-model-dev-discuss.net/gmd-2019-354/" target="_blank" rel="noopener">https://www.geosci-model-dev-discuss.net/gmd-2019-354/&lt;/a>.&lt;/p></description></item><item><title>The new website of SHUD modeing system is online</title><link>http://localhost:1313/en/post/2019_11_23_websites/</link><pubDate>Fri, 22 Nov 2019 00:15:07 -0700</pubDate><guid>http://localhost:1313/en/post/2019_11_23_websites/</guid><description>&lt;p>The website &lt;a href="https://shud.netlify.com" target="_blank" rel="noopener">https://shud.netlify.com&lt;/a> is online now. The independent domain &lt;a href="www.shud.xyz">www.shud.xyz&lt;/a> will be ready in a week.&lt;/p></description></item></channel></rss>
