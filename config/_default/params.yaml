@@ -6,9 +6,9 @@
 # Appearance
 
 appearance:
-  theme_day: Ocean
+  theme_day: minimal
   theme_night:
-  font: Ocean
+  font: minimal
   font_size: L
   mode: light
   color: blue
@@ -30,9 +30,8 @@ marketing:
   verification:
     google: 'cXuEvzqGXqYRwtc2t0olg_QubrtNc_2u_2LXONMFKeg'
     baidu: 'code-caLY3Fu6xB'
-    bing: "8707F677BE38954F712BC57BA2D1CEFB"  # 从 Bing Webmaster Tools 获取
+    bing: ‘8707F677BE38954F712BC57BA2D1CEFB'  # 从 Bing Webmaster Tools 获取
 # Site header
-
 header:
   navbar:
     enable: true
