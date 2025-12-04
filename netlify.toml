@@ -1,4 +1,5 @@
 [build]
+  image = "ubuntu-24.04"
   command = "hugo --gc --minify -b $URL && npx pagefind --source 'public'"
   publish = "public"
 
