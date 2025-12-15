@@ -53,4 +53,4 @@ email: "1016138286@qq.com"
 # Highlight the author in author lists? (true/false)
 highlight_name: false
 ---
-免试推荐硕士研究生。主要研究方向为洪水预报。
+免试推荐硕士研究生。主要研究方向为复杂高山区积雪对径流的影响。
