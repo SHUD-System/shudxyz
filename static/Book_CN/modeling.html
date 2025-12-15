@@ -1,0 +1,3034 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 SHUD模型软件与数据 | SHUD水文模型 (ver 2.0)</title>
+  <meta name="description" content="SHUD Book" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 SHUD模型软件与数据 | SHUD水文模型 (ver 2.0)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="SHUD Book" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 SHUD模型软件与数据 | SHUD水文模型 (ver 2.0)" />
+  
+  <meta name="twitter:description" content="SHUD Book" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2024-11-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="theory.html"/>
+<link rel="next" href="autoshud.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SHUD Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> 绪论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#水文模型"><i class="fa fa-check"></i><b>1.1</b> 水文模型</a></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#数值水文模型"><i class="fa fa-check"></i><b>1.2</b> 数值水文模型</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="overview.html"><a href="overview.html#数学模型"><i class="fa fa-check"></i><b>1.2.1</b> 数学模型</a></li>
+<li class="chapter" data-level="1.2.2" data-path="overview.html"><a href="overview.html#数值方法求解"><i class="fa fa-check"></i><b>1.2.2</b> 数值方法求解</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#shud模型"><i class="fa fa-check"></i><b>1.3</b> SHUD模型</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#站在巨人的肩上"><i class="fa fa-check"></i><b>1.3.1</b> 站在巨人的肩上</a></li>
+<li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#pihm模型简史"><i class="fa fa-check"></i><b>1.3.2</b> PIHM模型简史</a></li>
+<li class="chapter" data-level="1.3.3" data-path="overview.html"><a href="overview.html#重要时间线"><i class="fa fa-check"></i><b>1.3.3</b> 重要时间线</a></li>
+<li class="chapter" data-level="1.3.4" data-path="overview.html"><a href="overview.html#shud与pihm的区别"><i class="fa fa-check"></i><b>1.3.4</b> SHUD与PIHM的区别</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#shud模型的特点"><i class="fa fa-check"></i><b>1.4</b> SHUD模型的特点</a></li>
+<li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#参考文献"><i class="fa fa-check"></i><b>1.5</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="theory.html"><a href="theory.html"><i class="fa fa-check"></i><b>2</b> 理论与公式</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="theory.html"><a href="theory.html#流域水循环"><i class="fa fa-check"></i><b>2.1</b> 流域水循环</a></li>
+<li class="chapter" data-level="2.2" data-path="theory.html"><a href="theory.html#建模思路"><i class="fa fa-check"></i><b>2.2</b> 建模思路</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="theory.html"><a href="theory.html#水量平衡"><i class="fa fa-check"></i><b>2.2.1</b> 水量平衡</a></li>
+<li class="chapter" data-level="2.2.2" data-path="theory.html"><a href="theory.html#边界条件"><i class="fa fa-check"></i><b>2.2.2</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="theory.html"><a href="theory.html#气象驱动"><i class="fa fa-check"></i><b>2.3</b> 气象驱动</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="theory.html"><a href="theory.html#降雨"><i class="fa fa-check"></i><b>2.3.1</b> 降雨</a></li>
+<li class="chapter" data-level="2.3.2" data-path="theory.html"><a href="theory.html#蒸散发"><i class="fa fa-check"></i><b>2.3.2</b> 蒸散发</a></li>
+<li class="chapter" data-level="2.3.3" data-path="theory.html"><a href="theory.html#风廓线-wind-profile"><i class="fa fa-check"></i><b>2.3.3</b> 风廓线 (Wind profile)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="theory.html"><a href="theory.html#能量过程"><i class="fa fa-check"></i><b>2.4</b> 能量过程</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="theory.html"><a href="theory.html#辐射"><i class="fa fa-check"></i><b>2.4.1</b> 辐射</a></li>
+<li class="chapter" data-level="2.4.2" data-path="theory.html"><a href="theory.html#地表能量平衡"><i class="fa fa-check"></i><b>2.4.2</b> 地表能量平衡</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="theory.html"><a href="theory.html#模型结构及原理"><i class="fa fa-check"></i><b>2.5</b> 模型结构及原理</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="theory.html"><a href="theory.html#植被冠层截留"><i class="fa fa-check"></i><b>2.5.1</b> 植被冠层截留</a></li>
+<li class="chapter" data-level="2.5.2" data-path="theory.html"><a href="theory.html#蒸散发-1"><i class="fa fa-check"></i><b>2.5.2</b> 蒸散发</a></li>
+<li class="chapter" data-level="2.5.3" data-path="theory.html"><a href="theory.html#积雪"><i class="fa fa-check"></i><b>2.5.3</b> 积雪</a></li>
+<li class="chapter" data-level="2.5.4" data-path="theory.html"><a href="theory.html#地表水"><i class="fa fa-check"></i><b>2.5.4</b> 地表水</a></li>
+<li class="chapter" data-level="2.5.5" data-path="theory.html"><a href="theory.html#土壤水"><i class="fa fa-check"></i><b>2.5.5</b> 2.3.5 土壤水</a></li>
+<li class="chapter" data-level="2.5.6" data-path="theory.html"><a href="theory.html#地下水"><i class="fa fa-check"></i><b>2.5.6</b> 地下水</a></li>
+<li class="chapter" data-level="2.5.7" data-path="theory.html"><a href="theory.html#河道水"><i class="fa fa-check"></i><b>2.5.7</b> 河道水</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>3</b> SHUD模型软件与数据</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modeling.html"><a href="modeling.html#install"><i class="fa fa-check"></i><b>3.1</b> 安装 SHUD and rSHUD</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="modeling.html"><a href="modeling.html#sundialscvode"><i class="fa fa-check"></i><b>3.1.1</b> SUNDIALS/CVODE</a></li>
+<li class="chapter" data-level="3.1.2" data-path="modeling.html"><a href="modeling.html#编译shud"><i class="fa fa-check"></i><b>3.1.2</b> 编译SHUD</a></li>
+<li class="chapter" data-level="3.1.3" data-path="modeling.html"><a href="modeling.html#rshud"><i class="fa fa-check"></i><b>3.1.3</b> rSHUD</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modeling.html"><a href="modeling.html#inputfiles"><i class="fa fa-check"></i><b>3.2</b> 模型输入数据</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="modeling.html"><a href="modeling.html#原始数据"><i class="fa fa-check"></i><b>3.2.1</b> 原始数据</a></li>
+<li class="chapter" data-level="3.2.2" data-path="modeling.html"><a href="modeling.html#模型输入文件"><i class="fa fa-check"></i><b>3.2.2</b> 模型输入文件</a></li>
+<li class="chapter" data-level="3.2.3" data-path="modeling.html"><a href="modeling.html#空间数据"><i class="fa fa-check"></i><b>3.2.3</b> 空间数据</a></li>
+<li class="chapter" data-level="3.2.4" data-path="modeling.html"><a href="modeling.html#水力学参数"><i class="fa fa-check"></i><b>3.2.4</b> 水力学参数</a></li>
+<li class="chapter" data-level="3.2.5" data-path="modeling.html"><a href="modeling.html#模型配置文件"><i class="fa fa-check"></i><b>3.2.5</b> 模型配置文件</a></li>
+<li class="chapter" data-level="3.2.6" data-path="modeling.html"><a href="modeling.html#时间序列数据"><i class="fa fa-check"></i><b>3.2.6</b> 时间序列数据</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="modeling.html"><a href="modeling.html#outputfiles"><i class="fa fa-check"></i><b>3.3</b> 结果输出文件</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="modeling.html"><a href="modeling.html#文件名格式"><i class="fa fa-check"></i><b>3.3.1</b> 文件名格式</a></li>
+<li class="chapter" data-level="3.3.2" data-path="modeling.html"><a href="modeling.html#文本格式输出文件.csv"><i class="fa fa-check"></i><b>3.3.2</b> 文本格式输出文件（.csv）</a></li>
+<li class="chapter" data-level="3.3.3" data-path="modeling.html"><a href="modeling.html#二进制输出文件.dat"><i class="fa fa-check"></i><b>3.3.3</b> 二进制输出文件（.dat）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="autoshud.html"><a href="autoshud.html"><i class="fa fa-check"></i><b>4</b> 自动化建模</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="autoshud.html"><a href="autoshud.html#简介"><i class="fa fa-check"></i><b>4.1</b> 简介</a></li>
+<li class="chapter" data-level="4.2" data-path="autoshud.html"><a href="autoshud.html#建模思路-1"><i class="fa fa-check"></i><b>4.2</b> 建模思路</a></li>
+<li class="chapter" data-level="4.3" data-path="autoshud.html"><a href="autoshud.html#建模步骤"><i class="fa fa-check"></i><b>4.3</b> 建模步骤</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="autoshud.html"><a href="autoshud.html#建模参数"><i class="fa fa-check"></i><b>4.3.1</b> 建模参数</a></li>
+<li class="chapter" data-level="4.3.2" data-path="autoshud.html"><a href="autoshud.html#step1.-数据子集提取与数据规则化"><i class="fa fa-check"></i><b>4.3.2</b> Step1. 数据子集提取与数据规则化</a></li>
+<li class="chapter" data-level="4.3.3" data-path="autoshud.html"><a href="autoshud.html#step2.-水文参数和气象数据生成"><i class="fa fa-check"></i><b>4.3.3</b> Step2. 水文参数和气象数据生成</a></li>
+<li class="chapter" data-level="4.3.4" data-path="autoshud.html"><a href="autoshud.html#step3.-建模"><i class="fa fa-check"></i><b>4.3.4</b> Step3. 建模</a></li>
+<li class="chapter" data-level="4.3.5" data-path="autoshud.html"><a href="autoshud.html#step4.-模拟"><i class="fa fa-check"></i><b>4.3.5</b> Step4. 模拟</a></li>
+<li class="chapter" data-level="4.3.6" data-path="autoshud.html"><a href="autoshud.html#step5.-模拟结果后处理"><i class="fa fa-check"></i><b>4.3.6</b> Step5. 模拟结果后处理</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="autoshud.html"><a href="autoshud.html#可移植性"><i class="fa fa-check"></i><b>4.4</b> 可移植性</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="calibration.html"><a href="calibration.html"><i class="fa fa-check"></i><b>5</b> 模型校准</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="calibration.html"><a href="calibration.html#参数敏感性"><i class="fa fa-check"></i><b>5.1</b> 参数敏感性</a></li>
+<li class="chapter" data-level="5.2" data-path="calibration.html"><a href="calibration.html#手动模型校准"><i class="fa fa-check"></i><b>5.2</b> 手动模型校准</a></li>
+<li class="chapter" data-level="5.3" data-path="calibration.html"><a href="calibration.html#cma-es自动化模型校准"><i class="fa fa-check"></i><b>5.3</b> CMA-ES自动化模型校准</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="application.html"><a href="application.html#v形流域"><i class="fa fa-check"></i><b>6.1</b> V形流域</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="application.html"><a href="application.html#shen等2010-中的结果"><i class="fa fa-check"></i><b>6.1.1</b> Shen等(2010) 中的结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="application.html"><a href="application.html#vauclin水槽箱试验"><i class="fa fa-check"></i><b>6.2</b> Vauclin水槽箱试验</a></li>
+<li class="chapter" data-level="6.3" data-path="application.html"><a href="application.html#美国加州cache河流域"><i class="fa fa-check"></i><b>6.3</b> 美国加州Cache河流域</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="application.html"><a href="application.html#cache-creek-watershed"><i class="fa fa-check"></i><b>6.3.1</b> Cache Creek Watershed</a></li>
+<li class="chapter" data-level="6.3.2" data-path="application.html"><a href="application.html#shud-模拟和校准"><i class="fa fa-check"></i><b>6.3.2</b> SHUD 模拟和校准</a></li>
+<li class="chapter" data-level="6.3.3" data-path="application.html"><a href="application.html#结果"><i class="fa fa-check"></i><b>6.3.3</b> 结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="application.html"><a href="application.html#宁夏岩画村山洪"><i class="fa fa-check"></i><b>6.4</b> 宁夏岩画村山洪</a></li>
+<li class="chapter" data-level="6.5" data-path="application.html"><a href="application.html#休斯顿城市内涝"><i class="fa fa-check"></i><b>6.5</b> 休斯顿城市内涝</a></li>
+<li class="chapter" data-level="6.6" data-path="application.html"><a href="application.html#南苏丹尼罗河上游"><i class="fa fa-check"></i><b>6.6</b> 南苏丹尼罗河上游</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sourcecode.html"><a href="sourcecode.html"><i class="fa fa-check"></i><b>7</b> 源码和程序设计</a></li>
+<li class="chapter" data-level="8" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>8</b> 常见问题</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="faq.html"><a href="faq.html#模型理论"><i class="fa fa-check"></i><b>8.1</b> 模型理论</a></li>
+<li class="chapter" data-level="8.2" data-path="faq.html"><a href="faq.html#模型安装编译"><i class="fa fa-check"></i><b>8.2</b> 模型安装/编译</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="faq.html"><a href="faq.html#linuxmac-os"><i class="fa fa-check"></i><b>8.2.1</b> Linux/Mac OS</a></li>
+<li class="chapter" data-level="8.2.2" data-path="faq.html"><a href="faq.html#windows"><i class="fa fa-check"></i><b>8.2.2</b> Windows</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="faq.html"><a href="faq.html#rshud-1"><i class="fa fa-check"></i><b>8.3</b> rSHUD</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="faq.html"><a href="faq.html#rshud安装"><i class="fa fa-check"></i><b>8.3.1</b> rSHUD安装</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="faq.html"><a href="faq.html#数据"><i class="fa fa-check"></i><b>8.4</b> 数据</a></li>
+<li class="chapter" data-level="8.5" data-path="faq.html"><a href="faq.html#结果分析"><i class="fa fa-check"></i><b>8.5</b> 结果分析</a></li>
+<li class="chapter" data-level="8.6" data-path="faq.html"><a href="faq.html#模型校准"><i class="fa fa-check"></i><b>8.6</b> 模型校准</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="faq.html"><a href="faq.html#手动校准"><i class="fa fa-check"></i><b>8.6.1</b> 手动校准</a></li>
+<li class="chapter" data-level="8.6.2" data-path="faq.html"><a href="faq.html#自动化校准"><i class="fa fa-check"></i><b>8.6.2</b> 自动化校准</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="faq.html"><a href="faq.html#可视化"><i class="fa fa-check"></i><b>8.7</b> 可视化</a></li>
+<li class="chapter" data-level="8.8" data-path="faq.html"><a href="faq.html#全球水文数据云"><i class="fa fa-check"></i><b>8.8</b> 全球水文数据云</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SHUD水文模型 (ver 2.0)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> SHUD模型软件与数据<a href="modeling.html#modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+
+<div id="install" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 安装 SHUD and rSHUD<a href="modeling.html#install" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>本章介绍SHUD模型和rSHUD的安装过程，以及必要的开发库的安装。</p>
+<div id="sundialscvode" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> SUNDIALS/CVODE<a href="modeling.html#sundialscvode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>SHUD模型的求解需要SUNDIAL中CVODE库的支持。
+SUNDIALS（SUite of Nonlinear and Differential/ALgebraic equation Solvers）由六个求解器组成；其中的 <a href="https://computation.llnl.gov/projects/sundials/cvode"><strong>CVODE</strong></a> 是一个用于求解刚性和非刚性常微分方程系统（初始值问题）的数值求解器，数学表达为： <span class="math inline">\(y&#39; = f(t,y)\)</span>. CVODE支持可变阶精度、可变步长数值方法。CVODE字母组合含义为“C版本的可变系数常微分方程求解器(Variable-Coefficient Ordinary Differential Equation Solver)” 。使用SHUD模型只需要CVODE支持，因此无需安装SUNDIALS所有求解器，只需要安装CVODE即可。</p>
+<p>因为SUNDIALS/CVODE持续更新中，代码和函数定义等等变化较大，因此SHUD模型通常仅支持CVODE较新版本，并非所有版本都可支持。</p>
+<p>SUNDIALS/CVODE的安装方法有两种：（1）自行下载安装包； （2）使用SHUD源代码的安装脚本。</p>
+<div id="使用脚本安装cvode" class="section level4 hasAnchor" number="3.1.1.1">
+<h4><span class="header-section-number">3.1.1.1</span> 使用脚本安装CVODE<a href="modeling.html#使用脚本安装cvode" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>源代码文件夹中的<code>configure.sh</code>文件是自动安装CVODE的脚本——可以自动从github上下载CVODE最新源代码并通过<code>cmake</code>编译并安装在<code>用户目录</code>下。</p>
+</div>
+<div id="自行下载并安装cvode" class="section level4 hasAnchor" number="3.1.1.2">
+<h4><span class="header-section-number">3.1.1.2</span> 自行下载并安装CVODE<a href="modeling.html#自行下载并安装cvode" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>SUNDIALS/CVODE 代码的下载地址为：<a href="https://computation.llnl.gov/projects/sundials/sundials-software">https://computation.llnl.gov/projects/sundials/sundials-software</a>。</p>
+<p>CVODE 5.x安装步骤：</p>
+<ol style="list-style-type: decimal">
+<li>进入命令行界面，并解压下载好的cvode压缩包。</li>
+<li>在CVODE的根目录下新建文件夹 <em>builddir</em>， 并进入该文件夹。</li>
+</ol>
+<pre><code>mkdir builddir
+cd builddir/</code></pre>
+<ol style="list-style-type: decimal">
+<li>测试 ccmake. 如果没有 <code>cmake</code>请安装。</li>
+</ol>
+<pre><code>ccmake </code></pre>
+<ol style="list-style-type: decimal">
+<li>运行ccmake配置安装环境。</li>
+</ol>
+<pre><code>ccmake ../sundials/cvode-5.0.0</code></pre>
+<div class="float">
+<img src="Fig/ccmake/1.png" alt="Screenshot of Step 1 in ccmake" />
+<div class="figcaption">Screenshot of Step 1 in ccmake</div>
+</div>
+<p>首先出现的是空白配置页面。按c开始配置。</p>
+<div class="float">
+<img src="Fig/ccmake/2.png" alt="Screen short of Step 2 in ccmake" />
+<div class="figcaption">Screen short of Step 2 in ccmake</div>
+</div>
+<p>上图为默认的配置信息图片上的四处配置信息需要注意，值需要改为下面的值。OPENMP值需要您的系统支持OpenMP，因此在确认您的系统支持OpenMP的情况下打开。</p>
+<pre><code>BUILD_CVODE = ON
+CMAKE_INSTALL_PREFIX = ~/sundials
+EXAMPLES_INSTALL_PATH = ~/sundials/examples</code></pre>
+<p>以上值修改完成后，按c确认配置。</p>
+<div class="float">
+<img src="Fig/ccmake/3.png" alt="Screenshot of Step 3 in ccmake" />
+<div class="figcaption">Screenshot of Step 3 in ccmake</div>
+</div>
+<p>ccmake开始自动配置安装参数。当配置完成后，按g生成配置文件并退出。</p>
+<ol style="list-style-type: decimal">
+<li>然后使用make编译并安装：</li>
+</ol>
+<pre><code>make
+make install </code></pre>
+</div>
+</div>
+<div id="编译shud" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> 编译SHUD<a href="modeling.html#编译shud" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>编译信息保存在文件<em>Makefile</em>，其中关键的编译参数:</p>
+<ol style="list-style-type: decimal">
+<li><em>SUNDIALS_DIR</em>的保存路径（<strong>非常关键</strong>）. 默认值为 <em>~/sundials</em>，如果您已经安装到此路径，即可保持默认值。</li>
+<li>OpenMP的路径。当您的系统支持OpenMP时，可根据实际安装路径配置。</li>
+<li>SRC_DIR路径。默认值为 <code>SRC_DIR = .</code>，即当前源码所在路径。</li>
+<li>BUILT_DIR路径，默认值为<code>BUILT_DIR = .</code> ，即当前源码所在路径。</li>
+</ol>
+<p>配置好<em>Makefile</em>文件即可编译，使用以下命令进行编译：</p>
+<pre><code>make clean
+make shud</code></pre>
+<p>更多可选的编译参数：</p>
+<ul>
+<li><code>make all</code> - 清理旧的编译文件，并编译SHUD和SHUD_omp文件。</li>
+<li><code>make help</code> - 展示编译的帮助信息。</li>
+<li><code>make shud</code> - 编译shud模型的可执行文件。</li>
+<li><code>make shud_omp</code> - 编译OpenMP支持的并行版本，编译后的可执行文件名为shud_omp。</li>
+</ul>
+<div id="openmp可选" class="section level4 hasAnchor" number="3.1.2.1">
+<h4><span class="header-section-number">3.1.2.1</span> OpenMP（可选）<a href="modeling.html#openmp可选" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>当需要并行计算时，需要安装OpenMP。以下为Mac OS上安装的参数：</p>
+<pre><code>brew install llvm clang
+brew install libomp
+compile flags for OpenMP: 
+  -Xpreprocessor -fopenmp -lomp
+Library/Include paths:
+  -L/usr/local/opt/libomp/lib 
+  -I/usr/local/opt/libomp/include</code></pre>
+</div>
+<div id="运行-shud-可执行文件" class="section level4 hasAnchor" number="3.1.2.2">
+<h4><span class="header-section-number">3.1.2.2</span> 运行 SHUD 可执行文件<a href="modeling.html#运行-shud-可执行文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>运行SHUD模型，请在命令行内执行一下命令：</p>
+<pre><code>./shud &lt;projectname&gt;</code></pre>
+<p><img src="Fig/CLI.png" alt="Default screen print of shud and command tips" />
+命令的参数模式：</p>
+<pre><code>./shud [-0] [-p projectfile] [-c calibrationfile] [-o output] [-n Num_Threads] &lt;project_name&gt;</code></pre>
+<ul>
+<li><p><code>-0</code> 空计算。读取输入文件并写出结果文件，但是内部没有计算。仅仅用于验证输入文件格式的可靠性和可用性。</p></li>
+<li><p><code>&lt;project name&gt;</code> 项目名称。所有的项目文件必须以此开头。</p></li>
+<li><p><code>[-p projectfile]</code> 指定的项目配置文件，文件中包含了所有输入文件的地址。</p></li>
+<li><p><code>[-c calibrationfile]</code> 指定的参数校准文件（.cfg.calib), 默认的文件为input/xx/xx.cfg.calib。</p></li>
+<li><p><code>[-o output_folder]</code> 制定的结果文件输出地址。默认的输出地址为<code>output/projname.out</code>。</p></li>
+<li><p><code>[-n Num_Threads]</code> 并行计算的线程数量。此参数仅在并行计算打开时可用。</p></li>
+</ul>
+<p>当<code>shud</code> 程序正常运行时，屏幕输出应该如下图所示：
+<img src="Fig/CLI_vs.png" alt="Screen print of SHUD running." /></p>
+</div>
+</div>
+<div id="rshud" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> rSHUD<a href="modeling.html#rshud" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>rSHUD是一个标准R包，但尚未向CRAN提交，因此需要通过github以源码方式安装。在R环境中执行以下命令即可自动安装rSHUD。 关于rSHUD的内容，<a href="mailto:请参阅@Shu2024gmd" class="email">请参阅@Shu2024gmd</a>.</p>
+<p>如果您的电脑上尚未在R环境中安装<code>devtools</code>，请先安装。</p>
+<pre><code>install.packages(&#39;devtools&#39;)</code></pre>
+<p>然后通过<code>devtools</code>从github上安装rSHUD。</p>
+<pre><code>devtools::install_github(&#39;SHUD-System/rSHUD&#39;)</code></pre>
+<p>rSHUD依赖的R工具包包括：</p>
+<ul>
+<li>Rcpp</li>
+<li>reshape2</li>
+<li>ggplot2</li>
+<li>gridExtra</li>
+<li>grid</li>
+<li>fields</li>
+<li>xts</li>
+<li>hydroGOF</li>
+<li>zoo</li>
+<li>raster (&gt;= 2.1.0)</li>
+<li>sp</li>
+<li>rgeos</li>
+<li>RTriangle</li>
+<li>rgdal (&gt;= 1.1.0)</li>
+<li>proj4</li>
+<li>abind</li>
+<li>utils</li>
+<li>lubridate</li>
+<li>geometry</li>
+<li>methods</li>
+<li>ncdf4</li>
+<li>GGally</li>
+<li>doParallel</li>
+</ul>
+
+</div>
+</div>
+<div id="inputfiles" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 模型输入数据<a href="modeling.html#inputfiles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>本节从原始数据要求到输入文件内涵，向用户详细介绍模型输入数据。</p>
+<div id="原始数据" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> 原始数据<a href="modeling.html#原始数据" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">类型</th>
+<th align="center">数据名</th>
+<th align="center">必要性</th>
+<th align="center">要求(格式、步长、数量）</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">空间数据</td>
+<td align="center"><strong>流域边界</strong></td>
+<td align="center">高</td>
+<td align="center">矢量</td>
+<td align="center">连续、封闭、唯一多边形；</td>
+</tr>
+<tr class="even">
+<td align="center">空间数据</td>
+<td align="center"><strong>河流网络</strong></td>
+<td align="center">高</td>
+<td align="center">矢量</td>
+<td align="center">河流具有方向性；河流无向下分叉；</td>
+</tr>
+<tr class="odd">
+<td align="center">空间数据</td>
+<td align="center">高程</td>
+<td align="center">高</td>
+<td align="center">0</td>
+<td align="center">单位：米</td>
+</tr>
+<tr class="even">
+<td align="center">空间数据</td>
+<td align="center">土地利用分类</td>
+<td align="center">中</td>
+<td align="center">矢量/栅格</td>
+<td align="center"><span class="math inline">\(n_{lc}\)</span>个分类</td>
+</tr>
+<tr class="odd">
+<td align="center">空间数据</td>
+<td align="center">土壤分类</td>
+<td align="center">中</td>
+<td align="center">矢量/栅格</td>
+<td align="center"><span class="math inline">\(n_s\)</span>个分类</td>
+</tr>
+<tr class="even">
+<td align="center">空间数据</td>
+<td align="center">气象站点</td>
+<td align="center">中</td>
+<td align="center">矢量/栅格</td>
+<td align="center"><span class="math inline">\(n_{fc}\)</span>个站点</td>
+</tr>
+<tr class="odd">
+<td align="center">参数</td>
+<td align="center">土地利用</td>
+<td align="center">中</td>
+<td align="center"><span class="math inline">\(n_{lc}\)</span> 组</td>
+<td align="center">土地利用的水力学参数</td>
+</tr>
+<tr class="even">
+<td align="center">参数</td>
+<td align="center">土壤</td>
+<td align="center">中</td>
+<td align="center"><span class="math inline">\(n_s\)</span>组</td>
+<td align="center">土壤性质：Silt百分比、Clay百分比、有机质含量、Bulk Density</td>
+</tr>
+<tr class="odd">
+<td align="center">时间序列数据</td>
+<td align="center"><strong>气象驱动</strong></td>
+<td align="center">高</td>
+<td align="center">小时～日</td>
+<td align="center">降雨、气温、湿度、辐射、风速、气压</td>
+</tr>
+<tr class="even">
+<td align="center">时间序列数据</td>
+<td align="center">叶面积指数(LAI)</td>
+<td align="center">中</td>
+<td align="center">小时～月</td>
+<td align="center">每类土地利用一个LAI时间序列</td>
+</tr>
+<tr class="odd">
+<td align="center">时间序列数据</td>
+<td align="center">融化系数</td>
+<td align="center">低</td>
+<td align="center">小时～月</td>
+<td align="center">一个时间序列</td>
+</tr>
+<tr class="even">
+<td align="center">时间序列数据</td>
+<td align="center"><strong>观测数据</strong></td>
+<td align="center">高</td>
+<td align="center">小时～月</td>
+<td align="center">通常为径流数据、地下水、蒸散发等</td>
+</tr>
+</tbody>
+</table>
+<div id="数据实例" class="section level4 hasAnchor" number="3.2.1.1">
+<h4><span class="header-section-number">3.2.1.1</span> 数据实例<a href="modeling.html#数据实例" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><img src="Fig/input/DWR.png" alt="DWR" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>南苏丹Pongo流域原始数据实例：流域边界（绿色实线），河流（红色实线）、DEM(背景)和气象站点覆盖范围（黑色虚线）。气象数据站点为GLDAS数据，因此为$ 0.25 x 0.25 $度覆盖范围。</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><img src="Fig/input/SLTPPT_M_sl1_250m_PCS.tif.png" alt="DWR" /></th>
+<th align="left"><img src="Fig/input/CLYPPT_M_sl1_250m_PCS.tif.png" alt="DWR" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>(a) Percentage of silt</em></td>
+<td align="left"><em>(b) Percentage of Clay</em></td>
+</tr>
+<tr class="even">
+<td align="left"><img src="Fig/input/ORCDRC_M_sl1_250m_PCS.tif.png" alt="DWR" /></td>
+<td align="left"><img src="Fig/input/BLDFIE_M_sl1_250m_PCS.tif.png" alt="DWR" /></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>(c) Organic mater (Organic Carbon)</em></td>
+<td align="left"><em>(d) Bulk density</em></td>
+</tr>
+<tr class="even">
+<td align="left"><em>南苏丹Pongo流域土壤数据：Silt百分比，Clay百分比，有机物含量，Bulk Density。数据来源：ISRIC_SoilGrids。</em></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><img src="Fig/input/Landuse_PCS.tif.png" alt="DWR" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>南苏丹Pongo流域土地利用信息。土地利用数据来自USGS GLC数据。</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><img src="Fig/input/Rawdata_FLDAS.png" alt="DWR" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>FLDAS数据的覆盖范围，即气象站点位置信息。</em></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><img src="Fig/input/Rawdata_FLDAS_TS.png" alt="DWR" /></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>FLDAS的气象驱动数据。</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="模型输入文件" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> 模型输入文件<a href="modeling.html#模型输入文件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>输入文件列表</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">File</th>
+<th align="center">Category</th>
+<th align="center">备注</th>
+<th align="center">Header</th>
+<th align="center"># of column</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">.mesh</td>
+<td align="center">sp</td>
+<td align="center">三角形单元定义</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.att</td>
+<td align="center">sp</td>
+<td align="center">单元属性表</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">.riv</td>
+<td align="center">sp</td>
+<td align="center">河流</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.rivseg</td>
+<td align="center">sp</td>
+<td align="center">三角形单元与河道单元拓扑信息</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">.calib</td>
+<td align="center">cfg</td>
+<td align="center">物理参数校准文件</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.para</td>
+<td align="center">cfg</td>
+<td align="center">模型运行设置参数文件</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">.ic</td>
+<td align="center">cfg</td>
+<td align="center">模型初始条件</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.geol</td>
+<td align="center">para</td>
+<td align="center">地下水层的水力学参数</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">.soil</td>
+<td align="center">para</td>
+<td align="center">浅层土壤的水力学参数</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.lc</td>
+<td align="center">para</td>
+<td align="center">土地利用的水力学和能量参数</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">.forc</td>
+<td align="center">tsd</td>
+<td align="center">气象驱动数据文件的列表</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.csv</td>
+<td align="center">tsd</td>
+<td align="center">气象驱动时间序列数据</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">.lai</td>
+<td align="center">tsd</td>
+<td align="center">叶面积指数</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.obs</td>
+<td align="center">tsd</td>
+<td align="center">用于校准观测时间序列数据</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">.mf</td>
+<td align="center">tsd</td>
+<td align="center">融雪参数时间序列数据</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">.rl</td>
+<td align="center">tsd</td>
+<td align="center">计算潜在蒸散发的粗糙度时间序列数据</td>
+<td align="center">是</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">gis/domain</td>
+<td align="center">Shapefile</td>
+<td align="center">三角形单元的矢量文件</td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="even">
+<td align="center">gis/river</td>
+<td align="center">Shapefile</td>
+<td align="center">河段的矢量文件</td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+<tr class="odd">
+<td align="center">gis/seg</td>
+<td align="center">Shapefile</td>
+<td align="center">被三角形分割的河段矢量文件</td>
+<td align="center">x</td>
+<td align="center">x</td>
+</tr>
+</tbody>
+</table>
+<div class="float">
+<img src="Fig/IO/inputfiles.png" alt="The screenshot of input files for SHUD" />
+<div class="figcaption">The screenshot of input files for SHUD</div>
+</div>
+<p>在文件夹 <em>gis</em> 和 <em>fig</em> 中的文件与SHUD模拟无关，然后在数据分析和可视化中有很大作用，因此保留在输入文件当中。</p>
+</div>
+<div id="空间数据" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> 空间数据<a href="modeling.html#空间数据" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="sp.mesh-文件" class="section level4 hasAnchor" number="3.2.3.1">
+<h4><span class="header-section-number">3.2.3.1</span> .sp.mesh 文件<a href="modeling.html#sp.mesh-文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><img src="Fig/IO/sp.mesh1.png" alt="Example of .sp.mesh file (block 1)" />
+<img src="Fig/IO/sp.mesh2.png" alt="Example of .sp.mesh file (block 2)" /></p>
+<p><em>.mesh</em> 文件中有两个表格，第一个表格为三角形的组成和拓扑关系；第二个表格为组成三角形的节点坐标信息。</p>
+<ul>
+<li><p><strong>表格 1 (三角形单元的几何定义)</strong></p></li>
+<li><p>表头</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数 ( <span class="math inline">\(N_{cell}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(8\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>表</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">单元序号 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Node1</td>
+<td align="center">三角形单元第1角点<span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{node}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">Node2</td>
+<td align="center">三角形单元第2角点 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{node}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Node3</td>
+<td align="center">三角形单元第3角点 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{node}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">Nabr1</td>
+<td align="center">三角形单元第1邻居序号<span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Nabr2</td>
+<td align="center">三角形单元第2邻居序号<span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">Nabr3</td>
+<td align="center">三角形单元第3邻居序号<span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Zmax</td>
+<td align="center">三角形单元z中心点地表高程</td>
+<td align="center">-9999 ~ +inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Block 2 (三角形的三个角点的信息)</strong></p></li>
+<li><p>表头:</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数( <span class="math inline">\(N_{node}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(5\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">点序号 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">X</td>
+<td align="center">x坐标 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{node}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">Y</td>
+<td align="center">y坐标 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{node}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">AqDepth</td>
+<td align="center">含水层厚度(地表至不透水层距离)<span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ +inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">Elevation</td>
+<td align="center">点的高程（z坐标） <span class="math inline">\(i\)</span></td>
+<td align="center">-9999 ~ +inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sp.att文件" class="section level4 hasAnchor" number="3.2.3.2">
+<h4><span class="header-section-number">3.2.3.2</span> .sp.att文件<a href="modeling.html#sp.att文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/sp.att.png" alt="Example of .sp.att file" />
+<div class="figcaption">Example of .sp.att file</div>
+</div>
+<ul>
+<li>表头</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数( <span class="math inline">\(N_{cell}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(7\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">单元序号<span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">SOIL</td>
+<td align="center">土壤类型序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{soil}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">GEOL</td>
+<td align="center">类型序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{geol}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">LC</td>
+<td align="center">类型序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{lc}\)</span></td>
+<td align="center">-</td>
+<td align="center"><span class="math inline">\(N_{lc}\)</span> = <span class="math inline">\(N_{lai}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">FORC</td>
+<td align="center">气象站点序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{forc}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">MF</td>
+<td align="center">融雪指数序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{mf}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">BC</td>
+<td align="center">边界条件序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{bc}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">SS</td>
+<td align="center">源汇序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{bc}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sp.riv文件" class="section level4 hasAnchor" number="3.2.3.3">
+<h4><span class="header-section-number">3.2.3.3</span> .sp.riv文件<a href="modeling.html#sp.riv文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/sp.riv.png" alt="Example of .sp.riv file" />
+<div class="figcaption">Example of .sp.riv file</div>
+</div>
+<ul>
+<li>表头</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数( <span class="math inline">\(N_{riv}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(5\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>表</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">河段序号<span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{river}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">DOWN</td>
+<td align="center">下游河段序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{river}\)</span></td>
+<td align="center">-</td>
+<td align="center">Negative vlaue indicates outlet</td>
+</tr>
+<tr class="odd">
+<td align="center">Type</td>
+<td align="center">河流参数序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{rivertype}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Slope</td>
+<td align="center">河床底坡度</td>
+<td align="center">-10 ~ 10</td>
+<td align="center"><span class="math inline">\(m/m\)</span></td>
+<td align="center">Height/Length</td>
+</tr>
+<tr class="odd">
+<td align="center">Length</td>
+<td align="center">河段长度 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sp.rivseg文件" class="section level4 hasAnchor" number="3.2.3.4">
+<h4><span class="header-section-number">3.2.3.4</span> .sp.rivseg文件<a href="modeling.html#sp.rivseg文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/sp.rivchn.png" alt="Example of .sp.rivseg file" />
+<div class="figcaption">Example of .sp.rivseg file</div>
+</div>
+<ul>
+<li>表头</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数( <span class="math inline">\(N_{segment}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(4\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">片段序号 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{segment}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">iRiv</td>
+<td align="center">所属河段序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{river}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">iEle</td>
+<td align="center">相交单元序号</td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Length</td>
+<td align="center">片段长度 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="水力学参数" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> 水力学参数<a href="modeling.html#水力学参数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="para.soil" class="section level4 hasAnchor" number="3.2.4.1">
+<h4><span class="header-section-number">3.2.4.1</span> .para.soil<a href="modeling.html#para.soil" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>土壤表层的水力学参数</p>
+</div>
+<div id="para.geol" class="section level4 hasAnchor" number="3.2.4.2">
+<h4><span class="header-section-number">3.2.4.2</span> .para.geol<a href="modeling.html#para.geol" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>地下水层的水力学参数</p>
+</div>
+<div id="para.lc" class="section level4 hasAnchor" number="3.2.4.3">
+<h4><span class="header-section-number">3.2.4.3</span> .para.lc<a href="modeling.html#para.lc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>与土地利用有关的参数</p>
+</div>
+</div>
+<div id="模型配置文件" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> 模型配置文件<a href="modeling.html#模型配置文件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="cfg.para文件" class="section level4 hasAnchor" number="3.2.5.1">
+<h4><span class="header-section-number">3.2.5.1</span> .cfg.para文件<a href="modeling.html#cfg.para文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/cfg.para.png" alt="Example of .cfg.para file" />
+<div class="figcaption">Example of .cfg.para file</div>
+</div>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="27%" />
+<col width="10%" />
+<col width="10%" />
+<col width="31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">推荐值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">VERBOSE</td>
+<td align="center">输出冗余信息</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">INIT_MODE</td>
+<td align="center">初始条件模式</td>
+<td align="center">0~3</td>
+<td align="center">-</td>
+<td align="center">3 (0=Relief condition, 1=Dry condition, 2=Default guess, 3=Warm start)</td>
+</tr>
+<tr class="odd">
+<td align="center">ASCII_OUTPUT</td>
+<td align="center">是否输出文本格式结果</td>
+<td align="center">1/0</td>
+<td align="center">-</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Binary_OUTPUT</td>
+<td align="center">是否输出二进制格式结果</td>
+<td align="center">1/0</td>
+<td align="center">-</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">CRYOSPHERE</td>
+<td align="center">冰冻圈模块是否开启</td>
+<td align="center">1/0</td>
+<td align="center">-</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">SPINUPDAY</td>
+<td align="center">模型预热天数</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(day\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">SCR_INTV</td>
+<td align="center">屏幕输出间隔</td>
+<td align="center">0 ~ <span class="math inline">\(N_{threads}\)</span></td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">ABSTOL</td>
+<td align="center">CVODE绝对容差</td>
+<td align="center">1e-6 ~ 0.1</td>
+<td align="center">-</td>
+<td align="center">0.0001</td>
+</tr>
+<tr class="odd">
+<td align="center">RELTOL</td>
+<td align="center">CVODE相对容差</td>
+<td align="center">1e-6 ~ 0.1</td>
+<td align="center">-</td>
+<td align="center">0.0001</td>
+</tr>
+<tr class="even">
+<td align="center">INIT_SOLVER_STEP</td>
+<td align="center">初始迭代步长</td>
+<td align="center">-</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">MAX_SOLVER_STEP</td>
+<td align="center">最大迭代步长</td>
+<td align="center">1~60</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="center">ET_STEP</td>
+<td align="center">正散发计算步长</td>
+<td align="center">1~360</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">60</td>
+</tr>
+<tr class="odd">
+<td align="center">START</td>
+<td align="center">模型开始时间（天数）</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(day\)</span></td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">END</td>
+<td align="center">模型结束时间（天数）</td>
+<td align="center">-</td>
+<td align="center"><span class="math inline">\(day\)</span></td>
+<td align="center">-</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_ye_snow</td>
+<td align="center">储量输出步长，积雪</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_ye_surf</td>
+<td align="center">储量输出步长，地表水</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_ye_unsat</td>
+<td align="center">储量输出步长，未饱和层</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_ye_gw</td>
+<td align="center">储量输出步长，地下水层</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_Qe_surf</td>
+<td align="center">单元流量输出步长，地表水</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_Qe_sub</td>
+<td align="center">单元流量输出步长， 地下水</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_qe_et0</td>
+<td align="center">单元流量输出步长，截流蒸发</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_qe_et1</td>
+<td align="center">单元流量输出步长，蒸腾</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_qe_et2</td>
+<td align="center">单元流量输出步长，蒸发</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_qe_etp</td>
+<td align="center">单元流量输出步长，潜在蒸散发</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_qe_prcp</td>
+<td align="center">单元流量输出步长，降雨</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_qe_infil</td>
+<td align="center">单元流量输出步长，下渗</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_qe_rech</td>
+<td align="center">单元流量输出步长，地下水补给</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_yr_stage</td>
+<td align="center">河段储量输出步长，河道</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_Qr_down</td>
+<td align="center">河段流量输出步长，向下游</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_Qr_surf</td>
+<td align="center">河段流量输出步长，向坡面</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_Qr_sub</td>
+<td align="center">河段流量输出步长，向地下水</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="even">
+<td align="center">dt_Qr_up</td>
+<td align="center">河段流量输出步长，向上游</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+<tr class="odd">
+<td align="center">dt_Lake</td>
+<td align="center">湖泊相关变量的输出步长</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(min\)</span></td>
+<td align="center">1440</td>
+</tr>
+</tbody>
+</table>
+<p>注：</p>
+<ul>
+<li>INIT_MODE:
+<ul>
+<li>0 = 含水层完全饱和作为初始条件,</li>
+<li>1 = 含水层完全干涸,</li>
+<li>2 = 未饱和层水量为含水层40%，饱和层水储量为含水层的40%,</li>
+<li>3 = 读取.cfg.ic作为初始条件</li>
+</ul></li>
+</ul>
+</div>
+<div id="cfg.calib文件" class="section level4 hasAnchor" number="3.2.5.2">
+<h4><span class="header-section-number">3.2.5.2</span> .cfg.calib文件<a href="modeling.html#cfg.calib文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/cfg.calib.png" alt="Example of .cfg.calib file" />
+<div class="figcaption">Example of .cfg.calib file</div>
+</div>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">GEOL_KSATH</td>
+<td align="center">水平水力传导度，地下水层</td>
+<td align="center">?</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">GEOL_KSATV</td>
+<td align="center">垂直水力传导度，地下水层</td>
+<td align="center">?</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">GEOL_KMACSATH</td>
+<td align="center">大孔隙水平水力传导度，地下水层</td>
+<td align="center">?</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">GEOL_DMAC</td>
+<td align="center">大孔隙深度，地下水层</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">GEOL_THETAS</td>
+<td align="center">地下水层孔隙度，地下水层</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">GEOL_THETAR</td>
+<td align="center">土壤残留含水量，地下水层</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">GEOL_MACVF</td>
+<td align="center">大孔隙面积比，地下水层</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">SOIL_KINF</td>
+<td align="center">饱和水力传导度，未饱和层</td>
+<td align="center">?</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">SOIL_KMACSATV</td>
+<td align="center">大孔隙垂向水力传导度，未饱和层</td>
+<td align="center">?</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">SOIL_DINF</td>
+<td align="center">下渗深度参数，未饱和层</td>
+<td align="center">?</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">SOIL_ALPHA</td>
+<td align="center"><span class="math inline">\(\alpha\)</span>值，van Genuchten公式</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">SOIL_BETA</td>
+<td align="center"><span class="math inline">\(\beta\)</span>值，van Genuchten公式</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">SOIL_MACHF</td>
+<td align="center">大孔隙面积比，未饱和层</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">LC_VEGFRAC</td>
+<td align="center">植被覆盖度</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">LC_ALBEDO</td>
+<td align="center">反照率</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">LC_ROUGH</td>
+<td align="center">地表曼宁粗糙度</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">LC_SOILDGD</td>
+<td align="center">土壤劣化系数</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">LC_IMPAF</td>
+<td align="center">不透水面积比</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">LC_ISMAX</td>
+<td align="center">最大截流系数</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">AQ_DEPTH+</td>
+<td align="center">含水层深度</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">TS_PRCP</td>
+<td align="center">降雨</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">TS_SFCTMP+</td>
+<td align="center">温度</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(C\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">ET_ETP</td>
+<td align="center">潜在蒸散发</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">ET_IC</td>
+<td align="center">冠层截流</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">ET_TR</td>
+<td align="center">植被蒸腾</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">ET_SOIL</td>
+<td align="center">直接蒸发</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">RIV_ROUGH</td>
+<td align="center">河道曼宁粗糙度</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">RIV_KH</td>
+<td align="center">河床水力传导度</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">RIV_DPTH+</td>
+<td align="center">河道深度</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">RIV_WDTH+</td>
+<td align="center">河道宽度</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">RIV_SINU</td>
+<td align="center">河道绵延度</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">RIV_CWR</td>
+<td align="center">谢才(Chezy)公式系数<span class="math inline">\(C_{wr}\)</span></td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">RIV_BSLOPE+</td>
+<td align="center">河床坡度</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(m/m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">IC_GW+</td>
+<td align="center">地下水水位初始条件</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">IC_RIV+</td>
+<td align="center">河道水量初始条件</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>注：</p>
+<ul>
+<li>表格中+代表该值的含义为该值与模型参数相加得到新参数。即<span class="math inline">\(\theta ^* = \theta + \zeta\)</span>, <span class="math inline">\(\theta\)</span>为参数， <span class="math inline">\(\zeta\)</span>为校准调节值。</li>
+<li>除+以外的所有值，都是与参数相乘关系。即<span class="math inline">\(\theta ^* = \theta \times \zeta\)</span>。</li>
+</ul>
+</div>
+<div id="cfg.ic文件" class="section level4 hasAnchor" number="3.2.5.3">
+<h4><span class="header-section-number">3.2.5.3</span> .cfg.ic文件<a href="modeling.html#cfg.ic文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/cfg.ic.png" alt="Example of .cfg.ic file" />
+<div class="figcaption">Example of .cfg.ic file</div>
+</div>
+<ul>
+<li><p><strong>表1 (三角单元初始条件)</strong></p></li>
+<li><p>表头</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数( <span class="math inline">\(N_{cell}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(6\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">单元序号<span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{cell}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Canopy</td>
+<td align="center">冠层截流 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">Snow</td>
+<td align="center">积雪 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Surface</td>
+<td align="center">地表水 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">Unsat</td>
+<td align="center">未饱和层水 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">GW</td>
+<td align="center">地下水 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>表2 (河段初始条件)</strong></p></li>
+<li><p>表头:</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数( <span class="math inline">\(N_{riv}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(2\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">河段序号 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{riv}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Stage</td>
+<td align="center">河段水位 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>表3 (湖泊初始条件)</strong></p></li>
+<li><p>表头:</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">行数( <span class="math inline">\(N_{lake}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(2\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">ID</td>
+<td align="center">湖泊序号 <span class="math inline">\(i\)</span></td>
+<td align="center">1 ~ <span class="math inline">\(N_{lake}\)</span></td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">Stage</td>
+<td align="center">湖泊水位 <span class="math inline">\(i\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="时间序列数据" class="section level3 hasAnchor" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> 时间序列数据<a href="modeling.html#时间序列数据" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="tsd.forc文件" class="section level4 hasAnchor" number="3.2.6.1">
+<h4><span class="header-section-number">3.2.6.1</span> .tsd.forc文件<a href="modeling.html#tsd.forc文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/tsd.forc.png" alt="Example of .tsd.forc file" />
+<div class="figcaption">Example of .tsd.forc file</div>
+</div>
+<ul>
+<li>Line 1: <code>气象站点数量 | 开始日期 (YYYYMMDD)</code></li>
+<li>Line 2: 驱动数据文件所在文件夹</li>
+<li>Line 3~N: 时间序列数据文件名</li>
+</ul>
+<div class="float">
+<img src="Fig/IO/tsd.csv.png" alt="Example of .csv forcing file" />
+<div class="figcaption">Example of .csv forcing file</div>
+</div>
+<ul>
+<li>表头:</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">( <span class="math inline">\(0\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(6\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Day</td>
+<td align="center">日数</td>
+<td align="center">0 ~ <span class="math inline">\(N_{day}\)</span></td>
+<td align="center"><span class="math inline">\(day\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">PRCP</td>
+<td align="center">降雨</td>
+<td align="center">0 ~ 500</td>
+<td align="center"><span class="math inline">\(mm/day\)</span></td>
+<td align="center">降雨强度超过阈值模型会警告，但不妨碍运行</td>
+</tr>
+<tr class="odd">
+<td align="center">TEMP</td>
+<td align="center">气温</td>
+<td align="center">-100 ~ 70</td>
+<td align="center"><span class="math inline">\(C\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">RH</td>
+<td align="center">相对湿度</td>
+<td align="center">0 ~ 1</td>
+<td align="center"><span class="math inline">\(-\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">wind</td>
+<td align="center">风速</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m/s\)</span></td>
+<td align="center">非负</td>
+</tr>
+<tr class="even">
+<td align="center">Rn</td>
+<td align="center">太阳净辐射</td>
+<td align="center">?</td>
+<td align="center"><span class="math inline">\(W/m^2\)</span></td>
+<td align="center">最大值为太阳常数</td>
+</tr>
+<tr class="odd">
+<td align="center">Press</td>
+<td align="center">气压</td>
+<td align="center">?</td>
+<td align="center"><span class="math inline">\(Pa\)</span></td>
+<td align="center">可缺省</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tsd.lai文件" class="section level4 hasAnchor" number="3.2.6.2">
+<h4><span class="header-section-number">3.2.6.2</span> .tsd.lai文件<a href="modeling.html#tsd.lai文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/tsd.lai.png" alt="Example of .tsd.lai file" />
+<div class="figcaption">Example of .tsd.lai file</div>
+</div>
+<ul>
+<li>表头:</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+<th align="center">值3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">天数 ( <span class="math inline">\(N_{time}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(N_{lc}\)</span>)</td>
+<td align="center">开始日期 (YYYYMMDD)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">第一列</td>
+<td align="center">时间</td>
+<td align="center">0 ~ <span class="math inline">\(N_{time}\)</span></td>
+<td align="center"><span class="math inline">\(day\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">第2列</td>
+<td align="center">叶面积指数1</td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m^2/m^2\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">第i列</td>
+<td align="center">叶面积指数<span class="math inline">\(i-1\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center"><span class="math inline">\(m^2/m^2\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tsd.mf文件" class="section level4 hasAnchor" number="3.2.6.3">
+<h4><span class="header-section-number">3.2.6.3</span> .tsd.mf文件<a href="modeling.html#tsd.mf文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/tsd.mf.png" alt="Example of .tsd.mf file" />
+<div class="figcaption">Example of .tsd.mf file</div>
+</div>
+<p>融雪度日模型(Degree-Day Model)的系数。</p>
+<ul>
+<li>表头:</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+<th align="center">值3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">天数 ( <span class="math inline">\(N_{time}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(N_{mf}\)</span>)</td>
+<td align="center">开始日期 (YYYYMMDD)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">第一列</td>
+<td align="center">时间</td>
+<td align="center">0 ~ <span class="math inline">\(N_{time}\)</span></td>
+<td align="center"><span class="math inline">\(day\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">第2列</td>
+<td align="center">融雪因子1</td>
+<td align="center">0 ~ inf</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">第i列</td>
+<td align="center">融雪因子<span class="math inline">\(i-1\)</span></td>
+<td align="center">0 ~ inf</td>
+<td align="center">-</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tsd.obs文件" class="section level4 hasAnchor" number="3.2.6.4">
+<h4><span class="header-section-number">3.2.6.4</span> .tsd.obs文件<a href="modeling.html#tsd.obs文件" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="Fig/IO/tsd.obs.png" alt="Example of .tsd.obs file" />
+<div class="figcaption">Example of .tsd.obs file</div>
+</div>
+<ul>
+<li>表头:</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">值1</th>
+<th align="center">值2</th>
+<th align="center">值3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">天数 ( <span class="math inline">\(N_{time}\)</span>)</td>
+<td align="center">列数 (<span class="math inline">\(N_{obs}\)</span>)</td>
+<td align="center">开始日期 (YYYYMMDD)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Table</li>
+</ul>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="29%" />
+<col width="11%" />
+<col width="11%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">列</th>
+<th align="center">含义</th>
+<th align="center">取值范围</th>
+<th align="center">单位</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">第一列</td>
+<td align="center">时间</td>
+<td align="center">0 ~ <span class="math inline">\(N_{time}\)</span></td>
+<td align="center"><span class="math inline">\(day\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">第2列</td>
+<td align="center">观测1</td>
+<td align="center">?</td>
+<td align="center">?</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">第i列</td>
+<td align="center">观测 <span class="math inline">\(i-1\)</span></td>
+<td align="center">?</td>
+<td align="center">?</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<!-- end -->
+
+</div>
+</div>
+</div>
+<div id="outputfiles" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> 结果输出文件<a href="modeling.html#outputfiles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="文件名格式" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> 文件名格式<a href="modeling.html#文件名格式" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>为了方便结果的分类和用户理解，作者规则化定义了输出文件的文件名；用户通过文件名即可读懂文件所包含的变量类型、所属单元和读写格式。输出文件的文件名格式：</p>
+<p><strong>[项目名].[识别码].[格式]</strong></p>
+<p>或者：</p>
+<p><strong>[Project Name].[Identifier].[format]</strong></p>
+<ul>
+<li><p><em>[项目名]</em>（<em>[Project Name]</em>） 是用户给模拟定的名称，通常为流域的名字简写。例如：黄河流域，可以写成<em>hh</em>或者<em>huanghe</em>.</p></li>
+<li><p><em>[格式]</em> （<em>[format]</em>）可以使用<em>csv</em>或者<em>dat</em>. <em>csv</em>为规则文本格式，可使用任意文本编辑器或者WPS表格打开。<em>dat</em>二进制格式，文件占用硬盘空间较小</p></li>
+<li><p><em>[识别码]</em> （<em>[Identifier]</em>） 定义了输出结果内涵。识别码基本结构为
+<strong>[模型单元][变量类型][变量名]</strong>（<strong>[Model cell][Variable Type][Variable Name]</strong>）。 <em>[Model cell]</em> 是<em>ele</em> （element，模型三角单元）, <em>riv</em> （river，河段） or <em>lak</em> （lake，湖泊）. 变量类型包括 <em>y</em>, <em>v</em> and <em>q</em>，分别代表状态变量 （单位<span class="math inline">\(L\)</span>）, 单位流量或速度（单位<span class="math inline">\(L^3 L^{-2} T^{-1}\)</span>）和体积流量（in <span class="math inline">\(L^3 T^{-1}\)</span>）——<span class="math inline">\(L\)</span>为长度单位，<span class="math inline">\(T\)</span>为时间单位。</p></li>
+</ul>
+<p>下表为SHUD输出文件列表：</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="11%" />
+<col width="11%" />
+<col width="18%" />
+<col width="27%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">识别码</th>
+<th align="center">单元</th>
+<th align="center">类型</th>
+<th align="center">变量名</th>
+<th align="center">含义</th>
+<th align="center">单位</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><em>.eleyic.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">ic</td>
+<td align="center">储量，冠层截流</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.eleysnow.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">snow</td>
+<td align="center">储量，雪水当量</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleysurf.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">surf</td>
+<td align="center">储量，地表水</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.eleyunsat.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">unsat</td>
+<td align="center">储量，未饱和层</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleygw.</em></td>
+<td align="center">ele</td>
+<td align="center">y</td>
+<td align="center">gw</td>
+<td align="center">储量，地下水水位</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevetp.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">etp</td>
+<td align="center">通量，潜在蒸散发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleveta.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">eta</td>
+<td align="center">通量，实际蒸散发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevetic.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">etic</td>
+<td align="center">通量，冠层截流蒸发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevettr.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">ettr</td>
+<td align="center">通量，植被蒸腾</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevetev.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">etev</td>
+<td align="center">通量，直接蒸发</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevprcp.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">prcp</td>
+<td align="center">通量，降雨</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevnetprcp.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">netprcp</td>
+<td align="center">通量，净降雨量</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevinfil.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">infil</td>
+<td align="center">通量，下渗</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.elevexfil.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">infil</td>
+<td align="center">通量，出渗（反下渗）</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.elevrech.</em></td>
+<td align="center">ele</td>
+<td align="center">v</td>
+<td align="center">rech</td>
+<td align="center">通量，地下水补给</td>
+<td align="center"><span class="math inline">\(\frac{m^3}{m^2 d}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.eleqsurf.</em></td>
+<td align="center">ele</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，地表径流（坡面流）</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.eleqsub.</em></td>
+<td align="center">ele</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量， 地下水水平流动</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivystage.</em></td>
+<td align="center">riv</td>
+<td align="center">y</td>
+<td align="center">stage</td>
+<td align="center">储量，河段水位</td>
+<td align="center"><span class="math inline">\(m\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqup.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">up</td>
+<td align="center">流量，向上游</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqdown.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">down</td>
+<td align="center">流量，向下游</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqsurf.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">净流量，坡面向外</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsurf1.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，方向1</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqsurf2.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，方向2</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsurf3.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">surf</td>
+<td align="center">流量，方向3</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqsub.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">净流量，地下水向外</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsub1.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量，方向1</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><em>.rivqsub2.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量，方向2</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><em>.rivqsub3.</em></td>
+<td align="center">riv</td>
+<td align="center">q</td>
+<td align="center">sub</td>
+<td align="center">流量，方向3</td>
+<td align="center"><span class="math inline">\(m^3/d\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="文本格式输出文件.csv" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> 文本格式输出文件（.csv）<a href="modeling.html#文本格式输出文件.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>N - 输出文件列数（不含时间列）
+m - 步长总数
+StartTime - 开始时间 （YYYYMMDD or YYYYMMDD.hhmmss）</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">N</th>
+<th align="center">StartTime</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(T_1\)</span></td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{1 \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(T_2\)</span></td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{2 \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(T_3\)</span></td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{3 \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(T_{m}\)</span></td>
+<td align="center"><span class="math inline">\(v_{m \cdot 1}\)</span></td>
+<td align="center"><span class="math inline">\(v_{m \cdot 2}\)</span></td>
+<td align="center">…</td>
+<td align="center"><span class="math inline">\(v_{m \cdot N}\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="二进制输出文件.dat" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> 二进制输出文件（.dat）<a href="modeling.html#二进制输出文件.dat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>二进制文件输出的结果核心矩阵与文本格式一致，但是使用了不同的存储结构。二进制文件格式紧凑，读写效率高，占用较小磁盘空间，因此作为SHUD模型的默认输出方式。 二进制文件格式不仅可被各类计算机语言（C/C++, Basic, Fortran，……）快速读取，并且也能在R、python、 Matlab、 Mathmetica等交互式语言中高效读取，如果读取有障碍，请联系模型作者获取帮助。</p>
+<p>表格中，重要的变量是数据列数<span class="math inline">\(N_x\)</span>。 <span class="math inline">\(N_x\)</span>代表输出变量的列数，即该变量的输出计算单元数。
+<span class="math inline">\(0 &lt; N_x \le N_{max}\)</span>, 例如模型有<span class="math inline">\(N_{cell}\)</span>个三角形单元，则<code>.eleygw</code>的地下水输出文件中<span class="math inline">\(N_{max} = N_{cell}\)</span>；模型的河流径流结果中<span class="math inline">\(N_{max} = N_{riv}\)</span>。</p>
+<p>二进制输出文件现有v1.0, v2.0和v2.1三种格式，三种输出结果的格式见下表：</p>
+<p>v 1.0 （<span class="math inline">\(N_x = N_{max}\)</span>）</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">内容</th>
+<th align="center">字节数</th>
+<th align="center">类型</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">数据列数</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">100</td>
+</tr>
+<tr class="even">
+<td align="center">起始时间</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">20220101.120000</td>
+</tr>
+<tr class="odd">
+<td align="center">数据矩阵</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">1440, 1,2,…; 2880,2,4,…</td>
+</tr>
+</tbody>
+</table>
+<p>v 2.0（<span class="math inline">\(N_x = N_{max}\)</span>）</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">内容</th>
+<th align="center">字节数</th>
+<th align="center">类型</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">文件描述</td>
+<td align="center">1024</td>
+<td align="center">char</td>
+<td align="center">groundwater export, bla bla bla</td>
+</tr>
+<tr class="even">
+<td align="center">起始时间</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">20220101.120000</td>
+</tr>
+<tr class="odd">
+<td align="center">数据列数</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">100</td>
+</tr>
+<tr class="even">
+<td align="center">数据矩阵</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">1440, 1,2,…; 2880,2,4,…</td>
+</tr>
+</tbody>
+</table>
+<p>v 2.1 以上版本（<span class="math inline">\(0 &lt; N_x \le N_{max}\)</span>）</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">内容</th>
+<th align="center">字节数</th>
+<th align="center">类型</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">版本号</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">2.0</td>
+</tr>
+<tr class="even">
+<td align="center">文件描述</td>
+<td align="center">2048</td>
+<td align="center">char</td>
+<td align="center">groundwater export, bla bla bla</td>
+</tr>
+<tr class="odd">
+<td align="center">起始时间</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">20220101.120000</td>
+</tr>
+<tr class="even">
+<td align="center">数据列数</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">100</td>
+</tr>
+<tr class="odd">
+<td align="center">索引ID</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">1,3,5,…;</td>
+</tr>
+<tr class="even">
+<td align="center">数据矩阵</td>
+<td align="center">8</td>
+<td align="center">double</td>
+<td align="center">1440, 1,2,…; 2880,2,4,…</td>
+</tr>
+</tbody>
+</table>
+<div class="float">
+<img src="Fig/outputfile.png" alt="v2.1版本输出文件的逻辑和内存结构" />
+<div class="figcaption">v2.1版本输出文件的逻辑和内存结构</div>
+</div>
+<p><em>注：double为计算机的双精度数据格式，默认长度为8个比特位</em></p>
+<p>数据为<span class="math inline">\(m \times N_x\)</span>的二维矩阵。</p>
+<ul>
+<li>矩阵中的值全部为8字节double型。</li>
+<li><span class="math inline">\(m\)</span>为结果输出的最终时间长度，<span class="math inline">\(m=100\)</span>表明模型共输出100个时间步长的数据，则数据矩阵的行数为100。</li>
+<li><span class="math inline">\(N_x\)</span>为输出结果的数量。 在v2.1之后的版本中，模型可灵活输出指定序号的结果，因此在v2.1结果中，结果矩阵的列数并不一定等于模拟单元的数量；例如模拟三角形单元数为1000(<span class="math inline">\(N_{max} = 1000\)</span>)，模型配置中指定值输出偶数序号的结果，则<span class="math inline">\(N_x = 500\)</span>，索引ID则为<span class="math inline">\(i_{o} = 2,4,6,...,998,1000\)</span>。</li>
+<li><span class="math inline">\(i\)</span>为矩阵列序号，取值范围：<span class="math inline">\(0 \le i \le N_{x}\)</span>，第一列(<span class="math inline">\(i=0\)</span>)为时间，<span class="math inline">\(i=1~N_x\)</span>则为输出结果值。</li>
+<li><span class="math inline">\(j\)</span>为时间序号，取值范围：$0 j m $。</li>
+<li><span class="math inline">\(N_{h}\)</span>为文件头的长度，换算为8字节double型的数量。</li>
+</ul>
+<p>数据矩阵的存储方式见下表：</p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="22%" />
+<col width="22%" />
+<col width="22%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">文件存储位置</th>
+<th align="center">矩阵行号(<span class="math inline">\(j=\)</span>)</th>
+<th align="center">数据列序号(<span class="math inline">\(i=\)</span>)</th>
+<th align="center">值</th>
+<th align="center">值含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} + 1\)</span></td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_1\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} + 2\)</span></td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 1}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} + 3\)</span></td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{1 \cdot 2}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">1</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +N_x\)</span></td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(N_x\)</span></td>
+<td align="center"><span class="math inline">\(v_{1 \cdot N_x}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (2-1) + i\)</span></td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_2\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (2-1) + i\)</span></td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 1}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (2-1) + i\)</span></td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{2 \cdot 2}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (2-1) + i\)</span></td>
+<td align="center">2</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (2-1) + i\)</span></td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(N_x\)</span></td>
+<td align="center"><span class="math inline">\(v_{2 \cdot N_x}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (3-1) + i\)</span></td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_3\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (3-1) + i\)</span></td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 1}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (3-1) + i\)</span></td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{3 \cdot 2}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (3-1) + i\)</span></td>
+<td align="center">3</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (3-1) + i\)</span></td>
+<td align="center">3</td>
+<td align="center"><span class="math inline">\(N_x\)</span></td>
+<td align="center"><span class="math inline">\(v_{3 \cdot N_x}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (j-1) + i\)</span></td>
+<td align="center"><span class="math inline">\(j\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (j-1) + i\)</span></td>
+<td align="center"><span class="math inline">\(j\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (j-1) + i\)</span></td>
+<td align="center"><span class="math inline">\(j\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * (j-1) + i\)</span></td>
+<td align="center"><span class="math inline">\(j\)</span></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * （m-1） + i\)</span></td>
+<td align="center">m</td>
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(T_{m}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * （m-1） + i\)</span></td>
+<td align="center">m</td>
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(v_{m \cdot 1}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * （m-1） + i\)</span></td>
+<td align="center">m</td>
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(v_{m \cdot 2}\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * （m-1） + i\)</span></td>
+<td align="center">m</td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(N_{h} +（N_x+1） * （m-1） + i\)</span></td>
+<td align="center">m</td>
+<td align="center"><span class="math inline">\(N_x\)</span></td>
+<td align="center"><span class="math inline">\(v_{m \cdot N_x}\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="theory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="autoshud.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

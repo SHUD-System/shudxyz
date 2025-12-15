@@ -1,0 +1,114 @@
+# Languages
+#   Create a section for each of your site's languages.
+#   Documentation: https://docs.hugoblox.com/reference/language/
+
+# Default language
+#en:
+#  languageCode: en-us
+  # Uncomment for multi-lingual sites, and move English content into `en` sub-folder.
+  #contentDir: content/en
+
+# Uncomment the lines below to configure your website in a second language.
+#zh:
+#  languageCode: zh-Hans
+#  contentDir: content/zh
+#  title: Chinese website title...
+#  params:
+#    description: Site description in Chinese...
+#  menu:
+#    main:
+#      - name: 传
+#        url: '#about'
+#        weight: 1
+en:
+  languageCode: en-us
+  # Uncomment for multi-lingual sites, and move English content into `en` sub-folder.
+  contentDir: content/en
+  staticDir: static
+  title: SHUD Group
+  params:
+    description: SHUD Group
+  menu:
+    main:
+      - name: Home
+        url: '#home'
+        weight: 1
+      - name: Project
+        url: 'project'
+        weight: 20
+      - name: People
+        url: 'team'
+        weight: 30
+      - name: Publications
+        url: 'publication'
+        weight: 40
+      - name: Course
+        url: 'course/'
+        weight: 70
+      - name: SHUD Model📚
+        url: '../Book_EN'
+        weight: 73
+      - name: Open Funding⭐
+        url: '../openfunding/'
+        weight: 75
+      - name: External-Link
+        weight: 90
+        identifier: externallink
+      - name: Global Hydro Cloud🌏
+        url: 'https://ghdc.ac.cn'
+        weight: 1
+        parent: externallink
+      - name: Gallery🖼️
+        url: 'https://shudapp.netlify.app'
+        weight: 2
+        parent: externallink
+      - name: Join Us
+        url: 'opp'
+        weight: 99
+
+# Uncomment the lines below to configure your website in a second language.
+zh:
+  languageCode: zh-CN
+  contentDir: content/zh
+  staticDir: static
+  title: SHUD研究组
+  params:
+    description: SHUD研究组
+
+  menu:
+    main:
+      - name: 首页
+        url: '#home'
+        weight: 1
+      - name: 项目
+        url: 'project'
+        weight: 20
+      - name: 团队
+        url: 'team/'
+        weight: 30
+      - name: 论文
+        url: 'publication/'
+        weight: 50
+      - name: 书籍/课程
+        url: 'course/'
+        weight: 70
+      - name: SHUD模型📚
+        url: '../Book_CN/'
+        weight: 73
+      - name: 开放基金⭐
+        url: '../openfunding/'
+        weight: 75
+      - name: ExternalLink
+        weight: 90
+        identifier: externallink
+      - name: 全球水文数据云🌏
+        url: https://ghdc.ac.cn
+        weight: 1
+        parent: externallink
+      - name: SHUD图库🖼️
+        url: https://shudapp.netlify.app
+        weight: 2
+        parent: externallink
+      - name: 加入我们
+        url: 'opp/'
+        weight: 99

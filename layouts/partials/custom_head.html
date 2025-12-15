@@ -1,0 +1,50 @@
+{{/* 增强的 Open Graph 和 Twitter Card 元数据 */}}
+
+{{/* 搜索引擎验证 */}}
+{{ with .Site.Params.marketing.verification.bing }}
+<meta name="msvalidate.01" content="{{ . }}" />
+{{ end }}
+
+{{/* Open Graph */}}
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+<meta property="og:locale" content="{{ .Language.Lang }}" />
+{{ if .IsHome }}
+<meta property="og:type" content="website" />
+{{ else if eq .Type "publication" }}
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" />
+{{ if .Params.authors }}
+{{ range .Params.authors }}
+<meta property="article:author" content="{{ . }}" />
+{{ end }}
+{{ end }}
+{{ else }}
+<meta property="og:type" content="website" />
+{{ end }}
+
+{{/* Twitter Card */}}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@{{ .Site.Params.marketing.seo.twitter }}" />
+<meta name="twitter:creator" content="@{{ .Site.Params.marketing.seo.twitter }}" />
+
+{{/* 语言替代链接 */}}
+{{ if .IsTranslated }}
+{{ range .Translations }}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+{{ end }}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+{{ end }}
+
+{{/* Canonical URL */}}
+<link rel="canonical" href="{{ .Permalink }}" />
+
+{{/* RSS Feed */}}
+{{ with .OutputFormats.Get "RSS" }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}" />
+{{ end }}
+
+{{/* Preconnect to external domains for performance */}}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />

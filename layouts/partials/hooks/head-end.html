@@ -1,0 +1,59 @@
+{{/* 添加结构化数据以提升SEO */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "name": "{{ .Site.Title }}",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ .Site.BaseURL }}media/logo.png",
+  "description": "{{ .Site.Params.marketing.seo.description }}",
+  "sameAs": [
+    "https://github.com/shud-xyz",
+    "https://twitter.com/{{ .Site.Params.marketing.seo.twitter }}"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Research Inquiries",
+    "url": "{{ .Site.BaseURL }}"
+  }
+}
+</script>
+{{ end }}
+
+{{ if eq .Type "publication" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "{{ .Title }}",
+  "url": "{{ .Permalink }}",
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ with .Params.authors }}{{ index . 0 }}{{ end }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}"
+  },
+  "description": "{{ .Summary }}"
+}
+</script>
+{{ end }}
+
+{{ if eq .Type "project" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchProject",
+  "name": "{{ .Title }}",
+  "url": "{{ .Permalink }}",
+  "description": "{{ .Summary }}",
+  "author": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}"
+  }
+}
+</script>
+{{ end }}

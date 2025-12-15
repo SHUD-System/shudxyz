@@ -1,0 +1,188 @@
+/* 数值地球教科书样式文件 */
+
+/* 基础样式 */
+body {
+    font-family: "SimSun", "Times New Roman", serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+    color: #2c3e50;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.3em;
+}
+
+h2 {
+    font-size: 1.8em;
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 0.2em;
+}
+
+h3 {
+    font-size: 1.4em;
+    color: #34495e;
+}
+
+/* 代码样式 */
+pre, code {
+    font-family: "FangSong", "Courier New", monospace;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 0.2em 0.4em;
+}
+
+pre {
+    padding: 1em;
+    overflow-x: auto;
+    line-height: 1.4;
+}
+
+pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* 数学公式样式 */
+.MathJax {
+    font-size: 1.1em;
+}
+
+/* 表格样式 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* 图片样式 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+}
+
+/* 引用样式 */
+blockquote {
+    border-left: 4px solid #3498db;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    background-color: #f8f9fa;
+    font-style: italic;
+}
+
+/* 链接样式 */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* 列表样式 */
+ul, ol {
+    padding-left: 2em;
+}
+
+li {
+    margin: 0.3em 0;
+}
+
+/* 导航样式 */
+.navbar {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.navbar a {
+    color: white;
+}
+
+.navbar a:hover {
+    color: #ecf0f1;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    background-color: #ecf0f1;
+    border-right: 1px solid #bdc3c7;
+}
+
+/* 内容区域样式 */
+.main {
+    padding: 2em;
+}
+
+/* 页脚样式 */
+.footer {
+    background-color: #34495e;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin-top: 2em;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .main {
+        padding: 1em;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    h3 {
+        font-size: 1.2em;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+    }
+    
+    pre, code {
+        page-break-inside: avoid;
+    }
+    
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+}

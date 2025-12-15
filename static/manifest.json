@@ -1,0 +1,23 @@
+{
+  "name": "SHUD Research Group",
+  "short_name": "SHUD Group",
+  "description": "Academic research group, Simulator of Hydrologic Unstructured Domains",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/media/icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/media/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+# SITE SETUP
+# Guide: https://docs.hugoblox.com/tutorial/
+# Documentation: https://docs.hugoblox.com/
+# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
+
+# Appearance
+
+appearance:
+  theme_day: minimal
+  theme_night:
+  font: minimal
+  font_size: L
+  mode: light
+  color: blue
+
+# SEO
+
+marketing:
+  seo:
+    site_type: ResearchOrganization
+    local_business_type: 'Academic'
+    org_name: 'SHUD research group'
+    description: 'Academic research group, Simulator of Hydrologic Unstructured Domains'
+    twitter: 'leleshu'
+  analytics:
+    google_analytics: 'UA-153411227-1'
+    baidu_tongji: '02eaeeb22ebc1b673b5317dd3fc030c4'
+    google_tag_manager: ''
+    microsoft_clarity: ''
+  verification:
+    google: 'cXuEvzqGXqYRwtc2t0olg_QubrtNc_2u_2LXONMFKeg'
+    baidu: 'code-caLY3Fu6xB'
+    bing: ‘8707F677BE38954F712BC57BA2D1CEFB'  # 从 Bing Webmaster Tools 获取
+# Site header
+header:
+  navbar:
+    enable: true
+    align: c
+    show_logo: true
+    show_language: true
+    show_day_night: false
+    show_search: true
+    highlight_active_link: true
+
+# Site footer
+
+footer:
+  copyright:
+    notice: '© {2022} SHUD. 凡我公开的，皆不保留版权，亦不申索权益；但需要您合理引用。 (I reserve no right on anything in this website. Use it for free with right citation/reference. )'
+    license:
+      enable: false
+      allow_derivatives: true
+      share_alike: true
+      allow_commercial: false
+
+# Localization
+
+locale:
+  date_format: 'Jan 2, 2006'
+  time_format: '3:04 PM'
+
+# Site features
+
+features:
+  syntax_highlighter:
+    theme_light: github-light
+    theme_dark: dracula
+    extra_languages:
+      - r
+      - latex
+  math:
+    enable: true
+  privacy_pack:
+    enable: false
+  repository:
+    url: 'https://github.com/HugoBlox/theme-online-course'
+    content_dir: content
+    branch: main
+  comment:
+    provider: ''
+    disqus:
+      shortname: ''
+      show_count: true
+    commento:
+      url: ''
+    giscus:
+      repo: ''
+      repo_id: ''
+      category: ''
+      category_id: ''
+  search:
+    provider: wowchemy
+    algolia:
+      app_id: ''
+      api_key: ''
+      index_name: ''
+      show_logo: true
+
+extensions:
+  academicons:
+    enable: true

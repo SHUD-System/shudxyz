@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 理论与公式 | SHUD水文模型 (ver 2.0)</title>
+  <meta name="description" content="SHUD Book" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 理论与公式 | SHUD水文模型 (ver 2.0)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="SHUD Book" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 理论与公式 | SHUD水文模型 (ver 2.0)" />
+  
+  <meta name="twitter:description" content="SHUD Book" />
+  
+
+<meta name="author" content="Lele Shu (shulele@lzb.ac.cn)" />
+
+
+<meta name="date" content="2024-11-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="overview.html"/>
+<link rel="next" href="modeling.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SHUD Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> 绪论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#水文模型"><i class="fa fa-check"></i><b>1.1</b> 水文模型</a></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#数值水文模型"><i class="fa fa-check"></i><b>1.2</b> 数值水文模型</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="overview.html"><a href="overview.html#数学模型"><i class="fa fa-check"></i><b>1.2.1</b> 数学模型</a></li>
+<li class="chapter" data-level="1.2.2" data-path="overview.html"><a href="overview.html#数值方法求解"><i class="fa fa-check"></i><b>1.2.2</b> 数值方法求解</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#shud模型"><i class="fa fa-check"></i><b>1.3</b> SHUD模型</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#站在巨人的肩上"><i class="fa fa-check"></i><b>1.3.1</b> 站在巨人的肩上</a></li>
+<li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#pihm模型简史"><i class="fa fa-check"></i><b>1.3.2</b> PIHM模型简史</a></li>
+<li class="chapter" data-level="1.3.3" data-path="overview.html"><a href="overview.html#重要时间线"><i class="fa fa-check"></i><b>1.3.3</b> 重要时间线</a></li>
+<li class="chapter" data-level="1.3.4" data-path="overview.html"><a href="overview.html#shud与pihm的区别"><i class="fa fa-check"></i><b>1.3.4</b> SHUD与PIHM的区别</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#shud模型的特点"><i class="fa fa-check"></i><b>1.4</b> SHUD模型的特点</a></li>
+<li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#参考文献"><i class="fa fa-check"></i><b>1.5</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="theory.html"><a href="theory.html"><i class="fa fa-check"></i><b>2</b> 理论与公式</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="theory.html"><a href="theory.html#流域水循环"><i class="fa fa-check"></i><b>2.1</b> 流域水循环</a></li>
+<li class="chapter" data-level="2.2" data-path="theory.html"><a href="theory.html#建模思路"><i class="fa fa-check"></i><b>2.2</b> 建模思路</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="theory.html"><a href="theory.html#水量平衡"><i class="fa fa-check"></i><b>2.2.1</b> 水量平衡</a></li>
+<li class="chapter" data-level="2.2.2" data-path="theory.html"><a href="theory.html#边界条件"><i class="fa fa-check"></i><b>2.2.2</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="theory.html"><a href="theory.html#气象驱动"><i class="fa fa-check"></i><b>2.3</b> 气象驱动</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="theory.html"><a href="theory.html#降雨"><i class="fa fa-check"></i><b>2.3.1</b> 降雨</a></li>
+<li class="chapter" data-level="2.3.2" data-path="theory.html"><a href="theory.html#蒸散发"><i class="fa fa-check"></i><b>2.3.2</b> 蒸散发</a></li>
+<li class="chapter" data-level="2.3.3" data-path="theory.html"><a href="theory.html#风廓线-wind-profile"><i class="fa fa-check"></i><b>2.3.3</b> 风廓线 (Wind profile)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="theory.html"><a href="theory.html#能量过程"><i class="fa fa-check"></i><b>2.4</b> 能量过程</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="theory.html"><a href="theory.html#辐射"><i class="fa fa-check"></i><b>2.4.1</b> 辐射</a></li>
+<li class="chapter" data-level="2.4.2" data-path="theory.html"><a href="theory.html#地表能量平衡"><i class="fa fa-check"></i><b>2.4.2</b> 地表能量平衡</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="theory.html"><a href="theory.html#模型结构及原理"><i class="fa fa-check"></i><b>2.5</b> 模型结构及原理</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="theory.html"><a href="theory.html#植被冠层截留"><i class="fa fa-check"></i><b>2.5.1</b> 植被冠层截留</a></li>
+<li class="chapter" data-level="2.5.2" data-path="theory.html"><a href="theory.html#蒸散发-1"><i class="fa fa-check"></i><b>2.5.2</b> 蒸散发</a></li>
+<li class="chapter" data-level="2.5.3" data-path="theory.html"><a href="theory.html#积雪"><i class="fa fa-check"></i><b>2.5.3</b> 积雪</a></li>
+<li class="chapter" data-level="2.5.4" data-path="theory.html"><a href="theory.html#地表水"><i class="fa fa-check"></i><b>2.5.4</b> 地表水</a></li>
+<li class="chapter" data-level="2.5.5" data-path="theory.html"><a href="theory.html#土壤水"><i class="fa fa-check"></i><b>2.5.5</b> 2.3.5 土壤水</a></li>
+<li class="chapter" data-level="2.5.6" data-path="theory.html"><a href="theory.html#地下水"><i class="fa fa-check"></i><b>2.5.6</b> 地下水</a></li>
+<li class="chapter" data-level="2.5.7" data-path="theory.html"><a href="theory.html#河道水"><i class="fa fa-check"></i><b>2.5.7</b> 河道水</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling.html"><a href="modeling.html"><i class="fa fa-check"></i><b>3</b> SHUD模型软件与数据</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modeling.html"><a href="modeling.html#install"><i class="fa fa-check"></i><b>3.1</b> 安装 SHUD and rSHUD</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="modeling.html"><a href="modeling.html#sundialscvode"><i class="fa fa-check"></i><b>3.1.1</b> SUNDIALS/CVODE</a></li>
+<li class="chapter" data-level="3.1.2" data-path="modeling.html"><a href="modeling.html#编译shud"><i class="fa fa-check"></i><b>3.1.2</b> 编译SHUD</a></li>
+<li class="chapter" data-level="3.1.3" data-path="modeling.html"><a href="modeling.html#rshud"><i class="fa fa-check"></i><b>3.1.3</b> rSHUD</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modeling.html"><a href="modeling.html#inputfiles"><i class="fa fa-check"></i><b>3.2</b> 模型输入数据</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="modeling.html"><a href="modeling.html#原始数据"><i class="fa fa-check"></i><b>3.2.1</b> 原始数据</a></li>
+<li class="chapter" data-level="3.2.2" data-path="modeling.html"><a href="modeling.html#模型输入文件"><i class="fa fa-check"></i><b>3.2.2</b> 模型输入文件</a></li>
+<li class="chapter" data-level="3.2.3" data-path="modeling.html"><a href="modeling.html#空间数据"><i class="fa fa-check"></i><b>3.2.3</b> 空间数据</a></li>
+<li class="chapter" data-level="3.2.4" data-path="modeling.html"><a href="modeling.html#水力学参数"><i class="fa fa-check"></i><b>3.2.4</b> 水力学参数</a></li>
+<li class="chapter" data-level="3.2.5" data-path="modeling.html"><a href="modeling.html#模型配置文件"><i class="fa fa-check"></i><b>3.2.5</b> 模型配置文件</a></li>
+<li class="chapter" data-level="3.2.6" data-path="modeling.html"><a href="modeling.html#时间序列数据"><i class="fa fa-check"></i><b>3.2.6</b> 时间序列数据</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="modeling.html"><a href="modeling.html#outputfiles"><i class="fa fa-check"></i><b>3.3</b> 结果输出文件</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="modeling.html"><a href="modeling.html#文件名格式"><i class="fa fa-check"></i><b>3.3.1</b> 文件名格式</a></li>
+<li class="chapter" data-level="3.3.2" data-path="modeling.html"><a href="modeling.html#文本格式输出文件.csv"><i class="fa fa-check"></i><b>3.3.2</b> 文本格式输出文件（.csv）</a></li>
+<li class="chapter" data-level="3.3.3" data-path="modeling.html"><a href="modeling.html#二进制输出文件.dat"><i class="fa fa-check"></i><b>3.3.3</b> 二进制输出文件（.dat）</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="autoshud.html"><a href="autoshud.html"><i class="fa fa-check"></i><b>4</b> 自动化建模</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="autoshud.html"><a href="autoshud.html#简介"><i class="fa fa-check"></i><b>4.1</b> 简介</a></li>
+<li class="chapter" data-level="4.2" data-path="autoshud.html"><a href="autoshud.html#建模思路-1"><i class="fa fa-check"></i><b>4.2</b> 建模思路</a></li>
+<li class="chapter" data-level="4.3" data-path="autoshud.html"><a href="autoshud.html#建模步骤"><i class="fa fa-check"></i><b>4.3</b> 建模步骤</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="autoshud.html"><a href="autoshud.html#建模参数"><i class="fa fa-check"></i><b>4.3.1</b> 建模参数</a></li>
+<li class="chapter" data-level="4.3.2" data-path="autoshud.html"><a href="autoshud.html#step1.-数据子集提取与数据规则化"><i class="fa fa-check"></i><b>4.3.2</b> Step1. 数据子集提取与数据规则化</a></li>
+<li class="chapter" data-level="4.3.3" data-path="autoshud.html"><a href="autoshud.html#step2.-水文参数和气象数据生成"><i class="fa fa-check"></i><b>4.3.3</b> Step2. 水文参数和气象数据生成</a></li>
+<li class="chapter" data-level="4.3.4" data-path="autoshud.html"><a href="autoshud.html#step3.-建模"><i class="fa fa-check"></i><b>4.3.4</b> Step3. 建模</a></li>
+<li class="chapter" data-level="4.3.5" data-path="autoshud.html"><a href="autoshud.html#step4.-模拟"><i class="fa fa-check"></i><b>4.3.5</b> Step4. 模拟</a></li>
+<li class="chapter" data-level="4.3.6" data-path="autoshud.html"><a href="autoshud.html#step5.-模拟结果后处理"><i class="fa fa-check"></i><b>4.3.6</b> Step5. 模拟结果后处理</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="autoshud.html"><a href="autoshud.html#可移植性"><i class="fa fa-check"></i><b>4.4</b> 可移植性</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="calibration.html"><a href="calibration.html"><i class="fa fa-check"></i><b>5</b> 模型校准</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="calibration.html"><a href="calibration.html#参数敏感性"><i class="fa fa-check"></i><b>5.1</b> 参数敏感性</a></li>
+<li class="chapter" data-level="5.2" data-path="calibration.html"><a href="calibration.html#手动模型校准"><i class="fa fa-check"></i><b>5.2</b> 手动模型校准</a></li>
+<li class="chapter" data-level="5.3" data-path="calibration.html"><a href="calibration.html#cma-es自动化模型校准"><i class="fa fa-check"></i><b>5.3</b> CMA-ES自动化模型校准</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="application.html"><a href="application.html#v形流域"><i class="fa fa-check"></i><b>6.1</b> V形流域</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="application.html"><a href="application.html#shen等2010-中的结果"><i class="fa fa-check"></i><b>6.1.1</b> Shen等(2010) 中的结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="application.html"><a href="application.html#vauclin水槽箱试验"><i class="fa fa-check"></i><b>6.2</b> Vauclin水槽箱试验</a></li>
+<li class="chapter" data-level="6.3" data-path="application.html"><a href="application.html#美国加州cache河流域"><i class="fa fa-check"></i><b>6.3</b> 美国加州Cache河流域</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="application.html"><a href="application.html#cache-creek-watershed"><i class="fa fa-check"></i><b>6.3.1</b> Cache Creek Watershed</a></li>
+<li class="chapter" data-level="6.3.2" data-path="application.html"><a href="application.html#shud-模拟和校准"><i class="fa fa-check"></i><b>6.3.2</b> SHUD 模拟和校准</a></li>
+<li class="chapter" data-level="6.3.3" data-path="application.html"><a href="application.html#结果"><i class="fa fa-check"></i><b>6.3.3</b> 结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="application.html"><a href="application.html#宁夏岩画村山洪"><i class="fa fa-check"></i><b>6.4</b> 宁夏岩画村山洪</a></li>
+<li class="chapter" data-level="6.5" data-path="application.html"><a href="application.html#休斯顿城市内涝"><i class="fa fa-check"></i><b>6.5</b> 休斯顿城市内涝</a></li>
+<li class="chapter" data-level="6.6" data-path="application.html"><a href="application.html#南苏丹尼罗河上游"><i class="fa fa-check"></i><b>6.6</b> 南苏丹尼罗河上游</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sourcecode.html"><a href="sourcecode.html"><i class="fa fa-check"></i><b>7</b> 源码和程序设计</a></li>
+<li class="chapter" data-level="8" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>8</b> 常见问题</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="faq.html"><a href="faq.html#模型理论"><i class="fa fa-check"></i><b>8.1</b> 模型理论</a></li>
+<li class="chapter" data-level="8.2" data-path="faq.html"><a href="faq.html#模型安装编译"><i class="fa fa-check"></i><b>8.2</b> 模型安装/编译</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="faq.html"><a href="faq.html#linuxmac-os"><i class="fa fa-check"></i><b>8.2.1</b> Linux/Mac OS</a></li>
+<li class="chapter" data-level="8.2.2" data-path="faq.html"><a href="faq.html#windows"><i class="fa fa-check"></i><b>8.2.2</b> Windows</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="faq.html"><a href="faq.html#rshud-1"><i class="fa fa-check"></i><b>8.3</b> rSHUD</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="faq.html"><a href="faq.html#rshud安装"><i class="fa fa-check"></i><b>8.3.1</b> rSHUD安装</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="faq.html"><a href="faq.html#数据"><i class="fa fa-check"></i><b>8.4</b> 数据</a></li>
+<li class="chapter" data-level="8.5" data-path="faq.html"><a href="faq.html#结果分析"><i class="fa fa-check"></i><b>8.5</b> 结果分析</a></li>
+<li class="chapter" data-level="8.6" data-path="faq.html"><a href="faq.html#模型校准"><i class="fa fa-check"></i><b>8.6</b> 模型校准</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="faq.html"><a href="faq.html#手动校准"><i class="fa fa-check"></i><b>8.6.1</b> 手动校准</a></li>
+<li class="chapter" data-level="8.6.2" data-path="faq.html"><a href="faq.html#自动化校准"><i class="fa fa-check"></i><b>8.6.2</b> 自动化校准</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="faq.html"><a href="faq.html#可视化"><i class="fa fa-check"></i><b>8.7</b> 可视化</a></li>
+<li class="chapter" data-level="8.8" data-path="faq.html"><a href="faq.html#全球水文数据云"><i class="fa fa-check"></i><b>8.8</b> 全球水文数据云</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="mailto:<Lele Shu>shulele@lzb.ac.cn" target="blank">Contact us</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SHUD水文模型 (ver 2.0)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="theory" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> 理论与公式<a href="theory.html#theory" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>本章节尚未完成，有关内容可以参考我们已经发表的文献，有详细阐述。 也可以从源代码中解读。</strong></p>
+<div id="流域水循环" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 流域水循环<a href="theory.html#流域水循环" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="float">
+<img src="Fig/overview/hydroCycle.png" alt="流域中水文循环基本框架，包含了高寒冰冻圈要素、地表水、地下水以及河流水文过程。" />
+<div class="figcaption"><strong>流域中水文循环基本框架，包含了高寒冰冻圈要素、地表水、地下水以及河流水文过程。</strong></div>
+</div>
+</div>
+<div id="建模思路" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> 建模思路<a href="theory.html#建模思路" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="水量平衡" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> 水量平衡<a href="theory.html#水量平衡" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>水量平衡(或称为物质守恒)是水文模型的基础，可以简单总结为，流域系统内水储量变化要等于输入系统的水量与从系统重输出的水量之差，即<span class="math display">\[\Delta S = Q_{in} - Q_{out}\]</span>，
+式中，<span class="math inline">\(\Delta S\)</span>为计算单位的水储量，<span class="math inline">\(Q_{in}\)</span>为输入水量之和，<span class="math inline">\(Q_{out}\)</span>为输出水量之和。在不同的流域单元数，都遵守这个基本物质守恒原理，但具体的输入输出量的含义、方向、量级都有不同表现。</p>
+<div id="流域水量平衡" class="section level4 hasAnchor" number="2.2.1.1">
+<h4><span class="header-section-number">2.2.1.1</span> 流域水量平衡<a href="theory.html#流域水量平衡" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>在流域尺度最简单的水量平衡总结为：</p>
+<p><span class="math display">\[\begin{equation}
+\Delta S = P - E - Q
+\label{#eq:basin}
+\end{equation}\]</span></p>
+<p>式中，<span class="math inline">\(\Delta S\)</span>为计算单位的水储量，<span class="math inline">\(P\)</span>为计算单元中的降水量，<span class="math inline">\(E\)</span>为蒸散发总量, <span class="math inline">\(Q\)</span>则为从流域河流的出口流出的径流总量。</p>
+<p>这个流域水量平衡公式貌似简单，但它有很多变幻形式，往往是初学者难以掌握或者容易出错的地方。
+有四个要点：</p>
+<ol style="list-style-type: decimal">
+<li>时间尺度</li>
+<li>包含组分</li>
+<li>变量单位</li>
+<li>假设条件</li>
+</ol>
+<p>尽管无论何时<a href="#eq:basin">(<strong>??</strong>)</a>都是适用的，但是在不同条件下，其所具有的含义不同。例如，<span class="math inline">\(\Delta S\)</span>所包含的意义。 在年尺度或多年尺度上，我们关心的储量变化是冰川体积、土壤含水量、地下水（冰）储量、湖泊储水量、河道储水量。
+但在较小的时间尺度上（日、月），我们需要需要考虑植被储水量、积雪、人类活动中的取用水量等。在小时尺度上，则需要考虑地表积水、植被截留等。小时间尺度上所关心的变量在长时间尺度上往往可以忽略不计，或者因为长时间的平均效应而趋近于0。例如，积雪。在日和月尺度上，一部分降水在冬季以降雪的形式出现，在地表形成积雪，这些积雪将在几个月的夏季进入融化状态。冬季积雪储量处于增加状态，在夏季则逐渐融化释放，在下一个冬季来临之前基本全部融化。在月的尺度上看，积雪储量始终都在变化，是不可忽略的因素。而在多年尺度上，积雪在一部分时间里积累、另一部分时间里面融化，积雪总储量不会增加。如果积雪多年不融化，则其将发展为冰川的形成过程，则属于是另外一个过程。</p>
+<p><span class="math inline">\(\ref{eq:2-2}\)</span>中的单位可以是深度单位，也可以是速率单位。比如常用的立方米、毫米、毫米/年。实际的语言表达则需要注意。 当使用毫米单位时，隐含了时间信息。 例如，一个流域30年统计表明年降雨量500毫米，蒸发量200毫米，径流量300毫米。则公式写为：
+<span class="math inline">\(\Delta S \mathrm{(0 ~mm)} = P\mathrm{(500 ~mm)} - E\mathrm{(200 ~mm)} - Q \mathrm{(300 ~mm)}\)</span>。 公式表达了在年尺度的平均水量平衡，500，200， 300等数都是一年时间范围内的平均水量。当所有变量都乘以流域面积时，上面公式的单位则表达体积水量(立方米)，表达含义相同。 公式也可以表达为<span class="math inline">\(\Delta S \mathrm{(0 ~mm/a)} = P\mathrm{(500 ~mm/a)} - E\mathrm{(200 ~mm/a)} - Q \mathrm{(300 ~mm/a)}\)</span>，则显式的表达了年尺度的统计特征。 同时，以上水量平衡也可以表达为
+<span class="math display">\[\Delta S \mathrm{(0\times30 ~mm)} = P\mathrm{(500\times30 ~mm)} - E\mathrm{(200\times30 ~mm)} - Q \mathrm{(300\times30 ~mm)}\]</span>
+<span class="math display">\[\Delta S \mathrm{(0 ~mm)} = P\mathrm{(15000 ~mm)} - E\mathrm{(6000 ~mm)} - Q \mathrm{(9000 ~mm)}\]</span>
+则其表达的是30年时间范围的的总水量平衡。</p>
+</div>
+</div>
+<div id="边界条件" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> 边界条件<a href="theory.html#边界条件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>对于流域问题，基本的边界条件假设为：
+1. 流域为封闭边界，即，（除了出口径流外），没有外部水源从水平方向补给流域，流域也不存在水平方向上向外部输出过程。
+2. 降水为垂直方向的外部物质输入。
+3. 流域底部存在一个零通量（不透水）的基岩面。这一假设在绝大部分条件下成立；在某些已知深层基岩或深层地下水活动的情境下，可以灵活设置透水底部边界条件。</p>
+</div>
+</div>
+<div id="气象驱动" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> 气象驱动<a href="theory.html#气象驱动" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="降雨" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> 降雨<a href="theory.html#降雨" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="蒸散发" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> 蒸散发<a href="theory.html#蒸散发" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="风廓线-wind-profile" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> 风廓线 (Wind profile)<a href="theory.html#风廓线-wind-profile" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Equation 2.3 in <span class="citation">(<a href="#ref-abtew2012evaporation">Abtew and Melesse 2012</a>)</span></p>
+<p><span class="math display">\[\begin{equation}
+\boldsymbol{u}_{x}=\boldsymbol{u}_{m} \frac{\ln \frac{z_{x}-d}{z_{0}}}{\ln \frac{z_{m}-d}{z_{0}}}
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(u_x\)</span> - 目标高度的风速 [<span class="math inline">\(m s^{-1}\)</span>]</li>
+<li><span class="math inline">\(u_m\)</span> - 测量高度的风速 [<span class="math inline">\(m s^{-1}\)</span>]</li>
+<li><span class="math inline">\(z_x\)</span> - 目标高度 [<span class="math inline">\(m\)</span>]</li>
+<li><span class="math inline">\(z_m\)</span> - 测量高度 [<span class="math inline">\(m\)</span>]</li>
+<li><span class="math inline">\(d\)</span> - 零平面 [<span class="math inline">\(m\)</span>]</li>
+<li><span class="math inline">\(z0\)</span> - 粗糙度(Roughness height) [<span class="math inline">\(m\)</span>]</li>
+</ul>
+<p>FAO56</p>
+<ol style="list-style-type: decimal">
+<li><p>植被覆盖的</p></li>
+<li><p>开放水面和裸露土地的潜在蒸发(PET of bare soil and open water)
+<span class="math display">\[\begin{equation}
+\lambda E_{a}=c_{2} \frac{e_{a}-e_{d}}{r_{a}}
+\end{equation}\]</span></p></li>
+</ol>
+<p><span class="math inline">\(E_a\)</span> 是同温蒸发率(Isothermal evaporation rate)。</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{E}_{\mathrm{o}}=\frac{\Delta\left(\mathrm{R}_{\mathrm{n}}-\mathrm{G}\right) / \lambda+\gamma \mathrm{E}_{\mathrm{a}}}{\Delta+\gamma}
+\end{equation}\]</span></p>
+</div>
+</div>
+<div id="能量过程" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> 能量过程<a href="theory.html#能量过程" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>** *能量过程的计算仅在陆面-水文耦合的L-SHUD模型中启用 **</p>
+<div id="辐射" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> 辐射<a href="theory.html#辐射" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math inline">\(\vec{L}=L \uparrow-L_{a t m} \downarrow\)</span></p>
+<p><span class="math inline">\(T_{r a d}=\left(\frac{L \uparrow}{\sigma}\right)^{1 / 4}\)</span></p>
+<p><span class="math inline">\(L \uparrow=\left(1-\varepsilon_g\right) L_{a t m} \downarrow+\varepsilon_g \sigma\left(T_g^n\right)^4+4 \varepsilon_g \sigma\left(T_g^n\right)^3\left(T_g^{n+1}-T_g^n\right)\)</span></p>
+</div>
+<div id="地表能量平衡" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> 地表能量平衡<a href="theory.html#地表能量平衡" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math inline">\(R_n + L_w = H_l + H_s + G\)</span></p>
+<ul>
+<li><span class="math inline">\(R_n\)</span>： 短波辐射(input)</li>
+<li><span class="math inline">\(L_w\)</span>： 长波辐射(input)</li>
+<li><span class="math inline">\(H_l\)</span>： 潜热</li>
+<li><span class="math inline">\(H_s\)</span>： 感热</li>
+<li><span class="math inline">\(G\)</span>： 土壤热通量</li>
+</ul>
+<p><span class="math inline">\(H=-\rho_{a t m} C_p \frac{\left(\theta_{a t m}-\theta_s\right)}{r_{a h}}\)</span></p>
+<p><span class="math inline">\(e_{a t m}=\frac{q_{a t m} P_{\mathrm{atm }}}{0.622+0.378 q_{\mathrm{atm }}}\)</span></p>
+<p><span class="math inline">\(\rho_{\mathrm{atm }}=\frac{P_{a t m}-0.378 e_{a t m}}{R_{d a} T_{a t m}}\)</span></p>
+<p>在陆面模型中，地表辐射能量平衡的计算涉及到多个物理过程和参数。以下是一些基本的计算公式：</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>地表反照率（Albedo, <span class="math inline">\(a\)</span>）</strong>:
+<span class="math display">\[ a = \frac{R_{\text{reflected}}}{R_{\text{incoming}}} \]</span>
+其中，<span class="math inline">\(R_{\text{reflected}}\)</span> 是反射的太阳辐射，<span class="math inline">\(R_{\text{incoming}}\)</span> 是入射的太阳辐射。</p></li>
+<li><p><strong>吸收的太阳辐射（<span class="math inline">\(R_{\text{absorbed}}\)</span>）</strong>:
+<span class="math display">\[ R_{\text{absorbed}} = R_{\text{incoming}} - R_{\text{reflected}} \]</span></p></li>
+<li><p><strong>地表发射的长波辐射（<span class="math inline">\(L_{\text{emitted}}\)</span>）</strong>:
+<span class="math display">\[ L_{\text{emitted}} = \epsilon \sigma T^4 \]</span>
+其中，<span class="math inline">\(\epsilon\)</span> 是地表的发射率，<span class="math inline">\(\sigma\)</span> 是斯特藩-玻尔兹曼常数（约为 <span class="math inline">\(5.67 \times 10^{-8}\)</span> W m^-2 K^-4），<span class="math inline">\(T\)</span> 是地表温度。</p></li>
+<li><p><strong>大气发射的长波辐射（<span class="math inline">\(L_{\text{atm}}\)</span>）</strong>:
+<span class="math display">\[ L_{\text{atm}} = \epsilon_{\text{atm}} \sigma T_{\text{atm}}^4 \]</span>
+其中，<span class="math inline">\(\epsilon_{\text{atm}}\)</span> 是大气的发射率，<span class="math inline">\(T_{\text{atm}}\)</span> 是大气温度。</p></li>
+<li><p><strong>净长波辐射（<span class="math inline">\(L_{\text{net}}\)</span>）</strong>:
+<span class="math display">\[ L_{\text{net}} = L_{\text{emitted}} - L_{\text{atm}} \]</span></p></li>
+<li><p><strong>净辐射（<span class="math inline">\(R_{\text{net}}\)</span>）</strong>:
+<span class="math display">\[ R_{\text{net}} = R_{\text{absorbed}} - L_{\text{net}} \]</span></p></li>
+<li><p><strong>感热通量（<span class="math inline">\(Q_{\text{H}}\)</span>）</strong> 和 潜热通量（<span class="math inline">\(Q_{\text{E}}\)</span>）:
+这些通量通常与地表能量平衡的其他组成部分一起计算，它们与地表温度、湿度和风速有关。</p></li>
+<li><p><strong>土壤热通量（<span class="math inline">\(G\)</span>）</strong>:
+<span class="math display">\[ G = \text{导热项} + \text{对流项} + \text{辐射项} \]</span>
+土壤热通量是土壤内部热量传递的量，通常通过数值方法求解。</p></li>
+<li><p><strong>能量平衡闭合</strong>:
+<span class="math display">\[ R_{\text{net}} + Q_{\text{H}} + Q_{\text{E}} + G = 0 \]</span>
+这个方程确保了能量的守恒。</p></li>
+</ol>
+<p>请注意，这些公式是简化的表示，实际的模型可能会包含更多的细节和复杂性，例如考虑不同波长的辐射、不同地表类型的反照率变化、云层的影响等。此外，模型中还可能使用经验公式或参数化方案来近似某些过程。如果你需要更详细的信息或者特定于CLM 5.0模型的公式，你可能需要查阅该模型的文档或源代码。</p>
+</div>
+</div>
+<div id="模型结构及原理" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> 模型结构及原理<a href="theory.html#模型结构及原理" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>SHUD已广泛应用于不同水文气候和多种尺度的水文过程模拟，时间尺度从小时至百年，空间尺度从1平方米至100,000平方公里，涵盖北美洲、亚洲和非洲等多个流域的湖泊、洪水和水资源研究等（Shu et al., 2020; Gil et al., 2021; 舒乐乐 等，2022）。基于Freeze和Harlan的“基于物理的水文响应模型蓝图”（Freeze &amp; Harlan, 1969），SHUD模型利用理查兹方程（公式<span class="math inline">\(\ref{eq:2-1}\)</span>）计算地下水流动，利用曼宁公式（公式<span class="math inline">\(\ref{eq:2-4}\)</span>）计算地表水流动，利用圣维南方程（公式<span class="math inline">\(\ref{eq:2-2}\)</span>）描述计算地表水质量守恒，利用（公式<span class="math inline">\(\ref{eq:2-3}\)</span>）描述地下水质量守恒（舒乐乐 等，2022，2024）。SHUD在前期数据准备阶段随机划分计算单元，能够精细描述研究区地形土壤及气象等要素分布特征和描述流域的水文物理过程，实现对区域乃至全局水文响应的综合模拟，源代码和详细说明书可通过项目网站（<a href="https://www.shud.xyz）或GitHub页面（https://github.com/shud-system/shud）获得" class="uri">https://www.shud.xyz）或GitHub页面（https://github.com/shud-system/shud）获得</a>。</p>
+<p><span class="math display">\[\begin{equation}
+q=-k_e(h) \nabla(h+z)\tag{2-1}
+\label{eq:2-1}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\frac{\partial h}{\partial t}=\nabla \cdot(v h)-\frac{Q_e}{A}+\frac{Q_{s u}}{A}c\tag{2-2}
+\label{eq:2-2}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+S_w(h) \frac{\partial h}{\partial t}=\nabla \cdot q+\frac{Q_e}{V}+\frac{Q_{s s}}{v}\tag{2-3}
+\label{eq:2-3}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+v=n^{-1} R^{\frac{2}{3}} S_f^{\frac{1}{2}}\tag{2-4}
+\label{eq:2-4}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li>q为流量，单位为<span class="math inline">\(L^3L^{-2}T^{-1}\)</span>；</li>
+<li>h为水头高度，单位为<span class="math inline">\(L\)</span>；</li>
+<li><span class="math inline">\(k_e(h)\)</span>为水力传导度，是土壤含水量或者基质势的函数，单位为<span class="math inline">\(LT^{-1}\)</span>；</li>
+<li>z为高程，单位为<span class="math inline">\(L\)</span>；v为流速，单位为<span class="math inline">\(LT^{-1}\)</span>；t为时间，单位为<span class="math inline">\(T\)</span>；</li>
+<li>A为控制单元垂直投影面积，单位为<span class="math inline">\(L^2\)</span>；</li>
+<li><span class="math inline">\(Q_e\)</span>为地表与地下水交互流量，单位为<span class="math inline">\(L^3 T^{-1}\)</span>；</li>
+<li><span class="math inline">\(Q_{su}\)</span>为地表水的源汇项，单位为<span class="math inline">\(L^3 T^{-1}\)</span>；</li>
+<li><span class="math inline">\(S_w(h)\)</span>为储水系数，其物理含义为其物理意义为含水层的水头降低/升高一个单位时，单位体积的含水层释放/吸收的水量，单位为<span class="math inline">\(L^3 L^{-3}L^{-1}\)</span>；</li>
+<li>V为控制单元体积，单位为<span class="math inline">\(L^3\)</span>，</li>
+<li><span class="math inline">\(Q_{ss}\)</span>为地下水或土壤水的源汇项，单位<span class="math inline">\(L^3 T^{-1}\)</span>；</li>
+<li>n为曼宁系数，单位为<span class="math inline">\(TL^{-1/3}\)</span>；</li>
+<li>R为水力半径，单位为<span class="math inline">\(L\)</span>；</li>
+<li><span class="math inline">\(S_f\)</span>为摩擦坡度，单位为<span class="math inline">\(LL^{-1}\)</span>。</li>
+</ul>
+<p>SHUD是典型地表－地下耦合的数值方法分布式水文模型，其与其他模型相比所具有的优势也是本研究选择该模型进行研究最主要的原因。地表－地下全过程耦合的分布式水文模型作为分布式模型中一个特殊类别，相较于传统分布式水文模型，实现了利用数值方法将地表－地下水文过程的物理耦合，可以更好地刻画复杂地形地貌水文过程，也能更好表达流域空间异质性（舒乐乐 等，2022）。物理性分布式水文模型在表达空间异质和刻画水文过程中优于概念模型和集总式模型（舒乐乐 等，2022）。</p>
+<p>时空连续性是数值方法模型相比于传统水文模型的显著优势。在时间离散方面，SHUD采用有限体积法求解流域水文学的常微分方程，包括地表水流、非饱和层和饱和层流动以及河道水流过程，以获得空间上的水储量和流量。空间网格可以分为非结构如不规则的三角形和结构化如正方形，SHUD模型使用非结构化三角形网格。SHUD模型保证了水文变量的连续性、一致性和收敛性，也保证了模型局地和全局的水量平衡。数值方法一个典型特征是地表和地下耦合，圣维南方程跟理查兹方程要耦合起来，SHUD模型使用一阶变量交换，主要指地表地下水的交互之间的变量交换。SHUD模型耦合方式为全局隐式，地表水储量的水头高度与地下水和土壤水水头高度在同一个方程中。河道与坡面单元关系有相邻和交叉的方式，SHUD模型使用交叉方法，优势在于网格的密度与河流的绵延程度及分割长度等河流单元的分辨率无关，使得每个单元和固定相交的某个河道单元进行水量交互。空间离散上，坡面和河流分别使用非结构性三角形网格和梯形河道单元描述，垂直方向包括地表层、非饱和层和饱和层。因为在较大尺度上，非饱和层水平流动水量远小于垂直方向流量，因此部分模型忽略壤中流计算或者实质上将其隐含在地表和地下水水平流动中（Shu et al., 2020）。</p>
+<div class="float">
+<img src="Fig/SHUD%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%B0%B4%E5%B9%B3%E7%A9%BA%E9%97%B4%E7%BB%93%E6%9E%84%E7%AD%89.png" alt="图2-4 SHUD模型的水平空间结构（a）、河流网络拓扑关系（b）和垂直分层关系（c）（引自舒乐乐 等，2022）Figure 2-4 The lateral spatial structure(a), river topology(b) and vertical layers(c)" />
+<div class="figcaption"><strong>图2-4 SHUD模型的水平空间结构（a）、河流网络拓扑关系（b）和垂直分层关系（c）（引自舒乐乐 等，2022）Figure 2-4 The lateral spatial structure(a), river topology(b) and vertical layers(c)</strong></div>
+</div>
+<p>本文只介绍 SHUD模型的基本原理，其原理图如图2-3所示，具体细节及更新可以参考（Shu et al., 2020, 2024a,2024b）以及其后续发展的文章。模型模拟的过程包括植被截流、融雪积累/消融、蒸散发、入渗、地下水补给、地表坡面流、地下水基流和河道双向流动等。</p>
+<div id="植被冠层截留" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> 植被冠层截留<a href="theory.html#植被冠层截留" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>植被冠层截留：指暂时保存在植物表面及枝干的部分降水，即被植被拦截的降水量。在降水初期或降水量较小时，几乎全部降水被植被截留；达到最大截留量之后，降水全部下落至地面。在SHUD模型中，将截流过程类比为水桶模型，水桶的最大蓄水量即为最大截留量。若现有截留量小于等于0，当降水小于最大截留量，则截留量等于降水；当降水大于最大截留量，则截留量为最大截留量；若现有截留量大于0但小于最大截留量，则截留量为最大截留量与现有截留量之差或当前降水中的较小值；若当前截留量大于等于最大截留量时，拦截能力为0，即此时及之后的所有降水全部穿过植被到达地表。最大截留量计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+S_{i c}^*=C_{i c} L A I
+\end{equation}\]</span></p>
+<p>其中：</p>
+<ul>
+<li><span class="math inline">\(C_{ic}\)</span>为截留系数，单位为m，默认值为0.2 <span class="math inline">\(kgm^{-2}\)</span>（Dickinson, 1984）；</li>
+<li>LAI为叶面积指数（leaf area index），单位为<span class="math inline">\(m^2m^{-2}\)</span>；<span class="math inline">\(S_{ic}^*\)</span>为最大截留量，单位为m。</li>
+</ul>
+<p>截留量计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{q}_{\mathrm{ic}}=\begin{array}{lr}
+\min \left[\frac{\mathrm{s}_{\mathrm{ic}}^*}{\Delta \mathrm{t}}, \mathrm{P}\right] &amp; \mathrm{S}_{\mathrm{ic}} \leq 0 \\
+\min \left[\frac{\left.\mathrm{~S}_{\mathrm{ic}}^*-\mathrm{S}_{\mathrm{ic}}\right)}{\Delta \mathrm{t}}, \mathrm{P}\right] &amp; 0&lt;\mathrm{S}_{\mathrm{ic}}&lt;\mathrm{S}_{\mathrm{ic}}^* \\
+0 &amp; \mathrm{~S}_{\mathrm{ic}} \geq \mathrm{S}_{\mathrm{ic}}^*
+\end{array}
+\end{equation}\]</span></p>
+<p>其中：</p>
+<ul>
+<li><span class="math inline">\(S_{ic}\)</span>为现有截留量，单位为m；</li>
+<li><span class="math inline">\(q_{ic}\)</span>为截留量，即冠层截流后保存于植物表面的部分降水，单位为<span class="math inline">\(md^{-1}\)</span>;</li>
+<li><span class="math inline">\(P\)</span>为降水量，单位为<span class="math inline">\(md^{-1}\)</span>。</li>
+</ul>
+<p>冠层截留水量平衡方程描述冠层截留水储量随时间变化的过程，即冠层水储量等于截留量减去冠层截流水的蒸发量。其中，截留量是降水量减去穿透冠层到达地表的降水量，即被植被截留的部分；冠层截流水的蒸发量是指截留在植被上的水分通过蒸发释放到大气中的过程。其公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\frac{d S_{i c}}{d t}=q_{i c}-E_{i c}
+\end{equation}\]</span></p>
+<p>其中：</p>
+<ul>
+<li><span class="math inline">\(E_{ic}\)</span>为冠层截流水的蒸发量，单位为<span class="math inline">\(m^3m^{-2}d^{-1}\)</span>。</li>
+</ul>
+</div>
+<div id="蒸散发-1" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> 蒸散发<a href="theory.html#蒸散发-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>蒸散发：是流域水分流失的主要途径，包含陆地上通过蒸发和植被蒸腾向上流失的水分之和，是全球和流域水文循环中的重要环节。潜在蒸散发：指水量充足条件下蒸散发量，采用联合国粮农组织FAO（Food and Agriculture Organization of the United Nations）推荐使用的彭曼-蒙斯特公式PM（Penman-Monteith）计算，计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{E}_0=\frac{1}{\lambda} \frac{\Delta\left(\mathrm{R}_{\mathrm{n}}-\mathrm{G}\right)+\rho_{\mathrm{a}} \mathrm{c}_{\mathrm{p}} \frac{\left(\mathrm{e}_{\mathrm{s}}-\mathrm{e}_{\mathrm{a}}\right)}{\mathrm{r}_{\mathrm{a}}}}{\Delta+\gamma\left(1+\frac{\mathrm{r}_{\mathrm{s}}}{\mathrm{r}_{\mathrm{a}}}\right)}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(E_0\)</span>为使用PM公式计算的潜在蒸散发，单位为<span class="math inline">\(kgm^{-2}s^{-1}\)</span>；</li>
+<li><span class="math inline">\(\lambda\)</span>为蒸散发潜热，单位为<span class="math inline">\(MJkg^{-1}\)</span>；</li>
+<li><span class="math inline">\(\Delta\)</span>为饱和水汽压对应温度曲线的斜率，单位为<span class="math inline">\(kPaK^{-1}\)</span>；</li>
+<li><span class="math inline">\(Rn\)</span>为净辐射，单位为<span class="math inline">\(MJm^{-2}s^{-1}\)</span>；G为地面热量损失，单位为<span class="math inline">\(MJm^{-2}s^{-1}\)</span>；</li>
+<li><span class="math inline">\(\rho_a\)</span>为空气密度，单位为<span class="math inline">\(kgm^{-3}\)</span>；</li>
+<li><span class="math inline">\(c_p\)</span>为空气比热容量，单位为<span class="math inline">\(MJkg^{-1}K^{-1}\)</span>；</li>
+<li><span class="math inline">\(e_s\)</span>为气温下的空气饱和水汽压，单位为<span class="math inline">\(kPa\)</span>；</li>
+<li><span class="math inline">\(e_a\)</span>为气温下的空气水汽压，单位为<span class="math inline">\(kPa\)</span>；</li>
+<li><span class="math inline">\(r_a\)</span>为总体空气动力学扩散阻抗，单位为<span class="math inline">\(sm^{-1}\)</span>；</li>
+<li><span class="math inline">\(r_s\)</span>为总体冠层扩散阻抗，单位为<span class="math inline">\(sm^{-1}\)</span>；</li>
+<li><span class="math inline">\(\gamma\)</span>为湿度常数，单位为kPa。</li>
+</ul>
+<p>实际蒸散发是由截留蒸发<span class="math inline">\(E_c\)</span>、土壤直接蒸发<span class="math inline">\(E_s\)</span>和植被蒸腾<span class="math inline">\(E_t\)</span>三部分组成的水分蒸发。<span class="math inline">\(E_c\)</span>为截留蒸发为冠层水储量对应的潜在蒸散发的最大值。计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{E}_{\mathrm{c}}=\max \left[\mathrm{S}_{\mathrm{ic}} / \Delta \mathrm{t}, \mathrm{E}_0\right]
+\end{equation}\]</span></p>
+<p>土壤直接蒸发<span class="math inline">\(E_s\)</span>为土壤表面直接蒸发的水分量，植被蒸腾<span class="math inline">\(E_t\)</span>为指植物通过根部吸收土壤中的水分，经过植物体内的蒸腾过程释放到大气中的水分量，两者之和为地表实际蒸发。<span class="math inline">\(E_s\)</span>由积水蒸发<span class="math inline">\(E_{sp}\)</span>和土壤水分蒸发<span class="math inline">\(E_{sm}\)</span>组成。计算过程中，首先考虑积水的蒸发，当积水量满足蒸发时，只消耗地表积水；否则<span class="math inline">\(E_s\)</span>则由全部地表积水和土壤水分组成；当地表无积水时<span class="math inline">\(E_s\)</span>只由土壤水分组成。计算公式如下：</p>
+<span class="math display">\[\begin{array}{rlr}E_{s p}=E_{s} &amp; E_{s m}=0 &amp; y_{s f}&gt;E_{s} \times \Delta t \\\left\{E_{s p}=y_{s f} / d_{t}\right. &amp; E_{s m}=E_{s}-E_{s p} &amp; y_{s f}&lt;E_{s} \times \Delta t \\E_{s p}=0 &amp; E_{s m}=E_{s} &amp; y_{s f} \leq 0\end{array}\]</span>
+<p>其中，<span class="math inline">\(y_{sf}\)</span>为地表积水，单位为m。</p>
+<p>潜在蒸散量（PET）是使用PM公式计算的，而实际蒸散量（AET）是通过将PET乘以土壤水分胁迫系数得出的，该系数由土壤含水量和地下水位深度决定。</p>
+<p><span class="math display">\[\begin{equation}
+E_s=E_0 \beta_s\left(1-\alpha_{i m p}\right)\left(1-\alpha_{\text {veg }}\right)
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(\beta_s\)</span>为土壤水分胁迫系数；</li>
+<li><span class="math inline">\(\alpha_{imp}\)</span>为不透水面积分数；</li>
+<li><span class="math inline">\(a_{veg}\)</span>为植被覆盖度。</li>
+</ul>
+<p><span class="math inline">\(E_t\)</span>由来自土壤水和地下水两部分组成，当地下水位高于根深时，植被蒸腾使用地下水，蒸腾时对应的土壤水分胁迫<span class="math inline">\(β_s\)</span>为1，因为此时植物根系可以获取充足的水分，蒸腾对土壤水分的利用没有限制。</p>
+<p><span class="math display">\[\begin{equation}
+E_t=E_0 \beta_s\left(1-\alpha_{i m p}\right) \alpha_{v e g}
+\end{equation}\]</span></p>
+<p>。土壤水分胁迫是指土壤中水分供应不足导致植物受到水分限制的状态，此时植物生长及其蒸腾都受水分多少的影响。<span class="math inline">\(β_s\)</span>是水文模型中考虑的重要参数之一，综合考虑<span class="math inline">\(ɑ_{imp}\)</span>和<span class="math inline">\(β_s\)</span>有助于更全面展现土壤蒸发和植被蒸腾的过程，计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\beta_{\mathrm{s}}=\frac{\theta-\theta_{\mathrm{r}}}{\theta_{\mathrm{fc}}-\theta_{\mathrm{r}}}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(\theta\)</span>为土壤含水量；</li>
+<li><span class="math inline">\(\theta_{fc}\)</span>为田间持水量；</li>
+<li><span class="math inline">\(\theta_r\)</span>为剩余土壤含水量。</li>
+</ul>
+</div>
+<div id="积雪" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> 积雪<a href="theory.html#积雪" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>积雪采用度日模型：在温带或山地气候地区，降雪积累和融化是一个重要的地表过程，也是土壤水分和补给的重要来源。融化积雪产生的水量直接补给地表水。在SHUD模型中采用度日模型（degree-day model）（Finsterwalder et al., 1887）来模拟积雪的融化过程，假设融雪量与空气温度及临界温度之差成正比，可以更精准模拟积雪融化过程及其对径流的影响。通过积温来估算积雪融化量，<span class="math inline">\(m_f\)</span>为融雪因子，单位为<span class="math inline">\(ms^{-1}℃^{-1}\)</span>，<span class="math inline">\(T\)</span>为空气温度，<span class="math inline">\(T_0\)</span>为融雪时对应的临界温度，一般按照经验取值。积雪融化速度计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+q_{s n}=\left(T-T_0\right) \times m_f
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(q_{sn}\)</span>为积雪融化速度，单位为<span class="math inline">\(ms^{-1}\)</span>。</li>
+</ul>
+<p>积雪对应的水量平衡方程可以表示降雪储量，降雪储量等于降雪量减去积雪升华和积雪融化量，计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\frac{d S_{s n}}{d t}=P_{s n}-q_{s n}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(S_{sn}\)</span>为积雪储量，单位为<span class="math inline">\(m\)</span>；</li>
+<li><span class="math inline">\(P_{sn}\)</span>为降雪量，单位为<span class="math inline">\(ms^{-1}\)</span>。</li>
+</ul>
+</div>
+<div id="地表水" class="section level3 hasAnchor" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> 地表水<a href="theory.html#地表水" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>地表坡面流近似视为二维浅水流动，使用扩散波（曼宁公式）进行计算，计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+Q_s^j=\frac{L_j}{n} \overline{y_{s f}}^\frac{5}{3} S_0^{\frac{1}{2}}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(Q_s^j\)</span>为三角形沿方向j的坡面漫流，单位为<span class="math inline">\(m^3s^{-1}\)</span>；</li>
+<li><span class="math inline">\(L_j\)</span>为单元j边长度，单位为m；n为曼宁系数，单位为<span class="math inline">\(sm^{-1/3}\)</span>；</li>
+<li><span class="math inline">\(S_0\)</span>为地表坡度。</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+\overline{y_{s f}}= \begin{cases}y_{s f} &amp; z_{s f}+y_{s f} \geq z_{s f}^j+y_{s f}^j \\ y_{s f}^j &amp; z_{s f}+y_{s f}&lt;z_{s f}^j+y_{s f}^j\end{cases}
+\end{equation}\]</span></p>
+<p>其中，
+- <span class="math inline">\(y_{sf}\)</span>为计算坡面流的有效水头高度，由两个单元之间的坡度决定，单位为m，计算公式如下：</p>
+<p>地表水对应的水量平衡由变化水储量由净降水量<span class="math inline">\(P_n\)</span>、入渗量<span class="math inline">\(q_i\)</span>、地表积水蒸发量<span class="math inline">\(E_{sp}\)</span>、地表水流动量共同决定。对应的公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\frac{d y_{s f}}{d t}=P_n-E_{s p}-q_i-\sum_{j=1}^3 \frac{Q_s^j}{A_c}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(y_{sf}\)</span>为单元格的地表积水高度，单位为m；</li>
+<li><span class="math inline">\(P_n\)</span>为到达地面的净降水量，单位为<span class="math inline">\(ms^{-1}\)</span></li>
+<li>；<span class="math inline">\(E_{sp}\)</span>为地表水面蒸发量，单位为<span class="math inline">\(ms_{-1}\)</span>；</li>
+<li><span class="math inline">\(q_i\)</span>为入渗量，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(A_c\)</span>为三角形坡面单元面积，单位为<span class="math inline">\(m^2\)</span>。</li>
+</ul>
+<p>其中净降水量<span class="math inline">\(P_n\)</span>为考虑降水P、植被截留<span class="math inline">\(S_{ic}\)</span>和积雪融化<span class="math inline">\(Q_{sn}\)</span>后到达地面的降水量；</p>
+<p><span class="math display">\[\begin{equation}
+P_n=P-S_{i c}+q_{s c}
+\end{equation}\]</span></p>
+<p>其中入渗量由理查兹方程计算，入渗发生在表层土壤，入渗速率由积水高度和土壤湿度共同决定。计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+q_i=K_{e i}(\Theta)\left(1+\frac{y_s}{D_{i n f}}\right)
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(q_i\)</span>为入渗速率，向下为正方向，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(K_{ei}\)</span>为有效渗透水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；为相对饱和比；</li>
+<li><span class="math inline">\(D_{inf}\)</span>为下渗发生的地表土层厚度。</li>
+</ul>
+<p><span class="math inline">\(y_s/△t\)</span>将积水、灌溉和降水结合起来，共同决定表层土壤的水力梯度。表层土壤的水力梯度可以通过单位时间内的水分量（<span class="math inline">\(y_s\)</span>）除以时间间隔（△t）来计算，水分量包括来自积水、灌溉和降水的影响。</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{K}_{\mathrm{ei}}(\Theta)= \begin{cases}\mathrm{K}_{\mathrm{r}}(\Theta) \mathrm{k}_{\mathrm{x}}\left(1-\alpha_{\mathrm{h}}\right)+\alpha_{\mathrm{h}} \mathrm{k}_{\mathrm{m}} \Theta &amp; \mathrm{y}_{\mathrm{s}} / \Delta \mathrm{t} \geq \mathrm{K}_{\max } \\ \mathrm{K}_{\mathrm{r}}(\Theta)\left(1-\alpha_{\mathrm{h}}\right) &amp; \mathrm{y}_{\mathrm{s}} / \Delta \mathrm{t}&lt;\mathrm{K}_{\max }\end{cases}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(K_{ei}\)</span>为有效渗透水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(K_r\)</span>为相对水力传导度，是饱和比的函数；</li>
+<li><span class="math inline">\(k_x\)</span>为表层土的饱和水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(ɑ_h\)</span>为水平大孔隙面积比；</li>
+<li><span class="math inline">\(k_m\)</span>为土壤大孔隙饱和水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>。</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+\mathrm{K}_{\mathrm{r}}(\Theta)=\Theta^{\frac{1}{2}}\left(-1+\left(1-\Theta^{\frac{\beta}{\beta-1}}\right)^{\frac{\beta-1}{\beta}}\right)^2
+\end{equation}\]</span></p>
+<p>其中，<span class="math inline">\(K_r\)</span>为相对水力传导度，是饱和比的函数；β为van Genuchten土壤参数。</p>
+<p><span class="math inline">\(K_{max}\)</span>由土壤基质和大孔隙共同决定。当单位时间内的水分量（<span class="math inline">\(y_s\)</span>）除以时间间隔（Δt）小于最大入渗量（<span class="math inline">\(K_{max}\)</span>），入渗受土壤基质控制，入渗速率受土壤孔隙结构和土壤水分渗透能力的影响；而当<span class="math inline">\(y_s/Δt\)</span>大于最大入渗量（<span class="math inline">\(K_{max}\)</span>）时，表示入渗速度快于<span class="math inline">\(K_{max}\)</span>，表明土壤已饱和，水分无法迅速渗透至地下，这时入渗由土壤基质和大孔隙共同决定。大孔隙通常能够提高土壤水的渗透能力，对于加快水分的入渗速度具有重要作用。SHUD模型入渗考虑了大孔隙效应，可以在强降水条件下加快入渗速度。考虑土壤中大孔隙的影响，模型能更准确地预测和模拟土壤入渗的过程，尤其在强降水条件下，大孔隙效应的考虑对于准确模拟水文过程非常重要。</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{K}_{\max }=\mathrm{k}_{\mathrm{x}}\left(1-\alpha_{\mathrm{h}}\right)+\alpha_{\mathrm{h}} \mathrm{k}_{\mathrm{m}}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(K_{max}\)</span>是有效土壤水力传导度，由土壤基质和大孔隙特性共同决定的入渗能力；</li>
+<li><span class="math inline">\(k_x\)</span>为表层土的饱和水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(ɑ_h\)</span>为水平大孔隙面积分数，<span class="math inline">\(k_m\)</span>为土壤大孔隙饱和水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>。</li>
+</ul>
+</div>
+<div id="土壤水" class="section level3 hasAnchor" number="2.5.5">
+<h3><span class="header-section-number">2.5.5</span> 2.3.5 土壤水<a href="theory.html#土壤水" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>非饱和土壤水流动视为一维垂直流动，忽略非饱和层的水平流动，使用理查兹公式计算非饱和土壤水运动。土壤水对应的水量平衡方程描述了土壤水储量由入渗、补给和土壤蒸发蒸腾量共同决定。</p>
+<p><span class="math display">\[\begin{equation}\mathrm{s_y\frac{dy_{us}}{dt}=q_i-q_r-E_{sm}}\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(s_y\)</span>为储水系数；</li>
+<li><span class="math inline">\(y_{us}\)</span>为非饱和水储量；</li>
+<li><span class="math inline">\(q_i\)</span>为入渗量；</li>
+<li><span class="math inline">\(q_r\)</span>为地下水补给量</li>
+<li>；<span class="math inline">\(E_{sm}\)</span>为土壤蒸发蒸腾量。
+土壤水分含量与田间持水量的比值是描述土壤水分状况的重要指标，通常用来控制补给速率和水文过程中的水分运动。</li>
+</ul>
+<p><span class="math display">\[\begin{equation}\mathrm{q_r=K_{er}~(\frac{\theta-\theta_r}{\theta_{fc}-\theta_r})}\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(q_r\)</span>为地下水补给速率，向下为正方向，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(K_{er}\)</span>有效补给水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li>θ为土壤含水量；</li>
+<li><span class="math inline">\(θ_{fc}\)</span>为田间持水量；</li>
+<li><span class="math inline">\(θ_r\)</span>为剩余土壤含水量。</li>
+</ul>
+<p><span class="math display">\[\begin{equation}\mathrm{K_{er}=\frac{D_{us}+y_{gw}}{D_{us}/k_x+y_{gw}/k_v}}\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(K_{er}\)</span>有效补给水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(D_{us}\)</span>为非饱和层厚度，单位为m；</li>
+<li><span class="math inline">\(y_{gw}\)</span>为地下水位（不透水基岩之上），单位为m；</li>
+<li><span class="math inline">\(k_x\)</span>为表层土的饱和水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(k_v\)</span>为饱和层的饱和垂直水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>。</li>
+</ul>
+</div>
+<div id="地下水" class="section level3 hasAnchor" number="2.5.6">
+<h3><span class="header-section-number">2.5.6</span> 地下水<a href="theory.html#地下水" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>达西定律描述了地下水渗流速率与水头梯度之间的关系，而Dupuit假设则认为地下水是水平均匀流动的。结合达西定律和Dupuit假设计算饱和地下水的水平流动。水量平衡方程描述了地下水储量由地下水补给量、植被由饱和层进行的蒸腾量和地下水基流共同决定。</p>
+<p><span class="math display">\[\begin{equation}
+s_y \frac{d y_{g w}}{d t}=q_r-E_{t g}-\sum_{i=1}^3 \frac{\mathrm{o}_g^j}{A_c}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(y_{gw}\)</span>为计算单元地下水水头（不透水基岩以上）</li>
+<li>；<span class="math inline">\(q_r\)</span>为地下水补给速率，向下为正方向，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(E_{tg}\)</span>来自饱和层的蒸腾速率，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(Q_{gj}\)</span>为三角形沿方向j的地下水流动，单位为<span class="math inline">\(m^3s_{-1}\)</span>。</li>
+</ul>
+<p>水平地下水通量<span class="math inline">\(Q_{jg}\)</span>由达西定律和Dupuit–Forchheimer假设确定。两个单元之间的梯度为[(<span class="math inline">\(y_{gw}\)</span>+<span class="math inline">\(z_b\)</span>)−(<span class="math inline">\(y_{gw}^j\)</span>+<span class="math inline">\(z_b^j}\)</span>)]<span class="math inline">\(d_j^{-1}\)</span>。沿地下水流的横截面积等于<span class="math inline">\(L_j\)</span>×<span class="math inline">\(y_{gw}\)</span>。</p>
+<p><span class="math display">\[\begin{equation}
+Q_g^j=\bar{K} \cdot \frac{\left(y_{g w}+z_b\right)+\left(y_{g w}^j+z_b^j\right)}{d_j} \cdot\left(L_j\right) y_{g w}^{-}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(z_b\)</span>为不透水基岩的高度；</li>
+<li><span class="math inline">\(y_{gw}^j\)</span>为j方向上计算单元地下水水头；</li>
+<li><span class="math inline">\(z_b^j\)</span>为j方向上不透水基岩的高度；</li>
+<li><span class="math inline">\(L_j\)</span>为单元格边j的长度，单位为m。</li>
+<li><span class="math inline">\(z_b\)</span>为不透水基岩高程；</li>
+<li><span class="math inline">\(Z_j^b\)</span>是其第j个相邻单元的基准面高程，</li>
+<li><span class="math inline">\(d_j\)</span>为两个相邻单元质心之间的距离。</li>
+</ul>
+<p>考虑不同单元之间的水力传导度，可以更准确地描述地下水流动方向和速率。地下水流的有效水力传导度是两个单元上有效水平水力传导度的平均值。</p>
+<p><span class="math display">\[\begin{equation}
+\overline{\mathrm{K}}=\left(\mathrm{K}_{\mathrm{eg}}+\mathrm{K}_{\mathrm{cg}}^{\mathrm{j}}\right) \cdot 0.5
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(K_{eg}\)</span>为有效水平水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>。</li>
+</ul>
+<p>有效水平水力传导度（<span class="math inline">\(K_{eg}\)</span>）是描述地下水系统中水传导能力的重要参数，是地下水位和大孔隙特征的函数。当地下水位低于大孔隙水位时，<span class="math inline">\(K_{eg}\)</span>等于饱和水力传导度；当地下水位高于大孔隙水位时，考虑到土壤剖面中大孔隙的水力传导度和面积分数，有效水力传导度随地下水位的升高而增大。地下水位到达地表后，有效水力传导度达到最大值，<span class="math inline">\(K_{eg}\)</span>随着地下水位和土壤剖面特征的变化而变化，反映了地下水对于土壤水分运动和水文过程的不同影响。每个单元的有效水平水力传导度的计算公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+\begin{array}{ll}
+k_g &amp; z_m&gt;z_{g w} \\
+K_{e g}(\Theta)=\left\{\frac{z_{g w}-z_m}{y_{g w}}\left(k_m \alpha_v+\left(1-\alpha_v\right) k_g\right)+k_g\right. &amp; z_m&lt;z_{g w}
+\end{array}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(z_m\)</span>为大孔隙距基准面的高度，单位为m；</li>
+<li><span class="math inline">\(z_gw\)</span>为地下水位的高度，单位为m；</li>
+<li><span class="math inline">\(α_v\)</span>是垂直区域大孔隙分数。</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+z_{\mathrm{gw}}=y_{\mathrm{gm}}+\mathrm{z}_{\mathrm{cb}}
+\end{equation}\]</span></p>
+</div>
+<div id="河道水" class="section level3 hasAnchor" number="2.5.7">
+<h3><span class="header-section-number">2.5.7</span> 河道水<a href="theory.html#河道水" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>下游河道流量<span class="math inline">\(Q_{dn}\)</span>使用一维扩散波方程简化为明渠曼宁（Manning）方程来计算，基于一维流动的假设计算河道中水流的运动规律，公式如下：</p>
+<p><span class="math display">\[\begin{equation}
+Q_{d n}=\frac{A_{c s}}{\bar{n}}\left(\frac{A_{c s}}{P}\right)^{\frac{2}{3}} \bar{S}_0^{\frac{1}{2}}
+\end{equation}\]</span></p>
+<p>其中,</p>
+<ul>
+<li><span class="math inline">\(Q_{dn}\)</span>为向下游河道的体积通量，单位为<span class="math inline">\(m^3s^{-1}\)</span>；</li>
+<li><span class="math inline">\(A_{cs}\)</span>为河段的横截面积，单位为<span class="math inline">\(m^2\)</span>；为平均曼宁系数，单位为<span class="math inline">\(sm^{-1/3}\)</span>；</li>
+<li>P为河段及其下游河段的平均湿周长；</li>
+<li><span class="math inline">\(\bar{S}_0\)</span>为河段及其下游河段的平均坡度。</li>
+</ul>
+<p>在描述河流水文过程时，采用了三角形棱柱体元素来划分河流为多个河段，并考虑地表和地下水之间的交换以
+及河段的水文过程。每个河段可以被视为一个水文单元，其水文过程可以通过质量平衡公式描述。每个河道中的质量平衡由四部分组成：与河道相交的单元产生的地表流，与单元相交的横向地下水通量，上游河道的纵向水流和流向下游河道的流量。上游通量等于多个上游河段之和。河道中的水平衡方程忽略了蒸发和降水，因为流域中的开放水域面积相对较小，且开放水域面积已包含在水文单元的计算中。河道水对应的水量平衡方程如下：</p>
+<p><span class="math display">\[\begin{equation}
+\frac{d y_{\text {riv }}}{d t}=\frac{1}{A_r}\left(\sum_{j=1}^{j=N_c} Q_{s r}^j+\sum_{j=1}^{j=N_c} Q_{g r}^j+\sum_{j=1}^{j=N_u} Q_{u p}^j+Q_{d n}\right)
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(Q_{sr}^j\)</span>为j方向上河流和坡面计算单元之间通过坡面流的体积通量，单位为<span class="math inline">\(m^3s^{-1}\)</span>；</li>
+<li><span class="math inline">\(Q_{gr}^j\)</span>为河流与计算单元之间通过地下水流动的体积通量，单位为<span class="math inline">\(m^3s^{-1}\)</span>；</li>
+<li><span class="math inline">\(Q_{up}^j\)</span>为第j个上游河段的体积通量，单位为<span class="math inline">\(m^3s^{-1}\)</span>；</li>
+<li><span class="math inline">\(Q_{dn}\)</span>为流向下游河道的体积通量，单位为<span class="math inline">\(m^3s^{-1}\)</span>；<span class="math inline">\(N_c\)</span>为与河道相交的三角形数量；</li>
+<li><span class="math inline">\(N_u\)</span>为上游河道数量。</li>
+</ul>
+<p>河流段和坡面单元之间的地下水交换用如下公式描述。</p>
+<p><span class="math display">\[\begin{equation}
+Q_{s r}=L_s C_w b_s \sqrt{2 g\left|b_s\right|}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(Q_{sr}\)</span>为河流和坡面之间坡面流的体积通量，单位为<span class="math inline">\(m^3s^{-1}\)</span>；</li>
+<li><span class="math inline">\(L_s\)</span>为覆盖计算单元的河段长度，单位为m；</li>
+<li><span class="math inline">\(C_w\)</span>为排放系数，单位为m；</li>
+<li><span class="math inline">\(b_s\)</span>为河段与坡面单元间坡面流的有效高度，单位为m；</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+H_{\mathrm{riv}}=y_{\mathrm{riv}}+z_{\mathrm{rb}}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{H}_{\mathrm{csf}}=\mathrm{y}_{\mathrm{rsf}}+\mathrm{z}_{\mathrm{cs}}
+\end{equation}\]</span></p>
+<p>这种地形因素对于地表水文过程和水文特征的理解至关重要，陆地表面或河岸的相对高度控制着陆地表面和河段之间的水交换方向。</p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+H_{\text {riv }}-H_{\text {csf }} &amp; H_{\text {riv }}&gt;z_{\text {bank }} \text { 且 } H_{\text {csf }}&gt;z_{\text {bank }} \\
+b_s=\left\{\begin{array}{ll}
+H_{\text { riv }}
+\end{array}-z_{\text {bank }}\right. &amp; H_{\text {riv }}&gt;z_{\text {bank }} \text { 且 } H_{\text {csf }}&lt;z_{\text {bank }} \\
+H_{\text {csf }}-z_{\text {bank }} &amp; H_{\text {riv }}&lt;z_{\text {bank }} \text { 且 } H_{\text {csf }}&lt;z_{\text {bank }}
+\end{aligned}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(H_{riv}\)</span>为河道水头，单位为m；</li>
+<li><span class="math inline">\(y_{riv}\)</span>为河道水位，单位为m；</li>
+<li><span class="math inline">\(z_{rb}\)</span>为河床高程，单位为m；</li>
+<li><span class="math inline">\(H_{csf}\)</span>为地表水头，单位为m；</li>
+<li><span class="math inline">\(y_{sf}\)</span>为计算单元地表水储量，单位为m；</li>
+<li><span class="math inline">\(z_{cs}\)</span>为，单位为m；</li>
+<li><span class="math inline">\(b_s\)</span>为河段与坡面单元间坡面流的有效高度，单位为m；</li>
+<li><span class="math inline">\(H_{riv}\)</span>为河道水头，单位为m；</li>
+<li><span class="math inline">\(H_{csf}\)</span>为地表水头，单位为m；</li>
+<li><span class="math inline">\(b_{ank}\)</span>为河岸或者堤防相对基准面的高程，单位为m；</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+\mathrm{Q}_{\mathrm{gr}}=\mathrm{L}_{\mathrm{s}} \mathrm{~b}_{\mathrm{g}} \mathrm{~K}_{\mathrm{gr}} \frac{\mathrm{H}_{\mathrm{riv}}-\mathrm{H}_{\mathrm{cgw}}}{\mathrm{~d}_{\mathrm{rb}}}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(Q_{gr}\)</span>为河流和计算单元之间的通过地下水流动的体积通量，单位为<span class="math inline">\(m^3s^{-1}\)</span>；</li>
+<li><span class="math inline">\(L_s\)</span>为覆盖计算单元的河段长度，单位为m；<span class="math inline">\(b_g\)</span>为河段与坡面单元间地下水有效水头高度，单位为m；</li>
+<li><span class="math inline">\(K_{gr}\)</span>为计算坡面与河道地下水交换的水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(H_{riv}\)</span>为河道水头，单位为m；</li>
+<li><span class="math inline">\(H_{cgw}\)</span>为计算单元地下水水头，单位为m；<span class="math inline">\(d_{rb}\)</span>为用于计算流向河流基流的河床厚度，单位为m；</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+H_{c g w}=y_{g w}+z_{c b}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(H_{cgw}\)</span>为计算单元地下水水头，单位为m；</li>
+<li><span class="math inline">\(y_{gw}\)</span>为地下水位（在不透水基岩之上），单位为m；</li>
+<li><span class="math inline">\(z_{cb}\)</span>为基岩高程，单位为m。</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+b_g= \begin{cases}y_{\text {riv }} &amp; H_{c g w}&lt;z_{r b} \\ \frac{1}{2}\left(y_{r i v}+H_{c g w}-z_{r b}\right) &amp; H_{c g w}&gt;z_{r b}\end{cases}
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(b_g\)</span>为河段与坡面单元间地下水流动有效高度，单位为m；</li>
+<li><span class="math inline">\(y_{riv}\)</span>为河道水位，单位为m；</li>
+<li><span class="math inline">\(H_{cgw}\)</span>为计算单元地下水水头，单位为m；</li>
+<li><span class="math inline">\(z_{rb}\)</span>为河床高程，单位为m。</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+\mathrm{K}_{\mathrm{gr}}=\frac{1}{2}\left(\mathrm{~K}_{\mathrm{rb}}+\mathrm{K}_{\mathrm{eg}}\right)
+\end{equation}\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(K_{gr}\)</span>为计算坡面与河道地下水交换的水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(K_{rb}\)</span>为河床饱和水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>；</li>
+<li><span class="math inline">\(K_{eg}\)</span>为有效水平水力传导度，单位为<span class="math inline">\(ms^{-1}\)</span>。</li>
+</ul>
+<p>SHUD模型使用有限体积法（Finite Volume，FV），采用Newton-Krylov迭代方法求解非线性方程组，具体来说通过利用牛顿迭代法求解非线性系统，并结合Krylov子空间方法来高效地逼近线性方程组的解，从而求出每次牛顿迭代的改进向量。计算过程中，基于某一时刻地表水储量、土壤水储量、地下水储量和河道水储量状态值和变化率，计算下一时刻这四个值的状态值，通过这四个时刻变化量的大小判断是否收敛以及是否进入下一时刻计算流程；随后结合上文描述的水文过程计算地表、土壤、地下和河道的储量、通量和流量（Shu et al., 2020; 舒乐乐 等，2022）。</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-abtew2012evaporation" class="csl-entry">
+Abtew, W., and A. M. Melesse. 2012. <em>Evaporation and Evapotranspiration: Measurements and Estimations</em>. Springer Netherlands. <a href="https://books.google.com/books?id=C84zLgEACAAJ">https://books.google.com/books?id=C84zLgEACAAJ</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="overview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 3 有限差分法 | 数值地球</title>
+  <meta name="description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 3 有限差分法 | 数值地球" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+  <meta property="og:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 3 有限差分法 | 数值地球" />
+  
+  <meta name="twitter:description" content="这是一本有关数值方法在地球科学应用的书，可以作为数值方法在大气、水文、地貌、地址和环境科学等方面的应用的入门教科书。" />
+  <meta name="twitter:image" content="https://shud.xyz/Book_NME/image/Cover.jpg" />
+
+<meta name="author" content="舒乐乐，孟宪红" />
+
+
+<meta name="date" content="2025-09-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="nm.html"/>
+<link rel="next" href="fem.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">数值地球</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>绪论</a></li>
+<li class="chapter" data-level="1" data-path="建模基本方法论.html"><a href="建模基本方法论.html"><i class="fa fa-check"></i><b>1</b> 建模基本方法论</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="建模基本方法论.html"><a href="建模基本方法论.html#建模基本思路"><i class="fa fa-check"></i><b>1.1</b> 建模基本思路</a>
+<ul>
+<li class="chapter" data-level="" data-path="建模基本方法论.html"><a href="建模基本方法论.html#案例自由落体运动"><i class="fa fa-check"></i>案例：自由落体运动</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="建模基本方法论.html"><a href="建模基本方法论.html#典型控制方程"><i class="fa fa-check"></i><b>1.2</b> 典型控制方程</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维承压地下水运动"><i class="fa fa-check"></i><b>1.2.1</b> 一维承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.2" data-path="建模基本方法论.html"><a href="建模基本方法论.html#二维承压地下水运动"><i class="fa fa-check"></i><b>1.2.2</b> 二维承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.3" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维非承压地下水运动"><i class="fa fa-check"></i><b>1.2.3</b> 一维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.4" data-path="建模基本方法论.html"><a href="建模基本方法论.html#二维非承压地下水运动"><i class="fa fa-check"></i><b>1.2.4</b> 二维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.5" data-path="建模基本方法论.html"><a href="建模基本方法论.html#三维非承压地下水运动"><i class="fa fa-check"></i><b>1.2.5</b> 三维非承压地下水运动</a></li>
+<li class="chapter" data-level="1.2.6" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维热传导方程"><i class="fa fa-check"></i><b>1.2.6</b> 一维热传导方程</a></li>
+<li class="chapter" data-level="1.2.7" data-path="建模基本方法论.html"><a href="建模基本方法论.html#一维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.2.7</b> 一维溶质运移-扩散方程</a></li>
+<li class="chapter" data-level="1.2.8" data-path="建模基本方法论.html"><a href="建模基本方法论.html#二维溶质运移-扩散方程"><i class="fa fa-check"></i><b>1.2.8</b> 二维溶质运移-扩散方程</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="nm.html"><a href="nm.html"><i class="fa fa-check"></i><b>2</b> 数值方法基础</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="nm.html"><a href="nm.html#隐式与显式求解法"><i class="fa fa-check"></i><b>2.1</b> 隐式与显式求解法</a></li>
+<li class="chapter" data-level="2.2" data-path="nm.html"><a href="nm.html#数值迭代方法"><i class="fa fa-check"></i><b>2.2</b> 数值迭代方法</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="nm.html"><a href="nm.html#牛顿迭代newton-iteration"><i class="fa fa-check"></i><b>2.2.1</b> 牛顿迭代(Newton Iteration)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="nm.html"><a href="nm.html#欧拉方法euler-method"><i class="fa fa-check"></i><b>2.2.2</b> 欧拉方法(Euler Method)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="nm.html"><a href="nm.html#龙格-库塔方法runge-kutta-method"><i class="fa fa-check"></i><b>2.2.3</b> 龙格-库塔方法(Runge-Kutta Method)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="nm.html"><a href="nm.html#皮卡法picard-method"><i class="fa fa-check"></i><b>2.2.4</b> 皮卡法(Picard Method)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="nm.html"><a href="nm.html#有限元-有限差分-有限体积"><i class="fa fa-check"></i><b>2.3</b> 有限元, 有限差分 ,有限体积</a></li>
+<li class="chapter" data-level="2.4" data-path="nm.html"><a href="nm.html#cfl条件约束"><i class="fa fa-check"></i><b>2.4</b> CFL条件约束</a></li>
+<li class="chapter" data-level="2.5" data-path="nm.html"><a href="nm.html#时空离散化"><i class="fa fa-check"></i><b>2.5</b> 时空离散化</a></li>
+<li class="chapter" data-level="2.6" data-path="nm.html"><a href="nm.html#初始条件"><i class="fa fa-check"></i><b>2.6</b> 初始条件</a></li>
+<li class="chapter" data-level="2.7" data-path="nm.html"><a href="nm.html#边界条件"><i class="fa fa-check"></i><b>2.7</b> 边界条件</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="fdm.html"><a href="fdm.html"><i class="fa fa-check"></i><b>3</b> 有限差分法</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="fdm.html"><a href="fdm.html#泰勒级数taylor-series"><i class="fa fa-check"></i><b>3.1</b> 泰勒级数(Taylor Series)</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="fdm.html"><a href="fdm.html#截断误差"><i class="fa fa-check"></i><b>3.1.1</b> 截断误差</a></li>
+<li class="chapter" data-level="3.1.2" data-path="fdm.html"><a href="fdm.html#一阶导数"><i class="fa fa-check"></i><b>3.1.2</b> 一阶导数</a></li>
+<li class="chapter" data-level="3.1.3" data-path="fdm.html"><a href="fdm.html#二阶导数"><i class="fa fa-check"></i><b>3.1.3</b> 二阶导数</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="fdm.html"><a href="fdm.html#构建数值方法"><i class="fa fa-check"></i><b>3.2</b> 构建数值方法</a></li>
+<li class="chapter" data-level="3.3" data-path="fdm.html"><a href="fdm.html#显式求解法"><i class="fa fa-check"></i><b>3.3</b> 显式求解法</a></li>
+<li class="chapter" data-level="3.4" data-path="fdm.html"><a href="fdm.html#隐式求解法"><i class="fa fa-check"></i><b>3.4</b> 隐式求解法</a></li>
+<li class="chapter" data-level="3.5" data-path="fdm.html"><a href="fdm.html#编程求解"><i class="fa fa-check"></i><b>3.5</b> 编程求解</a></li>
+<li class="chapter" data-level="3.6" data-path="fdm.html"><a href="fdm.html#显式与隐式求解法对比"><i class="fa fa-check"></i><b>3.6</b> 显式与隐式求解法对比</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="fdm.html"><a href="fdm.html#cfl条件"><i class="fa fa-check"></i><b>3.6.1</b> CFL条件</a></li>
+<li class="chapter" data-level="3.6.2" data-path="fdm.html"><a href="fdm.html#计算效率"><i class="fa fa-check"></i><b>3.6.2</b> 计算效率</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="fdm.html"><a href="fdm.html#二维有限差分"><i class="fa fa-check"></i><b>3.7</b> 二维有限差分</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="fdm.html"><a href="fdm.html#编程求解-1"><i class="fa fa-check"></i><b>3.7.1</b> 编程求解</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="fem.html"><a href="fem.html"><i class="fa fa-check"></i><b>4</b> 有限元法</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="fem.html"><a href="fem.html#有限元法理论基础"><i class="fa fa-check"></i><b>4.1</b> 有限元法理论基础</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="fem.html"><a href="fem.html#历史发展与应用背景"><i class="fa fa-check"></i><b>4.1.1</b> 历史发展与应用背景</a></li>
+<li class="chapter" data-level="4.1.2" data-path="fem.html"><a href="fem.html#基本思想与哲学"><i class="fa fa-check"></i><b>4.1.2</b> 基本思想与哲学</a></li>
+<li class="chapter" data-level="4.1.3" data-path="fem.html"><a href="fem.html#详细求解步骤"><i class="fa fa-check"></i><b>4.1.3</b> 详细求解步骤</a></li>
+<li class="chapter" data-level="4.1.4" data-path="fem.html"><a href="fem.html#变分原理的深入理解"><i class="fa fa-check"></i><b>4.1.4</b> 变分原理的深入理解</a></li>
+<li class="chapter" data-level="4.1.5" data-path="fem.html"><a href="fem.html#形函数理论的完整体系"><i class="fa fa-check"></i><b>4.1.5</b> 形函数理论的完整体系</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="fem.html"><a href="fem.html#数学公式论证"><i class="fa fa-check"></i><b>4.2</b> 数学公式论证</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="fem.html"><a href="fem.html#变分形式的推导"><i class="fa fa-check"></i><b>4.2.1</b> 变分形式的推导</a></li>
+<li class="chapter" data-level="4.2.2" data-path="fem.html"><a href="fem.html#有限元离散化"><i class="fa fa-check"></i><b>4.2.2</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.2.3" data-path="fem.html"><a href="fem.html#单元矩阵的构造"><i class="fa fa-check"></i><b>4.2.3</b> 单元矩阵的构造</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="fem.html"><a href="fem.html#一维热传导问题的深入分析与fem求解"><i class="fa fa-check"></i><b>4.3</b> 一维热传导问题的深入分析与FEM求解</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="fem.html"><a href="fem.html#工程背景与实际意义"><i class="fa fa-check"></i><b>4.3.1</b> 工程背景与实际意义</a></li>
+<li class="chapter" data-level="4.3.2" data-path="fem.html"><a href="fem.html#详细问题描述"><i class="fa fa-check"></i><b>4.3.2</b> 详细问题描述</a></li>
+<li class="chapter" data-level="4.3.3" data-path="fem.html"><a href="fem.html#clams方法的系统化建模"><i class="fa fa-check"></i><b>4.3.3</b> CLAMS方法的系统化建模</a></li>
+<li class="chapter" data-level="4.3.4" data-path="fem.html"><a href="fem.html#r代码实现"><i class="fa fa-check"></i><b>4.3.4</b> R代码实现</a></li>
+<li class="chapter" data-level="4.3.5" data-path="fem.html"><a href="fem.html#完整实现代码"><i class="fa fa-check"></i><b>4.3.5</b> 完整实现代码</a></li>
+<li class="chapter" data-level="4.3.6" data-path="fem.html"><a href="fem.html#运行结果示例"><i class="fa fa-check"></i><b>4.3.6</b> 运行结果示例</a></li>
+<li class="chapter" data-level="4.3.7" data-path="fem.html"><a href="fem.html#高级有限元技术实现"><i class="fa fa-check"></i><b>4.3.7</b> 高级有限元技术实现</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="fem.html"><a href="fem.html#地球科学应用案例地下水流模拟"><i class="fa fa-check"></i><b>4.4</b> 地球科学应用案例：地下水流模拟</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="fem.html"><a href="fem.html#问题背景"><i class="fa fa-check"></i><b>4.4.1</b> 问题背景</a></li>
+<li class="chapter" data-level="4.4.2" data-path="fem.html"><a href="fem.html#数学模型"><i class="fa fa-check"></i><b>4.4.2</b> 数学模型</a></li>
+<li class="chapter" data-level="4.4.3" data-path="fem.html"><a href="fem.html#有限元离散化-1"><i class="fa fa-check"></i><b>4.4.3</b> 有限元离散化</a></li>
+<li class="chapter" data-level="4.4.4" data-path="fem.html"><a href="fem.html#实际应用案例"><i class="fa fa-check"></i><b>4.4.4</b> 实际应用案例</a></li>
+<li class="chapter" data-level="4.4.5" data-path="fem.html"><a href="fem.html#工程意义"><i class="fa fa-check"></i><b>4.4.5</b> 工程意义</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="fem.html"><a href="fem.html#有限元法的收敛性分析与误差估计"><i class="fa fa-check"></i><b>4.5</b> 有限元法的收敛性分析与误差估计</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="fem.html"><a href="fem.html#收敛性理论基础"><i class="fa fa-check"></i><b>4.5.1</b> 收敛性理论基础</a></li>
+<li class="chapter" data-level="4.5.2" data-path="fem.html"><a href="fem.html#先验误差估计"><i class="fa fa-check"></i><b>4.5.2</b> 先验误差估计</a></li>
+<li class="chapter" data-level="4.5.3" data-path="fem.html"><a href="fem.html#后验误差估计"><i class="fa fa-check"></i><b>4.5.3</b> 后验误差估计</a></li>
+<li class="chapter" data-level="4.5.4" data-path="fem.html"><a href="fem.html#自适应网格细化"><i class="fa fa-check"></i><b>4.5.4</b> 自适应网格细化</a></li>
+<li class="chapter" data-level="4.5.5" data-path="fem.html"><a href="fem.html#数值实验与验证"><i class="fa fa-check"></i><b>4.5.5</b> 数值实验与验证</a></li>
+<li class="chapter" data-level="4.5.6" data-path="fem.html"><a href="fem.html#误差的物理解释"><i class="fa fa-check"></i><b>4.5.6</b> 误差的物理解释</a></li>
+<li class="chapter" data-level="4.5.7" data-path="fem.html"><a href="fem.html#收敛性改进技术"><i class="fa fa-check"></i><b>4.5.7</b> 收敛性改进技术</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="fem.html"><a href="fem.html#有限元法与有限差分法的系统对比"><i class="fa fa-check"></i><b>4.6</b> 有限元法与有限差分法的系统对比</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="fem.html"><a href="fem.html#理论基础对比"><i class="fa fa-check"></i><b>4.6.1</b> 理论基础对比</a></li>
+<li class="chapter" data-level="4.6.2" data-path="fem.html"><a href="fem.html#精度和稳定性对比"><i class="fa fa-check"></i><b>4.6.2</b> 精度和稳定性对比</a></li>
+<li class="chapter" data-level="4.6.3" data-path="fem.html"><a href="fem.html#计算效率对比"><i class="fa fa-check"></i><b>4.6.3</b> 计算效率对比</a></li>
+<li class="chapter" data-level="4.6.4" data-path="fem.html"><a href="fem.html#适用性分析"><i class="fa fa-check"></i><b>4.6.4</b> 适用性分析</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="fem.html"><a href="fem.html#高级有限元技术的深入探讨"><i class="fa fa-check"></i><b>4.7</b> 高级有限元技术的深入探讨</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="fem.html"><a href="fem.html#高阶形函数技术"><i class="fa fa-check"></i><b>4.7.1</b> 高阶形函数技术</a></li>
+<li class="chapter" data-level="4.7.2" data-path="fem.html"><a href="fem.html#自适应有限元技术"><i class="fa fa-check"></i><b>4.7.2</b> 自适应有限元技术</a></li>
+<li class="chapter" data-level="4.7.3" data-path="fem.html"><a href="fem.html#稳定化技术"><i class="fa fa-check"></i><b>4.7.3</b> 稳定化技术</a></li>
+<li class="chapter" data-level="4.7.4" data-path="fem.html"><a href="fem.html#多尺度有限元方法"><i class="fa fa-check"></i><b>4.7.4</b> 多尺度有限元方法</a></li>
+<li class="chapter" data-level="4.7.5" data-path="fem.html"><a href="fem.html#间断有限元方法"><i class="fa fa-check"></i><b>4.7.5</b> 间断有限元方法</a></li>
+<li class="chapter" data-level="4.7.6" data-path="fem.html"><a href="fem.html#混合有限元方法"><i class="fa fa-check"></i><b>4.7.6</b> 混合有限元方法</a></li>
+<li class="chapter" data-level="4.7.7" data-path="fem.html"><a href="fem.html#有限元方法的并行计算"><i class="fa fa-check"></i><b>4.7.7</b> 有限元方法的并行计算</a></li>
+<li class="chapter" data-level="4.7.8" data-path="fem.html"><a href="fem.html#高级技术的应用实例"><i class="fa fa-check"></i><b>4.7.8</b> 高级技术的应用实例</a></li>
+<li class="chapter" data-level="4.7.9" data-path="fem.html"><a href="fem.html#实现考虑"><i class="fa fa-check"></i><b>4.7.9</b> 实现考虑</a></li>
+<li class="chapter" data-level="4.7.10" data-path="fem.html"><a href="fem.html#软件实现框架"><i class="fa fa-check"></i><b>4.7.10</b> 软件实现框架</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="fem.html"><a href="fem.html#总结"><i class="fa fa-check"></i><b>4.8</b> 总结</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="fem.html"><a href="fem.html#本章要点回顾"><i class="fa fa-check"></i><b>4.8.1</b> 本章要点回顾</a></li>
+<li class="chapter" data-level="4.8.2" data-path="fem.html"><a href="fem.html#扩展阅读建议"><i class="fa fa-check"></i><b>4.8.2</b> 扩展阅读建议</a></li>
+<li class="chapter" data-level="4.8.3" data-path="fem.html"><a href="fem.html#实践练习"><i class="fa fa-check"></i><b>4.8.3</b> 实践练习</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="fvm.html"><a href="fvm.html"><i class="fa fa-check"></i><b>5</b> 有限体积法</a></li>
+<li class="chapter" data-level="6" data-path="app.html"><a href="app.html"><i class="fa fa-check"></i><b>6</b> 应用案例</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="app.html"><a href="app.html#热传递问题heat-transfer"><i class="fa fa-check"></i><b>6.1</b> 热传递问题(Heat Transfer)</a></li>
+<li class="chapter" data-level="6.2" data-path="app.html"><a href="app.html#大气混沌系统chaos-system-in-atmosphere"><i class="fa fa-check"></i><b>6.2</b> 大气混沌系统（Chaos System in Atmosphere）</a></li>
+<li class="chapter" data-level="6.3" data-path="app.html"><a href="app.html#土壤垂直水分流动"><i class="fa fa-check"></i><b>6.3</b> 土壤垂直水分流动</a></li>
+<li class="chapter" data-level="6.4" data-path="app.html"><a href="app.html#土壤垂直一维水热耦合问题"><i class="fa fa-check"></i><b>6.4</b> 土壤垂直一维水热耦合问题</a></li>
+<li class="chapter" data-level="6.5" data-path="app.html"><a href="app.html#承压地下水confined-aquifer"><i class="fa fa-check"></i><b>6.5</b> 承压地下水（Confined Aquifer）</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="app.html"><a href="app.html#控制方程"><i class="fa fa-check"></i><b>6.5.1</b> 控制方程</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="app.html"><a href="app.html#湖面湍流lake-turbulence"><i class="fa fa-check"></i><b>6.6</b> 湖面湍流（Lake Turbulence）</a></li>
+<li class="chapter" data-level="6.7" data-path="app.html"><a href="app.html#溶质运移solute-transport"><i class="fa fa-check"></i><b>6.7</b> 溶质运移（Solute Transport）</a></li>
+<li class="chapter" data-level="6.8" data-path="app.html"><a href="app.html#地貌侵蚀landscape-evolution"><i class="fa fa-check"></i><b>6.8</b> 地貌侵蚀（Landscape Evolution）</a></li>
+<li class="chapter" data-level="6.9" data-path="app.html"><a href="app.html#熔岩入侵lava-invasion"><i class="fa fa-check"></i><b>6.9</b> 熔岩入侵（Lava Invasion）</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">数值地球</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fdm" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">第 3</span> 有限差分法<a href="fdm.html#fdm" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="泰勒级数taylor-series" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 泰勒级数(Taylor Series)<a href="fdm.html#泰勒级数taylor-series" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>泰勒级数（Taylor series）是数学中一个重要的概念，它提供了一种将函数表示为无限项的幂级数的方法。这种表示方法在微积分、复分析、数值分析以及物理学的许多领域中都有广泛的应用。泰勒级数是以于1715年发表了泰勒公式的英國数学家布魯克·泰勒（Sir Brook Taylor）来命名的。</p>
+<p>以下是用学术语言对泰勒级数的介绍：</p>
+<p><strong>定义</strong>：
+设函数 <span class="math inline">\(f(x)\)</span> 在点 <span class="math inline">\(a\)</span> 处无限次可微，则该函数在 <span class="math inline">\(a\)</span> 点的泰勒级数展开式为：</p>
+<p><span class="math display">\[
+f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n
+\]</span></p>
+<p>其中，<span class="math inline">\(f^{(n)}(a)\)</span> 表示函数 <span class="math inline">\(f\)</span> 在点 <span class="math inline">\(a\)</span> 处的第 <span class="math inline">\(n\)</span> 阶导数，<span class="math inline">\(n!\)</span> 是 <span class="math inline">\(n\)</span> 的阶乘。</p>
+<p><strong>收敛性</strong>：
+泰勒级数的收敛性取决于函数的性质和展开点的选择。根据泰勒定理，如果函数 <span class="math inline">\(f(x)\)</span> 在包含 <span class="math inline">\(a\)</span> 的某个开区间内无限次可微，则对于该区间内的任意 <span class="math inline">\(x\)</span>，泰勒级数都收敛于 <span class="math inline">\(f(x)\)</span>。收敛区间可以通过比值判别法、根值判别法等方法确定。</p>
+<p><strong>余项</strong>：
+泰勒级数的余项（R remainder）是实际函数值与泰勒级数部分和之间的差值。根据泰勒定理，余项 <span class="math inline">\(R_n(x)\)</span> 可以表示为：</p>
+<p><span class="math display">\[
+R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}
+\]</span></p>
+<p>其中 <span class="math inline">\(c\)</span> 是 <span class="math inline">\(a\)</span> 和 <span class="math inline">\(x\)</span> 之间的某个点。余项的存在说明了泰勒级数近似的误差。</p>
+<p><strong>应用</strong>：
+泰勒级数在求解复杂函数的近似值、计算定积分、求解微分方程以及在物理学中分析波动和场的传播等方面都有重要应用。通过泰勒级数，可以将难以直接求解的问题转化为多项式问题，从而简化计算。</p>
+<p><strong>特殊情形</strong>：
+当展开点 <span class="math inline">\(a = 0\)</span> 时，泰勒级数称为麦克劳林级数（Maclaurin series），它是泰勒级数的一个特例。</p>
+<p>泰勒级数的引入，不仅丰富了数学分析的内容，也为解决实际问题提供了强有力的工具。通过对函数的局部线性化，泰勒级数在理论和应用上都显示出了其独特的价值。</p>
+<p>泰勒展开式的基本形式：</p>
+<p><span class="math display" id="eq:taylor0">\[\begin{equation}
+f(x) = \sum_{k=0}^n  \frac{f^{(n)}(0) }{n!}( x) ^{n}
+\tag{3.1}
+\end{equation}\]</span></p>
+<div class="float">
+<img src="image/ch1/Taylor/Taylor.001.jpeg" alt="Taylor Series" />
+<div class="figcaption">Taylor Series</div>
+</div>
+<p>根据泰勒展开式，通过<span class="math inline">\(f(x)\)</span>和其任意阶的导数，可以获得任意<span class="math inline">\(\Delta x\)</span>值下的函数值<span class="math inline">\(f(x + \Delta x)\)</span> ，即:</p>
+<p><span class="math display" id="eq:dt">\[\begin{equation}
+f(x+\Delta x) = f(x) + \frac{f&#39;(x)}{1!} \Delta x + \frac{f^{&#39;&#39;}(x)}{2!} \Delta x^2 + \frac{f^{&#39;&#39;&#39;}(x)}{3!} \Delta x^3+\dotsb + \frac{f^{(n)}(x) }{n!}( \Delta x) ^{n}
+\tag{3.2}
+\end{equation}\]</span></p>
+<p>或者在<span class="math inline">\(-\Delta x\)</span>位置，可写为：</p>
+<p><span class="math display" id="eq:dt-">\[\begin{equation}
+f(x-\Delta x) = f(x) - \frac{f&#39;(x)}{1!} \Delta x + \frac{f^{&#39;&#39;}(x)}{2!} \Delta x^2 - \frac{f^{&#39;&#39;&#39;}(x)}{3!} \Delta x^3+\dotsb + \frac{f^{(n)}(x) }{n!}(- \Delta x) ^{n}
+\tag{3.3}
+\end{equation}\]</span></p>
+<p>以上公式也可以写为：
+<span class="math display" id="eq:udt">\[\begin{equation}
+u_{i+1} = u_{i} + \frac{u^{&#39;}_{i}}{1!} \Delta x + \frac{u^{&#39;&#39;}_{i}}{2!} \Delta x^2 + \frac{u^{&#39;&#39;&#39;}_{i}}{3!} \Delta x^3+\dotsb + \frac{u^{(n)}_{i} }{n!}( \Delta x) ^{n}
+\tag{3.4}
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:udt-">\[\begin{equation}
+u_{i-1} = u_{i} - \frac{u^{&#39;}_{i}}{1!} \Delta x + \frac{u^{&#39;&#39;}_{i}}{2!} \Delta x^2 - \frac{u^{&#39;&#39;&#39;}_{i}}{3!} \Delta x^3+\dotsb + \frac{u^{(n)}_{i} }{n!}(- \Delta x) ^{n}
+\tag{3.5}
+\end{equation}\]</span></p>
+<div id="截断误差" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> 截断误差<a href="fdm.html#截断误差" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>在泰勒级数的应用中，截断误差（truncation error）是一个重要的概念，它描述了当我们使用有限项的泰勒级数来近似一个函数时所产生的误差。</p>
+<p><strong>定义</strong>：
+截断误差是指在泰勒级数展开中，由于只取有限项而忽略剩余无限项所引起的误差， 数学表达为<span class="math inline">\(O()\)</span>。具体来说，如果我们对函数 <span class="math inline">\(f(x)\)</span> 在点 <span class="math inline">\(a\)</span> 处进行泰勒级数展开，并只取前 <span class="math inline">\(n\)</span> 项，那么截断误差就是函数在 <span class="math inline">\(x\)</span> 处的真实值与这 <span class="math inline">\(n\)</span> 项部分和之间的差值。</p>
+<p><span class="math inline">\(O(2)\)</span>和<span class="math inline">\(O(3)\)</span>分别表示为在泰勒展开式上的二阶和三阶导数上的误差。<strong>截取误差的阶数越高，误差越小</strong>。</p>
+<p><strong>数学表达</strong>：
+如果 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(a\)</span> 处的泰勒级数为：</p>
+<p><span class="math display">\[
+f(x) = \sum_{k=0}^{\infty} \frac{f^{(k)}(a)}{k!} (x-a)^k
+\]</span></p>
+<p>那么，当我们取前 <span class="math inline">\(n\)</span> 项时，截断误差 <span class="math inline">\(T_n(x)\)</span> 可以表示为：</p>
+<p><span class="math display">\[
+O(n) = f(x) - \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!} (x-a)^k
+\]</span></p>
+<p><strong>余项的另一种形式</strong>：
+在泰勒定理中，余项 <span class="math inline">\(R_n(x)\)</span> 也可以用来描述截断误差。对于拉格朗日形式的余项，我们有：</p>
+<p><span class="math display">\[
+R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!} (x-a)^{n+1}
+\]</span></p>
+<p>其中 <span class="math inline">\(c\)</span> 是 <span class="math inline">\(a\)</span> 和 <span class="math inline">\(x\)</span> 之间的某个点。这个余项提供了截断误差的一个上界，即：</p>
+<p><span class="math display">\[
+|O(x)| \leq |R_n(x)|
+\]</span></p>
+<p><span class="math display">\[O(1) = \frac{u^{&#39;&#39;}_{i}}{2!} \Delta x^2+\frac{u^{&#39;&#39;&#39;}_{i}}{3!} \Delta x^3+\frac{u^{(4)}_{i}}{4!} \Delta x^4+\dotsb + \frac{u^{(n)}_{i} }{n!}( \Delta x) ^{n}\]</span></p>
+<p><span class="math display">\[O(2) = \frac{u^{&#39;&#39;&#39;}_{i}}{3!} \Delta x^3+\dotsb + \frac{u^{(n)}_{i} }{n!}( \Delta x) ^{n}\]</span>
+<span class="math display">\[O(3) = \frac{u^{(4)}_{i}}{4!} \Delta x^4+\dotsb + \frac{u^{(n)}_{i} }{n!}( \Delta x) ^{n}\]</span></p>
+<p><strong>影响因素</strong>：
+截断误差的大小受到多个因素的影响，包括：
+1. 函数 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(a\)</span> 附近的平滑性。
+2. 点 <span class="math inline">\(x\)</span> 与展开点 <span class="math inline">\(a\)</span> 之间的距离。
+3. 所取泰勒级数项数 <span class="math inline">\(n\)</span> 的大小。</p>
+<p><strong>减小截断误差</strong>：
+为了减小截断误差，可以采取以下措施：
+1. 增加泰勒级数的项数 <span class="math inline">\(n\)</span>。
+2. 选择更接近 <span class="math inline">\(x\)</span> 的展开点 <span class="math inline">\(a\)</span>。
+3. 选择一个更平滑的函数或者在更平滑的区间内进行展开。</p>
+<p>截断误差是评估泰勒级数近似效果的重要指标，对于数值计算和函数逼近的准确性具有重要意义。在实际应用中，理解和控制截断误差对于提高计算结果的可靠性至关重要。</p>
+<p><strong>何种情况下，泰勒展开式的截断误差为0？</strong></p>
+<ul>
+<li><span class="math inline">\(O(0) = 0\)</span> 时，意味着：<span class="math inline">\(f(x+\Delta x) = f(x)\)</span>。则该函数为<span class="math inline">\(f(x) = C\)</span>, <span class="math inline">\(C\)</span>为常数。
+如图：</li>
+</ul>
+<p><img src="image/ch1/Taylor/Taylor.002.jpeg" /></p>
+<ul>
+<li><span class="math inline">\(O(1) = 0\)</span> 时，意味着：<span class="math inline">\(f(x+\Delta x) = f(x) + f^{&#39;}(x) \cdot \Delta x\)</span>。则该函数为<span class="math inline">\(f(x) = ax + b\)</span>。
+如图：</li>
+</ul>
+<p><img src="image/ch1/Taylor/Taylor.003.jpeg" /></p>
+<p><strong>如何依据泰勒级数，得到函数的一阶和二阶导数？</strong></p>
+</div>
+<div id="一阶导数" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> 一阶导数<a href="fdm.html#一阶导数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="向前估计-forward-approximation" class="section level4 hasAnchor" number="3.1.2.1">
+<h4><span class="header-section-number">3.1.2.1</span> 向前估计 (Forward Approximation)<a href="fdm.html#向前估计-forward-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>采纳一阶截断误差，我们可将公式<a href="fdm.html#eq:dt">(3.2)</a>写为：
+<span class="math display">\[\begin{equation}
+f(x+\Delta x) = f(x) + \frac{f&#39;(x)}{1!} \Delta x + O(1)
+\end{equation}\]</span>
+则：
+<span class="math display" id="eq:d1f">\[\begin{equation}
+f&#39;(x) = \frac {f(x+\Delta x) - f(x) } {\Delta x}
+\tag{3.6}
+\end{equation}\]</span>
+或者
+<span class="math display" id="eq:d1f">\[\begin{equation}
+u&#39;_{i} = \frac {u_{i+1} - u_{i} } {\Delta x}
+\tag{3.6}
+\end{equation}\]</span></p>
+<p><em>注：公式<a href="fdm.html#eq:d1f">(3.6)</a>隐含了<span class="math inline">\(O(1)\)</span>的误差。</em></p>
+<div class="float">
+<img src="image/ch1/Taylor/Taylor.004.jpeg" alt="向前估计" />
+<div class="figcaption">向前估计</div>
+</div>
+</div>
+<div id="向后估计-backward-approximation" class="section level4 hasAnchor" number="3.1.2.2">
+<h4><span class="header-section-number">3.1.2.2</span> 向后估计 (Backward Approximation)<a href="fdm.html#向后估计-backward-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>采纳一阶截断误差，我们可将公式<a href="fdm.html#eq:dt-">(3.3)</a>写为：
+<span class="math display">\[\begin{equation}
+f(x-\Delta x) = f(x) - \frac{f&#39;(x)}{1!} \Delta x + O(1)
+\end{equation}\]</span>
+则：
+<span class="math display" id="eq:d1b">\[\begin{equation}
+f&#39;(x) = \frac {f(x) -f(x+\Delta x) } {\Delta x}
+\tag{3.7}
+\end{equation}\]</span>
+或者
+<span class="math display" id="eq:d1b">\[\begin{equation}
+u&#39;_{i} = \frac { u_{i} - u_{i+1}} {\Delta x}
+\tag{3.7}
+\end{equation}\]</span></p>
+<p><em>注：公式<a href="fdm.html#eq:d1b">(3.7)</a>隐含了<span class="math inline">\(O(1)\)</span>的误差。</em></p>
+<div class="float">
+<img src="image/ch1/Taylor/Taylor.005.jpeg" alt="向后估计" />
+<div class="figcaption">向后估计</div>
+</div>
+</div>
+<div id="中心估计-central-approximation" class="section level4 hasAnchor" number="3.1.2.3">
+<h4><span class="header-section-number">3.1.2.3</span> 中心估计 (Central Approximation)<a href="fdm.html#中心估计-central-approximation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>中心估计算法中，我们将从公式<a href="fdm.html#eq:dt">(3.2)</a>减去公式<a href="fdm.html#eq:dt-">(3.3)</a>，得到：
+<span class="math display">\[
+f(x+\Delta x)  - f(x-\Delta x) = 0 + 2 * \frac{f&#39;(x)}{1!} \Delta x + 0 + 2 * \frac{f^{&#39;&#39;&#39;}(x)}{3!} + ...
+\]</span></p>
+<p>截断误差由以上公式右边的第四项（三阶导数）开始，则该公式的截取误差为<span class="math inline">\(O(2)\)</span>，即二阶精度的截取误差，公式表达为：
+<span class="math display">\[
+f(x+\Delta x)  - f(x-\Delta x) = 0 + 2 * \frac{f&#39;(x)}{1!} \Delta x + 0 + O(2)
+\]</span>
+可得到二阶精度的一阶导数的中心估计：
+<span class="math display" id="eq:d1c">\[\begin{equation}
+f&#39;(x) = \frac {f(x+\Delta x) -f(x-\Delta x) } {2\Delta x}
+\tag{3.8}
+\end{equation}\]</span>
+或者
+<span class="math display" id="eq:d1c">\[\begin{equation}
+u&#39;_{i} = \frac { u_{i+1} - u_{i21}} {2\Delta x}
+\tag{3.8}
+\end{equation}\]</span></p>
+<p>公式<a href="fdm.html#eq:d1c">(3.8)</a>隐含了<span class="math inline">\(O(2)\)</span>的误差，同时<a href="fdm.html#eq:d1f">(3.6)</a>和<a href="fdm.html#eq:d1b">(3.7)</a>都隐含了<span class="math inline">\(O(1)\)</span>的误差。</p>
+<div class="float">
+<img src="image/ch1/Taylor/Taylor.006.jpeg" alt="中心估计" />
+<div class="figcaption">中心估计</div>
+</div>
+</div>
+</div>
+<div id="二阶导数" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> 二阶导数<a href="fdm.html#二阶导数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>我们将公式 <a href="fdm.html#eq:dt">(3.2)</a>和<a href="fdm.html#eq:dt-">(3.3)</a>相加，可得到：</p>
+<p><span class="math display" id="eq:d2">\[\begin{equation}
+f(x+\Delta x) + f(x-\Delta x) = 2 \cdot f(x) + 0  + 2 \cdot \frac{f^{&#39;&#39;}(x)}{2!} \Delta x^2 + 0 + 2 \cdot \frac{f^{(4)}(x)} {4!} \Delta x^4 + \dotsb
+\tag{3.9}
+\end{equation}\]</span></p>
+<p>公式<a href="fdm.html#eq:d2">(3.9)</a>来自公式 <a href="fdm.html#eq:dt">(3.2)</a>和<a href="fdm.html#eq:dt-">(3.3)</a>的相加，三阶导数项在相加过程中为零，因此我们截取其三阶截取误差，则公式<a href="fdm.html#eq:d2">(3.9)</a>可写为：
+<span class="math display" id="eq:d2oo">\[\begin{equation}
+f(x+\Delta x) + f(x-\Delta x) = 2f(x) + f^{&#39;&#39;}(x) \Delta x^2 + O(3)
+\tag{3.10}
+\end{equation}\]</span></p>
+<p>根据公式<a href="fdm.html#eq:d2oo">(3.10)</a>，我们可获得函数<span class="math inline">\(f(x)\)</span>在<span class="math inline">\(x\)</span>位置的二阶导数为：</p>
+<p><span class="math display" id="eq:d2o">\[\begin{equation}
+f^{&#39;&#39;}(x) = \frac { f(x+\Delta x) - 2f(x)  + f(x-\Delta x) } { \Delta x^2 } + O(3)
+\tag{3.11}
+\end{equation}\]</span></p>
+<p>当移除其三阶截断误差<span class="math inline">\(O(3)\)</span>后，我们得到近似的二阶导数：</p>
+<p><span class="math display" id="eq:d2o3">\[\begin{align}
+f^{&#39;&#39;}(x) &amp; \approx \frac {1}{ \Delta x } \left( \frac{ f(x+\Delta x) - f(x) }{ \Delta x }  + \frac{ f(x) - f(x-\Delta x) } { \Delta x } \right) \\
+    &amp; \approx \frac { f(x+\Delta x) - 2f(x)  + f(x-\Delta x) } { \Delta x^2 }
+\tag{3.12}
+\end{align}\]</span></p>
+<p>将公式一般化，我们可写为以下形式：</p>
+<p><span class="math display" id="eq:d2o3">\[\begin{align}
+u^{&#39;&#39;}_{i} &amp;\approx \frac {1}{ \Delta x } \left( \frac{u_{i+1} - u_{i}}{\Delta x} - \frac{u_{i} - u_{i-1}}{\Delta x} \right) \\
+&amp; \approx \frac { u_{i+1} - 2u_{i}  + u_{i-1}  } { \Delta x^2 } \\
+\tag{3.12}
+\end{align}\]</span></p>
+<div class="float">
+<img src="image/ch1/Taylor/Taylor.007.jpeg" alt="二阶导数估计" />
+<div class="figcaption">二阶导数估计</div>
+</div>
+</div>
+</div>
+<div id="构建数值方法" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 构建数值方法<a href="fdm.html#构建数值方法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="example">
+<p><span id="exm:unnamed-chunk-1" class="example"><strong>Example 3.1  </strong></span>一根100<span class="math inline">\(cm\)</span>长的铁棍，初始温度25 <span class="math inline">\(^\circ C\)</span>，在其左右两边分别持续施加100<span class="math inline">\(^\circ C\)</span>和<span class="math inline">\(50 ^\circ C\)</span>的温度。
+<strong>求解</strong>：任意时刻铁棍的温度分布。</p>
+</div>
+<p>参考信息：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Thermal_diffusivity">wiki:Thermal_diffusivity</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Heat_equation">wiki:Heat_equation</a></li>
+</ul>
+<p>为求解这个铁棍中的温度变化问题，<a href="mailto:我们继续使用@ref" class="email">我们继续使用@ref</a>{modeling}当中的方法，该方法总结为CLAMS方法：概念描述(Conceptual model)、物理定律(physic Laws)、假设(Assumptions)、
+数学推导(Math derivation)、求解(Solver)。</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>概念描述</strong></p>
+<p>空间微分，如图。
+<img src="image/ch3/figures/FDM.001.jpeg" /></p></li>
+<li><p><strong>物理定律</strong></p>
+<p>能量守恒：<br />
+能量变化 = 能量流入 - 能量流出
+<span class="math display">\[ \Delta E = Q _{in} - Q _{out} \]</span></p></li>
+<li><p><strong>假设</strong>
+此问题的假设包括：</p>
+<ol style="list-style-type: decimal">
+<li>铁棍绝热，即两端之外的部分并不存在热传递作用。</li>
+<li>忽略热辐射作用。</li>
+<li>铁棍的介质/物理属性均一。</li>
+</ol></li>
+<li><p><strong>数学推导</strong></p>
+<p><span class="math display">\[ 通量 = \frac {量}{单位时间 \cdot 单位面积} \]</span></p>
+<ul>
+<li><span class="math inline">\(k\)</span> - 热传导率[<span class="math inline">\(W m^{-1} K ^{-1}\)</span>]。</li>
+<li><span class="math inline">\(c\)</span> - 比热容(specific heat capacity)[<span class="math inline">\(J {kg}^{-1} K ^{-1}\)</span>]。</li>
+<li><span class="math inline">\(\rho\)</span> - 密度[<span class="math inline">\({kg} m^{-3}\)</span>]。</li>
+<li><span class="math inline">\(A\)</span> - 截面积[<span class="math inline">\(m^2\)</span>]。</li>
+<li><span class="math inline">\(D\)</span> - 热力学扩散度（Thermal diffusivity）<span class="math inline">\(D = \frac{k}{\rho c}\)</span> [<span class="math inline">\(m^2 s^{-1}\)</span>]。</li>
+</ul>
+<p><span class="math display">\[ \rho * c * \Delta x * A * \Delta u = q_{in} * A * \Delta t - q_{out} * A * \Delta t\]</span>
+两边同时除以<span class="math inline">\(\rho c \Delta x A\)</span>，得到
+<span class="math display">\[\frac {\Delta u}{\Delta t} = \frac{1}{\rho c} \frac{q_{in} - q_{out}}{\Delta x}\]</span>
+以上公式当<span class="math inline">\(\Delta x\)</span>趋近与0，<span class="math inline">\(\Delta t\)</span>趋近于0时，得到微分形式：
+<span class="math display">\[\frac {\partial u}{\partial t} = \frac{1}{\rho c} \frac{\partial q} {\partial x}\]</span></p>
+<p><span class="math display">\[q = k \frac{\partial u}{\partial x}\]</span>
+则得到其控制方程：
+<span class="math display">\[\begin{equation}
+\begin{aligned}
+\frac {\partial u}{\partial t} &amp;= \frac{1}{\rho c} \frac{\partial q} {\partial x} \\
+  &amp;= \frac{1}{\rho c} \frac{k \frac{\partial u}{\partial x} } {\partial x} \\
+  &amp;= D\frac{\partial } {\partial x} \left(\frac{\partial u}{\partial x}  \right)
+\end{aligned}
+\end{equation}\]</span></p>
+<p>令<span class="math inline">\(D=\frac{k}{\rho c}\)</span>，单位[<span class="math inline">\(m s^{-2}\)</span>]，则最终控制方程(Governing Equation)写为</p>
+<p><span class="math display" id="eq:heatge">\[\begin{equation}
+\frac {\partial u}{\partial t} =D\frac{\partial ^2 u} {\partial x^2}
+\tag{3.13}
+\end{equation}\]</span></p>
+<p>控制方程，通常是我们关键数学/数值求解的核心对象，控制方程也是我们对问题最重要的描述，其中已经包含了问题的概念描述、假设、物理定律等信息。</p></li>
+<li><p><strong>求解</strong></p>
+<p>这里我们使用数值方法对本问题进行求解。</p>
+<p>由一阶泰勒级数可知，控制方程<a href="fdm.html#eq:heatge">(3.13)</a>左边(Left Hand Side, LHS)可写为：
+<span class="math display">\[\frac {\partial u}{\partial t}  = D\frac{u^{t}_{i} - u^{t-1}_{i} }{\Delta t} + O(1)\]</span></p>
+<p>控制方程<a href="fdm.html#eq:heatge">(3.13)</a>右边(Right Hand Side, RHS)可写为：
+<span class="math display">\[\begin{equation}
+\frac{\partial ^2 u} {\partial x^2} =\frac{u^{t-1}_{i+1} - 2u^{t-1}_{i} + u^{t-1}_{i-1} }{\Delta x} + O(2)
+\end{equation}\]</span></p>
+<p>或者</p>
+<p><span class="math display">\[\begin{equation}
+\frac{\partial ^2 u} {\partial x^2} =\frac{u^{t}_{i+1} - 2u^{t}_{i} + u^{t}_{i-1} }{\Delta x} + O(2)
+\end{equation}\]</span></p>
+<p>此时，方程左边在时间尺度上具有一阶截取误差，方程右边在空间尺度上具有二阶截断误差。省去误差项，离散化后控制方程写为：</p>
+<p><span class="math display" id="eq:heatTSex">\[\begin{equation}
+\frac{u^{t}_{i} - u^{t-1}_{i} }{\Delta t} = D \frac{u^{t-1}_{i+1} - 2u^{t-1}_{i} + u^{t-1}_{i-1} }{\Delta x ^2}
+\tag{3.14}
+\end{equation}\]</span></p>
+<p>或者</p>
+<p><span class="math display" id="eq:heatTSim">\[\begin{equation}
+\frac{u^{t}_{i} - u^{t-1}_{i} }{\Delta t} = D \frac{u^{t}_{i+1} - 2u^{t}_{i} + u^{t}_{i-1} }{\Delta x ^2}
+\tag{3.15}
+\end{equation}\]</span></p></li>
+</ol>
+</div>
+<div id="显式求解法" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> 显式求解法<a href="fdm.html#显式求解法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>显式求解法以公式<a href="fdm.html#eq:heatTSex">(3.14)</a>作为起点，该公式可变形为：
+<span class="math display">\[
+u^{t}_{i} - u^{t-1}_{i}  = \frac{D \Delta t}{{\Delta x}^2} \left(  u^{t-1}_{i+1} - 2u^{t-1}_{i} + u^{t-1}_{i-1}  \right)
+\]</span>
+令<span class="math inline">\(\alpha = \frac{D \Delta t}{\Delta x^2}\)</span>, <span class="math inline">\(\beta = 1 - 2\alpha\)</span>，整理以上公式可得：</p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+u^{t}_{i} - u^{t-1}_{i}  &amp;= \alpha \left(  u^{t-1}_{i+1} - 2u^{t-1}_{i} + u^{t-1}_{i-1}  \right) \\
+u^{t}_{i}  &amp;= \alpha  u^{t-1}_{i+1} + (1- 2\alpha) u^{t-1}_{i} + \alpha u^{t-1}_{i-1}  \\
+u^{t}_{i}  &amp;= \alpha  u^{t-1}_{i+1} + \beta u^{t-1}_{i} + \alpha u^{t-1}_{i-1}
+\end{aligned}
+\end{equation}\]</span></p>
+<p>将以上公式应用于离散点上，</p>
+<table>
+<colgroup>
+<col width="42%" />
+<col width="57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">点号 <span class="math inline">\(i\)</span></th>
+<th align="center">公式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">边界条件: <span class="math inline">\(u^{t}_{1} = U_{0}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(u^{t}_{2} = \alpha u^{t-1}_{3} + \beta u^{t-1}_{2} + \alpha u^{t-1}_{1}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center"><span class="math inline">\(u^{t}_{3} = \alpha u^{t-1}_{4} + \beta u^{t-1}_{3} + \alpha u^{t-1}_{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center"><span class="math inline">\(u^{t}_{4} = \alpha u^{t-1}_{5} + \beta u^{t-1}_{4} + \alpha u^{t-1}_{3}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center"><span class="math inline">\(u^{t}_{5} = \alpha u^{t-1}_{6} + \beta u^{t-1}_{5} + \alpha u^{t-1}_{4}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">i-1</td>
+<td align="center">…</td>
+</tr>
+<tr class="even">
+<td align="center">i</td>
+<td align="center"><span class="math inline">\(u^{t}_{i} = \alpha u^{t-1}_{i+1} + \beta u^{t-1}_{i} + \alpha u^{t-1}_{i-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">i+1</td>
+<td align="center">…</td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">n-2</td>
+<td align="center"><span class="math inline">\(u^{t}_{n-2} = \alpha u^{t-1}_{n-1} + \beta u^{t-1}_{n-2} + \alpha u^{t-1}_{n-3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">n-1</td>
+<td align="center"><span class="math inline">\(u^{t}_{n-1} = \alpha u^{t-1}_{n} + \beta u^{t-1}_{n-1} + \alpha u^{t-1}_{n-2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">n</td>
+<td align="center">边界条件: <span class="math inline">\(u^{t}_{n} = U_{L}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>由此我们得到<span class="math inline">\(n\)</span>个算式，可转换为矩阵形式：</p>
+<p><span class="math display">\[\begin{equation}
+\begin{bmatrix}
+u_{1}^{t} \\ u_{2}^{t} \\ u_{3}^{t} \\ u_{4}^{t} \\
+\dots \\ u_{i}^{t} \\  \dots \\ u_{n-3}^{t} \\
+u_{n-2}^{t} \\ u_{n-1}^{t} \\  u_{n}^{t} \end{bmatrix}
+=
+\begin{bmatrix}
+    {\textcolor{red}{1}}     &amp; 0 &amp; 0 &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \alpha      &amp; ~\beta~ &amp; \alpha &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    0 &amp; \alpha      &amp; ~\beta~ ~&amp; \alpha &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0 &amp; 0    &amp; \dots  &amp; \alpha  &amp; ~\beta~&amp; \alpha &amp; \dots &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  \alpha~&amp;  ~\beta~ &amp;  \alpha  &amp; 0  \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   \alpha &amp; ~\beta~ &amp; \alpha   \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   0&amp;  0 &amp;{\textcolor{red}{1}}   
+\end{bmatrix}
+
+\begin{bmatrix}
+U_{0} \\ u_{2}^{t-1} \\ u_{3}^{t-1} \\ u_{4}^{t-1} \\
+\dots \\ u_{i}^{t-1} \\ \dots \\
+u_{n-3}^{t-1} \\ u_{n-2}^{t-1} \\ u_{n-1}^{t-1} \\ U_{L}
+\end{bmatrix}
+\end{equation}\]</span></p>
+<p>更简洁的方式，可写为：</p>
+<p><span class="math display">\[\begin{equation}
+\begin{bmatrix}
+u_{1} \\ u_{2} \\ u_{3} \\ u_{4} \\
+\dots \\ u_{i} \\  \dots \\ u_{n-3} \\
+u_{n-2} \\ u_{n-1} \\  u_{n} \end{bmatrix} ^{t}
+=
+\begin{bmatrix}
+    {\textcolor{red}{1}}     &amp; 0 &amp; 0 &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \alpha      &amp; ~\beta~ &amp; \alpha &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    0 &amp; \alpha      &amp; ~\beta~ ~&amp; \alpha &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0 &amp; 0    &amp; \dots  &amp; \alpha  &amp; ~\beta~&amp; \alpha &amp; \dots &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  \alpha~&amp;  ~\beta~ &amp;  \alpha  &amp; 0  \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   \alpha &amp; ~\beta~ &amp; \alpha   \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   0&amp;  0 &amp;{\textcolor{red}{1}}   
+\end{bmatrix}
+
+\begin{bmatrix}
+U_{0} \\ u_{2} \\ u_{3} \\ u_{4} \\
+\dots \\ u_{i} \\ \dots \\
+u_{n-3} \\ u_{n-2} \\ u_{n-1} \\ U_{L}
+\end{bmatrix} ^{t-1}
+\end{equation}\]</span></p>
+<p>下一时刻(<span class="math inline">\(t\)</span>)的变量组成的向量<span class="math inline">\(x\)</span>由一个矩阵<span class="math inline">\([A]\)</span>乘以已知的前一时刻(<span class="math inline">\(t-1\)</span>)的向量<span class="math inline">\(b\)</span>获得，即：。
+<span class="math display">\[
+x = [A] * b
+\]</span>
+由已知变量的矩阵求解未知变量的方法，称为<strong>显式求解法</strong>。</p>
+</div>
+<div id="隐式求解法" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> 隐式求解法<a href="fdm.html#隐式求解法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>显式求解法以公式<a href="fdm.html#eq:heatTSim">(3.15)</a>作为起点，该公式可变形为：
+<span class="math display">\[
+u^{t}_{i} - u^{t-1}_{i}  = \frac{D \Delta t}{{\Delta x}^2} \left(  u^{t}_{i+1} - 2u^{t}_{i} + u^{t}_{i-1}  \right)
+\]</span>
+令<span class="math inline">\(\alpha = \frac{D \Delta t}{\Delta x^2}\)</span>, <span class="math inline">\(\beta = -1 - 2\alpha\)</span>，整理以上公式可得：</p>
+<p><span class="math display">\[\begin{equation}
+\begin{aligned}
+u^{t}_{i} - u^{t-1}_{i}  &amp;= \alpha \left(  u^{t}_{i+1} - 2u^{t}_{i} + u^{t}_{i-1}  \right) \\
+-u^{t-1}_{i}  &amp;= \alpha  u^{t}_{i+1} + (-1- 2\alpha) u^{t}_{i} + \alpha u^{t}_{i-1}  \\
+-u^{t-1}_{i}  &amp;= \alpha  u^{t}_{i+1} + \beta u^{t}_{i} + \alpha u^{t}_{i-1}
+\end{aligned}
+\end{equation}\]</span></p>
+<p>将以上公式应用于离散点上，</p>
+<table>
+<colgroup>
+<col width="42%" />
+<col width="57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">点号 <span class="math inline">\(i\)</span></th>
+<th align="center">公式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">边界条件: <span class="math inline">\(u^{t-1}_{1} = U_{0}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(-u^{t-1}_{2} = \alpha u^{t}_{3} + \beta u^{t}_{2} + \alpha u^{t}_{1}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center"><span class="math inline">\(-u^{t-1}_{3} = \alpha u^{t}_{4} + \beta u^{t}_{3} + \alpha u^{t}_{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center"><span class="math inline">\(-u^{t-1}_{4} = \alpha u^{t}_{5} + \beta u^{t}_{4} + \alpha u^{t}_{3}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center"><span class="math inline">\(-u^{t-1}_{5} = \alpha u^{t}_{6} + \beta u^{t}_{5} + \alpha u^{t}_{4}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">i-1</td>
+<td align="center">…</td>
+</tr>
+<tr class="even">
+<td align="center">i</td>
+<td align="center"><span class="math inline">\(-u^{t-1}_{i} = \alpha u^{t}_{i+1} + \beta u^{t}_{i} + \alpha u^{t}_{i-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">i+1</td>
+<td align="center">…</td>
+</tr>
+<tr class="even">
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+<tr class="odd">
+<td align="center">n-2</td>
+<td align="center"><span class="math inline">\(-u^{t-1}_{n-2} = \alpha u^{t}_{n-1} + \beta u^{t}_{n-2} + \alpha u^{t}_{n-3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">n-1</td>
+<td align="center"><span class="math inline">\(-u^{t-1}_{n-1} = \alpha u^{t}_{n} + \beta u^{t}_{n-1} + \alpha u^{t}_{n-2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">n</td>
+<td align="center">边界条件: <span class="math inline">\(u^{t-1}_{n} = U_{L}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>由此我们得到<span class="math inline">\(n\)</span>个算式，可转换为矩阵形式：</p>
+<p><span class="math display">\[\begin{equation}
+\begin{bmatrix}
+    {\textcolor{red}{1}}     &amp; 0 &amp; 0 &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \alpha      &amp; ~\beta~ &amp; \alpha &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    0 &amp; \alpha      &amp; ~\beta~ ~&amp; \alpha &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0 &amp; 0    &amp; \dots  &amp; \alpha  &amp; ~\beta~&amp; \alpha &amp; \dots &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  \alpha~&amp;  ~\beta~ &amp;  \alpha  &amp; 0  \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   \alpha &amp; ~\beta~ &amp; \alpha   \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   0&amp;  0 &amp;{\textcolor{red}{1}}   
+\end{bmatrix}
+\begin{bmatrix}
+U_{0} \\ u_{2}^{t} \\ u_{3}^{t} \\ u_{4}^{t} \\
+\dots \\ u_{i}^{t} \\ \dots \\
+u_{n-3}^{t} \\ u_{n-2}^{t} \\ u_{n-1}^{t} \\ U_{L}
+\end{bmatrix}
+= -
+\begin{bmatrix}
+u_{1}^{t-1} \\ u_{2}^{t-1} \\ u_{3}^{t-1} \\ u_{4}^{t-1} \\
+\dots \\ u_{i}^{t-1} \\  \dots \\ u_{n-3}^{t-1} \\
+u_{n-2}^{t-1} \\ u_{n-1}^{t-1} \\  u_{n}^{t-1}
+\end{bmatrix}
+
+\end{equation}\]</span></p>
+<p>更简洁的方式，可写为：</p>
+<p><span class="math display">\[\begin{equation}
+\begin{bmatrix}
+    {\textcolor{red}{1}}     &amp; 0 &amp; 0 &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \alpha      &amp; ~\beta~ &amp; \alpha &amp; 0 &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    0 &amp; \alpha      &amp; ~\beta~ ~&amp; \alpha &amp; \dots &amp; 0  &amp; 0  &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0 &amp; 0    &amp; \dots  &amp; \alpha  &amp; ~\beta~&amp; \alpha &amp; \dots &amp; 0   &amp; 0\\
+    \dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots &amp;\dots \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  \alpha~&amp;  ~\beta~ &amp;  \alpha  &amp; 0  \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   \alpha &amp; ~\beta~ &amp; \alpha   \\
+    0   &amp; 0&amp; 0  &amp; 0  &amp;  \dots &amp;  0 &amp;   0&amp;  0 &amp;{\textcolor{red}{1}}   
+\end{bmatrix}
+
+\begin{bmatrix}
+U_{0} \\ u_{2} \\ u_{3} \\ u_{4} \\
+\dots \\ u_{i} \\ \dots \\
+u_{n-3} \\ u_{n-2} \\ u_{n-1} \\ U_{L}
+\end{bmatrix} ^{t}
+= -
+\begin{bmatrix}
+u_{1} \\ u_{2} \\ u_{3} \\ u_{4} \\
+\dots \\ u_{i} \\  \dots \\ u_{n-3} \\
+u_{n-2} \\ u_{n-1} \\  u_{n} \end{bmatrix} ^{t-1}
+\end{equation}\]</span></p>
+<p>一个矩阵<span class="math inline">\([A]\)</span>乘以下一时刻(<span class="math inline">\(t\)</span>)的变量组成的向量<span class="math inline">\(x\)</span>等于已知的前一时刻(<span class="math inline">\(t-1\)</span>)的向量<span class="math inline">\(b\)</span>，求解该方程则可得到<span class="math inline">\(x\)</span>的值，数学表达为：</p>
+<p><span class="math display">\[[A] * x = b\]</span></p>
+<p>通用的求解法为
+<span class="math display">\[
+x = [A]^{-1} * b
+\]</span></p>
+<p>通过已知变量、未知变量和矩阵组成的公式或函数来求解未知变量的过程，称为<strong>隐式求解法</strong>。</p>
+</div>
+<div id="编程求解" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> 编程求解<a href="fdm.html#编程求解" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>显式求解法</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="fdm.html#cb12-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Heat Transfer</span></span>
+<span id="cb12-2"><a href="fdm.html#cb12-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = k/r/c * (dd u / d x^2)</span></span>
+<span id="cb12-3"><a href="fdm.html#cb12-3" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Thermal_diffusivity</span></span>
+<span id="cb12-4"><a href="fdm.html#cb12-4" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Heat_equation</span></span>
+<span id="cb12-5"><a href="fdm.html#cb12-5" tabindex="-1"></a><span class="co">#&#39; BC U0 = 100, UL=50</span></span>
+<span id="cb12-6"><a href="fdm.html#cb12-6" tabindex="-1"></a><span class="co">#&#39; IC uic = 25 </span></span>
+<span id="cb12-7"><a href="fdm.html#cb12-7" tabindex="-1"></a><span class="co">#&#39;  X = c(0, 1)</span></span>
+<span id="cb12-8"><a href="fdm.html#cb12-8" tabindex="-1"></a><span class="co">#&#39;  D = 23 mm2/s = 2.3e-5 m^2/s</span></span>
+<span id="cb12-9"><a href="fdm.html#cb12-9" tabindex="-1"></a><span class="co">#&#39;  DX = 0.01 m</span></span>
+<span id="cb12-10"><a href="fdm.html#cb12-10" tabindex="-1"></a><span class="co">#&#39;  DT = 10 s</span></span>
+<span id="cb12-11"><a href="fdm.html#cb12-11" tabindex="-1"></a><span class="co">#&#39;  Time = 0 to 1e6 s</span></span>
+<span id="cb12-12"><a href="fdm.html#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="fdm.html#cb12-13" tabindex="-1"></a>HT.explicit <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb12-14"><a href="fdm.html#cb12-14" tabindex="-1"></a>  <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb12-15"><a href="fdm.html#cb12-15" tabindex="-1"></a>  <span class="at">X =</span> <span class="dv">1</span>,</span>
+<span id="cb12-16"><a href="fdm.html#cb12-16" tabindex="-1"></a>  <span class="at">DX=</span> <span class="fl">0.1</span>,</span>
+<span id="cb12-17"><a href="fdm.html#cb12-17" tabindex="-1"></a>  <span class="at">DT =</span> <span class="dv">1</span>,</span>
+<span id="cb12-18"><a href="fdm.html#cb12-18" tabindex="-1"></a>  <span class="at">DD =</span> <span class="fl">2.3e-5</span>,</span>
+<span id="cb12-19"><a href="fdm.html#cb12-19" tabindex="-1"></a>  <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
+<span id="cb12-20"><a href="fdm.html#cb12-20" tabindex="-1"></a>  <span class="at">epsilon =</span> <span class="fl">1e-4</span>, <span class="at">bc2 =</span> <span class="cn">NULL</span>,  <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span></span>
+<span id="cb12-21"><a href="fdm.html#cb12-21" tabindex="-1"></a>){</span>
+<span id="cb12-22"><a href="fdm.html#cb12-22" tabindex="-1"></a>  T0 <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb12-23"><a href="fdm.html#cb12-23" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(T0, Tmax, DT)</span>
+<span id="cb12-24"><a href="fdm.html#cb12-24" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
+<span id="cb12-25"><a href="fdm.html#cb12-25" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, X, DX)</span>
+<span id="cb12-26"><a href="fdm.html#cb12-26" tabindex="-1"></a>  NX <span class="ot">=</span> X <span class="sc">/</span> DX <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb12-27"><a href="fdm.html#cb12-27" tabindex="-1"></a>  </span>
+<span id="cb12-28"><a href="fdm.html#cb12-28" tabindex="-1"></a>  alpha <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb12-29"><a href="fdm.html#cb12-29" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="dv">1-2</span><span class="sc">*</span>alpha</span>
+<span id="cb12-30"><a href="fdm.html#cb12-30" tabindex="-1"></a>  CFL <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb12-31"><a href="fdm.html#cb12-31" tabindex="-1"></a>  <span class="fu">print</span>(CFL)  </span>
+<span id="cb12-32"><a href="fdm.html#cb12-32" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
+<span id="cb12-33"><a href="fdm.html#cb12-33" tabindex="-1"></a>    <span class="cf">if</span>(CFL <span class="sc">&gt;=</span><span class="dv">1</span> ){</span>
+<span id="cb12-34"><a href="fdm.html#cb12-34" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
+<span id="cb12-35"><a href="fdm.html#cb12-35" tabindex="-1"></a>    }</span>
+<span id="cb12-36"><a href="fdm.html#cb12-36" tabindex="-1"></a>  }</span>
+<span id="cb12-37"><a href="fdm.html#cb12-37" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb12-38"><a href="fdm.html#cb12-38" tabindex="-1"></a>  x0 <span class="ot">=</span> <span class="fu">rep</span>(uic, NX)</span>
+<span id="cb12-39"><a href="fdm.html#cb12-39" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb12-40"><a href="fdm.html#cb12-40" tabindex="-1"></a>  ylim <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">min</span>(x0), <span class="fu">max</span>(U0, UL))</span>
+<span id="cb12-41"><a href="fdm.html#cb12-41" tabindex="-1"></a>  xlim<span class="ot">=</span><span class="fu">c</span>(<span class="dv">0</span>, X)</span>
+<span id="cb12-42"><a href="fdm.html#cb12-42" tabindex="-1"></a>  <span class="cf">if</span>(plot){</span>
+<span id="cb12-43"><a href="fdm.html#cb12-43" tabindex="-1"></a>    <span class="fu">plot</span>(xx, x0, <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">col=</span><span class="dv">2</span>,  <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">ylim=</span>ylim, <span class="at">xlim=</span>xlim, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab)</span>
+<span id="cb12-44"><a href="fdm.html#cb12-44" tabindex="-1"></a>    <span class="fu">grid</span>()</span>
+<span id="cb12-45"><a href="fdm.html#cb12-45" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">0</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), U0), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
+<span id="cb12-46"><a href="fdm.html#cb12-46" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> X, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), UL), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
+<span id="cb12-47"><a href="fdm.html#cb12-47" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X<span class="sc">/</span><span class="dv">2</span> , <span class="at">y =</span> uic <span class="sc">+</span> <span class="fu">diff</span>(ylim)<span class="sc">*</span>.<span class="dv">051</span>, <span class="st">&#39;Initial condition&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb12-48"><a href="fdm.html#cb12-48" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.05</span> , <span class="at">y =</span> U0, <span class="st">&#39;BC 1&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb12-49"><a href="fdm.html#cb12-49" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.95</span> , <span class="at">y =</span> UL, <span class="st">&#39;BC 2&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb12-50"><a href="fdm.html#cb12-50" tabindex="-1"></a>  }</span>
+<span id="cb12-51"><a href="fdm.html#cb12-51" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb12-52"><a href="fdm.html#cb12-52" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> NX, <span class="at">ncol =</span> NX)</span>
+<span id="cb12-53"><a href="fdm.html#cb12-53" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
+<span id="cb12-54"><a href="fdm.html#cb12-54" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
+<span id="cb12-55"><a href="fdm.html#cb12-55" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">==</span>j){</span>
+<span id="cb12-56"><a href="fdm.html#cb12-56" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> beta</span>
+<span id="cb12-57"><a href="fdm.html#cb12-57" tabindex="-1"></a>      }</span>
+<span id="cb12-58"><a href="fdm.html#cb12-58" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> j <span class="sc">|</span> i<span class="dv">-1</span> <span class="sc">==</span> j ){</span>
+<span id="cb12-59"><a href="fdm.html#cb12-59" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> alpha</span>
+<span id="cb12-60"><a href="fdm.html#cb12-60" tabindex="-1"></a>      }</span>
+<span id="cb12-61"><a href="fdm.html#cb12-61" tabindex="-1"></a>    }</span>
+<span id="cb12-62"><a href="fdm.html#cb12-62" tabindex="-1"></a>  }</span>
+<span id="cb12-63"><a href="fdm.html#cb12-63" tabindex="-1"></a>  mat[<span class="dv">1</span>,]<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>))</span>
+<span id="cb12-64"><a href="fdm.html#cb12-64" tabindex="-1"></a>  mat[NX,]<span class="ot">=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>), <span class="dv">1</span>)</span>
+<span id="cb12-65"><a href="fdm.html#cb12-65" tabindex="-1"></a>  </span>
+<span id="cb12-66"><a href="fdm.html#cb12-66" tabindex="-1"></a>  xm <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow=</span>NX, <span class="at">ncol=</span>NT)</span>
+<span id="cb12-67"><a href="fdm.html#cb12-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX))</span>
+<span id="cb12-68"><a href="fdm.html#cb12-68" tabindex="-1"></a>  <span class="co"># vs[NX/2] = ss</span></span>
+<span id="cb12-69"><a href="fdm.html#cb12-69" tabindex="-1"></a>  </span>
+<span id="cb12-70"><a href="fdm.html#cb12-70" tabindex="-1"></a>  b<span class="ot">=</span>bx <span class="ot">=</span> <span class="fu">cbind</span>(x0)</span>
+<span id="cb12-71"><a href="fdm.html#cb12-71" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb12-72"><a href="fdm.html#cb12-72" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb12-73"><a href="fdm.html#cb12-73" tabindex="-1"></a>      bx <span class="ot">=</span> mat <span class="sc">%*%</span> b <span class="sc">+</span> vs <span class="sc">*</span> DT</span>
+<span id="cb12-74"><a href="fdm.html#cb12-74" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb12-75"><a href="fdm.html#cb12-75" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb12-76"><a href="fdm.html#cb12-76" tabindex="-1"></a>    }</span>
+<span id="cb12-77"><a href="fdm.html#cb12-77" tabindex="-1"></a>    bx[<span class="dv">1</span>] <span class="ot">=</span> U0</span>
+<span id="cb12-78"><a href="fdm.html#cb12-78" tabindex="-1"></a>    bx[NX] <span class="ot">=</span> UL</span>
+<span id="cb12-79"><a href="fdm.html#cb12-79" tabindex="-1"></a>    xm[, i]<span class="ot">=</span>bx</span>
+<span id="cb12-80"><a href="fdm.html#cb12-80" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb12-81"><a href="fdm.html#cb12-81" tabindex="-1"></a>  }</span>
+<span id="cb12-82"><a href="fdm.html#cb12-82" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb12-83"><a href="fdm.html#cb12-83" tabindex="-1"></a>  xm<span class="ot">=</span>xm[, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb12-84"><a href="fdm.html#cb12-84" tabindex="-1"></a>  <span class="co"># message(&#39;CFL value = &#39;, CFL)  </span></span>
+<span id="cb12-85"><a href="fdm.html#cb12-85" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb12-86"><a href="fdm.html#cb12-86" tabindex="-1"></a>  yy <span class="ot">=</span> xm; yy[<span class="fu">abs</span>(yy)<span class="sc">&gt;</span><span class="fl">1e20</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb12-87"><a href="fdm.html#cb12-87" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx, </span>
+<span id="cb12-88"><a href="fdm.html#cb12-88" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb12-89"><a href="fdm.html#cb12-89" tabindex="-1"></a>             <span class="st">&#39;u&#39;</span> <span class="ot">=</span> xm,</span>
+<span id="cb12-90"><a href="fdm.html#cb12-90" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> CFL,</span>
+<span id="cb12-91"><a href="fdm.html#cb12-91" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb12-92"><a href="fdm.html#cb12-92" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT,</span>
+<span id="cb12-93"><a href="fdm.html#cb12-93" tabindex="-1"></a>             <span class="st">&#39;xlim&#39;</span> <span class="ot">=</span> xlim,</span>
+<span id="cb12-94"><a href="fdm.html#cb12-94" tabindex="-1"></a>             <span class="st">&#39;ylim&#39;</span> <span class="ot">=</span> ylim)</span>
+<span id="cb12-95"><a href="fdm.html#cb12-95" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb12-96"><a href="fdm.html#cb12-96" tabindex="-1"></a>}</span>
+<span id="cb12-97"><a href="fdm.html#cb12-97" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nout =</span> <span class="dv">20</span>){</span>
+<span id="cb12-98"><a href="fdm.html#cb12-98" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb12-99"><a href="fdm.html#cb12-99" tabindex="-1"></a>  id<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nout)</span>
+<span id="cb12-100"><a href="fdm.html#cb12-100" tabindex="-1"></a>  col<span class="ot">=</span>colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span><span class="fu">length</span>(id)); lty<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb12-101"><a href="fdm.html#cb12-101" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>u[, id], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">ylim=</span>x<span class="sc">$</span>ylim, <span class="at">xlim=</span>x<span class="sc">$</span>xlim, </span>
+<span id="cb12-102"><a href="fdm.html#cb12-102" tabindex="-1"></a>          <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty)</span>
+<span id="cb12-103"><a href="fdm.html#cb12-103" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">paste0</span>(<span class="st">&#39;T=&#39;</span>, x<span class="sc">$</span>time[id]<span class="sc">+</span><span class="dv">1</span>), <span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="at">bg=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb12-104"><a href="fdm.html#cb12-104" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> <span class="fu">paste</span>(<span class="st">&#39;CFL =&#39;</span>, x<span class="sc">$</span>CFL ), <span class="at">side=</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb12-105"><a href="fdm.html#cb12-105" tabindex="-1"></a>}</span>
+<span id="cb12-106"><a href="fdm.html#cb12-106" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb12-107"><a href="fdm.html#cb12-107" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb12-108"><a href="fdm.html#cb12-108" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>); nid<span class="ot">=</span><span class="fu">length</span>(id)</span>
+<span id="cb12-109"><a href="fdm.html#cb12-109" tabindex="-1"></a>  lty<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span>nid; col<span class="ot">=</span>lty</span>
+<span id="cb12-110"><a href="fdm.html#cb12-110" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="fu">t</span>(x<span class="sc">$</span>u[id, ]), <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty); <span class="fu">grid</span>()</span>
+<span id="cb12-111"><a href="fdm.html#cb12-111" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;bottomright&#39;</span>,<span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="fu">paste</span>(<span class="st">&#39;Node&#39;</span>, id))</span>
+<span id="cb12-112"><a href="fdm.html#cb12-112" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>隐式求解法</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="fdm.html#cb13-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Heat Transfer</span></span>
+<span id="cb13-2"><a href="fdm.html#cb13-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = k/r/c * (dd u / d x^2)</span></span>
+<span id="cb13-3"><a href="fdm.html#cb13-3" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Thermal_diffusivity</span></span>
+<span id="cb13-4"><a href="fdm.html#cb13-4" tabindex="-1"></a><span class="co">#&#39;  wiki: https://en.wikipedia.org/wiki/Heat_equation</span></span>
+<span id="cb13-5"><a href="fdm.html#cb13-5" tabindex="-1"></a><span class="co">#&#39; BC U0 = 100, UL=50</span></span>
+<span id="cb13-6"><a href="fdm.html#cb13-6" tabindex="-1"></a><span class="co">#&#39; IC uic = 25 </span></span>
+<span id="cb13-7"><a href="fdm.html#cb13-7" tabindex="-1"></a><span class="co">#&#39;  X = c(0, 1)</span></span>
+<span id="cb13-8"><a href="fdm.html#cb13-8" tabindex="-1"></a><span class="co">#&#39;  D = 23 mm2/s = 2.3e-5 m^2/s</span></span>
+<span id="cb13-9"><a href="fdm.html#cb13-9" tabindex="-1"></a><span class="co">#&#39;  DX = 0.01 m</span></span>
+<span id="cb13-10"><a href="fdm.html#cb13-10" tabindex="-1"></a><span class="co">#&#39;  DT = 10 s</span></span>
+<span id="cb13-11"><a href="fdm.html#cb13-11" tabindex="-1"></a><span class="co">#&#39;  Time = 0 to 1e6 s</span></span>
+<span id="cb13-12"><a href="fdm.html#cb13-12" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="fdm.html#cb13-13" tabindex="-1"></a>HT.implicit <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb13-14"><a href="fdm.html#cb13-14" tabindex="-1"></a>  <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb13-15"><a href="fdm.html#cb13-15" tabindex="-1"></a>  <span class="at">X =</span> <span class="dv">1</span>,</span>
+<span id="cb13-16"><a href="fdm.html#cb13-16" tabindex="-1"></a>  <span class="at">DX=</span> <span class="fl">0.1</span>,</span>
+<span id="cb13-17"><a href="fdm.html#cb13-17" tabindex="-1"></a>  <span class="at">DT =</span> <span class="dv">1</span>,</span>
+<span id="cb13-18"><a href="fdm.html#cb13-18" tabindex="-1"></a>  <span class="at">DD =</span> <span class="fl">2.3e-5</span>,</span>
+<span id="cb13-19"><a href="fdm.html#cb13-19" tabindex="-1"></a>  <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
+<span id="cb13-20"><a href="fdm.html#cb13-20" tabindex="-1"></a>  <span class="at">epsilon =</span> <span class="fl">1e-4</span>, <span class="at">bc2 =</span> <span class="cn">NULL</span>,  <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-21"><a href="fdm.html#cb13-21" tabindex="-1"></a>){</span>
+<span id="cb13-22"><a href="fdm.html#cb13-22" tabindex="-1"></a>  T0 <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb13-23"><a href="fdm.html#cb13-23" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(T0, Tmax, DT)</span>
+<span id="cb13-24"><a href="fdm.html#cb13-24" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
+<span id="cb13-25"><a href="fdm.html#cb13-25" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, X, DX)</span>
+<span id="cb13-26"><a href="fdm.html#cb13-26" tabindex="-1"></a>  NX <span class="ot">=</span> X <span class="sc">/</span> DX <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb13-27"><a href="fdm.html#cb13-27" tabindex="-1"></a>  </span>
+<span id="cb13-28"><a href="fdm.html#cb13-28" tabindex="-1"></a>  alpha <span class="ot">=</span> <span class="sc">-</span>DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb13-29"><a href="fdm.html#cb13-29" tabindex="-1"></a>  beta <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb13-30"><a href="fdm.html#cb13-30" tabindex="-1"></a>  CFL <span class="ot">=</span> DD  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb13-31"><a href="fdm.html#cb13-31" tabindex="-1"></a>  <span class="fu">print</span>(CFL)  </span>
+<span id="cb13-32"><a href="fdm.html#cb13-32" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
+<span id="cb13-33"><a href="fdm.html#cb13-33" tabindex="-1"></a>    <span class="cf">if</span>(CFL <span class="sc">&gt;=</span><span class="dv">1</span> ){</span>
+<span id="cb13-34"><a href="fdm.html#cb13-34" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
+<span id="cb13-35"><a href="fdm.html#cb13-35" tabindex="-1"></a>    }</span>
+<span id="cb13-36"><a href="fdm.html#cb13-36" tabindex="-1"></a>  }</span>
+<span id="cb13-37"><a href="fdm.html#cb13-37" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb13-38"><a href="fdm.html#cb13-38" tabindex="-1"></a>  x0 <span class="ot">=</span> <span class="fu">rep</span>(uic, NX)</span>
+<span id="cb13-39"><a href="fdm.html#cb13-39" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb13-40"><a href="fdm.html#cb13-40" tabindex="-1"></a>  ylim <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">min</span>(x0), <span class="fu">max</span>(U0, UL))</span>
+<span id="cb13-41"><a href="fdm.html#cb13-41" tabindex="-1"></a>  xlim<span class="ot">=</span><span class="fu">c</span>(<span class="dv">0</span>, X)</span>
+<span id="cb13-42"><a href="fdm.html#cb13-42" tabindex="-1"></a>  <span class="cf">if</span>(plot){</span>
+<span id="cb13-43"><a href="fdm.html#cb13-43" tabindex="-1"></a>    <span class="fu">plot</span>(xx, x0, <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">col=</span><span class="dv">2</span>,  <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">ylim=</span>ylim, <span class="at">xlim=</span>xlim, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab)</span>
+<span id="cb13-44"><a href="fdm.html#cb13-44" tabindex="-1"></a>    <span class="fu">grid</span>()</span>
+<span id="cb13-45"><a href="fdm.html#cb13-45" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">0</span>, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), U0), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
+<span id="cb13-46"><a href="fdm.html#cb13-46" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">*</span> X, <span class="at">y=</span><span class="fu">c</span>(<span class="fu">min</span>(x0), UL), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="dv">3</span>, <span class="at">type=</span><span class="st">&#39;b&#39;</span>)</span>
+<span id="cb13-47"><a href="fdm.html#cb13-47" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X<span class="sc">/</span><span class="dv">2</span> , <span class="at">y =</span> uic <span class="sc">+</span> <span class="fu">diff</span>(ylim)<span class="sc">*</span>.<span class="dv">051</span>, <span class="st">&#39;Initial condition&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb13-48"><a href="fdm.html#cb13-48" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.05</span> , <span class="at">y =</span> U0, <span class="st">&#39;BC 1&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb13-49"><a href="fdm.html#cb13-49" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>X <span class="sc">*</span> <span class="fl">0.95</span> , <span class="at">y =</span> UL, <span class="st">&#39;BC 2&#39;</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb13-50"><a href="fdm.html#cb13-50" tabindex="-1"></a>  }</span>
+<span id="cb13-51"><a href="fdm.html#cb13-51" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb13-52"><a href="fdm.html#cb13-52" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> NX, <span class="at">ncol =</span> NX)</span>
+<span id="cb13-53"><a href="fdm.html#cb13-53" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
+<span id="cb13-54"><a href="fdm.html#cb13-54" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NX){</span>
+<span id="cb13-55"><a href="fdm.html#cb13-55" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">==</span>j){</span>
+<span id="cb13-56"><a href="fdm.html#cb13-56" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> beta</span>
+<span id="cb13-57"><a href="fdm.html#cb13-57" tabindex="-1"></a>      }</span>
+<span id="cb13-58"><a href="fdm.html#cb13-58" tabindex="-1"></a>      <span class="cf">if</span>(i<span class="sc">+</span><span class="dv">1</span> <span class="sc">==</span> j <span class="sc">|</span> i<span class="dv">-1</span> <span class="sc">==</span> j ){</span>
+<span id="cb13-59"><a href="fdm.html#cb13-59" tabindex="-1"></a>        mat[i, j] <span class="ot">=</span> alpha</span>
+<span id="cb13-60"><a href="fdm.html#cb13-60" tabindex="-1"></a>      }</span>
+<span id="cb13-61"><a href="fdm.html#cb13-61" tabindex="-1"></a>    }</span>
+<span id="cb13-62"><a href="fdm.html#cb13-62" tabindex="-1"></a>  }</span>
+<span id="cb13-63"><a href="fdm.html#cb13-63" tabindex="-1"></a>  mat[<span class="dv">1</span>,]<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>))</span>
+<span id="cb13-64"><a href="fdm.html#cb13-64" tabindex="-1"></a>  mat[NX,]<span class="ot">=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX<span class="dv">-1</span>), <span class="dv">1</span>)</span>
+<span id="cb13-65"><a href="fdm.html#cb13-65" tabindex="-1"></a>  </span>
+<span id="cb13-66"><a href="fdm.html#cb13-66" tabindex="-1"></a>  xm <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow=</span>NX, <span class="at">ncol=</span>NT)</span>
+<span id="cb13-67"><a href="fdm.html#cb13-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, NX))</span>
+<span id="cb13-68"><a href="fdm.html#cb13-68" tabindex="-1"></a>  <span class="co"># vs[NX/2] = ss</span></span>
+<span id="cb13-69"><a href="fdm.html#cb13-69" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(x0)</span>
+<span id="cb13-70"><a href="fdm.html#cb13-70" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb13-71"><a href="fdm.html#cb13-71" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb13-72"><a href="fdm.html#cb13-72" tabindex="-1"></a>      bx <span class="ot">=</span> <span class="fu">solve</span>(mat, b)</span>
+<span id="cb13-73"><a href="fdm.html#cb13-73" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb13-74"><a href="fdm.html#cb13-74" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb13-75"><a href="fdm.html#cb13-75" tabindex="-1"></a>    }</span>
+<span id="cb13-76"><a href="fdm.html#cb13-76" tabindex="-1"></a>    bx[<span class="dv">1</span>] <span class="ot">=</span> U0</span>
+<span id="cb13-77"><a href="fdm.html#cb13-77" tabindex="-1"></a>    bx[NX] <span class="ot">=</span> UL</span>
+<span id="cb13-78"><a href="fdm.html#cb13-78" tabindex="-1"></a>    xm[, i]<span class="ot">=</span>bx</span>
+<span id="cb13-79"><a href="fdm.html#cb13-79" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb13-80"><a href="fdm.html#cb13-80" tabindex="-1"></a>  }</span>
+<span id="cb13-81"><a href="fdm.html#cb13-81" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb13-82"><a href="fdm.html#cb13-82" tabindex="-1"></a>  xm<span class="ot">=</span>xm[, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb13-83"><a href="fdm.html#cb13-83" tabindex="-1"></a>  <span class="co"># message(&#39;CFL value = &#39;, CFL)  </span></span>
+<span id="cb13-84"><a href="fdm.html#cb13-84" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb13-85"><a href="fdm.html#cb13-85" tabindex="-1"></a>  yy <span class="ot">=</span> xm; yy[<span class="fu">abs</span>(yy)<span class="sc">&gt;</span><span class="fl">1e20</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb13-86"><a href="fdm.html#cb13-86" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx, </span>
+<span id="cb13-87"><a href="fdm.html#cb13-87" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb13-88"><a href="fdm.html#cb13-88" tabindex="-1"></a>             <span class="st">&#39;u&#39;</span> <span class="ot">=</span> xm,</span>
+<span id="cb13-89"><a href="fdm.html#cb13-89" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> CFL,</span>
+<span id="cb13-90"><a href="fdm.html#cb13-90" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb13-91"><a href="fdm.html#cb13-91" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT,</span>
+<span id="cb13-92"><a href="fdm.html#cb13-92" tabindex="-1"></a>             <span class="st">&#39;xlim&#39;</span> <span class="ot">=</span> xlim,</span>
+<span id="cb13-93"><a href="fdm.html#cb13-93" tabindex="-1"></a>             <span class="st">&#39;ylim&#39;</span> <span class="ot">=</span> ylim)</span>
+<span id="cb13-94"><a href="fdm.html#cb13-94" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb13-95"><a href="fdm.html#cb13-95" tabindex="-1"></a>}</span>
+<span id="cb13-96"><a href="fdm.html#cb13-96" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nout =</span> <span class="dv">20</span>){</span>
+<span id="cb13-97"><a href="fdm.html#cb13-97" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb13-98"><a href="fdm.html#cb13-98" tabindex="-1"></a>  id<span class="ot">=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nout)</span>
+<span id="cb13-99"><a href="fdm.html#cb13-99" tabindex="-1"></a>  col<span class="ot">=</span>colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span><span class="fu">length</span>(id)); lty<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb13-100"><a href="fdm.html#cb13-100" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="at">x=</span>x<span class="sc">$</span>x, <span class="at">y=</span>x<span class="sc">$</span>u[, id], <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">ylim=</span>x<span class="sc">$</span>ylim, <span class="at">xlim=</span>x<span class="sc">$</span>xlim, </span>
+<span id="cb13-101"><a href="fdm.html#cb13-101" tabindex="-1"></a>          <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty)</span>
+<span id="cb13-102"><a href="fdm.html#cb13-102" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;topright&#39;</span>, <span class="fu">paste0</span>(<span class="st">&#39;T=&#39;</span>, x<span class="sc">$</span>time[id]<span class="sc">+</span><span class="dv">1</span>), <span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="at">bg=</span><span class="st">&#39;transparent&#39;</span>)</span>
+<span id="cb13-103"><a href="fdm.html#cb13-103" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> <span class="fu">paste</span>(<span class="st">&#39;CFL =&#39;</span>, x<span class="sc">$</span>CFL ), <span class="at">side=</span><span class="dv">3</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb13-104"><a href="fdm.html#cb13-104" tabindex="-1"></a>}</span>
+<span id="cb13-105"><a href="fdm.html#cb13-105" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb13-106"><a href="fdm.html#cb13-106" tabindex="-1"></a>  NT <span class="ot">=</span> x<span class="sc">$</span>NT</span>
+<span id="cb13-107"><a href="fdm.html#cb13-107" tabindex="-1"></a>  id <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>); nid<span class="ot">=</span><span class="fu">length</span>(id)</span>
+<span id="cb13-108"><a href="fdm.html#cb13-108" tabindex="-1"></a>  lty<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span>nid; col<span class="ot">=</span>lty</span>
+<span id="cb13-109"><a href="fdm.html#cb13-109" tabindex="-1"></a>  <span class="fu">matplot</span>(<span class="fu">t</span>(x<span class="sc">$</span>u[id, ]), <span class="at">type=</span><span class="st">&#39;l&#39;</span>, <span class="at">xlab=</span>xlab, <span class="at">ylab=</span>ylab, <span class="at">col=</span>col, <span class="at">lty=</span>lty); <span class="fu">grid</span>()</span>
+<span id="cb13-110"><a href="fdm.html#cb13-110" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&#39;bottomright&#39;</span>,<span class="at">col=</span>col, <span class="at">lty=</span>lty, <span class="fu">paste</span>(<span class="st">&#39;Node&#39;</span>, id))</span>
+<span id="cb13-111"><a href="fdm.html#cb13-111" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="显式与隐式求解法对比" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> 显式与隐式求解法对比<a href="fdm.html#显式与隐式求解法对比" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cfl条件" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> CFL条件<a href="fdm.html#cfl条件" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="fdm.html#cb14-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferIm.R&quot;</span>)</span>
+<span id="cb14-2"><a href="fdm.html#cb14-2" tabindex="-1"></a>xlab <span class="ot">=</span><span class="st">&#39;Distance (m)&#39;</span></span>
+<span id="cb14-3"><a href="fdm.html#cb14-3" tabindex="-1"></a>ylab <span class="ot">=</span> <span class="st">&#39;Temperature (C)&#39;</span></span>
+<span id="cb14-4"><a href="fdm.html#cb14-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">HT.implicit</span>(<span class="at">DX=</span> <span class="fl">0.05</span>, <span class="at">DT =</span> <span class="dv">1000</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">ignore.cfl=</span><span class="cn">TRUE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 9.2</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="fdm.html#cb16-1" tabindex="-1"></a><span class="fu">plot1</span>(x, <span class="at">nout=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="_bookdown_files/03-FDM_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="计算效率" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> 计算效率<a href="fdm.html#计算效率" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="fdm.html#cb17-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferIm.R&quot;</span>)</span>
+<span id="cb17-2"><a href="fdm.html#cb17-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Code/ch03/ch3_HeatTransferEx.R&quot;</span>)</span>
+<span id="cb17-3"><a href="fdm.html#cb17-3" tabindex="-1"></a>Tmax <span class="ot">=</span> <span class="fl">1e4</span></span>
+<span id="cb17-4"><a href="fdm.html#cb17-4" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="fdm.html#cb17-5" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb17-6"><a href="fdm.html#cb17-6" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">HT.explicit</span>(<span class="at">DX=</span> <span class="fl">0.025</span>, <span class="at">DT =</span> <span class="dv">5</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">X =</span> <span class="dv">1</span>, <span class="at">ignore.cfl=</span><span class="cn">FALSE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>, <span class="at">Tmax=</span>Tmax)</span></code></pre></div>
+<pre><code>## [1] 0.184</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="fdm.html#cb19-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb19-2"><a href="fdm.html#cb19-2" tabindex="-1"></a>tu.ex <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
+<span id="cb19-3"><a href="fdm.html#cb19-3" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="fdm.html#cb19-4" tabindex="-1"></a>t0 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb19-5"><a href="fdm.html#cb19-5" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">HT.implicit</span>(<span class="at">DX=</span> <span class="fl">0.025</span>, <span class="at">DT =</span> <span class="dv">5</span>, <span class="at">U0=</span><span class="dv">100</span>, <span class="at">UL=</span><span class="dv">50</span>, <span class="at">uic =</span> <span class="dv">25</span>, <span class="at">X =</span> <span class="dv">1</span>, <span class="at">ignore.cfl=</span><span class="cn">FALSE</span>, <span class="at">plot=</span><span class="cn">FALSE</span>, <span class="at">Tmax=</span>Tmax)</span></code></pre></div>
+<pre><code>## [1] 0.184</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="fdm.html#cb21-1" tabindex="-1"></a>t1 <span class="ot">=</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb21-2"><a href="fdm.html#cb21-2" tabindex="-1"></a>tu.im <span class="ot">=</span> t1 <span class="sc">-</span> t0</span>
+<span id="cb21-3"><a href="fdm.html#cb21-3" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="fdm.html#cb21-4" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&#39;Time for implicit =&#39;</span>, tu.im)</span></code></pre></div>
+<pre><code>## Time for implicit =0.0970439910888672</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="fdm.html#cb23-1" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&#39;Time for explicit =&#39;</span>, tu.ex)</span></code></pre></div>
+<pre><code>## Time for explicit =0.107939958572388</code></pre>
+</div>
+</div>
+<div id="二维有限差分" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> 二维有限差分<a href="fdm.html#二维有限差分" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="image/ch3/figures/FDM.002.jpeg" /></p>
+<div class="example">
+<p><span id="exm:unnamed-chunk-6" class="example"><strong>Example 3.2  </strong></span><span class="math display">\[
+s  \frac{dh}{dt} = k_{x} B * \frac{d^2 h}{d x^2} + k_{y} B * \frac{d^2 h}{d y^2} + s_s
+\]</span></p>
+</div>
+<p>令<span class="math inline">\(D_x = \frac{k_x B}{s}\)</span>和<span class="math inline">\(D_y = \frac{k_y B}{s}\)</span>。</p>
+<p>公式推导：</p>
+<p>右边：
+<span class="math display">\[\frac{\partial u}{\partial t} = \frac{u^{t+1}_{i, j} - u^{t}_{i, j} }{ \Delta t}\]</span></p>
+<p>左边：</p>
+<p><span class="math display">\[D_x\frac{\partial ^2 u}{\partial x^2} + D_y\frac{\partial ^2 u}{\partial y^2}= D_x\frac{u^{t}_{i+1, j} - 2 u^{t}_{i, j} + u^{t}_{i-1, j} }{ {\Delta x }^2} + D_y\frac{u^{t}_{i, j+1} - 2 u^{t}_{i, j} + u^{t}_{i, j-1} }{ {\Delta y }^2}\]</span></p>
+<p>控制方程离散化后得到：
+<span class="math display">\[
+\frac{u^{t+1}_{i, j} - u^{t}_{i, j} }{ \Delta t} = D_x\frac{u^{t}_{i+1, j} - 2 u^{t}_{i, j} + u^{t}_{i-1, j} }{ {\Delta x }^2} + D_y\frac{u^{t}_{i, j+1} - 2 u^{t}_{i, j} + u^{t}_{i, j-1} }{ {\Delta y }^2}
+\]</span></p>
+<p><span class="math display">\[u^{t+1}_{i, j} - u^{t}_{i, j}= \frac{D_x \Delta t}{ {\Delta x }^2} (u^{t}_{i+1, j} - 2 u^{t}_{i, j} + u^{t}_{i-1, j} ) +
+\frac{D_x \Delta t}{ {\Delta y }^2} (u^{t}_{i, j+1} - 2 u^{t}_{i, j} + u^{t}_{i, j-1})\]</span></p>
+<p>令<span class="math inline">\(\alpha = \frac{D_x \Delta t}{ {\Delta x }^2}\)</span>, <span class="math inline">\(\beta = \frac{D_x \Delta t}{ {\Delta y }^2}\)</span>, <span class="math inline">\(\gamma = 1-2\frac{D_x \Delta t}{ {\Delta x }^2} - 2\frac{D_x \Delta t}{ {\Delta y }^2}\)</span>，公式变为：</p>
+<p><span class="math display">\[
+u^{t+1}_{i, j} = \alpha u^{t}_{i+1, j} + \beta u^{t}_{i, j+1} +  \gamma u^{t}_{i, j}  + \beta u^{t}_{i, j-1} + \alpha u^{t}_{i-1, j}
+\]</span></p>
+<div class="float">
+<img src="image/ch3/figures/FDM.003.jpeg" alt="二维离散化格点" />
+<div class="figcaption">二维离散化格点</div>
+</div>
+<p>假设<span class="math inline">\(x\)</span>和<span class="math inline">\(y\)</span>方向总长为<span class="math inline">\(L_x\)</span>和<span class="math inline">\(L_y\)</span>，沿两个方向的离散点数为<span class="math inline">\(N_x =L_x / \Delta x\)</span>, <span class="math inline">\(N_y =L_y / \Delta y\)</span>, <span class="math inline">\(N = N_x * N_y\)</span>。
+矩阵形式可表达为：
+<span class="math display">\[ x = A * b \]</span></p>
+<p><span class="math display">\[x = \begin{bmatrix}
+\begin{bmatrix} u_{1,1} \\  \dots \\ u_{1, N_y} \end{bmatrix} \\
+\begin{bmatrix} u_{2,1}   \\\dots \\  u_{2, N_y} \end{bmatrix} \\
+\dots \\ u_{i,j} \\  \dots \\
+\begin{bmatrix} u_{Nx, 1} \\ \dots\\  u_{N_x, N_y} \end{bmatrix}
+\end{bmatrix} ^{t}\]</span></p>
+<p><span class="math display">\[A =
+\begin{bmatrix}
+\begin{bmatrix}
+{\textcolor{red}{1}}   &amp; 0 &amp; 0  \\
+    0      &amp; {\textcolor{red}{1}} &amp; 0 \\
+    0      &amp; 0 &amp; {\textcolor{red}{1}}
+\end{bmatrix} &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; \begin{bmatrix}
+{\textcolor{red}{1}}   &amp; 0 &amp; 0  &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+   \beta &amp;  \dots &amp;  \alpha     &amp; {\gamma} &amp; \alpha &amp; \dots &amp; \beta \\
+    0      &amp; 0 &amp; 0      &amp; 0 &amp;0      &amp; 0 &amp; {\textcolor{red}{1}}
+\end{bmatrix} &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; \begin{bmatrix}
+{\textcolor{red}{1}}   &amp; 0 &amp; 0  &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+   \beta &amp;  \dots &amp;  \alpha     &amp; {\gamma} &amp; \alpha &amp; \dots &amp; \beta \\
+    0      &amp; 0 &amp; 0      &amp; 0 &amp;0      &amp; 0 &amp; {\textcolor{red}{1}}
+\end{bmatrix} &amp; 0  \\
+0 &amp; 0 &amp; 0 &amp; \begin{bmatrix}
+{\textcolor{red}{1}}   &amp; 0 &amp; 0  \\
+   0     &amp; {\textcolor{red}{1}} &amp; 0 \\
+    0      &amp; 0 &amp; {\textcolor{red}{1}}
+\end{bmatrix} \\
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[b=
+\begin{bmatrix}
+[U_{1}]_{N_y*1} \\
+\begin{bmatrix} U_2 \\ u_{2,1}   \\\dots \\  U_3 \end{bmatrix}_{N_y*1} \\
+\begin{bmatrix} U_2 \\ u_{i,j}   \\\dots \\  U_3 \end{bmatrix}_{N_y*1} \\
+[U_{4}]_{N_y*1}
+\end{bmatrix} ^{t-1}\]</span></p>
+<div id="编程求解-1" class="section level3 hasAnchor" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> 编程求解<a href="fdm.html#编程求解-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>显式求解</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fdm.html#cb25-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Confined Aquifer</span></span>
+<span id="cb25-2"><a href="fdm.html#cb25-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = DDx * (dd u / d x^2) + DDy * (dd u / d y^2)</span></span>
+<span id="cb25-3"><a href="fdm.html#cb25-3" tabindex="-1"></a><span class="co">#&#39;  </span></span>
+<span id="cb25-4"><a href="fdm.html#cb25-4" tabindex="-1"></a>diag.matrix <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(id)), <span class="at">n =</span> <span class="dv">3</span>, <span class="at">def.val =</span> <span class="dv">0</span>){</span>
+<span id="cb25-5"><a href="fdm.html#cb25-5" tabindex="-1"></a>  val <span class="ot">=</span> <span class="fu">matrix</span>(x, <span class="at">ncol=</span><span class="fu">length</span>(id), <span class="at">nrow=</span><span class="dv">1</span>)</span>
+<span id="cb25-6"><a href="fdm.html#cb25-6" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(def.val, n, n)</span>
+<span id="cb25-7"><a href="fdm.html#cb25-7" tabindex="-1"></a>  nid <span class="ot">=</span> <span class="fu">length</span>(id)</span>
+<span id="cb25-8"><a href="fdm.html#cb25-8" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb25-9"><a href="fdm.html#cb25-9" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb25-10"><a href="fdm.html#cb25-10" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nid){</span>
+<span id="cb25-11"><a href="fdm.html#cb25-11" tabindex="-1"></a>        <span class="cf">if</span>(i <span class="sc">+</span> id[k] <span class="sc">==</span> j){</span>
+<span id="cb25-12"><a href="fdm.html#cb25-12" tabindex="-1"></a>          mat[i,j] <span class="ot">=</span> val[k]</span>
+<span id="cb25-13"><a href="fdm.html#cb25-13" tabindex="-1"></a>        }</span>
+<span id="cb25-14"><a href="fdm.html#cb25-14" tabindex="-1"></a>      }</span>
+<span id="cb25-15"><a href="fdm.html#cb25-15" tabindex="-1"></a>    }</span>
+<span id="cb25-16"><a href="fdm.html#cb25-16" tabindex="-1"></a>  }</span>
+<span id="cb25-17"><a href="fdm.html#cb25-17" tabindex="-1"></a>  mat</span>
+<span id="cb25-18"><a href="fdm.html#cb25-18" tabindex="-1"></a>}</span>
+<span id="cb25-19"><a href="fdm.html#cb25-19" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="fdm.html#cb25-20" tabindex="-1"></a>toBC <span class="ot">&lt;-</span> <span class="cf">function</span>(idl, x, val){</span>
+<span id="cb25-21"><a href="fdm.html#cb25-21" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb25-22"><a href="fdm.html#cb25-22" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbc){</span>
+<span id="cb25-23"><a href="fdm.html#cb25-23" tabindex="-1"></a>    x[idl[[i]]] <span class="ot">=</span> val[i]</span>
+<span id="cb25-24"><a href="fdm.html#cb25-24" tabindex="-1"></a>  }</span>
+<span id="cb25-25"><a href="fdm.html#cb25-25" tabindex="-1"></a>  x</span>
+<span id="cb25-26"><a href="fdm.html#cb25-26" tabindex="-1"></a>}</span>
+<span id="cb25-27"><a href="fdm.html#cb25-27" tabindex="-1"></a></span>
+<span id="cb25-28"><a href="fdm.html#cb25-28" tabindex="-1"></a>CA.Explicit <span class="ot">&lt;-</span> <span class="cf">function</span>(  <span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb25-29"><a href="fdm.html#cb25-29" tabindex="-1"></a>                          <span class="at">bc2 =</span> <span class="cn">NULL</span>,</span>
+<span id="cb25-30"><a href="fdm.html#cb25-30" tabindex="-1"></a>                          <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb25-31"><a href="fdm.html#cb25-31" tabindex="-1"></a>                          <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb25-32"><a href="fdm.html#cb25-32" tabindex="-1"></a>                          <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
+<span id="cb25-33"><a href="fdm.html#cb25-33" tabindex="-1"></a>                          <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
+<span id="cb25-34"><a href="fdm.html#cb25-34" tabindex="-1"></a>                          <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
+<span id="cb25-35"><a href="fdm.html#cb25-35" tabindex="-1"></a>                          <span class="at">DT =</span> <span class="dv">25</span>,</span>
+<span id="cb25-36"><a href="fdm.html#cb25-36" tabindex="-1"></a>                          <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
+<span id="cb25-37"><a href="fdm.html#cb25-37" tabindex="-1"></a>                          <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>){</span>
+<span id="cb25-38"><a href="fdm.html#cb25-38" tabindex="-1"></a>  DX<span class="ot">=</span>Dxy[<span class="dv">1</span>]; DY<span class="ot">=</span>Dxy[<span class="dv">2</span>];</span>
+<span id="cb25-39"><a href="fdm.html#cb25-39" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Tmax, DT); </span>
+<span id="cb25-40"><a href="fdm.html#cb25-40" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
+<span id="cb25-41"><a href="fdm.html#cb25-41" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">1</span>], DX); NX <span class="ot">=</span> <span class="fu">length</span>(xx)</span>
+<span id="cb25-42"><a href="fdm.html#cb25-42" tabindex="-1"></a>  yy <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">2</span>], DY); NY <span class="ot">=</span> <span class="fu">length</span>(yy)</span>
+<span id="cb25-43"><a href="fdm.html#cb25-43" tabindex="-1"></a>  <span class="co"># NX = Lxy[1] / DX + 1;   NY = Lxy[2] / DY + 1</span></span>
+<span id="cb25-44"><a href="fdm.html#cb25-44" tabindex="-1"></a>  N <span class="ot">=</span> NX <span class="sc">*</span> NY</span>
+<span id="cb25-45"><a href="fdm.html#cb25-45" tabindex="-1"></a>  CFL.x <span class="ot">=</span> alpha <span class="ot">=</span> DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb25-46"><a href="fdm.html#cb25-46" tabindex="-1"></a>  CFL.y <span class="ot">=</span> beta  <span class="ot">=</span> DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb25-47"><a href="fdm.html#cb25-47" tabindex="-1"></a>  gamma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> alpha <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> beta</span>
+<span id="cb25-48"><a href="fdm.html#cb25-48" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;CFL value = (&#39;</span>, CFL.x, <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, CFL.y, <span class="st">&#39;)&#39;</span>)  </span>
+<span id="cb25-49"><a href="fdm.html#cb25-49" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
+<span id="cb25-50"><a href="fdm.html#cb25-50" tabindex="-1"></a>    <span class="cf">if</span>(CFL.x <span class="sc">&gt;=</span>.<span class="dv">5</span> <span class="sc">|</span> CFL.y <span class="sc">&gt;=</span>.<span class="dv">5</span>){</span>
+<span id="cb25-51"><a href="fdm.html#cb25-51" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
+<span id="cb25-52"><a href="fdm.html#cb25-52" tabindex="-1"></a>    }</span>
+<span id="cb25-53"><a href="fdm.html#cb25-53" tabindex="-1"></a>  }</span>
+<span id="cb25-54"><a href="fdm.html#cb25-54" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span>NY, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, NY), <span class="at">n=</span>N,</span>
+<span id="cb25-55"><a href="fdm.html#cb25-55" tabindex="-1"></a>                    <span class="at">x=</span><span class="fu">c</span>(alpha, beta, gamma, beta, alpha), <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb25-56"><a href="fdm.html#cb25-56" tabindex="-1"></a>  dmat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id=</span><span class="dv">0</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">n=</span>N, <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb25-57"><a href="fdm.html#cb25-57" tabindex="-1"></a>  idl <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span>NY,</span>
+<span id="cb25-58"><a href="fdm.html#cb25-58" tabindex="-1"></a>             <span class="dv">1</span><span class="sc">+</span>(<span class="dv">1</span><span class="sc">:</span>NX <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(NY),</span>
+<span id="cb25-59"><a href="fdm.html#cb25-59" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">:</span>NX) <span class="sc">*</span> NY,</span>
+<span id="cb25-60"><a href="fdm.html#cb25-60" tabindex="-1"></a>             (NX<span class="dv">-1</span>)<span class="sc">*</span>(NY)<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span>NY) </span>
+<span id="cb25-61"><a href="fdm.html#cb25-61" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb25-62"><a href="fdm.html#cb25-62" tabindex="-1"></a>  id.bc <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">unlist</span>(idl)))</span>
+<span id="cb25-63"><a href="fdm.html#cb25-63" tabindex="-1"></a>  mat[id.bc, ] <span class="ot">=</span> dmat[id.bc,]</span>
+<span id="cb25-64"><a href="fdm.html#cb25-64" tabindex="-1"></a>  </span>
+<span id="cb25-65"><a href="fdm.html#cb25-65" tabindex="-1"></a>  arr <span class="ot">=</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim=</span><span class="fu">c</span>(NY,NX,NT))</span>
+<span id="cb25-66"><a href="fdm.html#cb25-66" tabindex="-1"></a>  <span class="co"># xm = matrix(NA, nrow=N, ncol=NT)</span></span>
+<span id="cb25-67"><a href="fdm.html#cb25-67" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, N))</span>
+<span id="cb25-68"><a href="fdm.html#cb25-68" tabindex="-1"></a>  <span class="co"># bc2=list(id=10, x=0.01)</span></span>
+<span id="cb25-69"><a href="fdm.html#cb25-69" tabindex="-1"></a>  <span class="co"># vs[bc2$id] = bc2$x</span></span>
+<span id="cb25-70"><a href="fdm.html#cb25-70" tabindex="-1"></a>  </span>
+<span id="cb25-71"><a href="fdm.html#cb25-71" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(uic, N))</span>
+<span id="cb25-72"><a href="fdm.html#cb25-72" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>b, <span class="at">val=</span>bc1)</span>
+<span id="cb25-73"><a href="fdm.html#cb25-73" tabindex="-1"></a>  </span>
+<span id="cb25-74"><a href="fdm.html#cb25-74" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb25-75"><a href="fdm.html#cb25-75" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb25-76"><a href="fdm.html#cb25-76" tabindex="-1"></a>      bx <span class="ot">=</span> mat <span class="sc">%*%</span> b <span class="sc">+</span> vs <span class="sc">*</span> DT</span>
+<span id="cb25-77"><a href="fdm.html#cb25-77" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb25-78"><a href="fdm.html#cb25-78" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb25-79"><a href="fdm.html#cb25-79" tabindex="-1"></a>    }</span>
+<span id="cb25-80"><a href="fdm.html#cb25-80" tabindex="-1"></a>    bx <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>bx, <span class="at">val=</span>bc1)</span>
+<span id="cb25-81"><a href="fdm.html#cb25-81" tabindex="-1"></a>    arr[, , i] <span class="ot">=</span> <span class="fu">matrix</span>(bx, <span class="at">nrow =</span> NY, <span class="at">ncol =</span> NX)</span>
+<span id="cb25-82"><a href="fdm.html#cb25-82" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb25-83"><a href="fdm.html#cb25-83" tabindex="-1"></a>  }</span>
+<span id="cb25-84"><a href="fdm.html#cb25-84" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb25-85"><a href="fdm.html#cb25-85" tabindex="-1"></a>  arr<span class="ot">=</span>arr[,, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb25-86"><a href="fdm.html#cb25-86" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb25-87"><a href="fdm.html#cb25-87" tabindex="-1"></a>  <span class="co"># yy = arr; yy[abs(yy)&gt;1e20] = NA</span></span>
+<span id="cb25-88"><a href="fdm.html#cb25-88" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx,</span>
+<span id="cb25-89"><a href="fdm.html#cb25-89" tabindex="-1"></a>             <span class="st">&#39;y&#39;</span> <span class="ot">=</span> yy,</span>
+<span id="cb25-90"><a href="fdm.html#cb25-90" tabindex="-1"></a>             <span class="st">&#39;z&#39;</span> <span class="ot">=</span> arr,</span>
+<span id="cb25-91"><a href="fdm.html#cb25-91" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb25-92"><a href="fdm.html#cb25-92" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(CFL.x, CFL.y),</span>
+<span id="cb25-93"><a href="fdm.html#cb25-93" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb25-94"><a href="fdm.html#cb25-94" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT</span>
+<span id="cb25-95"><a href="fdm.html#cb25-95" tabindex="-1"></a>  )</span>
+<span id="cb25-96"><a href="fdm.html#cb25-96" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb25-97"><a href="fdm.html#cb25-97" tabindex="-1"></a>}</span>
+<span id="cb25-98"><a href="fdm.html#cb25-98" tabindex="-1"></a>plot<span class="fl">.3</span>d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nr=</span><span class="dv">3</span>, <span class="at">nc=</span><span class="dv">4</span>, <span class="at">clim=</span><span class="cn">NULL</span>){</span>
+<span id="cb25-99"><a href="fdm.html#cb25-99" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(nr, nc), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb25-100"><a href="fdm.html#cb25-100" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nc<span class="sc">*</span>nr))</span>
+<span id="cb25-101"><a href="fdm.html#cb25-101" tabindex="-1"></a>  z<span class="ot">=</span>x<span class="sc">$</span>z; </span>
+<span id="cb25-102"><a href="fdm.html#cb25-102" tabindex="-1"></a>  z[ <span class="fu">is.infinite</span>(<span class="fu">abs</span>(z)) ] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb25-103"><a href="fdm.html#cb25-103" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clim)){</span>
+<span id="cb25-104"><a href="fdm.html#cb25-104" tabindex="-1"></a>    clim <span class="ot">=</span> <span class="fu">range</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-105"><a href="fdm.html#cb25-105" tabindex="-1"></a>  }</span>
+<span id="cb25-106"><a href="fdm.html#cb25-106" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> idx ){</span>
+<span id="cb25-107"><a href="fdm.html#cb25-107" tabindex="-1"></a>    plot3D<span class="sc">::</span><span class="fu">persp3D</span>(<span class="at">z=</span>z[, , i], <span class="at">clim=</span>clim,</span>
+<span id="cb25-108"><a href="fdm.html#cb25-108" tabindex="-1"></a>            <span class="at">colvar=</span>z[, , i])</span>
+<span id="cb25-109"><a href="fdm.html#cb25-109" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="fu">paste</span>(<span class="st">&#39;T =&#39;</span>, x<span class="sc">$</span>DT <span class="sc">*</span> i), <span class="at">side=</span> <span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb25-110"><a href="fdm.html#cb25-110" tabindex="-1"></a>  }</span>
+<span id="cb25-111"><a href="fdm.html#cb25-111" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>隐式求解</strong></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fdm.html#cb26-1" tabindex="-1"></a><span class="co">#&#39; Problem: 1D Confined Aquifer</span></span>
+<span id="cb26-2"><a href="fdm.html#cb26-2" tabindex="-1"></a><span class="co">#&#39;  governing Eqn: du/dt = DDx * (dd u / d x^2) + DDy * (dd u / d y^2)</span></span>
+<span id="cb26-3"><a href="fdm.html#cb26-3" tabindex="-1"></a><span class="co">#&#39;  </span></span>
+<span id="cb26-4"><a href="fdm.html#cb26-4" tabindex="-1"></a>diag.matrix <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(id)), <span class="at">n =</span> <span class="dv">3</span>, <span class="at">def.val =</span> <span class="dv">0</span>){</span>
+<span id="cb26-5"><a href="fdm.html#cb26-5" tabindex="-1"></a>  val <span class="ot">=</span> <span class="fu">matrix</span>(x, <span class="at">ncol=</span><span class="fu">length</span>(id), <span class="at">nrow=</span><span class="dv">1</span>)</span>
+<span id="cb26-6"><a href="fdm.html#cb26-6" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(def.val, n, n)</span>
+<span id="cb26-7"><a href="fdm.html#cb26-7" tabindex="-1"></a>  nid <span class="ot">=</span> <span class="fu">length</span>(id)</span>
+<span id="cb26-8"><a href="fdm.html#cb26-8" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb26-9"><a href="fdm.html#cb26-9" tabindex="-1"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n){</span>
+<span id="cb26-10"><a href="fdm.html#cb26-10" tabindex="-1"></a>      <span class="cf">for</span>(k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nid){</span>
+<span id="cb26-11"><a href="fdm.html#cb26-11" tabindex="-1"></a>        <span class="cf">if</span>(i <span class="sc">+</span> id[k] <span class="sc">==</span> j){</span>
+<span id="cb26-12"><a href="fdm.html#cb26-12" tabindex="-1"></a>          mat[i,j] <span class="ot">=</span> val[k]</span>
+<span id="cb26-13"><a href="fdm.html#cb26-13" tabindex="-1"></a>        }</span>
+<span id="cb26-14"><a href="fdm.html#cb26-14" tabindex="-1"></a>      }</span>
+<span id="cb26-15"><a href="fdm.html#cb26-15" tabindex="-1"></a>    }</span>
+<span id="cb26-16"><a href="fdm.html#cb26-16" tabindex="-1"></a>  }</span>
+<span id="cb26-17"><a href="fdm.html#cb26-17" tabindex="-1"></a>  mat</span>
+<span id="cb26-18"><a href="fdm.html#cb26-18" tabindex="-1"></a>}</span>
+<span id="cb26-19"><a href="fdm.html#cb26-19" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="fdm.html#cb26-20" tabindex="-1"></a>toBC <span class="ot">&lt;-</span> <span class="cf">function</span>(idl, x, val){</span>
+<span id="cb26-21"><a href="fdm.html#cb26-21" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb26-22"><a href="fdm.html#cb26-22" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nbc){</span>
+<span id="cb26-23"><a href="fdm.html#cb26-23" tabindex="-1"></a>    x[idl[[i]]] <span class="ot">=</span> val[i]</span>
+<span id="cb26-24"><a href="fdm.html#cb26-24" tabindex="-1"></a>  }</span>
+<span id="cb26-25"><a href="fdm.html#cb26-25" tabindex="-1"></a>  x</span>
+<span id="cb26-26"><a href="fdm.html#cb26-26" tabindex="-1"></a>}</span>
+<span id="cb26-27"><a href="fdm.html#cb26-27" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="fdm.html#cb26-28" tabindex="-1"></a>CA.Implicit <span class="ot">&lt;-</span> <span class="cf">function</span>(  <span class="at">bc1 =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb26-29"><a href="fdm.html#cb26-29" tabindex="-1"></a>                          <span class="at">bc2 =</span> <span class="cn">NULL</span>,</span>
+<span id="cb26-30"><a href="fdm.html#cb26-30" tabindex="-1"></a>                          <span class="at">uic =</span> <span class="dv">25</span>,</span>
+<span id="cb26-31"><a href="fdm.html#cb26-31" tabindex="-1"></a>                          <span class="at">Lxy =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1000</span>),</span>
+<span id="cb26-32"><a href="fdm.html#cb26-32" tabindex="-1"></a>                          <span class="at">Dxy =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>),</span>
+<span id="cb26-33"><a href="fdm.html#cb26-33" tabindex="-1"></a>                          <span class="at">DD =</span> <span class="fu">rep</span>(<span class="dv">23</span> ,<span class="dv">2</span>),</span>
+<span id="cb26-34"><a href="fdm.html#cb26-34" tabindex="-1"></a>                          <span class="at">epsilon =</span> <span class="fl">0.001</span>,</span>
+<span id="cb26-35"><a href="fdm.html#cb26-35" tabindex="-1"></a>                          <span class="at">DT =</span> <span class="dv">25</span>,</span>
+<span id="cb26-36"><a href="fdm.html#cb26-36" tabindex="-1"></a>                          <span class="at">Tmax =</span> <span class="fl">1e5</span>,</span>
+<span id="cb26-37"><a href="fdm.html#cb26-37" tabindex="-1"></a>                          <span class="at">ignore.cfl =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">TRUE</span>){</span>
+<span id="cb26-38"><a href="fdm.html#cb26-38" tabindex="-1"></a>  DX<span class="ot">=</span>Dxy[<span class="dv">1</span>]; DY<span class="ot">=</span>Dxy[<span class="dv">2</span>];</span>
+<span id="cb26-39"><a href="fdm.html#cb26-39" tabindex="-1"></a>  tt <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Tmax, DT); </span>
+<span id="cb26-40"><a href="fdm.html#cb26-40" tabindex="-1"></a>  NT <span class="ot">=</span> <span class="fu">length</span>(tt)</span>
+<span id="cb26-41"><a href="fdm.html#cb26-41" tabindex="-1"></a>  xx <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">1</span>], DX); NX <span class="ot">=</span> <span class="fu">length</span>(xx)</span>
+<span id="cb26-42"><a href="fdm.html#cb26-42" tabindex="-1"></a>  yy <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, Lxy[<span class="dv">2</span>], DY); NY <span class="ot">=</span> <span class="fu">length</span>(yy)</span>
+<span id="cb26-43"><a href="fdm.html#cb26-43" tabindex="-1"></a>  <span class="co"># NX = Lxy[1] / DX + 1;   NY = Lxy[2] / DY + 1</span></span>
+<span id="cb26-44"><a href="fdm.html#cb26-44" tabindex="-1"></a>  N <span class="ot">=</span> NX <span class="sc">*</span> NY</span>
+<span id="cb26-45"><a href="fdm.html#cb26-45" tabindex="-1"></a>  alpha <span class="ot">=</span> <span class="sc">-</span>DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb26-46"><a href="fdm.html#cb26-46" tabindex="-1"></a>  beta  <span class="ot">=</span> <span class="sc">-</span>DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb26-47"><a href="fdm.html#cb26-47" tabindex="-1"></a>  CFL.x <span class="ot">=</span>  DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX)</span>
+<span id="cb26-48"><a href="fdm.html#cb26-48" tabindex="-1"></a>  CFL.y <span class="ot">=</span>  DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb26-49"><a href="fdm.html#cb26-49" tabindex="-1"></a>  gamma <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD[<span class="dv">1</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DX <span class="sc">*</span> DX) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> DD[<span class="dv">2</span>]  <span class="sc">*</span> DT <span class="sc">/</span> (DY <span class="sc">*</span> DY)</span>
+<span id="cb26-50"><a href="fdm.html#cb26-50" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;CFL value = (&#39;</span>, CFL.x, <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, CFL.y, <span class="st">&#39;)&#39;</span>)  </span>
+<span id="cb26-51"><a href="fdm.html#cb26-51" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>ignore.cfl){</span>
+<span id="cb26-52"><a href="fdm.html#cb26-52" tabindex="-1"></a>    <span class="cf">if</span>(CFL.x <span class="sc">&gt;=</span>.<span class="dv">5</span> <span class="sc">|</span> CFL.y <span class="sc">&gt;=</span>.<span class="dv">5</span>){</span>
+<span id="cb26-53"><a href="fdm.html#cb26-53" tabindex="-1"></a>      <span class="fu">stop</span>()</span>
+<span id="cb26-54"><a href="fdm.html#cb26-54" tabindex="-1"></a>    }</span>
+<span id="cb26-55"><a href="fdm.html#cb26-55" tabindex="-1"></a>  }</span>
+<span id="cb26-56"><a href="fdm.html#cb26-56" tabindex="-1"></a>  <span class="co">#&#39; =========================================</span></span>
+<span id="cb26-57"><a href="fdm.html#cb26-57" tabindex="-1"></a>  x0 <span class="ot">=</span> <span class="fu">rep</span>(uic, NX)</span>
+<span id="cb26-58"><a href="fdm.html#cb26-58" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="sc">-</span>NY, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, NY), <span class="at">n=</span>N,</span>
+<span id="cb26-59"><a href="fdm.html#cb26-59" tabindex="-1"></a>                    <span class="at">x=</span><span class="fu">c</span>(alpha, beta, gamma, beta, alpha), <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb26-60"><a href="fdm.html#cb26-60" tabindex="-1"></a>  dmat <span class="ot">=</span> <span class="fu">diag.matrix</span>(<span class="at">id=</span><span class="dv">0</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">n=</span>N, <span class="at">def.val =</span> <span class="dv">0</span>)</span>
+<span id="cb26-61"><a href="fdm.html#cb26-61" tabindex="-1"></a>  idl <span class="ot">=</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span>NY,</span>
+<span id="cb26-62"><a href="fdm.html#cb26-62" tabindex="-1"></a>             <span class="dv">1</span><span class="sc">+</span>(<span class="dv">1</span><span class="sc">:</span>NX <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(NY),</span>
+<span id="cb26-63"><a href="fdm.html#cb26-63" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">:</span>NX) <span class="sc">*</span> NY,</span>
+<span id="cb26-64"><a href="fdm.html#cb26-64" tabindex="-1"></a>             (NX<span class="dv">-1</span>)<span class="sc">*</span>(NY)<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span>NY) </span>
+<span id="cb26-65"><a href="fdm.html#cb26-65" tabindex="-1"></a>  nbc <span class="ot">=</span> <span class="fu">length</span>(idl)</span>
+<span id="cb26-66"><a href="fdm.html#cb26-66" tabindex="-1"></a>  id.bc <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">unlist</span>(idl)))</span>
+<span id="cb26-67"><a href="fdm.html#cb26-67" tabindex="-1"></a>  mat[id.bc, ] <span class="ot">=</span> dmat[id.bc,]</span>
+<span id="cb26-68"><a href="fdm.html#cb26-68" tabindex="-1"></a>  </span>
+<span id="cb26-69"><a href="fdm.html#cb26-69" tabindex="-1"></a>  arr <span class="ot">=</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="at">dim=</span><span class="fu">c</span>(NY,NX,NT))</span>
+<span id="cb26-70"><a href="fdm.html#cb26-70" tabindex="-1"></a>  vs <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">0</span>, N))</span>
+<span id="cb26-71"><a href="fdm.html#cb26-71" tabindex="-1"></a>  b<span class="ot">=</span>bx<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(uic, N))</span>
+<span id="cb26-72"><a href="fdm.html#cb26-72" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>b, <span class="at">val=</span>bc1)</span>
+<span id="cb26-73"><a href="fdm.html#cb26-73" tabindex="-1"></a>  </span>
+<span id="cb26-74"><a href="fdm.html#cb26-74" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NT){</span>
+<span id="cb26-75"><a href="fdm.html#cb26-75" tabindex="-1"></a>    <span class="cf">if</span>(i<span class="sc">&gt;</span><span class="dv">1</span>){</span>
+<span id="cb26-76"><a href="fdm.html#cb26-76" tabindex="-1"></a>      bx <span class="ot">=</span> <span class="fu">solve</span>(mat, b <span class="sc">+</span> vs <span class="sc">*</span> DT)</span>
+<span id="cb26-77"><a href="fdm.html#cb26-77" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(<span class="fu">is.nan</span>(bx))) { <span class="cf">break</span> }</span>
+<span id="cb26-78"><a href="fdm.html#cb26-78" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">mean</span>(<span class="fu">abs</span>(b<span class="sc">-</span>bx)) <span class="sc">&lt;</span> epsilon) { <span class="cf">break</span> }</span>
+<span id="cb26-79"><a href="fdm.html#cb26-79" tabindex="-1"></a>    }</span>
+<span id="cb26-80"><a href="fdm.html#cb26-80" tabindex="-1"></a>    bx <span class="ot">=</span> <span class="fu">toBC</span>(<span class="at">idl =</span> idl, <span class="at">x=</span>bx, <span class="at">val=</span>bc1)</span>
+<span id="cb26-81"><a href="fdm.html#cb26-81" tabindex="-1"></a>    arr[, , i] <span class="ot">=</span> <span class="fu">matrix</span>(bx, <span class="at">nrow =</span> NY, <span class="at">ncol =</span> NX)</span>
+<span id="cb26-82"><a href="fdm.html#cb26-82" tabindex="-1"></a>    b <span class="ot">=</span> bx</span>
+<span id="cb26-83"><a href="fdm.html#cb26-83" tabindex="-1"></a>  }</span>
+<span id="cb26-84"><a href="fdm.html#cb26-84" tabindex="-1"></a>  NT <span class="ot">=</span> i</span>
+<span id="cb26-85"><a href="fdm.html#cb26-85" tabindex="-1"></a>  arr<span class="ot">=</span>arr[,, <span class="dv">1</span><span class="sc">:</span>NT]</span>
+<span id="cb26-86"><a href="fdm.html#cb26-86" tabindex="-1"></a>  <span class="co"># message(&#39;Total Timesteps (dt * nt)= &#39;, DT, &#39; * &#39;, NT)</span></span>
+<span id="cb26-87"><a href="fdm.html#cb26-87" tabindex="-1"></a>  <span class="co"># yy = arr; yy[abs(yy)&gt;1e20] = NA</span></span>
+<span id="cb26-88"><a href="fdm.html#cb26-88" tabindex="-1"></a>  ret <span class="ot">=</span> <span class="fu">list</span>(<span class="st">&#39;x&#39;</span> <span class="ot">=</span> xx,</span>
+<span id="cb26-89"><a href="fdm.html#cb26-89" tabindex="-1"></a>             <span class="st">&#39;y&#39;</span> <span class="ot">=</span> yy,</span>
+<span id="cb26-90"><a href="fdm.html#cb26-90" tabindex="-1"></a>             <span class="st">&#39;z&#39;</span> <span class="ot">=</span> arr,</span>
+<span id="cb26-91"><a href="fdm.html#cb26-91" tabindex="-1"></a>             <span class="st">&#39;time&#39;</span> <span class="ot">=</span> tt,</span>
+<span id="cb26-92"><a href="fdm.html#cb26-92" tabindex="-1"></a>             <span class="st">&#39;CFL&#39;</span> <span class="ot">=</span> <span class="fu">c</span>(CFL.x, CFL.y),</span>
+<span id="cb26-93"><a href="fdm.html#cb26-93" tabindex="-1"></a>             <span class="st">&#39;DT&#39;</span> <span class="ot">=</span> DT,</span>
+<span id="cb26-94"><a href="fdm.html#cb26-94" tabindex="-1"></a>             <span class="st">&#39;NT&#39;</span> <span class="ot">=</span> NT</span>
+<span id="cb26-95"><a href="fdm.html#cb26-95" tabindex="-1"></a>  )</span>
+<span id="cb26-96"><a href="fdm.html#cb26-96" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb26-97"><a href="fdm.html#cb26-97" tabindex="-1"></a>}</span>
+<span id="cb26-98"><a href="fdm.html#cb26-98" tabindex="-1"></a>plot<span class="fl">.3</span>d <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">nr=</span><span class="dv">3</span>, <span class="at">nc=</span><span class="dv">4</span>, <span class="at">clim=</span><span class="cn">NULL</span>){</span>
+<span id="cb26-99"><a href="fdm.html#cb26-99" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(nr, nc), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb26-100"><a href="fdm.html#cb26-100" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">log10</span>(x<span class="sc">$</span>NT), <span class="at">length.out =</span> nc<span class="sc">*</span>nr))</span>
+<span id="cb26-101"><a href="fdm.html#cb26-101" tabindex="-1"></a>  z<span class="ot">=</span>x<span class="sc">$</span>z; </span>
+<span id="cb26-102"><a href="fdm.html#cb26-102" tabindex="-1"></a>  z[ <span class="fu">is.infinite</span>(<span class="fu">abs</span>(z)) ] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb26-103"><a href="fdm.html#cb26-103" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(clim)){</span>
+<span id="cb26-104"><a href="fdm.html#cb26-104" tabindex="-1"></a>    clim <span class="ot">=</span> <span class="fu">range</span>(z, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-105"><a href="fdm.html#cb26-105" tabindex="-1"></a>  }</span>
+<span id="cb26-106"><a href="fdm.html#cb26-106" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> idx ){</span>
+<span id="cb26-107"><a href="fdm.html#cb26-107" tabindex="-1"></a>    plot3D<span class="sc">::</span><span class="fu">persp3D</span>(<span class="at">z=</span>z[, , i], <span class="at">clim=</span>clim,</span>
+<span id="cb26-108"><a href="fdm.html#cb26-108" tabindex="-1"></a>            <span class="at">colvar=</span>z[, , i])</span>
+<span id="cb26-109"><a href="fdm.html#cb26-109" tabindex="-1"></a>    <span class="fu">mtext</span>(<span class="fu">paste</span>(<span class="st">&#39;T =&#39;</span>, x<span class="sc">$</span>DT <span class="sc">*</span> i), <span class="at">side=</span> <span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb26-110"><a href="fdm.html#cb26-110" tabindex="-1"></a>  }</span>
+<span id="cb26-111"><a href="fdm.html#cb26-111" tabindex="-1"></a>}</span></code></pre></div>
+<p>对比隐式与显式求解法的时间步长和效率：</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fem.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["数值地球.pdf", "数值地球.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 空间分析与可视化 | R在地球科学中的应用</title>
+  <meta name="description" content="Chapter 4 空间分析与可视化 | R在地球科学中的应用，包含基础数据处理、地学数据获取、时间序列分析、空间数据分析、二维/三维数据可视化，以及入门的数据挖掘问题" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 空间分析与可视化 | R在地球科学中的应用" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="shud.xyz/bookr//Fig/fig4.png" />
+  <meta property="og:description" content="Chapter 4 空间分析与可视化 | R在地球科学中的应用，包含基础数据处理、地学数据获取、时间序列分析、空间数据分析、二维/三维数据可视化，以及入门的数据挖掘问题" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 空间分析与可视化 | R在地球科学中的应用" />
+  
+  <meta name="twitter:description" content="Chapter 4 空间分析与可视化 | R在地球科学中的应用，包含基础数据处理、地学数据获取、时间序列分析、空间数据分析、二维/三维数据可视化，以及入门的数据挖掘问题" />
+  <meta name="twitter:image" content="shud.xyz/bookr//Fig/fig4.png" />
+
+<meta name="author" content="舒乐乐，孟宪红，陈昊，李照国，赵林。 中国科学院西北生态环境资源研究院" />
+
+
+<meta name="date" content="2023-03-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tsd.html"/>
+<link rel="next" href="ai.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R in Geoscience</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#index" id="toc-index">前言</a>
+<ul>
+<li><a href="index.html#资源" id="toc-资源">资源</a></li>
+<li><a href="index.html#r能干什么" id="toc-r能干什么">R能干什么？</a>
+<ul>
+<li><a href="index.html#时间序列分析" id="toc-时间序列分析">时间序列分析</a></li>
+<li><a href="index.html#地理数据处理" id="toc-地理数据处理">地理数据处理</a></li>
+<li><a href="index.html#爬取网上公开数据" id="toc-爬取网上公开数据">爬取网上公开数据</a></li>
+<li><a href="index.html#计算与绘图" id="toc-计算与绘图">计算与绘图</a></li>
+<li><a href="index.html#动画视频" id="toc-动画视频">动画视频</a></li>
+<li><a href="index.html#写书" id="toc-写书">写书</a></li>
+<li><a href="index.html#小程序" id="toc-小程序">小程序</a></li>
+<li><a href="index.html#构建个人网站" id="toc-构建个人网站">构建个人网站</a></li>
+</ul></li>
+</ul></li>
+<li><a href="intro.html#intro" id="toc-intro"><span class="toc-section-number">1</span> R语言介绍</a>
+<ul>
+<li><a href="intro.html#安装r环境" id="toc-安装r环境"><span class="toc-section-number">1.1</span> 安装R环境</a></li>
+<li><a href="intro.html#安装r扩展包" id="toc-安装r扩展包"><span class="toc-section-number">1.2</span> 安装R扩展包</a></li>
+<li><a href="intro.html#运行环境" id="toc-运行环境"><span class="toc-section-number">1.3</span> 运行环境</a></li>
+<li><a href="intro.html#如何寻求帮助" id="toc-如何寻求帮助"><span class="toc-section-number">1.4</span> 如何寻求帮助</a></li>
+</ul></li>
+<li><a href="basic.html#basic" id="toc-basic"><span class="toc-section-number">2</span> R基础知识</a>
+<ul>
+<li><a href="basic.html#编程基础语法" id="toc-编程基础语法"><span class="toc-section-number">2.1</span> 编程基础语法</a>
+<ul>
+<li><a href="basic.html#函数定义" id="toc-函数定义"><span class="toc-section-number">2.1.1</span> 函数定义</a></li>
+<li><a href="basic.html#文件管理" id="toc-文件管理"><span class="toc-section-number">2.1.2</span> 文件管理</a></li>
+</ul></li>
+<li><a href="basic.html#数据类型与结构" id="toc-数据类型与结构"><span class="toc-section-number">2.2</span> 数据类型与结构</a></li>
+<li><a href="basic.html#可视化" id="toc-可视化"><span class="toc-section-number">2.3</span> 可视化</a></li>
+<li><a href="basic.html#三维可视化" id="toc-三维可视化"><span class="toc-section-number">2.4</span> 三维可视化</a></li>
+</ul></li>
+<li><a href="tsd.html#tsd" id="toc-tsd"><span class="toc-section-number">3</span> 时间序列分析</a></li>
+<li><a href="spatial.html#spatial" id="toc-spatial"><span class="toc-section-number">4</span> 空间分析与可视化</a>
+<ul>
+<li><a href="spatial.html#矢量数据" id="toc-矢量数据"><span class="toc-section-number">4.1</span> 矢量数据</a></li>
+<li><a href="spatial.html#栅格数据" id="toc-栅格数据"><span class="toc-section-number">4.2</span> 栅格数据</a></li>
+<li><a href="spatial.html#可视化-1" id="toc-可视化-1"><span class="toc-section-number">4.3</span> 可视化</a></li>
+<li><a href="spatial.html#三维可视化-1" id="toc-三维可视化-1"><span class="toc-section-number">4.4</span> 三维可视化</a></li>
+</ul></li>
+<li><a href="ai.html#ai" id="toc-ai"><span class="toc-section-number">5</span> 机器学习</a>
+<ul>
+<li><a href="ai.html#可用数据集" id="toc-可用数据集"><span class="toc-section-number">5.1</span> 可用数据集</a></li>
+<li><a href="ai.html#非监督分类" id="toc-非监督分类"><span class="toc-section-number">5.2</span> 非监督分类</a>
+<ul>
+<li><a href="ai.html#principal-component-analysis-pca" id="toc-principal-component-analysis-pca"><span class="toc-section-number">5.2.1</span> Principal component analysis (PCA)</a></li>
+<li><a href="ai.html#k-means聚类" id="toc-k-means聚类"><span class="toc-section-number">5.2.2</span> k-means聚类</a></li>
+<li><a href="ai.html#分层聚类hierarchical-clsutering" id="toc-分层聚类hierarchical-clsutering"><span class="toc-section-number">5.2.3</span> 分层聚类(Hierarchical clsutering)</a></li>
+</ul></li>
+<li><a href="ai.html#监督分类" id="toc-监督分类"><span class="toc-section-number">5.3</span> 监督分类</a>
+<ul>
+<li><a href="ai.html#knn分类k-nearest-neighbour-classification" id="toc-knn分类k-nearest-neighbour-classification"><span class="toc-section-number">5.3.1</span> KNN分类(k-nearest neighbour classification)</a></li>
+<li><a href="ai.html#决策树decision-trees" id="toc-决策树decision-trees"><span class="toc-section-number">5.3.2</span> 决策树(Decision trees)</a></li>
+<li><a href="ai.html#支持向量机svm" id="toc-支持向量机svm"><span class="toc-section-number">5.3.3</span> 支持向量机(SVM)</a></li>
+<li><a href="ai.html#随机森林random-forest" id="toc-随机森林random-forest"><span class="toc-section-number">5.3.4</span> 随机森林(Random Forest)</a></li>
+</ul></li>
+<li><a href="ai.html#深度学习deep-learning" id="toc-深度学习deep-learning"><span class="toc-section-number">5.4</span> 深度学习(Deep Learning)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="www.shud.xyz" target="blank">www.shud.xyz</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R在地球科学中的应用</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 空间分析与可视化<a href="spatial.html#spatial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="Fig/ch4/vector.png" alt="矢量数据" />
+<a href="https://nceas.github.io/oss-lessons/spatial-data-gis-law/3-mon-intro-gis-in-r.html" class="uri">https://nceas.github.io/oss-lessons/spatial-data-gis-law/3-mon-intro-gis-in-r.html</a></p>
+<p><img src="Fig/ch4/raster.png" alt="栅格数据" />
+<a href="https://desktop.arcgis.com/zh-cn/arcmap/10.3/manage-data/raster-and-images/what-is-raster-data.htm" class="uri">https://desktop.arcgis.com/zh-cn/arcmap/10.3/manage-data/raster-and-images/what-is-raster-data.htm</a></p>
+<p>基本数据类型：矢量与栅格。</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">矢量数据</th>
+<th align="center">栅格数据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">数据存储量小</td>
+<td align="center">数据存储量大</td>
+</tr>
+<tr class="even">
+<td align="center">空间位置精度高</td>
+<td align="center">空间位置精度低</td>
+</tr>
+<tr class="odd">
+<td align="center">用网络连接法能完整描述拓扑关系</td>
+<td align="center">难于建立网络连接关系</td>
+</tr>
+<tr class="even">
+<td align="center">输出简单容易，绘图细腻、精确、美观</td>
+<td align="center">输出速度快，但绘图粗糙、不美观</td>
+</tr>
+<tr class="odd">
+<td align="center">可对图形及其属性进行检索、更新和综合</td>
+<td align="center">便于面状数据处</td>
+</tr>
+<tr class="even">
+<td align="center">数据结构复杂</td>
+<td align="center">数据结构简单</td>
+</tr>
+<tr class="odd">
+<td align="center">获取数据慢</td>
+<td align="center">快速获取大量数据</td>
+</tr>
+<tr class="even">
+<td align="center">数学模拟困难</td>
+<td align="center">数学模拟方便</td>
+</tr>
+<tr class="odd">
+<td align="center">多种地图叠合分析困难</td>
+<td align="center">多种地图叠合分析方便</td>
+</tr>
+<tr class="even">
+<td align="center">不能直接处理数字图像信息</td>
+<td align="center">能直接处理数字图像信息</td>
+</tr>
+<tr class="odd">
+<td align="center">空间分析不容易实现</td>
+<td align="center">空间分析易于进行</td>
+</tr>
+<tr class="even">
+<td align="center">边界复杂、模糊的事物难以描述</td>
+<td align="center">容易描述边界复杂、模糊的事物</td>
+</tr>
+<tr class="odd">
+<td align="center">数据输出的费用较高</td>
+<td align="center">技术开发费用低</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.osgeo.cn/gis-tutorial/ch02/02_5.html">矢量与栅格数据结构的比较</a></p>
+<div id="矢量数据" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 矢量数据<a href="spatial.html#矢量数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>加载需要的库</li>
+</ul>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="spatial.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)  <span class="co">#raster包用于绘图</span></span>
+<span id="cb43-2"><a href="spatial.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)  <span class="co">#sp包用于矢量数据操作</span></span>
+<span id="cb43-3"><a href="spatial.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)  <span class="co"># rgdal用于读写数据</span></span>
+<span id="cb43-4"><a href="spatial.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgeos)  <span class="co"># rgeos用于空间分析</span></span></code></pre></div>
+<ul>
+<li>由坐标产生数据</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="spatial.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb44-2"><a href="spatial.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># readWKT, 由坐标产生矢量文件</span></span>
+<span id="cb44-3"><a href="spatial.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb44-4"><a href="spatial.html#cb44-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb44-5"><a href="spatial.html#cb44-5" aria-hidden="true" tabindex="-1"></a>g[[<span class="dv">1</span>]]<span class="ot">=</span><span class="fu">readWKT</span>(<span class="st">&quot;POINT(6 10)&quot;</span>)</span>
+<span id="cb44-6"><a href="spatial.html#cb44-6" aria-hidden="true" tabindex="-1"></a>g[[<span class="dv">2</span>]]<span class="ot">=</span><span class="fu">readWKT</span>(<span class="st">&quot;LINESTRING(3 4,10 50,20 25)&quot;</span>)</span>
+<span id="cb44-7"><a href="spatial.html#cb44-7" aria-hidden="true" tabindex="-1"></a>g[[<span class="dv">3</span>]]<span class="ot">=</span><span class="fu">readWKT</span>(<span class="st">&quot;POLYGON((1 1,5 1,5 5,1 5,1 1),(2 2,2 3,3 3,3 2,2 2))&quot;</span>)</span>
+<span id="cb44-8"><a href="spatial.html#cb44-8" aria-hidden="true" tabindex="-1"></a>g[[<span class="dv">4</span>]]<span class="ot">=</span><span class="fu">readWKT</span>(<span class="st">&quot;MULTIPOINT((3.5 5.6),(4.8 10.5))&quot;</span>)</span>
+<span id="cb44-9"><a href="spatial.html#cb44-9" aria-hidden="true" tabindex="-1"></a>g[[<span class="dv">5</span>]]<span class="ot">=</span><span class="fu">readWKT</span>(<span class="st">&quot;MULTILINESTRING((3 4,10 50,20 25),(-5 -8,-10 -8,-15 -4))&quot;</span>)</span>
+<span id="cb44-10"><a href="spatial.html#cb44-10" aria-hidden="true" tabindex="-1"></a>g[[<span class="dv">6</span>]]<span class="ot">=</span><span class="fu">readWKT</span>(<span class="st">&quot;MULTIPOLYGON(((1 1,5 1,5 5,1 5,1 1),(2 2,2 3,3 3,3 2,2 2)),((6 3,9 2,9 4,6 3)))&quot;</span>)</span>
+<span id="cb44-11"><a href="spatial.html#cb44-11" aria-hidden="true" tabindex="-1"></a>g[[<span class="dv">7</span>]]<span class="ot">=</span><span class="fu">readWKT</span>(<span class="st">&quot;GEOMETRYCOLLECTION(POINT(4 6),LINESTRING(4 6,7 10))&quot;</span>)</span>
+<span id="cb44-12"><a href="spatial.html#cb44-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-13"><a href="spatial.html#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span>
+<span id="cb44-14"><a href="spatial.html#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>){</span>
+<span id="cb44-15"><a href="spatial.html#cb44-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(g[[i]], <span class="at">axes=</span><span class="cn">TRUE</span>)</span>
+<span id="cb44-16"><a href="spatial.html#cb44-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.readWKT-1.png" alt="readwkt" width="95%" />
+<p class="caption">
+(#fig:ch4.readWKT)readwkt
+</p>
+</div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="spatial.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb45-2"><a href="spatial.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取坐标，并产生SpatialLines文件。</span></span>
+<span id="cb45-3"><a href="spatial.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb45-4"><a href="spatial.html#cb45-4" aria-hidden="true" tabindex="-1"></a>xy<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">&#39;Exercise/Data_text/xy.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-5"><a href="spatial.html#cb45-5" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span>xy[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">1</span>]</span>
+<span id="cb45-6"><a href="spatial.html#cb45-6" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span>xy[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">2</span>]</span>
+<span id="cb45-7"><a href="spatial.html#cb45-7" aria-hidden="true" tabindex="-1"></a>str <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;LINESTRING(&quot;</span>, </span>
+<span id="cb45-8"><a href="spatial.html#cb45-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">paste</span>(</span>
+<span id="cb45-9"><a href="spatial.html#cb45-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">paste</span>(x, y), <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span></span>
+<span id="cb45-10"><a href="spatial.html#cb45-10" aria-hidden="true" tabindex="-1"></a>            ), </span>
+<span id="cb45-11"><a href="spatial.html#cb45-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;)&quot;</span> )</span>
+<span id="cb45-12"><a href="spatial.html#cb45-12" aria-hidden="true" tabindex="-1"></a>sp.line  <span class="ot">=</span> <span class="fu">readWKT</span>(str)</span>
+<span id="cb45-13"><a href="spatial.html#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(sp.line) <span class="ot">=</span> sp<span class="sc">::</span><span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:4326&quot;</span>)</span>
+<span id="cb45-14"><a href="spatial.html#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb45-15"><a href="spatial.html#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp.line, <span class="at">axes=</span><span class="cn">TRUE</span>) </span>
+<span id="cb45-16"><a href="spatial.html#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x, y, <span class="at">col=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">19</span>)</span>
+<span id="cb45-17"><a href="spatial.html#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb45-18"><a href="spatial.html#cb45-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-19"><a href="spatial.html#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="spatial.html#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(sp.line)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+## Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs 
+## WKT2 2019 representation:
+## GEOGCRS[&quot;WGS 84&quot;,
+##     ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+##         MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;,
+##             ID[&quot;EPSG&quot;,1166]],
+##         MEMBER[&quot;World Geodetic System 1984 (G730)&quot;,
+##             ID[&quot;EPSG&quot;,1152]],
+##         MEMBER[&quot;World Geodetic System 1984 (G873)&quot;,
+##             ID[&quot;EPSG&quot;,1153]],
+##         MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;,
+##             ID[&quot;EPSG&quot;,1154]],
+##         MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;,
+##             ID[&quot;EPSG&quot;,1155]],
+##         MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;,
+##             ID[&quot;EPSG&quot;,1156]],
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,7030]],
+##         ENSEMBLEACCURACY[2.0],
+##         ID[&quot;EPSG&quot;,6326]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##         ID[&quot;EPSG&quot;,8901]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;longitude&quot;,east,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
+##                 ID[&quot;EPSG&quot;,9122]]],
+##         AXIS[&quot;latitude&quot;,north,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
+##                 ID[&quot;EPSG&quot;,9122]]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;World.&quot;],
+##         BBOX[-90,-180,90,180]]]</code></pre>
+<ul>
+<li>读取shp数据</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="spatial.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb47-2"><a href="spatial.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取SHP文件</span></span>
+<span id="cb47-3"><a href="spatial.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb47-4"><a href="spatial.html#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="spatial.html#cb47-5" aria-hidden="true" tabindex="-1"></a>sp1 <span class="ot">=</span> <span class="fu">readOGR</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="st">&#39;Exercise/Data_spatial/Province.shp&#39;</span>)</span>
+<span id="cb47-6"><a href="spatial.html#cb47-6" aria-hidden="true" tabindex="-1"></a>sp2 <span class="ot">=</span> <span class="fu">readOGR</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="st">&#39;Exercise/Data_spatial/City.shp&#39;</span>)</span>
+<span id="cb47-7"><a href="spatial.html#cb47-7" aria-hidden="true" tabindex="-1"></a>sp3 <span class="ot">=</span> <span class="fu">readOGR</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="st">&#39;Exercise/Data_spatial/TibetPlateau.shp&#39;</span>)</span>
+<span id="cb47-8"><a href="spatial.html#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb47-9"><a href="spatial.html#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp1)</span>
+<span id="cb47-10"><a href="spatial.html#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp1, <span class="at">col=</span><span class="fu">rainbow</span>(<span class="dv">10</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.read.sp-1.png" alt="矢量地图" width="95%" />
+<p class="caption">
+(#fig:ch4.read.sp)矢量地图
+</p>
+</div>
+<ul>
+<li>渔网
+由自定义函数实现渔网功能。</li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="spatial.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb48-2"><a href="spatial.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 产生渔网矢量文件</span></span>
+<span id="cb48-3"><a href="spatial.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb48-4"><a href="spatial.html#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="spatial.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;abind&#39;) # 此函数需要abind包。</span></span>
+<span id="cb48-6"><a href="spatial.html#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="spatial.html#cb48-7" aria-hidden="true" tabindex="-1"></a>fishnet <span class="ot">&lt;-</span> <span class="cf">function</span>(ext, <span class="at">crs=</span>sp<span class="sc">::</span><span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:4326&quot;</span>),</span>
+<span id="cb48-8"><a href="spatial.html#cb48-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n=</span><span class="dv">10</span>,</span>
+<span id="cb48-9"><a href="spatial.html#cb48-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dx=</span><span class="fu">diff</span>(ext[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])<span class="sc">/</span>n, <span class="at">dy=</span>dx</span>
+<span id="cb48-10"><a href="spatial.html#cb48-10" aria-hidden="true" tabindex="-1"></a>){</span>
+<span id="cb48-11"><a href="spatial.html#cb48-11" aria-hidden="true" tabindex="-1"></a>  xmin <span class="ot">=</span> ext[<span class="dv">1</span>]</span>
+<span id="cb48-12"><a href="spatial.html#cb48-12" aria-hidden="true" tabindex="-1"></a>  xmax <span class="ot">=</span> ext[<span class="dv">2</span>]</span>
+<span id="cb48-13"><a href="spatial.html#cb48-13" aria-hidden="true" tabindex="-1"></a>  ymin <span class="ot">=</span> ext[<span class="dv">3</span>]</span>
+<span id="cb48-14"><a href="spatial.html#cb48-14" aria-hidden="true" tabindex="-1"></a>  ymax <span class="ot">=</span> ext[<span class="dv">4</span>]</span>
+<span id="cb48-15"><a href="spatial.html#cb48-15" aria-hidden="true" tabindex="-1"></a>  dx <span class="ot">=</span> <span class="fu">min</span>(dx, <span class="fu">diff</span>(ext[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]))</span>
+<span id="cb48-16"><a href="spatial.html#cb48-16" aria-hidden="true" tabindex="-1"></a>  dy <span class="ot">=</span> <span class="fu">min</span>(dy, <span class="fu">diff</span>(ext[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]))</span>
+<span id="cb48-17"><a href="spatial.html#cb48-17" aria-hidden="true" tabindex="-1"></a>  xx<span class="ot">=</span><span class="fu">seq</span>(ext[<span class="dv">1</span>], ext[<span class="dv">2</span>], <span class="at">by=</span>dx)</span>
+<span id="cb48-18"><a href="spatial.html#cb48-18" aria-hidden="true" tabindex="-1"></a>  yy<span class="ot">=</span><span class="fu">seq</span>(ext[<span class="dv">3</span>], ext[<span class="dv">4</span>], <span class="at">by=</span>dy)</span>
+<span id="cb48-19"><a href="spatial.html#cb48-19" aria-hidden="true" tabindex="-1"></a>  nx <span class="ot">=</span> <span class="fu">length</span>(xx)</span>
+<span id="cb48-20"><a href="spatial.html#cb48-20" aria-hidden="true" tabindex="-1"></a>  ny <span class="ot">=</span> <span class="fu">length</span>(yy)</span>
+<span id="cb48-21"><a href="spatial.html#cb48-21" aria-hidden="true" tabindex="-1"></a>  xy<span class="ot">=</span><span class="fu">expand.grid</span>(xx,yy)</span>
+<span id="cb48-22"><a href="spatial.html#cb48-22" aria-hidden="true" tabindex="-1"></a>  xm <span class="ot">=</span> <span class="fu">matrix</span>(xy[,<span class="dv">1</span>], nx,ny)</span>
+<span id="cb48-23"><a href="spatial.html#cb48-23" aria-hidden="true" tabindex="-1"></a>  ym <span class="ot">=</span> <span class="fu">matrix</span>(xy[,<span class="dv">2</span>], nx, ny)</span>
+<span id="cb48-24"><a href="spatial.html#cb48-24" aria-hidden="true" tabindex="-1"></a>  xloc<span class="ot">=</span>abind<span class="sc">::</span><span class="fu">abind</span>(<span class="fu">as.matrix</span>(xm[<span class="sc">-</span>nx, <span class="sc">-</span>ny]), <span class="fu">as.matrix</span>(xm[<span class="sc">-</span>nx, <span class="sc">-</span><span class="dv">1</span>]), <span class="fu">as.matrix</span>(xm[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb48-25"><a href="spatial.html#cb48-25" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">as.matrix</span>(xm[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span>ny]), <span class="fu">as.matrix</span>(xm[<span class="sc">-</span>nx, <span class="sc">-</span>ny]), <span class="at">along=</span><span class="dv">3</span>)</span>
+<span id="cb48-26"><a href="spatial.html#cb48-26" aria-hidden="true" tabindex="-1"></a>  yloc<span class="ot">=</span>abind<span class="sc">::</span><span class="fu">abind</span>(<span class="fu">as.matrix</span>(ym[<span class="sc">-</span>nx, <span class="sc">-</span>ny]), <span class="fu">as.matrix</span>(ym[<span class="sc">-</span>nx, <span class="sc">-</span><span class="dv">1</span>]), <span class="fu">as.matrix</span>(ym[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb48-27"><a href="spatial.html#cb48-27" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">as.matrix</span>(ym[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span>ny]), <span class="fu">as.matrix</span>(ym[<span class="sc">-</span>nx, <span class="sc">-</span>ny]), <span class="at">along=</span><span class="dv">3</span>)</span>
+<span id="cb48-28"><a href="spatial.html#cb48-28" aria-hidden="true" tabindex="-1"></a>  df<span class="ot">=</span><span class="fu">data.frame</span>(<span class="fu">as.numeric</span>(<span class="fu">apply</span>(xloc, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, min)),</span>
+<span id="cb48-29"><a href="spatial.html#cb48-29" aria-hidden="true" tabindex="-1"></a>                <span class="fu">as.numeric</span>(<span class="fu">apply</span>(xloc, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, max)),</span>
+<span id="cb48-30"><a href="spatial.html#cb48-30" aria-hidden="true" tabindex="-1"></a>                <span class="fu">as.numeric</span>(<span class="fu">apply</span>(yloc, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, min)),</span>
+<span id="cb48-31"><a href="spatial.html#cb48-31" aria-hidden="true" tabindex="-1"></a>                <span class="fu">as.numeric</span>(<span class="fu">apply</span>(yloc, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, max)))</span>
+<span id="cb48-32"><a href="spatial.html#cb48-32" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">=</span> <span class="fu">data.frame</span>(df, <span class="fu">rowMeans</span>(df[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), <span class="fu">rowMeans</span>(df[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span>]) )</span>
+<span id="cb48-33"><a href="spatial.html#cb48-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(df) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;xmin&#39;</span>,<span class="st">&#39;xmax&#39;</span>,<span class="st">&#39;ymin&#39;</span>, <span class="st">&#39;ymax&#39;</span>,<span class="st">&#39;xcenter&#39;</span>,<span class="st">&#39;ycenter&#39;</span>)</span>
+<span id="cb48-34"><a href="spatial.html#cb48-34" aria-hidden="true" tabindex="-1"></a>  str<span class="ot">=</span><span class="fu">paste</span>(<span class="st">&#39;GEOMETRYCOLLECTION(&#39;</span>,</span>
+<span id="cb48-35"><a href="spatial.html#cb48-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">paste</span>(<span class="fu">paste</span>(<span class="st">&#39;POLYGON((&#39;</span>,</span>
+<span id="cb48-36"><a href="spatial.html#cb48-36" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">paste</span>(xm[<span class="sc">-</span>nx, <span class="sc">-</span>ny], ym[<span class="sc">-</span>nx, <span class="sc">-</span>ny], <span class="st">&#39;,&#39;</span> ),</span>
+<span id="cb48-37"><a href="spatial.html#cb48-37" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">paste</span>(xm[<span class="sc">-</span>nx, <span class="sc">-</span><span class="dv">1</span>],  ym[<span class="sc">-</span>nx, <span class="sc">-</span><span class="dv">1</span>], <span class="st">&#39;,&#39;</span>),</span>
+<span id="cb48-38"><a href="spatial.html#cb48-38" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">paste</span>(xm[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>],   ym[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>], <span class="st">&#39;,&#39;</span>),</span>
+<span id="cb48-39"><a href="spatial.html#cb48-39" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">paste</span>(xm[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span>ny],  ym[<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span>ny], <span class="st">&#39;,&#39;</span>),</span>
+<span id="cb48-40"><a href="spatial.html#cb48-40" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">paste</span>(xm[<span class="sc">-</span>nx, <span class="sc">-</span>ny], ym[<span class="sc">-</span>nx, <span class="sc">-</span>ny], <span class="st">&#39;&#39;</span> ), <span class="st">&#39;))&#39;</span> )</span>
+<span id="cb48-41"><a href="spatial.html#cb48-41" aria-hidden="true" tabindex="-1"></a>                  , <span class="at">collapse =</span><span class="st">&#39;,&#39;</span>),</span>
+<span id="cb48-42"><a href="spatial.html#cb48-42" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;)&#39;</span> )</span>
+<span id="cb48-43"><a href="spatial.html#cb48-43" aria-hidden="true" tabindex="-1"></a>  SRL <span class="ot">=</span> rgeos<span class="sc">::</span><span class="fu">readWKT</span>(str)</span>
+<span id="cb48-44"><a href="spatial.html#cb48-44" aria-hidden="true" tabindex="-1"></a>  ret <span class="ot">=</span> sp<span class="sc">::</span><span class="fu">SpatialPolygonsDataFrame</span>( <span class="at">Sr=</span>SRL, <span class="at">data=</span>df, <span class="at">match.ID =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb48-45"><a href="spatial.html#cb48-45" aria-hidden="true" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">crs</span>(ret) <span class="ot">=</span> crs</span>
+<span id="cb48-46"><a href="spatial.html#cb48-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ret)</span>
+<span id="cb48-47"><a href="spatial.html#cb48-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb48-48"><a href="spatial.html#cb48-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-49"><a href="spatial.html#cb48-49" aria-hidden="true" tabindex="-1"></a>sp3 <span class="ot">=</span> <span class="fu">readOGR</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="st">&#39;Exercise/Data_spatial/TibetPlateau.shp&#39;</span>)</span>
+<span id="cb48-50"><a href="spatial.html#cb48-50" aria-hidden="true" tabindex="-1"></a>ext <span class="ot">=</span> raster<span class="sc">::</span><span class="fu">extent</span>(sp3)</span>
+<span id="cb48-51"><a href="spatial.html#cb48-51" aria-hidden="true" tabindex="-1"></a>sp.fn <span class="ot">=</span> <span class="fu">fishnet</span>(<span class="at">ext=</span>ext, <span class="at">dx=</span><span class="dv">2</span>)</span>
+<span id="cb48-52"><a href="spatial.html#cb48-52" aria-hidden="true" tabindex="-1"></a>cent.xy <span class="ot">=</span> <span class="fu">gCentroid</span>(sp.fn, <span class="at">byid=</span><span class="cn">TRUE</span>)</span>
+<span id="cb48-53"><a href="spatial.html#cb48-53" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb48-54"><a href="spatial.html#cb48-54" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp.fn)</span>
+<span id="cb48-55"><a href="spatial.html#cb48-55" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span><span class="cn">TRUE</span>, sp3, <span class="at">border=</span><span class="dv">2</span>)</span>
+<span id="cb48-56"><a href="spatial.html#cb48-56" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(cent.xy, <span class="at">col=</span><span class="dv">3</span>, <span class="at">cex=</span>.<span class="dv">5</span>)</span></code></pre></div>
+<ul>
+<li>重投影</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="spatial.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb49-2"><a href="spatial.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 重投影</span></span>
+<span id="cb49-3"><a href="spatial.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb49-4"><a href="spatial.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgeos)</span>
+<span id="cb49-5"><a href="spatial.html#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(sp.fn)</span></code></pre></div>
+<pre><code>## Coordinate Reference System:
+## Deprecated Proj.4 representation: +proj=longlat +datum=WGS84 +no_defs 
+## WKT2 2019 representation:
+## GEOGCRS[&quot;WGS 84&quot;,
+##     ENSEMBLE[&quot;World Geodetic System 1984 ensemble&quot;,
+##         MEMBER[&quot;World Geodetic System 1984 (Transit)&quot;,
+##             ID[&quot;EPSG&quot;,1166]],
+##         MEMBER[&quot;World Geodetic System 1984 (G730)&quot;,
+##             ID[&quot;EPSG&quot;,1152]],
+##         MEMBER[&quot;World Geodetic System 1984 (G873)&quot;,
+##             ID[&quot;EPSG&quot;,1153]],
+##         MEMBER[&quot;World Geodetic System 1984 (G1150)&quot;,
+##             ID[&quot;EPSG&quot;,1154]],
+##         MEMBER[&quot;World Geodetic System 1984 (G1674)&quot;,
+##             ID[&quot;EPSG&quot;,1155]],
+##         MEMBER[&quot;World Geodetic System 1984 (G1762)&quot;,
+##             ID[&quot;EPSG&quot;,1156]],
+##         ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,7030]],
+##         ENSEMBLEACCURACY[2.0],
+##         ID[&quot;EPSG&quot;,6326]],
+##     PRIMEM[&quot;Greenwich&quot;,0,
+##         ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##         ID[&quot;EPSG&quot;,8901]],
+##     CS[ellipsoidal,2],
+##         AXIS[&quot;longitude&quot;,east,
+##             ORDER[1],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
+##                 ID[&quot;EPSG&quot;,9122]]],
+##         AXIS[&quot;latitude&quot;,north,
+##             ORDER[2],
+##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433,
+##                 ID[&quot;EPSG&quot;,9122]]],
+##     USAGE[
+##         SCOPE[&quot;unknown&quot;],
+##         AREA[&quot;World.&quot;],
+##         BBOX[-90,-180,90,180]]]</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="spatial.html#cb51-1" aria-hidden="true" tabindex="-1"></a>spx <span class="ot">=</span> <span class="fu">spTransform</span>(sp.fn, sp<span class="sc">::</span><span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:2342&quot;</span>))  <span class="co">#西安1980，高斯克吕格99E</span></span>
+<span id="cb51-2"><a href="spatial.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb51-3"><a href="spatial.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp.fn, <span class="at">axes=</span>T)</span>
+<span id="cb51-4"><a href="spatial.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spx, <span class="at">axes=</span>T)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-15"></span>
+<img src="R_in_Geoscience_files/figure-html/unnamed-chunk-15-1.png" alt="重投影矢量地图" width="95%" />
+<p class="caption">
+Figure 4.1: 重投影矢量地图
+</p>
+</div>
+<ul>
+<li>数据分析与操作</li>
+</ul>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="spatial.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#重投影数据</span></span>
+<span id="cb52-2"><a href="spatial.html#cb52-2" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">=</span> <span class="fu">spTransform</span>(sp1, sp<span class="sc">::</span><span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:2342&quot;</span>))</span>
+<span id="cb52-3"><a href="spatial.html#cb52-3" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">spTransform</span>(sp2, sp<span class="sc">::</span><span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:2342&quot;</span>))</span>
+<span id="cb52-4"><a href="spatial.html#cb52-4" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">=</span> <span class="fu">spTransform</span>(sp3, sp<span class="sc">::</span><span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:2342&quot;</span>))</span>
+<span id="cb52-5"><a href="spatial.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 获得各省的面积</span></span>
+<span id="cb52-6"><a href="spatial.html#cb52-6" aria-hidden="true" tabindex="-1"></a>ia<span class="ot">=</span><span class="fu">gArea</span>(s1, <span class="at">byid=</span><span class="cn">TRUE</span>)</span>
+<span id="cb52-7"><a href="spatial.html#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="spatial.html#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 各省的几何中心点</span></span>
+<span id="cb52-9"><a href="spatial.html#cb52-9" aria-hidden="true" tabindex="-1"></a>co1 <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">coordinates</span>(sp1), <span class="fu">coordinates</span>(s1))</span>
+<span id="cb52-10"><a href="spatial.html#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="spatial.html#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 经纬度和投影后的城市坐标</span></span>
+<span id="cb52-12"><a href="spatial.html#cb52-12" aria-hidden="true" tabindex="-1"></a>co2 <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">coordinates</span>(sp2), <span class="fu">coordinates</span>(s2))</span>
+<span id="cb52-13"><a href="spatial.html#cb52-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-14"><a href="spatial.html#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="spatial.html#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb52-16"><a href="spatial.html#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s1, <span class="at">col=</span><span class="fu">rainbow</span>(<span class="dv">10</span>)); </span>
+<span id="cb52-17"><a href="spatial.html#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span>T, s2, <span class="at">pch=</span><span class="dv">18</span>, <span class="at">cex=</span><span class="dv">2</span>) <span class="co">#省会点</span></span>
+<span id="cb52-18"><a href="spatial.html#cb52-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(co1[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])  <span class="co"># 几何中心点</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="spatial.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并省界</span></span>
+<span id="cb53-2"><a href="spatial.html#cb53-2" aria-hidden="true" tabindex="-1"></a>sp.cn <span class="ot">=</span> <span class="fu">gUnaryUnion</span>(sp1)</span>
+<span id="cb53-3"><a href="spatial.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp.cn)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<img src="R_in_Geoscience_files/figure-html/unnamed-chunk-17-1.png" alt="合并地图要素" width="95%" />
+<p class="caption">
+Figure 4.2: 合并地图要素
+</p>
+</div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="spatial.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------缓冲区</span></span>
+<span id="cb54-2"><a href="spatial.html#cb54-2" aria-hidden="true" tabindex="-1"></a>buf50 <span class="ot">=</span> <span class="fu">gBuffer</span>(s3, <span class="at">width=</span><span class="fl">50e3</span>)</span>
+<span id="cb54-3"><a href="spatial.html#cb54-3" aria-hidden="true" tabindex="-1"></a>buf100 <span class="ot">=</span> <span class="fu">gBuffer</span>(s3, <span class="at">width=</span><span class="fl">100e3</span>)</span>
+<span id="cb54-4"><a href="spatial.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(buf100); <span class="fu">plot</span>(<span class="at">add=</span>T, <span class="at">border=</span><span class="dv">2</span>, buf50); <span class="fu">plot</span>(<span class="at">add=</span>T, <span class="at">border=</span><span class="dv">3</span>, s3)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-18"></span>
+<img src="R_in_Geoscience_files/figure-html/unnamed-chunk-18-1.png" alt="空间缓冲区" width="95%" />
+<p class="caption">
+Figure 4.3: 空间缓冲区
+</p>
+</div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="spatial.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------简化线条</span></span>
+<span id="cb55-2"><a href="spatial.html#cb55-2" aria-hidden="true" tabindex="-1"></a>simp2  <span class="ot">=</span> <span class="fu">gSimplify</span>(s3, <span class="at">tol=</span><span class="dv">2000</span>)</span>
+<span id="cb55-3"><a href="spatial.html#cb55-3" aria-hidden="true" tabindex="-1"></a>simp20  <span class="ot">=</span> <span class="fu">gSimplify</span>(s3, <span class="at">tol=</span><span class="dv">20000</span>)</span>
+<span id="cb55-4"><a href="spatial.html#cb55-4" aria-hidden="true" tabindex="-1"></a>simp50  <span class="ot">=</span> <span class="fu">gSimplify</span>(s3, <span class="at">tol=</span><span class="dv">50000</span>)</span>
+<span id="cb55-5"><a href="spatial.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb55-6"><a href="spatial.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s3)</span>
+<span id="cb55-7"><a href="spatial.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simp20)</span>
+<span id="cb55-8"><a href="spatial.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simp50)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-19"></span>
+<img src="R_in_Geoscience_files/figure-html/unnamed-chunk-19-1.png" alt="简化线条要素" width="95%" />
+<p class="caption">
+Figure 4.4: 简化线条要素
+</p>
+</div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="spatial.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------泰森多边形 </span></span>
+<span id="cb56-2"><a href="spatial.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;deldir&#39;) # 需要deldir支持</span></span>
+<span id="cb56-3"><a href="spatial.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(sp)</span>
+<span id="cb56-4"><a href="spatial.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(deldir)</span>
+<span id="cb56-5"><a href="spatial.html#cb56-5" aria-hidden="true" tabindex="-1"></a>voronoipolygons <span class="ot">=</span> <span class="cf">function</span>(layer) {</span>
+<span id="cb56-6"><a href="spatial.html#cb56-6" aria-hidden="true" tabindex="-1"></a>  crds <span class="ot">=</span> layer<span class="sc">@</span>coords</span>
+<span id="cb56-7"><a href="spatial.html#cb56-7" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">=</span> <span class="fu">deldir</span>(crds[,<span class="dv">1</span>], crds[,<span class="dv">2</span>])</span>
+<span id="cb56-8"><a href="spatial.html#cb56-8" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">=</span> <span class="fu">tile.list</span>(z)</span>
+<span id="cb56-9"><a href="spatial.html#cb56-9" aria-hidden="true" tabindex="-1"></a>  polys <span class="ot">=</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">&#39;list&#39;</span>, <span class="at">length=</span><span class="fu">length</span>(w))</span>
+<span id="cb56-10"><a href="spatial.html#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="at">along=</span>polys)) {</span>
+<span id="cb56-11"><a href="spatial.html#cb56-11" aria-hidden="true" tabindex="-1"></a>    pcrds <span class="ot">=</span> <span class="fu">cbind</span>(w[[i]]<span class="sc">$</span>x, w[[i]]<span class="sc">$</span>y)</span>
+<span id="cb56-12"><a href="spatial.html#cb56-12" aria-hidden="true" tabindex="-1"></a>    pcrds <span class="ot">=</span> <span class="fu">rbind</span>(pcrds, pcrds[<span class="dv">1</span>,])</span>
+<span id="cb56-13"><a href="spatial.html#cb56-13" aria-hidden="true" tabindex="-1"></a>    polys[[i]] <span class="ot">=</span> <span class="fu">Polygons</span>(<span class="fu">list</span>(<span class="fu">Polygon</span>(pcrds)), <span class="at">ID=</span><span class="fu">as.character</span>(i))</span>
+<span id="cb56-14"><a href="spatial.html#cb56-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-15"><a href="spatial.html#cb56-15" aria-hidden="true" tabindex="-1"></a>  SP <span class="ot">=</span> <span class="fu">SpatialPolygons</span>(polys)</span>
+<span id="cb56-16"><a href="spatial.html#cb56-16" aria-hidden="true" tabindex="-1"></a>  voronoi <span class="ot">=</span> <span class="fu">SpatialPolygonsDataFrame</span>(SP, <span class="at">data=</span><span class="fu">data.frame</span>(<span class="at">x=</span>crds[,<span class="dv">1</span>], </span>
+<span id="cb56-17"><a href="spatial.html#cb56-17" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">y=</span>crds[,<span class="dv">2</span>], <span class="at">row.names=</span><span class="fu">sapply</span>(<span class="fu">slot</span>(SP, <span class="st">&#39;polygons&#39;</span>), </span>
+<span id="cb56-18"><a href="spatial.html#cb56-18" aria-hidden="true" tabindex="-1"></a>                                                                                      <span class="cf">function</span>(x) <span class="fu">slot</span>(x, <span class="st">&#39;ID&#39;</span>))))</span>
+<span id="cb56-19"><a href="spatial.html#cb56-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-20"><a href="spatial.html#cb56-20" aria-hidden="true" tabindex="-1"></a>vp<span class="ot">=</span><span class="fu">voronoipolygons</span>(s2)</span>
+<span id="cb56-21"><a href="spatial.html#cb56-21" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb56-22"><a href="spatial.html#cb56-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vp, <span class="at">border=</span><span class="dv">4</span>,<span class="at">axes=</span><span class="cn">TRUE</span>)</span>
+<span id="cb56-23"><a href="spatial.html#cb56-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span>T, s2, <span class="at">col=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+</div>
+<div id="栅格数据" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 栅格数据<a href="spatial.html#栅格数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>最简形式的栅格由按行和列（或格网）组织的像元（或像素）矩阵组成，其中的每个像元都包含一个信息值（例如温度）。栅格可以是数字航空像片、卫星影像、数字图片或甚至扫描的地图。（参考<a href="https://desktop.arcgis.com/zh-cn/arcmap/10.3/manage-data/raster-and-images/what-is-raster-data.htm）">什么是栅格数据？</a></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="spatial.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb57-2"><a href="spatial.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据及等高线</span></span>
+<span id="cb57-3"><a href="spatial.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb57-4"><a href="spatial.html#cb57-4" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">raster</span>(<span class="st">&#39;Exercise/Data_spatial/DEM.tif&#39;</span>)</span>
+<span id="cb57-5"><a href="spatial.html#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="spatial.html#cb57-6" aria-hidden="true" tabindex="-1"></a>r.crop <span class="ot">=</span> <span class="fu">crop</span>(r, sp3) <span class="co"># 切除包含区域</span></span>
+<span id="cb57-7"><a href="spatial.html#cb57-7" aria-hidden="true" tabindex="-1"></a>r.tp <span class="ot">=</span> <span class="fu">mask</span>(r.crop, sp3) <span class="co"># 蒙版，切除不规则边界外的数据</span></span>
+<span id="cb57-8"><a href="spatial.html#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="spatial.html#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb57-10"><a href="spatial.html#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r.tp)</span>
+<span id="cb57-11"><a href="spatial.html#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp3, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb57-12"><a href="spatial.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(r.tp, <span class="at">add=</span>T, <span class="at">col=</span><span class="st">&#39;gray30&#39;</span> )</span></code></pre></div>
+<ul>
+<li>重采样</li>
+</ul>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="spatial.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb58-2"><a href="spatial.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 重采样</span></span>
+<span id="cb58-3"><a href="spatial.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb58-4"><a href="spatial.html#cb58-4" aria-hidden="true" tabindex="-1"></a>t01 <span class="ot">=</span> <span class="fu">raster</span>()</span>
+<span id="cb58-5"><a href="spatial.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">extent</span>(t01) <span class="ot">=</span> <span class="fu">extent</span>(r.tp)</span>
+<span id="cb58-6"><a href="spatial.html#cb58-6" aria-hidden="true" tabindex="-1"></a>t05<span class="ot">=</span>t01</span>
+<span id="cb58-7"><a href="spatial.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="fu">res</span>(t01) <span class="ot">=</span> <span class="fl">0.1</span>  <span class="co"># 分辨率0.1度</span></span>
+<span id="cb58-8"><a href="spatial.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="fu">res</span>(t05) <span class="ot">=</span> <span class="fl">0.5</span>  <span class="co"># 分辨率0.5度</span></span>
+<span id="cb58-9"><a href="spatial.html#cb58-9" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">=</span> <span class="fu">resample</span>(r.tp, t01, <span class="at">method =</span> <span class="st">&#39;bilinear&#39;</span>)  <span class="co">#双线性插值，0.1度</span></span>
+<span id="cb58-10"><a href="spatial.html#cb58-10" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">=</span> <span class="fu">resample</span>(r.tp, t05, <span class="at">method =</span> <span class="st">&#39;ngb&#39;</span>)  <span class="co">#最临近法，0.5度</span></span>
+<span id="cb58-11"><a href="spatial.html#cb58-11" aria-hidden="true" tabindex="-1"></a>r3 <span class="ot">=</span> <span class="fu">resample</span>(r.tp, t01, <span class="at">method =</span> <span class="st">&#39;ngb&#39;</span>)  <span class="co">#最临近法，0.5度</span></span>
+<span id="cb58-12"><a href="spatial.html#cb58-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-13"><a href="spatial.html#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb58-14"><a href="spatial.html#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r.tp, <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">&#39;Original, res=&#39;</span>, <span class="fu">mean</span>(<span class="fu">res</span>(r.tp))))</span>
+<span id="cb58-15"><a href="spatial.html#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r1, <span class="at">main=</span><span class="st">&#39;res=0.1, bilinear&#39;</span>)</span>
+<span id="cb58-16"><a href="spatial.html#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r2, <span class="at">main=</span><span class="st">&#39;res=0.5, ngb&#39;</span>)</span>
+<span id="cb58-17"><a href="spatial.html#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r3, <span class="at">main=</span><span class="st">&#39;res=0.1, ngb&#39;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.resample-1.png" alt="栅格数据重采样" width="90%" />
+<p class="caption">
+(#fig:ch4.resample)栅格数据重采样
+</p>
+</div>
+<ul>
+<li>矢量数据重投影</li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="spatial.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb59-2"><a href="spatial.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 矢量数据重投影</span></span>
+<span id="cb59-3"><a href="spatial.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb59-4"><a href="spatial.html#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="spatial.html#cb59-5" aria-hidden="true" tabindex="-1"></a>rp <span class="ot">=</span> <span class="fu">projectRaster</span>(r.tp, <span class="at">crs=</span><span class="fu">crs</span>(s3))  <span class="co">#栅格数据重投影</span></span>
+<span id="cb59-6"><a href="spatial.html#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb59-7"><a href="spatial.html#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rp); <span class="fu">plot</span>(<span class="at">add=</span>T, s3)</span>
+<span id="cb59-8"><a href="spatial.html#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r.tp); <span class="fu">plot</span>(<span class="at">add=</span>T, sp3)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.reproject-1.png" alt="栅格数据重投影" width="90%" />
+<p class="caption">
+(#fig:ch4.reproject)栅格数据重投影
+</p>
+</div>
+<ul>
+<li>空间随机采样和绘图</li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="spatial.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb60-2"><a href="spatial.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 空间随机采样和绘图</span></span>
+<span id="cb60-3"><a href="spatial.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb60-4"><a href="spatial.html#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="spatial.html#cb60-5" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">50</span></span>
+<span id="cb60-6"><a href="spatial.html#cb60-6" aria-hidden="true" tabindex="-1"></a>xyz<span class="ot">=</span>raster<span class="sc">::</span><span class="fu">sampleRandom</span>(r.tp, <span class="at">size=</span>n, <span class="at">xy=</span><span class="cn">TRUE</span>)</span>
+<span id="cb60-7"><a href="spatial.html#cb60-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-8"><a href="spatial.html#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb60-9"><a href="spatial.html#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r.tp)</span>
+<span id="cb60-10"><a href="spatial.html#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xyz[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>],<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb60-11"><a href="spatial.html#cb60-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-12"><a href="spatial.html#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 更复杂的作图效果</span></span>
+<span id="cb60-13"><a href="spatial.html#cb60-13" aria-hidden="true" tabindex="-1"></a>xrand <span class="ot">=</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb60-14"><a href="spatial.html#cb60-14" aria-hidden="true" tabindex="-1"></a>pch <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">25</span>, n)  <span class="co"># 符号</span></span>
+<span id="cb60-15"><a href="spatial.html#cb60-15" aria-hidden="true" tabindex="-1"></a>pch[xrand <span class="sc">&gt;</span> <span class="dv">0</span>] <span class="ot">=</span> <span class="dv">17</span></span>
+<span id="cb60-16"><a href="spatial.html#cb60-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-17"><a href="spatial.html#cb60-17" aria-hidden="true" tabindex="-1"></a>col<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">4</span>, n)  <span class="co"># 符号颜色</span></span>
+<span id="cb60-18"><a href="spatial.html#cb60-18" aria-hidden="true" tabindex="-1"></a>col[xrand <span class="sc">&gt;</span> <span class="dv">0</span>] <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb60-19"><a href="spatial.html#cb60-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-20"><a href="spatial.html#cb60-20" aria-hidden="true" tabindex="-1"></a>cex <span class="ot">=</span> (<span class="fu">abs</span>(xrand)<span class="sc">^</span>.<span class="dv">6</span>) <span class="co"># 符号大小</span></span>
+<span id="cb60-21"><a href="spatial.html#cb60-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-22"><a href="spatial.html#cb60-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-23"><a href="spatial.html#cb60-23" aria-hidden="true" tabindex="-1"></a>zlim<span class="ot">=</span><span class="fu">cellStats</span>(r.tp, range)</span>
+<span id="cb60-24"><a href="spatial.html#cb60-24" aria-hidden="true" tabindex="-1"></a>brks <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">seq</span>(zlim[<span class="dv">1</span>], zlim[<span class="dv">2</span>], <span class="at">length.out =</span> n), <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb60-25"><a href="spatial.html#cb60-25" aria-hidden="true" tabindex="-1"></a>colbar <span class="ot">=</span> colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span>n)</span>
+<span id="cb60-26"><a href="spatial.html#cb60-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-27"><a href="spatial.html#cb60-27" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb60-28"><a href="spatial.html#cb60-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp3, <span class="at">axes=</span><span class="cn">TRUE</span>)</span>
+<span id="cb60-29"><a href="spatial.html#cb60-29" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(r, add=T, legend=FALSE, alpha=0.5)</span></span>
+<span id="cb60-30"><a href="spatial.html#cb60-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r.tp, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span>colbar, <span class="at">brks=</span>brks, <span class="at">legend=</span><span class="cn">FALSE</span>)</span>
+<span id="cb60-31"><a href="spatial.html#cb60-31" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xyz[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">col=</span>col, <span class="at">pch=</span>pch, <span class="at">cex=</span>cex)</span>
+<span id="cb60-32"><a href="spatial.html#cb60-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span>T, sp3)</span>
+<span id="cb60-33"><a href="spatial.html#cb60-33" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb60-34"><a href="spatial.html#cb60-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r.tp, <span class="at">legend.only=</span><span class="cn">TRUE</span>, <span class="at">breaks=</span>brks, <span class="at">col=</span>colbar, </span>
+<span id="cb60-35"><a href="spatial.html#cb60-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">smallplot=</span><span class="fu">c</span>(<span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>), <span class="fu">c</span>(<span class="fl">0.0</span>, <span class="fl">0.03</span>)<span class="sc">+</span><span class="fl">0.25</span> ),</span>
+<span id="cb60-36"><a href="spatial.html#cb60-36" aria-hidden="true" tabindex="-1"></a>     <span class="co"># legend.width=5, legend.shrink=.7, cex=5, </span></span>
+<span id="cb60-37"><a href="spatial.html#cb60-37" aria-hidden="true" tabindex="-1"></a>     <span class="at">horizontal=</span>T,</span>
+<span id="cb60-38"><a href="spatial.html#cb60-38" aria-hidden="true" tabindex="-1"></a>     <span class="at">axis.args=</span><span class="fu">list</span>(<span class="at">col.axis=</span><span class="st">&#39;blue&#39;</span>, <span class="at">lwd =</span> <span class="dv">0</span>,</span>
+<span id="cb60-39"><a href="spatial.html#cb60-39" aria-hidden="true" tabindex="-1"></a>                    <span class="at">font.axis=</span><span class="dv">4</span>, <span class="at">cex.axis=</span><span class="fl">1.5</span>,<span class="at">tck =</span> <span class="dv">0</span>, <span class="at">line=</span><span class="sc">-</span>.<span class="dv">85</span>,</span>
+<span id="cb60-40"><a href="spatial.html#cb60-40" aria-hidden="true" tabindex="-1"></a>                    <span class="at">at=</span>brks,</span>
+<span id="cb60-41"><a href="spatial.html#cb60-41" aria-hidden="true" tabindex="-1"></a>                    <span class="at">cex.axis=</span>.<span class="dv">8</span>)</span>
+<span id="cb60-42"><a href="spatial.html#cb60-42" aria-hidden="true" tabindex="-1"></a>     <span class="co"># ,legend.args=list(side=4, text=&#39;mm&#39;,col=4,font=2, cex=1.5)</span></span>
+<span id="cb60-43"><a href="spatial.html#cb60-43" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li>空间插值</li>
+</ul>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="spatial.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb61-2"><a href="spatial.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 空间插值</span></span>
+<span id="cb61-3"><a href="spatial.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb61-4"><a href="spatial.html#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="do">#### Thin plate spline model</span></span>
+<span id="cb61-5"><a href="spatial.html#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;fields&#39;) #需要fields 支持</span></span>
+<span id="cb61-6"><a href="spatial.html#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fields) </span>
+<span id="cb61-7"><a href="spatial.html#cb61-7" aria-hidden="true" tabindex="-1"></a>rx <span class="ot">=</span> r1</span>
+<span id="cb61-8"><a href="spatial.html#cb61-8" aria-hidden="true" tabindex="-1"></a>tps <span class="ot">&lt;-</span> fields<span class="sc">::</span><span class="fu">Tps</span>(xyz[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], xyz[, <span class="dv">3</span>])</span></code></pre></div>
+<pre><code>## Warning: 
+## Grid searches over lambda (nugget and sill variances) with  minima at the endpoints: 
+##   (GCV) Generalized Cross-Validation 
+##    minimum at  right endpoint  lambda  =  9.073926e-06 (eff. df= 47.49998 )</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="spatial.html#cb63-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">raster</span>(rx)</span>
+<span id="cb63-2"><a href="spatial.html#cb63-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">interpolate</span>(p, tps)</span>
+<span id="cb63-3"><a href="spatial.html#cb63-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">mask</span>(p, rx)</span>
+<span id="cb63-4"><a href="spatial.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb63-5"><a href="spatial.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(p); <span class="fu">points</span>(xyz[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]); <span class="fu">plot</span>(<span class="at">add=</span>T, sp3)</span>
+<span id="cb63-6"><a href="spatial.html#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(p, <span class="at">add=</span>T, <span class="at">col=</span><span class="st">&#39;gray30&#39;</span>)</span>
+<span id="cb63-7"><a href="spatial.html#cb63-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="spatial.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="co"># -----计算插值的误差。计算较慢-----</span></span>
+<span id="cb63-9"><a href="spatial.html#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="co"># se &lt;- interpolate(p, tps, fun=predictSE) </span></span>
+<span id="cb63-10"><a href="spatial.html#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="co"># se &lt;- mask(se, rx)</span></span>
+<span id="cb63-11"><a href="spatial.html#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(se); points(xyz[, 1:2]); plot(add=T, sp3)</span></span>
+<span id="cb63-12"><a href="spatial.html#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="co"># contour(se, add=T, col=&#39;gray30&#39;)</span></span></code></pre></div>
+<ul>
+<li>地形分析</li>
+</ul>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="spatial.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb64-2"><a href="spatial.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 地形分析</span></span>
+<span id="cb64-3"><a href="spatial.html#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb64-4"><a href="spatial.html#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="spatial.html#cb64-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> raster<span class="sc">::</span><span class="fu">slopeAspect</span>(r.tp) <span class="co"># 计算坡度和坡向</span></span>
+<span id="cb64-6"><a href="spatial.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb64-7"><a href="spatial.html#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[[<span class="dv">1</span>]], <span class="at">main=</span><span class="fu">names</span>(x)[<span class="dv">1</span>])</span>
+<span id="cb64-8"><a href="spatial.html#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[[<span class="dv">2</span>]], <span class="at">main=</span><span class="fu">names</span>(x)[<span class="dv">2</span>])</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.terrain-1.png" alt="地形分析" width="90%" />
+<p class="caption">
+(#fig:ch4.terrain)地形分析
+</p>
+</div>
+<ul>
+<li>矢量栅格化</li>
+</ul>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="spatial.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb65-2"><a href="spatial.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 矢量栅格化</span></span>
+<span id="cb65-3"><a href="spatial.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb65-4"><a href="spatial.html#cb65-4" aria-hidden="true" tabindex="-1"></a>r.sp1<span class="ot">=</span><span class="fu">rasterize</span>(<span class="at">x=</span>sp1,<span class="at">y=</span>t01)</span>
+<span id="cb65-5"><a href="spatial.html#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="spatial.html#cb65-6" aria-hidden="true" tabindex="-1"></a>t01[]<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb65-7"><a href="spatial.html#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb65-8"><a href="spatial.html#cb65-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(t01); <span class="fu">plot</span>(<span class="at">add=</span>T, sp1)</span>
+<span id="cb65-9"><a href="spatial.html#cb65-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r.sp1)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.rasterize-1.png" alt="矢量数据栅格化" width="90%" />
+<p class="caption">
+(#fig:ch4.rasterize)矢量数据栅格化
+</p>
+</div>
+<ul>
+<li>读取NetCDF数据</li>
+</ul>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="spatial.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb66-2"><a href="spatial.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取NetCDF数据</span></span>
+<span id="cb66-3"><a href="spatial.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb66-4"><a href="spatial.html#cb66-4" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">=</span><span class="st">&#39;Exercise/Data_nc/GLDAS_NOAH10_3H.A20030107.0000.021.nc4&#39;</span></span>
+<span id="cb66-5"><a href="spatial.html#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
+<span id="cb66-6"><a href="spatial.html#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="spatial.html#cb66-7" aria-hidden="true" tabindex="-1"></a>ncid<span class="ot">=</span><span class="fu">nc_open</span>(fn)  <span class="co">#打开文件</span></span>
+<span id="cb66-8"><a href="spatial.html#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(ncid))</span></code></pre></div>
+<pre><code>##  [1] &quot;filename&quot;    &quot;writable&quot;    &quot;id&quot;          &quot;error&quot;       &quot;safemode&quot;   
+##  [6] &quot;format&quot;      &quot;is_GMT&quot;      &quot;groups&quot;      &quot;fqgn2Rindex&quot; &quot;ndims&quot;      
+## [11] &quot;natts&quot;       &quot;dim&quot;         &quot;unlimdimid&quot;  &quot;nvars&quot;       &quot;var&quot;</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="spatial.html#cb68-1" aria-hidden="true" tabindex="-1"></a>xname <span class="ot">=</span> <span class="fu">names</span>(ncid<span class="sc">$</span>var)</span>
+<span id="cb68-2"><a href="spatial.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(xname)</span></code></pre></div>
+<pre><code>##  [1] &quot;time_bnds&quot;             &quot;Swnet_tavg&quot;            &quot;Lwnet_tavg&quot;           
+##  [4] &quot;Qle_tavg&quot;              &quot;Qh_tavg&quot;               &quot;Qg_tavg&quot;              
+##  [7] &quot;Snowf_tavg&quot;            &quot;Rainf_tavg&quot;            &quot;Evap_tavg&quot;            
+## [10] &quot;Qs_acc&quot;                &quot;Qsb_acc&quot;               &quot;Qsm_acc&quot;              
+## [13] &quot;AvgSurfT_inst&quot;         &quot;Albedo_inst&quot;           &quot;SWE_inst&quot;             
+## [16] &quot;SnowDepth_inst&quot;        &quot;SoilMoi0_10cm_inst&quot;    &quot;SoilMoi10_40cm_inst&quot;  
+## [19] &quot;SoilMoi40_100cm_inst&quot;  &quot;SoilMoi100_200cm_inst&quot; &quot;SoilTMP0_10cm_inst&quot;   
+## [22] &quot;SoilTMP10_40cm_inst&quot;   &quot;SoilTMP40_100cm_inst&quot;  &quot;SoilTMP100_200cm_inst&quot;
+## [25] &quot;PotEvap_tavg&quot;          &quot;ECanop_tavg&quot;           &quot;Tveg_tavg&quot;            
+## [28] &quot;ESoil_tavg&quot;            &quot;RootMoist_inst&quot;        &quot;CanopInt_inst&quot;        
+## [31] &quot;Wind_f_inst&quot;           &quot;Rainf_f_tavg&quot;          &quot;Tair_f_inst&quot;          
+## [34] &quot;Qair_f_inst&quot;           &quot;Psurf_f_inst&quot;          &quot;SWdown_f_tavg&quot;        
+## [37] &quot;LWdown_f_tavg&quot;</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="spatial.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View(ncid$var[[3]])</span></span>
+<span id="cb70-2"><a href="spatial.html#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="spatial.html#cb70-3" aria-hidden="true" tabindex="-1"></a>mat<span class="ot">=</span><span class="fu">ncvar_get</span>(ncid, <span class="at">varid =</span> <span class="st">&#39;SoilMoi0_10cm_inst&#39;</span>)  <span class="co">#读取数据矩阵</span></span>
+<span id="cb70-4"><a href="spatial.html#cb70-4" aria-hidden="true" tabindex="-1"></a>lon <span class="ot">=</span> <span class="fu">ncvar_get</span>(ncid, <span class="at">varid =</span> <span class="st">&#39;lon&#39;</span>)   <span class="co"># 读取x坐标</span></span>
+<span id="cb70-5"><a href="spatial.html#cb70-5" aria-hidden="true" tabindex="-1"></a>lat <span class="ot">=</span> <span class="fu">ncvar_get</span>(ncid, <span class="at">varid =</span> <span class="st">&#39;lat&#39;</span>)  <span class="co"># 读取y坐标</span></span>
+<span id="cb70-6"><a href="spatial.html#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">nc_close</span>(ncid)  <span class="co">#关闭文件</span></span>
+<span id="cb70-7"><a href="spatial.html#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb70-8"><a href="spatial.html#cb70-8" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(lon, lat, mat)</span>
+<span id="cb70-9"><a href="spatial.html#cb70-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-10"><a href="spatial.html#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过函数将nc转为Raster</span></span>
+<span id="cb70-11"><a href="spatial.html#cb70-11" aria-hidden="true" tabindex="-1"></a>read.nc2Raster <span class="ot">&lt;-</span> <span class="cf">function</span>(fn, <span class="at">fid=</span>ncdf4<span class="sc">::</span><span class="fu">nc_open</span>(fn), <span class="at">plot=</span><span class="cn">TRUE</span>, </span>
+<span id="cb70-12"><a href="spatial.html#cb70-12" aria-hidden="true" tabindex="-1"></a>                           <span class="at">varid=</span><span class="dv">2</span>, <span class="at">xname=</span><span class="cn">NULL</span>, <span class="at">yname=</span><span class="cn">NULL</span>, <span class="at">flip=</span><span class="cn">TRUE</span>){</span>
+<span id="cb70-13"><a href="spatial.html#cb70-13" aria-hidden="true" tabindex="-1"></a>  nv <span class="ot">=</span> fid<span class="sc">$</span>nvars</span>
+<span id="cb70-14"><a href="spatial.html#cb70-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.character</span>(varid)){</span>
+<span id="cb70-15"><a href="spatial.html#cb70-15" aria-hidden="true" tabindex="-1"></a>    varid <span class="ot">=</span> varid</span>
+<span id="cb70-16"><a href="spatial.html#cb70-16" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb70-17"><a href="spatial.html#cb70-17" aria-hidden="true" tabindex="-1"></a>    vns <span class="ot">=</span> <span class="fu">names</span>(fid<span class="sc">$</span>var)</span>
+<span id="cb70-18"><a href="spatial.html#cb70-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(nv<span class="sc">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb70-19"><a href="spatial.html#cb70-19" aria-hidden="true" tabindex="-1"></a>      varid <span class="ot">=</span> vns[varid]</span>
+<span id="cb70-20"><a href="spatial.html#cb70-20" aria-hidden="true" tabindex="-1"></a>    }<span class="cf">else</span>{</span>
+<span id="cb70-21"><a href="spatial.html#cb70-21" aria-hidden="true" tabindex="-1"></a>      varid <span class="ot">=</span> vns[<span class="dv">1</span>]</span>
+<span id="cb70-22"><a href="spatial.html#cb70-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb70-23"><a href="spatial.html#cb70-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb70-24"><a href="spatial.html#cb70-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(xname) <span class="sc">|</span> <span class="fu">is.null</span>(yname)){</span>
+<span id="cb70-25"><a href="spatial.html#cb70-25" aria-hidden="true" tabindex="-1"></a>    dn <span class="ot">=</span> <span class="fu">names</span>(fid<span class="sc">$</span>dim)</span>
+<span id="cb70-26"><a href="spatial.html#cb70-26" aria-hidden="true" tabindex="-1"></a>    yname <span class="ot">=</span> dn[<span class="fu">grepl</span>(<span class="st">&#39;^lat|^x&#39;</span>, <span class="fu">tolower</span>(dn) )]</span>
+<span id="cb70-27"><a href="spatial.html#cb70-27" aria-hidden="true" tabindex="-1"></a>    xname <span class="ot">=</span> dn[<span class="fu">grepl</span>(<span class="st">&#39;^lon|^y&#39;</span>, <span class="fu">tolower</span>(dn) )]</span>
+<span id="cb70-28"><a href="spatial.html#cb70-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb70-29"><a href="spatial.html#cb70-29" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> ncdf4<span class="sc">::</span><span class="fu">ncvar_get</span>(fid, xname)</span>
+<span id="cb70-30"><a href="spatial.html#cb70-30" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> ncdf4<span class="sc">::</span><span class="fu">ncvar_get</span>(fid, yname)</span>
+<span id="cb70-31"><a href="spatial.html#cb70-31" aria-hidden="true" tabindex="-1"></a>  nx<span class="ot">=</span><span class="fu">length</span>(x); ny<span class="ot">=</span><span class="fu">length</span>(y);</span>
+<span id="cb70-32"><a href="spatial.html#cb70-32" aria-hidden="true" tabindex="-1"></a>  dx<span class="ot">=</span><span class="fu">mean</span>(<span class="fu">diff</span>(x)); dy<span class="ot">=</span><span class="fu">mean</span>(<span class="fu">diff</span>(y))</span>
+<span id="cb70-33"><a href="spatial.html#cb70-33" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">=</span> raster<span class="sc">::</span><span class="fu">raster</span>(<span class="at">ncols=</span>nx, <span class="at">nrows=</span>ny)</span>
+<span id="cb70-34"><a href="spatial.html#cb70-34" aria-hidden="true" tabindex="-1"></a>  raster<span class="sc">::</span><span class="fu">extent</span>(r) <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">min</span>(x), <span class="fu">max</span>(x), <span class="fu">min</span>(y), <span class="fu">max</span>(y)) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span>dx, dx, <span class="sc">-</span>dy, dy)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb70-35"><a href="spatial.html#cb70-35" aria-hidden="true" tabindex="-1"></a>  val <span class="ot">=</span> ncdf4<span class="sc">::</span><span class="fu">ncvar_get</span>(fid, varid)</span>
+<span id="cb70-36"><a href="spatial.html#cb70-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nc_close</span>(fid)</span>
+<span id="cb70-37"><a href="spatial.html#cb70-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dim(val)</span></span>
+<span id="cb70-38"><a href="spatial.html#cb70-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(flip){</span>
+<span id="cb70-39"><a href="spatial.html#cb70-39" aria-hidden="true" tabindex="-1"></a>    idx <span class="ot">=</span> ny<span class="sc">:</span><span class="dv">1</span></span>
+<span id="cb70-40"><a href="spatial.html#cb70-40" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb70-41"><a href="spatial.html#cb70-41" aria-hidden="true" tabindex="-1"></a>    idx <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>ny</span>
+<span id="cb70-42"><a href="spatial.html#cb70-42" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb70-43"><a href="spatial.html#cb70-43" aria-hidden="true" tabindex="-1"></a>  ndims <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">dim</span>(val))</span>
+<span id="cb70-44"><a href="spatial.html#cb70-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(ndims<span class="sc">==</span><span class="dv">3</span>){</span>
+<span id="cb70-45"><a href="spatial.html#cb70-45" aria-hidden="true" tabindex="-1"></a>    nd <span class="ot">=</span> <span class="fu">dim</span>(val)</span>
+<span id="cb70-46"><a href="spatial.html#cb70-46" aria-hidden="true" tabindex="-1"></a>    rl <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb70-47"><a href="spatial.html#cb70-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nd[<span class="dv">3</span>]){</span>
+<span id="cb70-48"><a href="spatial.html#cb70-48" aria-hidden="true" tabindex="-1"></a>      r <span class="ot">=</span> raster<span class="sc">::</span><span class="fu">setValues</span>(r, <span class="fu">t</span>(val[, idx, i]) ) </span>
+<span id="cb70-49"><a href="spatial.html#cb70-49" aria-hidden="true" tabindex="-1"></a>      rl[[i]] <span class="ot">=</span> r</span>
+<span id="cb70-50"><a href="spatial.html#cb70-50" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb70-51"><a href="spatial.html#cb70-51" aria-hidden="true" tabindex="-1"></a>    rs <span class="ot">=</span> raster<span class="sc">::</span><span class="fu">stack</span>(rl)</span>
+<span id="cb70-52"><a href="spatial.html#cb70-52" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb70-53"><a href="spatial.html#cb70-53" aria-hidden="true" tabindex="-1"></a>    rs <span class="ot">=</span> raster<span class="sc">::</span><span class="fu">setValues</span>(r, <span class="fu">t</span>(val[, idx ]) )</span>
+<span id="cb70-54"><a href="spatial.html#cb70-54" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb70-55"><a href="spatial.html#cb70-55" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(plot){</span>
+<span id="cb70-56"><a href="spatial.html#cb70-56" aria-hidden="true" tabindex="-1"></a>    raster<span class="sc">::</span><span class="fu">plot</span>(rs, <span class="at">main=</span>varid)</span>
+<span id="cb70-57"><a href="spatial.html#cb70-57" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb70-58"><a href="spatial.html#cb70-58" aria-hidden="true" tabindex="-1"></a>  rs</span>
+<span id="cb70-59"><a href="spatial.html#cb70-59" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb70-60"><a href="spatial.html#cb70-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-61"><a href="spatial.html#cb70-61" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb70-62"><a href="spatial.html#cb70-62" aria-hidden="true" tabindex="-1"></a>r.nc <span class="ot">=</span> <span class="fu">read.nc2Raster</span>(fn, <span class="at">varid =</span> <span class="dv">3</span>)</span></code></pre></div>
+<ul>
+<li>多层NetCDF文件转为Raster</li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="spatial.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb71-2"><a href="spatial.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 多层NetCDF文件转为Raster，生成动画。</span></span>
+<span id="cb71-3"><a href="spatial.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb71-4"><a href="spatial.html#cb71-4" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">=</span> <span class="st">&#39;Exercise/Data_nc/soilw.mon.ltm.v2.nc&#39;</span></span>
+<span id="cb71-5"><a href="spatial.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
+<span id="cb71-6"><a href="spatial.html#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rasterVis)</span>
+<span id="cb71-7"><a href="spatial.html#cb71-7" aria-hidden="true" tabindex="-1"></a>ncid<span class="ot">=</span><span class="fu">nc_open</span>(fn)</span>
+<span id="cb71-8"><a href="spatial.html#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(ncid))</span></code></pre></div>
+<pre><code>##  [1] &quot;filename&quot;    &quot;writable&quot;    &quot;id&quot;          &quot;error&quot;       &quot;safemode&quot;   
+##  [6] &quot;format&quot;      &quot;is_GMT&quot;      &quot;groups&quot;      &quot;fqgn2Rindex&quot; &quot;ndims&quot;      
+## [11] &quot;natts&quot;       &quot;dim&quot;         &quot;unlimdimid&quot;  &quot;nvars&quot;       &quot;var&quot;</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="spatial.html#cb73-1" aria-hidden="true" tabindex="-1"></a>xname <span class="ot">=</span> <span class="fu">names</span>(ncid<span class="sc">$</span>var)</span>
+<span id="cb73-2"><a href="spatial.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(xname)</span></code></pre></div>
+<pre><code>## [1] &quot;climatology_bounds&quot; &quot;soilw&quot;              &quot;valid_yr_count&quot;</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="spatial.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View(ncid$var[[3]])</span></span>
+<span id="cb75-2"><a href="spatial.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="spatial.html#cb75-3" aria-hidden="true" tabindex="-1"></a>ndims <span class="ot">=</span> ncid<span class="sc">$</span>ndims</span>
+<span id="cb75-4"><a href="spatial.html#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ncid<span class="sc">$</span>dim)</span></code></pre></div>
+<pre><code>## [1] &quot;lon&quot;   &quot;lat&quot;   &quot;time&quot;  &quot;nbnds&quot;</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="spatial.html#cb77-1" aria-hidden="true" tabindex="-1"></a>mat<span class="ot">=</span><span class="fu">ncvar_get</span>(ncid, <span class="at">varid =</span> <span class="st">&#39;soilw&#39;</span>)  <span class="co"># 读取土壤湿度数据</span></span>
+<span id="cb77-2"><a href="spatial.html#cb77-2" aria-hidden="true" tabindex="-1"></a>lon <span class="ot">=</span> <span class="fu">ncvar_get</span>(ncid, <span class="at">varid =</span> <span class="st">&#39;lon&#39;</span>)</span>
+<span id="cb77-3"><a href="spatial.html#cb77-3" aria-hidden="true" tabindex="-1"></a>lat <span class="ot">=</span> <span class="fu">ncvar_get</span>(ncid, <span class="at">varid =</span> <span class="st">&#39;lat&#39;</span>)</span>
+<span id="cb77-4"><a href="spatial.html#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nc_close</span>(ncid)</span>
+<span id="cb77-5"><a href="spatial.html#cb77-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-6"><a href="spatial.html#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mat)</span></code></pre></div>
+<pre><code>## [1] 720 360  12</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="spatial.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(mat[, , <span class="dv">1</span>])  <span class="co"># </span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.stack-1.png" alt="多层NetCDF文件转为Raster" width="90%" />
+<p class="caption">
+(#fig:ch4.stack-1)多层NetCDF文件转为Raster
+</p>
+</div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="spatial.html#cb80-1" aria-hidden="true" tabindex="-1"></a>x.avg <span class="ot">=</span> <span class="fu">apply</span>(mat, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, mean)</span>
+<span id="cb80-2"><a href="spatial.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(x.avg)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.stack-2.png" alt="多层NetCDF文件转为Raster" width="90%" />
+<p class="caption">
+(#fig:ch4.stack-2)多层NetCDF文件转为Raster
+</p>
+</div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="spatial.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-----------</span></span>
+<span id="cb81-2"><a href="spatial.html#cb81-2" aria-hidden="true" tabindex="-1"></a>rx <span class="ot">=</span> <span class="fu">read.nc2Raster</span>(fn, <span class="at">flip=</span>F)  <span class="co"># 数据返回的是多层矢量。</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img src="R_in_Geoscience_files/figure-html/ch4.stack-3.png" alt="多层NetCDF文件转为Raster" width="90%" />
+<p class="caption">
+(#fig:ch4.stack-3)多层NetCDF文件转为Raster
+</p>
+</div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="spatial.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(rx) <span class="ot">=</span> month.name</span></code></pre></div>
+<ul>
+<li>动画查看</li>
+</ul>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="spatial.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb83-2"><a href="spatial.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 动画查看</span></span>
+<span id="cb83-3"><a href="spatial.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ================================================================</span></span>
+<span id="cb83-4"><a href="spatial.html#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-5"><a href="spatial.html#cb83-5" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">=</span> <span class="fu">rev</span>( colorspace<span class="sc">::</span><span class="fu">diverge_hcl</span>(<span class="at">n=</span><span class="dv">50</span>) )</span>
+<span id="cb83-6"><a href="spatial.html#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
+<span id="cb83-7"><a href="spatial.html#cb83-7" aria-hidden="true" tabindex="-1"></a><span class="fu">animate</span>(rx, <span class="at">col=</span>cols)</span></code></pre></div>
+<ul>
+<li>三维地形图</li>
+</ul>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="spatial.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 需要rgl支持</span></span>
+<span id="cb84-2"><a href="spatial.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;rasterVis&#39;)</span></span>
+<span id="cb84-3"><a href="spatial.html#cb84-3" aria-hidden="true" tabindex="-1"></a>rasterVis<span class="sc">::</span><span class="fu">plot3D</span>(r)</span></code></pre></div>
+<div class="figure">
+<img src="Fig/ch4/3DChina.png" alt="" />
+<p class="caption">三维中国地形图</p>
+</div>
+</div>
+<div id="可视化-1" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 可视化<a href="spatial.html#可视化-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="spatial.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb85-2"><a href="spatial.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb85-3"><a href="spatial.html#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="spatial.html#cb85-4" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">raster</span>(<span class="st">&#39;Exercise/Data_spatial/DEM.tif&#39;</span>)</span>
+<span id="cb85-5"><a href="spatial.html#cb85-5" aria-hidden="true" tabindex="-1"></a>sp1 <span class="ot">=</span> <span class="fu">readOGR</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="st">&#39;Exercise/Data_spatial/Province.shp&#39;</span>)</span>
+<span id="cb85-6"><a href="spatial.html#cb85-6" aria-hidden="true" tabindex="-1"></a>sp2 <span class="ot">=</span> <span class="fu">readOGR</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="st">&#39;Exercise/Data_spatial/City.shp&#39;</span>)</span>
+<span id="cb85-7"><a href="spatial.html#cb85-7" aria-hidden="true" tabindex="-1"></a>sp3 <span class="ot">=</span> <span class="fu">readOGR</span>(<span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="st">&#39;Exercise/Data_spatial/TibetPlateau.shp&#39;</span>)</span>
+<span id="cb85-8"><a href="spatial.html#cb85-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-9"><a href="spatial.html#cb85-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
+<span id="cb85-10"><a href="spatial.html#cb85-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span><span class="cn">TRUE</span>, sp1, <span class="at">border=</span><span class="st">&#39;gray60&#39;</span>)</span>
+<span id="cb85-11"><a href="spatial.html#cb85-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span><span class="cn">TRUE</span>, sp2, <span class="at">col=</span><span class="st">&#39;gold&#39;</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="dv">2</span>)</span>
+<span id="cb85-12"><a href="spatial.html#cb85-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span><span class="cn">TRUE</span>, sp3, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.1</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="at">alpha=</span><span class="fl">0.1</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
+<img src="R_in_Geoscience_files/figure-html/unnamed-chunk-21-1.png" alt="地图" width="95%" />
+<p class="caption">
+Figure 4.5: 地图
+</p>
+</div>
+<ul>
+<li>保存绘图</li>
+</ul>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="spatial.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># png(filename=&#39;Map.png&#39;) #最简单输入PNG格式</span></span>
+<span id="cb86-2"><a href="spatial.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pnf(filename=&#39;Map.pdf&#39;) #输出PDF格式</span></span>
+<span id="cb86-3"><a href="spatial.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="at">filename=</span><span class="st">&#39;Map.png&#39;</span>, <span class="at">width=</span><span class="dv">279</span>, <span class="at">height=</span><span class="dv">216</span>, <span class="at">res=</span><span class="dv">200</span>, <span class="at">unit=</span><span class="st">&#39;mm&#39;</span>) <span class="co">#精细数据输出</span></span>
+<span id="cb86-4"><a href="spatial.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
+<span id="cb86-5"><a href="spatial.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span><span class="cn">TRUE</span>, sp1, <span class="at">border=</span><span class="st">&#39;gray60&#39;</span>)</span>
+<span id="cb86-6"><a href="spatial.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span><span class="cn">TRUE</span>, sp2, <span class="at">col=</span><span class="st">&#39;gold&#39;</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">cex=</span><span class="dv">2</span>)</span>
+<span id="cb86-7"><a href="spatial.html#cb86-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">add=</span><span class="cn">TRUE</span>, sp3, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.1</span>,  <span class="dv">0</span>, <span class="dv">0</span>, <span class="at">alpha=</span><span class="fl">0.1</span>))</span>
+<span id="cb86-8"><a href="spatial.html#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<ul>
+<li>开放数据背景</li>
+</ul>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="spatial.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;rosm&#39;) # 需要安装ROSM</span></span>
+<span id="cb87-2"><a href="spatial.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;prettymapr&#39;) # 需要安装prettymapr</span></span>
+<span id="cb87-3"><a href="spatial.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rosm)</span>
+<span id="cb87-4"><a href="spatial.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prettymapr)</span>
+<span id="cb87-5"><a href="spatial.html#cb87-5" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="fu">makebbox</span>(<span class="dv">37</span>, <span class="dv">104</span>, <span class="dv">33</span>, <span class="dv">103</span>)</span>
+<span id="cb87-6"><a href="spatial.html#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="fu">osm.plot</span>(ns)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-22-1"></span>
+<img src="R_in_Geoscience_files/figure-html/unnamed-chunk-22-1.png" alt="OSM地图" width="95%" />
+<p class="caption">
+Figure 4.6: OSM地图
+</p>
+</div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="spatial.html#cb88-1" aria-hidden="true" tabindex="-1"></a>loc1 <span class="ot">=</span> <span class="fu">geocode</span>(<span class="st">&#39;lanzhou&#39;</span>)</span>
+<span id="cb88-2"><a href="spatial.html#cb88-2" aria-hidden="true" tabindex="-1"></a>loc2 <span class="ot">=</span> <span class="fu">geocode</span>(<span class="st">&#39;maqu&#39;</span>)</span>
+<span id="cb88-3"><a href="spatial.html#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="spatial.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prettymap</span>({<span class="fu">osm.plot</span>(ns) </span>
+<span id="cb88-5"><a href="spatial.html#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osm.points</span>(loc1<span class="sc">$</span>lon, loc1<span class="sc">$</span>lat, <span class="at">pch=</span><span class="dv">18</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">col=</span><span class="dv">2</span>) </span>
+<span id="cb88-6"><a href="spatial.html#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osm.points</span>(loc2<span class="sc">$</span>lon, loc2<span class="sc">$</span>lat, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="fl">1.5</span>, <span class="at">col=</span><span class="dv">3</span>)  }, <span class="at">scale.style=</span><span class="st">&quot;ticks&quot;</span>, <span class="at">scale.tick.cex=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-22-2"></span>
+<img src="R_in_Geoscience_files/figure-html/unnamed-chunk-22-2.png" alt="OSM地图" width="95%" />
+<p class="caption">
+Figure 4.7: OSM地图
+</p>
+</div>
+</div>
+<div id="三维可视化-1" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 三维可视化<a href="spatial.html#三维可视化-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>三维可视化需要使用OpenGL,因此，需要额外安装<code>rgl</code>包。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tsd.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ai.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["R_in_Geoscience.pdf", "R_in_Geoscience.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
