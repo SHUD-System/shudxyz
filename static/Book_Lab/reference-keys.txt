@@ -30,6 +30,8 @@ sec:rule-suggestion
 重要规则
 优秀科研人的特点
 sec:rule-annualassessment
+sec:rule-security
+sec:rule-confidentiality
 training
 sec:training-research
 sec:training-timeline
@@ -151,4 +153,5 @@ appb
 阅读本研究组重要论文
 完成r语言入门练习
 任意流域shud模型模拟
+appc
 Ack
