@@ -9,11 +9,6 @@ sec:intro-phd
 sec:intro-master
 sec:intro-guest
 硕博士差异
-研究目标的本质差异
-能力培养的进阶路径
-成果产出的层级要求
-团队角色的功能分野
-学术生态的定位差异
 sec:intro-allowance
 一般工资或补助
 奖金
